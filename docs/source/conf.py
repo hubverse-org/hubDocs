@@ -31,8 +31,8 @@ templates_path = ['_templates']
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
-html_logo = "_static/LOGO-CovidForecastHub_VIRUS-blue.png"
-html_favicon = "_static/forcast-hub-favicon.png"
+#html_logo = "_static/LOGO-CovidForecastHub_VIRUS-blue.png"
+#html_favicon = "_static/forcast-hub-favicon.png"
 html_title = "hubDocs"
 html_theme_options = {
     "home_page_in_toc": False,
