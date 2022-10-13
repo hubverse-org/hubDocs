@@ -30,7 +30,19 @@ templates_path = ['_templates']
 
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_book_theme'
+html_logo = "_static/LOGO-CovidForecastHub_VIRUS-blue.png"
+html_favicon = "_static/forcast-hub-favicon.png"
+html_title = "hubDocs"
+html_theme_options = {
+    "home_page_in_toc": False,
+    "github_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
+    "repository_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
+    "repository_branch": "main",
+    "path_to_docs": "docs",
+    "use_repository_button": True,
+    "use_edit_page_button": True,
+}
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

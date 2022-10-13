@@ -21,7 +21,7 @@ To build and preview the site locally, you the following steps
 1. Install sphinx: `pip install sphinx`.
 2. We are using [MyST to enable Markdown](https://github.com/executablebooks/MyST-Parser/edit/master/docs/syntax/syntax.md), 
 so you need to install myst-parser: `pip install myst-parser`.
-3. Install the theme we are using: `pip install sphinx-rtd-theme`.
+3. Install the theme we are using: `pip install sphinx-book-theme`.
 4. In the `docs` folder, run `make html` to build the site locally to inspect changes.
 
 ## Contribution guidelines

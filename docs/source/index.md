@@ -7,17 +7,35 @@ and use collaborative modeling hubs.
 **Example hubs** include the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/) 
 and the (US COVID-19 Scenario Modeling Hub)[https://covid19scenariomodelinghub.org/].
 
-Check out the {doc}`usage` section for further information, including
-how to {ref}`installation` the project.
 
-:::{note}
+```{note}
 This project is under active development.
-:::
-
-## Contents
+```
 
 ```{toctree}
-usage
-api
-data
+:maxdepth: 2
+:caption: Overview
+:hidden:
+overview/who-we-are.md
+overview/scope.md
+overview/definitions.md
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: Data formats
+:hidden:
+format/intro-data-formats.md
+format/hub-structure.md
+format/hub-metadata.md
+format/model-outputs.md
+format/model-metadata.md
+format/truth-data.md
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: Data validation
+:hidden:
+validation/validation.md
 ```
