@@ -42,6 +42,8 @@ html_theme_options = {
     "path_to_docs": "docs",
     "use_repository_button": True,
     "use_edit_page_button": True,
+    "use_sidenotes": True,
+
 }
 
 # -- Options for EPUB output
