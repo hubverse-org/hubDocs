@@ -40,23 +40,12 @@ We illustrate with our second running example: a hypothetical forecasting exerci
 
 Suppose that $y_l,a,d$ represents the hospitalization rate for location  and age group  on the week corresponding to date . Additionally, let  denote the influenza season to which the date d belongs. For a forecast submitted on origin_date d, the following table specifies how the observed target values can be calculated from known ground truth data:
 
-
-
-
-Target/horizon combination
-	Target value
-	Target: “weekly rate”
-Horizon: 1
-	
-	Target: “weekly rate”
-Horizon: 2
-	
-	Target: “peak rate”
-Horizon: NA
-	
-	Target: “peak week”
-Horizon: NA
-	
+| Target/horizon combination | Target value |
+| ----------- | ----------- |
+| Target: “weekly rate”, Horizon: 1 | |
+| Target: “weekly rate”, Horizon: 2 | |
+| Target: “peak rate”, Horizon: NA | |
+| Target: “peak week”, Horizon: NA | | 
 	
 
 A Hub should additionally provide a function that calculates the value of these targets from input ground truth data, ideally in multiple programming languages that are commonly used by modelers.
