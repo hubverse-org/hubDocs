@@ -1,5 +1,8 @@
 # The Consortium of Infectious Disease Modeling Hubs documentation
 
+```{caution}
+This project is under active development.
+```
 
 
 This site provides information regarding the requirements for using 
@@ -9,10 +12,6 @@ and use collaborative modeling hubs.
 **Example hubs** include the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/) 
 and the [US COVID-19 Scenario Modeling Hub](https://covid19scenariomodelinghub.org/).
 
-
-```{note}
-This project is under active development.
-```
 
 ```{toctree}
 :maxdepth: 2
