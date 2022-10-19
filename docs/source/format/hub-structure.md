@@ -10,7 +10,7 @@ A Hub should be structured according to the following recommendations. Links are
    2. hub-tasks.json - Json or yaml file defining information about model submission validation
    3. model-metadata-schema.json - Json or yaml file defining format of model metadata files
 
-* `model-output` directory (see {doc}`/format/model-outputs`)
+* `model-output` directory (see {doc}`/format/model-outputs`) with structure as follows
    1. `team1-modela`
       * `<round-id1>.csv` (or parquet, etc)
       * `<round-id2>.csv` (or parquet, etc)
@@ -19,7 +19,7 @@ A Hub should be structured according to the following recommendations. Links are
    3. `team2-modela`
       * `<round-id1>.csv` (or parquet, etc)
 
-* `model-metadata` directory: Metadata describing the modeling approach and contributors generally
+* `model-metadata` directory (see {doc}`/format/model-metadata`)  with structure as follows
    1. `team1-modela.yml`
    2. `team1-modelb.yml`
    3. `team2-modela.yml`
