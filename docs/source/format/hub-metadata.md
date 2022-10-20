@@ -1,5 +1,12 @@
 # Hub Metadata
 
+## Directory Structure
+The `hub-metadata` directory in a modeling hub is required to contain three files:
+   1. `hub-meta.json` - Json or yaml file defining Hub modeling targets
+   2. `hub-tasks.json` - Json or yaml file defining information about model submission validation
+   3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files
+
+## Purpose
 Hub metadata specifies general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub metadata are used for:
 * Validating model output submissions
    * submissions must adhere to the file formats and value combinations specified in the hub metadata.
@@ -12,20 +19,14 @@ Hub metadata specifies general configurations for a hub as well as (possibly rou
 * Report generation
    * The hub’s ensemble and baseline models may be treated specially in reports
 
-
-Additionally, we note that there are some redundancies between the hub metadata and configuration files that are used for Zoltar and the schema for data format used in validation. We anticipate that it may be possible to generate those files from the hub metadata.
-
-
 ## Recommended Standards
 We divide the hub metadata into two files:
 1. Generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc.
 2. Specifications of the modeling tasks and model output formats, which may be round-specific.
 
-
 These are described separately in the following subsections.
 
-### General hub metadata
-
+### General hub metadata (`hub-meta` file)
 
 The general hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
 
@@ -102,7 +103,7 @@ Other things we may want to consider adding here:
 * Something about report generation?
 
 
-### Hub model task metadata
+### Hub model task metadata (`hub-tasks` file)
 The hub model task metadata file specifies the model tasks and model output formats for the hub. To reduce redundancy, hubs may optionally specify a 'defaults' entry with values that apply unless they are overridden by round-specific entries; this may be particularly useful for forecast hubs, which typically accept the same formats for all rounds.
 
 
