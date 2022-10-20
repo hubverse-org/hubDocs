@@ -38,14 +38,14 @@ We illustrate with our second running example: a hypothetical forecasting exerci
 * target: “weekly rate”, “weekly rate”, “peak rate”, “peak week”
 * horizon (only applies if the target is “weekly rate”): 1, 2, NA, NA
 
-Suppose that $y_l,a,d$ represents the hospitalization rate for location  and age group  on the week corresponding to date . Additionally, let  denote the influenza season to which the date d belongs. For a forecast submitted on origin_date d, the following table specifies how the observed target values can be calculated from known ground truth data:
+Suppose that $y_{l,a,d}$ represents the hospitalization rate for location $l$ and age group $a$ on the week corresponding to date $d$. Additionally, let $season(d)$ denote the influenza season to which the date $d$ belongs. For a forecast submitted on `origin_date` $d$, the following table specifies how the observed target values can be calculated from known ground truth data:
 
 | Target/horizon combination | Target value |
 | ----------- | ----------- |
-| Target: “weekly rate”, Horizon: 1 | |
-| Target: “weekly rate”, Horizon: 2 | |
-| Target: “peak rate”, Horizon: NA | |
-| Target: “peak week”, Horizon: NA | | 
+| Target: “weekly rate”, Horizon: 1 | $y_{l,a,d+1}$ |
+| Target: “weekly rate”, Horizon: 2 | $y_{l,a,d+2}$ |
+| Target: “peak rate”, Horizon: NA | $max_{\{d':season(d') = season(d) \}} y_{l,a,d'}$ |
+| Target: “peak week”, Horizon: NA | $argmax_{\{d':season(d') = season(d) \}} y_{l,a,d'}$ | 
 	
 
 A Hub should additionally provide a function that calculates the value of these targets from input ground truth data, ideally in multiple programming languages that are commonly used by modelers.
