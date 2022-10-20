@@ -33,7 +33,7 @@ A Hub should be structured according to the following recommendations. Links are
    3. `team2-modela`
       * `<round-id1>.md`
 
-* `target-data` directory (if applicable)
+* `target-data` directory (if applicable, see {doc}`/format/truth-data`)
    1. Many Hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is in principle observable. In those cases, the Hub should provide:
       * Ground truth data for the variables that are used to define modeling targets, either within the hub itself or with a pointer to an external source providing the data. Critically, this truth data source should be openly accessible and should provide access to historical versions of the data that were available as of past dates.
       * A precise specification of how all modeling targets can be calculated from the ground truth data, ideally with functions implementing those calculations in multiple commonly used programming languages
