@@ -1,5 +1,18 @@
 
-# Truth data
+# Target data
+
+## Purpose
+Many Hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is in principle observable. In those cases, the Hub should provide:
+   * Ground truth data, i.e., "target data", for the variables that are used to define modeling targets, either within the hub itself or with a pointer to an external source providing the data. Critically, this truth data source should be openly accessible and should provide access to historical versions of the data that were available as of past dates.
+   * A precise specification of how all modeling targets can be calculated from the ground truth data, ideally with functions implementing those calculations in multiple commonly used programming languages
+
+
+## Auxiliary data
+Optionally, a hub may want to store additional data relevant to the modeling efforts, but not specifically related to the modeling "targets". These data can be stored in the `auxiliary-data` directory of the hub. Examples of data that could be stored in such a directory are:
+
+1. Other data sources that models might want to use as inputs
+2. A list of outliers in the target data
+3. A list of locations to be used in the hub
 
 ## Recommended standards
 Any hub for which one or more model output targets are defined in terms of a ground truth data source should provide:

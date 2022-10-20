@@ -1,5 +1,15 @@
 # Model metadata
 
+## Directory structure
+The `model-metadata` directory in a modeling hub is required to contain yaml metadata files, one for each model that is submitting forecasts to the hub. So the contents of the directory will be a set of files named as follows:
+
+* `team1-modela.yml`
+* `team1-modelb.yml`
+* `team2-modela.yml`
+
+Note that the same team can submit more than one model.
+
+## Purpose
 Model metadata describe characteristics of models contributing to a Hub.
 General goals for model metadata are that
 1. explicit requirements for model metadata should be minimal

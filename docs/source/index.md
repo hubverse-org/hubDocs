@@ -24,9 +24,10 @@ overview/definitions.md
 format/intro-data-formats.md
 format/hub-structure.md
 format/hub-metadata.md
-format/model-outputs.md
+format/model-output.md
 format/model-metadata.md
-format/truth-data.md
+format/model-abstracts.md
+format/target-data.md
 ```
 
 ```{toctree}

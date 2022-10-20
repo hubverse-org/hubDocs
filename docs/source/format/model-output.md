@@ -1,6 +1,18 @@
-# Model outputs
+# Model output
 
-## Formats of model outputs
+## Directory structure
+The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
+
+* `team1-modela`
+   * `<round-id1>.csv` (or parquet, etc)
+   * `<round-id2>.csv` (or parquet, etc)
+* `team1-modelb`
+   * `<round-id1>.csv` (or parquet, etc)
+* `team2-modela`
+   * `<round-id1>.csv` (or parquet, etc)
+
+
+## Formats of model output
 Model outputs are contributed by teams, and are represented in a “tidy” rectangular format, where each row corresponds to a unique model output and columns define: (1) the model task, (2) specification of the representation of the model output, and (3) the model output value. More detail about each of these is given in the following points:
 
 * Task ids: A set of columns specifying the model task, as described [here](task_id_vars). The columns used as task ids will vary across different Hubs.
