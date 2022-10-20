@@ -10,8 +10,6 @@ This section of the documentation provides standards for:
 * Versioning of data formats for all of the above items
 
 
-## Context and concepts
-
 In this section we introduce some running examples that will be used to illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow.
 
 ## Running examples
@@ -55,6 +53,7 @@ Note on Example 1 item 2: The US Forecast Hub actually did not specify what type
     * horizon: 1
 ```
 
+(task_id_vars)=
 ## Task ID variables
 As illustrated here, Hubs typically specify that modeling outputs (e.g., forecasts or projections) should be generated for each combination of values across a set of “task id” variables. For modeling exercises where the model outputs correspond to estimates or predictions of a quantity that could in principle be calculated from observable data, these task id variables should be sufficient to uniquely identify an observed value for the modeling target that could be compared to model outputs to evaluate model accuracy. This is discussed more in the section on truth data below.
 

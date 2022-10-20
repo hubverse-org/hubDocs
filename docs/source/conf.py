@@ -28,6 +28,14 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 
+# from https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+myst_enable_extensions = [
+    "amsmath",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+]
+
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
