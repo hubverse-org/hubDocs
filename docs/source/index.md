@@ -1,16 +1,11 @@
-# The Consortium of Infectious Disease Modeling Hubs documentation
+# Modeling Hub documentation
 
 ```{caution}
 This project is under active development.
 ```
 
+The Consortium of Infectious Disease Modeling Hubs is a collaboration of research teams that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed software to for groups that are running collaborative modeling hub efforts. This website documents the requirements for using the infrastructure that our collaborative group has set up.
 
-This site provides information regarding the requirements for using 
-the infrastructure that our collaborative group has set up to build
-and use collaborative modeling hubs.
-
-**Example hubs** include the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/) 
-and the [US COVID-19 Scenario Modeling Hub](https://covid19scenariomodelinghub.org/).
 
 
 ```{toctree}

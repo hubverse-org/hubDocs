@@ -18,7 +18,6 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'myst_parser',
-    'sphinx.ext.mathjax',
 ]
 
 intersphinx_mapping = {
@@ -28,6 +27,14 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
+
+# from https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
+myst_enable_extensions = [
+    "amsmath",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+]
 
 # -- Options for HTML output
 
