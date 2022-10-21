@@ -60,7 +60,7 @@ properties:
     type: array
       contains: {
         type: object
-          properties:[r]
+          properties:
             team_abbr:
               description: Abbreviated name of the team submitting the model
               type: string
@@ -111,10 +111,10 @@ The hub model task metadata should follow this format:
 
 
 * Top level object
-   * property named “model_tasks”, which is an object
-      * Each element of the model_tasks object corresponds to one submission round; its name specifies the round id. Hubs may optionally specify one entry named “default”, with settings that apply to all rounds; as noted above, this will primarily be of use in forecast hubs. The element for a single submission round is an array.
-         * Each element of the array for a single submission round is an object with two properties: “task_ids” and “output_types”.
-            * “Task_ids” [y]
+   * property named `“model_tasks”`, which is an object
+      * Each element of the model_tasks object corresponds to one submission round; its name specifies the round id. Hubs may optionally specify one entry named `“default”`, with settings that apply to all rounds; as noted above, this will primarily be of use in forecast hubs. The element for a single submission round is an array.
+         * Each element of the array for a single submission round is an object with two properties: `“task_ids”` and `“output_types”`.
+            * “Task_ids”
    * Optionally, the top level object may contain other objects that define model task or output type definitions that are referenced multiple times.
 
 ```json
@@ -237,6 +237,6 @@ The hub model task metadata should follow this format:
 }
 ```
 
-With options for task_ids and forecast representations broken down into those that are required and those that are optional, with valid values/combinations of values specified using something like a $ref to a top-level list of options.
+With options for `task_ids` and forecast representations broken down into those that are required and those that are optional, with valid values/combinations of values specified using something like a `$ref` to a top-level list of options.
 
 
