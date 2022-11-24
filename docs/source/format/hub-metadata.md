@@ -1,10 +1,15 @@
 # Hub Metadata
 
 ## Directory Structure
-The `hub-metadata` directory in a modeling hub is required to contain three files:
-   1. `hub-meta.json` - Json or yaml file defining Hub modeling targets
-   2. `hub-tasks.json` - Json or yaml file defining information about model submission validation
+The `hub-config` directory in a modeling hub is required to contain three files:
+   1. `admin.json` - JSON  file defining Hub modeling targets
+   2. `tasks.json` - JSON file defining information about model submission validation
    3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files
+
+```{caution}
+Note:  Due to technical issues, we do not currently support json references or yaml metadata files.
+```
+
 
 ## Purpose
 Hub metadata specifies general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub metadata are used for:
@@ -21,89 +26,24 @@ Hub metadata specifies general configurations for a hub as well as (possibly rou
 
 ## Recommended Standards
 We divide the hub metadata into two files:
-1. Generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc.
-2. Specifications of the modeling tasks and model output formats, which may be round-specific.
+1. `admin.json` Generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc.
+2. `tasks.json`: Specifications of the modeling tasks and model output formats, which may be round-specific.
 
 These are described separately in the following subsections.
 
-### General hub metadata (`hub-meta` file)
+## Hub administrative metadata (`admin.json` file)
 
-The general hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
+The administrative hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
 
-```yaml
-$schema: "http://json-schema.org/draft-07/schema"
-title: Hub metadata
-description: >
-  This is the schema of the hub general metadata file.
-type: object
-properties:
-  hub_repository_host:
-    description: The name of the host for the hub repository
-    type: string
-    enum:
-      - "github"
-  hub_repository_org:
-    description: The organization coordinating the Hub
-    type: string
-    example: "reichlab"
-  hub_repository_name:
-    description: The name of the hub repository
-    type: string
-    example: "covid19-forecast-hub​​"
-  zoltar_project_id:
-    description: The project id of the Hub in Zoltar
-    required: false
-    type: integer
-    example: 44
-  hub_models:
-    description: Array of ensemble and baseline models produced by the hub
-    type: array
-      contains: {
-        type: object
-          properties:
-            team_abbr:
-              description: Abbreviated name of the team submitting the model
-              type: string
-              pattern: ^[a-zA-Z0-9_+]+$
-              maxLength: 16
-            model_abbr:
-              description: Abbreviated name of the model
-              type: string
-              pattern: ^[a-zA-Z0-9_+]+$
-              maxLength: 16
-            model_type:
-              description: The type of model: baseline or ensemble
-              type: string
-              enum:
-                - "baseline"
-                - "ensemble"
-      }
-  validation_config:
-    description: Settings to control behavior of validations
-    type: object
-      properties:
-        automerge_on_passed_validation:
-          description: automerge pull requests that pass validations
-          type: boolean
-        updates_allowed:
-          description: whether allow a team to update old forecast files
-          type: boolean
-  viz_config:
-    description: Settings to control behavior of visualizations
-    type: object
-      properties:
-        property_1:
-          description: TBD
-          type: TBD
-```
 
-Other things we may want to consider adding here:
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
+
+   Other things we may want to consider adding here:
 * Something about truth data?
 * Something about scoring?
 * Something about report generation?
 
-
-### Hub model task metadata (`hub-tasks` file)
+## Hub model task metadata (`tasks.json` file)
 The hub model task metadata file specifies the model tasks and model output formats for the hub. To reduce redundancy, hubs may optionally specify a 'defaults' entry with values that apply unless they are overridden by round-specific entries; this may be particularly useful for forecast hubs, which typically accept the same formats for all rounds.
 
 
@@ -239,4 +179,6 @@ The hub model task metadata should follow this format:
 
 With options for `task_ids` and forecast representations broken down into those that are required and those that are optional, with valid values/combinations of values specified using something like a `$ref` to a top-level list of options.
 
+### Model Tasks (`tasks.json`) Interactive Schema
 
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/tasks-schema.json"></script>
