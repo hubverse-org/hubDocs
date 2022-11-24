@@ -28,6 +28,9 @@ intersphinx_disabled_domains = ['std']
 
 templates_path = ['_templates']
 
+# These folders are copied to the documentation's HTML output
+html_static_path = ['../_static']
+
 # from https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
 myst_enable_extensions = [
     "amsmath",
