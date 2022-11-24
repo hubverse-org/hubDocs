@@ -84,7 +84,7 @@ To view the site locally, open any of the html files the `docs/build/` directory
 If you are using VSCode, you can use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension to run a live version of the site which will update in real time as you make changes.
 
 To use Live Server:
-1. Make sure the extension is installed on your system. Install it from [VSCode Merketplace](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
+1. Make sure the extension is installed on your system. Install it from [VSCode Marketplace](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)
 2. Once installed, a **Go Live** button will appear at the bottom of left of the VSCode toolbar when viewing any html file. ![](https://user-images.githubusercontent.com/5583057/203735663-f6b1954d-db0a-444b-8d75-643d04a98946.png) Clicking on it launches a live server on the open html file page.
 3. When the Live Server is running, you will see the port it it is being served on at the bottom of left of the VSCode toolbar. ![](https://user-images.githubusercontent.com/5583057/203736634-5a3a398d-7067-4962-a457-f7db35e2244c.png) 
 4. To disconnect the server, click on :no_entry_sign:.
