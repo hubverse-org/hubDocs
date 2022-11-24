@@ -28,6 +28,7 @@ format/model-output.md
 format/model-metadata.md
 format/model-abstracts.md
 format/target-data.md
+data.md
 ```
 
 ```{toctree}
