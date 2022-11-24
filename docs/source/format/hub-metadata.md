@@ -26,7 +26,7 @@ We divide the hub metadata into two files:
 
 These are described separately in the following subsections.
 
-### General hub metadata (`hub-meta` file)
+## Hub administrative metadata (`hub-meta` file)
 
 The general hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
 
@@ -97,13 +97,17 @@ properties:
           type: TBD
 ```
 
-Other things we may want to consider adding here:
+### Hub administrative metadata (`admin.json`) Interactive Schema
+
+
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
+
+   Other things we may want to consider adding here:
 * Something about truth data?
 * Something about scoring?
 * Something about report generation?
 
-
-### Hub model task metadata (`hub-tasks` file)
+## Hub model task metadata (`hub-tasks` file)
 The hub model task metadata file specifies the model tasks and model output formats for the hub. To reduce redundancy, hubs may optionally specify a 'defaults' entry with values that apply unless they are overridden by round-specific entries; this may be particularly useful for forecast hubs, which typically accept the same formats for all rounds.
 
 
@@ -239,4 +243,6 @@ The hub model task metadata should follow this format:
 
 With options for `task_ids` and forecast representations broken down into those that are required and those that are optional, with valid values/combinations of values specified using something like a `$ref` to a top-level list of options.
 
+### Model Tasks (`tasks.json`) Interactive Schema
 
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/tasks-schema.json"></script>
