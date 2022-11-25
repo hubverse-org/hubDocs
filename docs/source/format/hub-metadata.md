@@ -4,7 +4,7 @@
 The `hub-config` directory in a modeling hub is required to contain three files:
    1. `admin.json` - JSON  file defining Hub modeling targets
    2. `tasks.json` - JSON file defining information about model submission validation
-   3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files. NA
+   3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files.
 
 ```{caution}
 Note:  Due to technical issues, we do not currently support json references or yaml metadata files.
@@ -36,7 +36,7 @@ These are described separately in the following subsections.
 The administrative hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
 
 
-   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
+   <script src="../node_modules/docson/public/js/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
 
    Other things we may want to consider adding here:
 * Something about truth data?
