@@ -36,7 +36,7 @@ These are described separately in the following subsections.
 The administrative hub metadata file contains settings that are expected to remain fixed throughout a hub’s existence, or for which it is not required to retain past values in order to work with hub data.
 
 
-   <script src="../../node_modules/docson/public/js/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/admin-schema.json"></script>
 
    Other things we may want to consider adding here:
 * Something about truth data?
