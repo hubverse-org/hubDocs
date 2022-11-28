@@ -78,12 +78,12 @@ def copy_custom_files(app, exc):
         copytree(root, staticdir, dirs_exist_ok=True)
         #filenames = [os.path.join(path, name) for path, subdirs, files in os.walk(root) for name in files]
         #print(filenames)
-        #for path, subdirs, files in os.walk(root):
-            #for name in files:
+        for path, subdirs, files in os.walk(staticdir):
+            for name in files:
                 #print(path)
                 #print(name)
                 #copy_asset_file(os.path.join(path, name), staticdir)
-                #print(os.path.join(path, name))
+                print(os.path.join(path, name))
         #copy_asset_file('_static/docson/docson.js', staticdir)
 
 def setup(app):
