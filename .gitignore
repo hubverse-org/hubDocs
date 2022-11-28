@@ -163,3 +163,4 @@ cython_debug/
 
 # Node dependencies
 docs/node_modules/
+!docs/_static/docson/lib/
