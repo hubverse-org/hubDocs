@@ -1,4 +1,9 @@
 # Configuration file for the Sphinx documentation builder.
+from os import path
+from shutil import copytree, rmtree
+#from os import mkdir, walk
+import os
+from sphinx.util.fileutil import copy_asset_file
 
 # -- Project information
 
@@ -59,3 +64,27 @@ html_theme_options = {
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+
+
+def copy_custom_files(app, exc):
+    if app.builder.format == 'html' and not exc:
+        staticdir = os.path.join(app.builder.outdir, '_static/docson/')
+        print(staticdir)
+        rmtree(staticdir)
+        root =  os.path.join(app.builder.srcdir, '../_static/docson/')
+        print(root)
+        #os.makedirs(staticdir, exist_ok=True)
+        copytree(root, staticdir, dirs_exist_ok=True)
+        #filenames = [os.path.join(path, name) for path, subdirs, files in os.walk(root) for name in files]
+        #print(filenames)
+        for path, subdirs, files in os.walk(staticdir):
+            for name in files:
+                #print(path)
+                #print(name)
+                #copy_asset_file(os.path.join(path, name), staticdir)
+                print(os.path.join(path, name))
+        #copy_asset_file('_static/docson/docson.js', staticdir)
+
+def setup(app):
+    app.connect('build-finished', copy_custom_files)

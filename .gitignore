@@ -159,3 +159,8 @@ cython_debug/
 *.Rproj
 *.DS_Store
 *.Rhistory
+
+
+# Node dependencies
+docs/node_modules/
+!docs/_static/docson/lib/
