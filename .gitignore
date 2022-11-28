@@ -159,3 +159,6 @@ cython_debug/
 *.Rproj
 *.DS_Store
 *.Rhistory
+
+# unignore docson lib directory
+!docs/_static/docson/lib/
