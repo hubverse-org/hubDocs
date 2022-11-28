@@ -4,7 +4,7 @@
 The `hub-config` directory in a modeling hub is required to contain three files:
    1. `admin.json` - JSON  file defining Hub modeling targets
    2. `tasks.json` - JSON file defining information about model submission validation
-   3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files.
+   3. `model-metadata-schema.json` - Json or yaml file defining format of model metadata files
 
 ```{caution}
 Note:  Due to technical issues, we do not currently support json references or yaml metadata files.

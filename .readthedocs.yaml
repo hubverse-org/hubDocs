@@ -9,11 +9,6 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.9"
-    nodejs: "16"
-  jobs:
-    post_install:
-      # Install dependencies defined in your ``package.json``
-      - npm ci
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
