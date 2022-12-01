@@ -23,6 +23,14 @@ Model outputs are contributed by teams, and are represented in a “tidy” rect
    3. `value` contains the model’s prediction
 These are described more in the following table:
 
+```{margin}
+Note on `category` model output type: Values are required to sum to 1 across all `type_id` values within each combination of values of task id variables This representation should only be used if the outcome variable is truly categorical; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
+```
+
+```{margin}
+Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
+```
+
 | `type` | `type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
@@ -32,13 +40,6 @@ These are described more in the following table:
 | `category` | String naming a possible category of the outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
 | `sample` | Positive integer sample index | "Numeric: a sample from the predictive distribution.
 
-```{margin}
-Note on `category` model output type: Values are required to sum to 1 across all `type_id` values within each combination of values of task id variables This representation should only be used if the outcome variable is truly categorical; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
-```
-
-```{margin}
-Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
-```
 
 We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `category` representations all summarize the marginal predictive distribution for a single combination of model task id variables. On the other hand, the `sample` representation may capture dependence across combinations of multiple model task id variables by recording samples from a joint predictive distribution. For example, suppose that the model task id variables are “forecast date”, “location” and “horizon”. A predictive mean will summarize the predictive distribution for a single combination of forecast date, location and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task id variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
