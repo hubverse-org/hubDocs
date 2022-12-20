@@ -23,23 +23,25 @@ Model outputs are contributed by teams, and are represented in a “tidy” rect
    3. `value` contains the model’s prediction
 These are described more in the following table:
 
+```{margin}
+Note on `category` model output type: Values are required to sum to 1 across all `type_id` values within each combination of values of task id variables This representation should only be used if the outcome variable is truly categorical; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
+```
+
+```{margin}
+Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
+```
+
 | `type` | `type_id` | `value` |
 | ------ | ------ | ------ | 
-| mean | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
-| median | NA (not used for median predictions) | Numeric: the median of the predictive distribution |
-| quantile | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the type_id |
-| cdf | Numeric within the support of the outcome variable: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the type_id |
-| categorical | String naming a possible category of the outcome variable | "Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
+| `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
+| `median` | NA (not used for median predictions) | Numeric: the median of the predictive distribution |
+| `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the type_id |
+| `cdf` | Numeric within the support of the outcome variable: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the type_id |
+| `category` | String naming a possible category of the outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
+| `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 
-Notes:
-Values required to sum to 1 across all type_id values within each combination of values of task id variables
 
-This representation should only be used if the outcome variable is truly categorical; if the categories would represent a binned discretization of an underlying continuous variable |  a CDF representation is preferred."
-sample | Positive integer sample index | "Numeric: a sample from the predictive distribution.
-
-Note: Depending on the Hub specification |  samples with the same sample index (specified by the type_id) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below."
-
-We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `categorical` representations all summarize the marginal predictive distribution for a single combination of model task id variables. On the other hand, the sample representation may capture dependence across combinations of multiple model task id variables by recording samples from a joint predictive distribution. For example, suppose that the model task id variables are “forecast date”, “location” and “horizon”. A predictive mean will summarize the predictive distribution for a single combination of forecast date, location and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task id variables, including:
+We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `category` representations all summarize the marginal predictive distribution for a single combination of model task id variables. On the other hand, the `sample` representation may capture dependence across combinations of multiple model task id variables by recording samples from a joint predictive distribution. For example, suppose that the model task id variables are “forecast date”, “location” and “horizon”. A predictive mean will summarize the predictive distribution for a single combination of forecast date, location and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task id variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
 2. the joint predictive distribution across all horizons within each forecast date and location
 3. the joint predictive distribution across all locations within each forecast date and horizon
@@ -86,9 +88,9 @@ Some other possible model output representations have been proposed, but are not
 ## Validating forecast values
 Validation of forecast values occurs in two steps:
 
-* The data types and relatively simple limits on values are specified in a json schema file. For example, if appropriate, we might specify that the value is a non-negative integer.[ag]
+* The data types and relatively simple limits on values are specified in a json schema file. For example, if appropriate, we might specify that the value is a non-negative integer.
 
-* Validation of more involved rules that cannot be encoded in a json schema[ah] are implemented separately. Examples of such rules include:
+* Validation of more involved rules that cannot be encoded in a json schema are implemented separately. Examples of such rules include:
    1. A predictive quantile for disease incidence may not be larger than the population size in that location.
    2. The probabilities assigned to bins must be non-negative and must sum to 1 within each model task, up to some specified tolerance.
 
