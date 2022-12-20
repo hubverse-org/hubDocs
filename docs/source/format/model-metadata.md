@@ -20,6 +20,9 @@ Many hubs will use a common set of metadata fields, which we place in the follow
 
 ## Template metadata schema file
 
+   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.0.9/model-schema.json"></script>
+
+
 ```yaml
 $schema: "http://json-schema.org/draft-07/schema"[am]
 title: ForecastHub model metadata
