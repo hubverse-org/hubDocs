@@ -4,8 +4,12 @@
 a consortium of research groups working together on a common set of modeling tasks, with the goal of developing ensemble models to provide stakeholders with a single model output representing uncertainty across different modeling assumptions and frameworks.
 ```
 
+```{admonition} Round
+a time-period for which a set of specific model outputs are solicited. Rounds define the "cadence" of submission for a modeling hub. For example, some hubs might accept daily submissions, where each day is considered a different round. Other hubs might have one round every month, with a submission period that may be open for multiple days.
+```
+
 ```{admonition} Task
-a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks are relatively fixed, as for forecast hubs that regularly predictions for a set time horizon in the near-term future. Other tasks may be more variable, as for scenario hubs that model differing hypothetical futures.
+a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, as for forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Other tasks may be more variable, as for scenario hubs that model hypothetical futures with differnt assumptions in different modeling rounds.
 ```
 
 ```{admonition} Team 
@@ -17,11 +21,11 @@ a statistical or mathematical formulation of a model.
 ```
 
 ```{admonition} Modeling software
-Code that implements the modeling strategy used by a team to generate model outputs. Each team may have multiple instances of software.
+code that implements the modeling strategy used by a team to generate model outputs. Each team may have multiple instances of software.
 ```
 
 ```{admonition} Model output 
-A set of target results generated in response to some modeling task. A model might be the result of a single team’s response to the task, or it might be an ensemble of results representing outcomes of multiple efforts
+a set of target results generated in response to some modeling task for a specific round. A model might be the result of a single team’s response to the task, or it might be an ensemble of results representing outcomes of multiple efforts
 ```
 
 ```{admonition} Nowcast
