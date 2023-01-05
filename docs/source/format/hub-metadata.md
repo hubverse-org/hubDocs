@@ -43,6 +43,7 @@ The administrative hub metadata file contains settings that are expected to rema
 * Something about scoring?
 * Something about report generation?
 
+(tasks_metadata)=
 ## Hub model task metadata (`tasks.json` file)
 The hub model task metadata file specifies the model tasks and model output formats for the hub. To reduce redundancy, hubs may optionally specify a 'defaults' entry with values that apply unless they are overridden by round-specific entries; this may be particularly useful for forecast hubs, which typically accept the same formats for all rounds.
 

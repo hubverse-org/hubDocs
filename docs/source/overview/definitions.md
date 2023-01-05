@@ -1,11 +1,15 @@
 # Key definitions
 
-```{admonition} Modeling hub
+```{admonition} Modeling Hub
 a consortium of research groups working together on a common set of modeling tasks, with the goal of developing ensemble models to provide stakeholders with a single model output representing uncertainty across different modeling assumptions and frameworks.
 ```
 
 ```{admonition} Round
 a time-period for which a set of specific model outputs are solicited. Rounds define the "cadence" of submission for a modeling hub. For example, some hubs might accept daily submissions, where each day is considered a different round. Other hubs might have one round every month, with a submission period that may be open for multiple days.
+```
+
+```{admonition} Target
+a quantitative outcome of interest for a modeling Hub. For example, "incident case counts". Targets typically (and sometimes implicitly) refer to a value of an observable variable in a given window of time, a given location, and possibly other stratifications (such as age group).
 ```
 
 ```{admonition} Task

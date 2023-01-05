@@ -1,3 +1,4 @@
+(hub-structure)=
 # Structure of Hub repositories
 
 A Hub should be structured according to the following recommendations. 
