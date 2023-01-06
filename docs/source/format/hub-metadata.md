@@ -1,3 +1,4 @@
+(hub-metadata)=
 # Hub Metadata
 
 ## Directory Structure
