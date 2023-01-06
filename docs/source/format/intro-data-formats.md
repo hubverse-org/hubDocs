@@ -55,8 +55,8 @@ Projections are requested for each combination of the following variables.
 
 **Task ID variables**
 
-* `outcome_variable`: “hospitalizations”, “cases”, “deaths”
-* `target`: “incident count”, “cumulative count”
+* `outcome_variable` (**target key** variable): “hospitalizations”, “cases”, “deaths”
+* `outcome_measure` (**target key** variable): “incident count”, “cumulative count”
 * `scenario_id`: “low vaccination”
 * `location`: “US”
 * `origin_date`: 2021-07-11
@@ -88,7 +88,7 @@ The figure shows that Hub metadata and target data are specified by the hub itse
 
 Task ID variables can be thought of as columns of a tabular representation in a model output file, where a combination of values of task ID variables would uniquely define a row of data. 
 
-In our running Example 1 above, the task ID variables are `target`, `location`, `origin_date`, and `horizon`. We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks-metadata) as a `target_key`). In this example, `target` is the target key. In other examples, more than one variable can serve as target keys together.  
+In our running Example 1 above, the task ID variables are `target`, `location`, `origin_date`, and `horizon`. We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks-metadata) as a `target_key`). In this example, `target` is the target key. In other examples, (such as Running Example 3) more than one variable can serve as target keys together.
 
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard column names and definitions:
 
@@ -108,4 +108,4 @@ As Hubs define new modeling tasks, they may need to introduce new task ID variab
 
 (submission-rounds)=
 ## Submission rounds
-Many Hubs will accept model output submissions over multiple rounds. In the case of the forecast hubs there has typically been one submission round per week, while the scenario hubs have had submission rounds less frequently, typically about once per month. As part of the Hub metadata described below, Hubs should specify a set of ‘round id’ values that uniquely identify the submission round. For instance, for weekly submissions the round id might be the date that submissions are due to the Hub or a specification of an epidemic week. In instances where the rounds do not follow a predetermined schedule, more generic identifiers such as “round1” may be preferred. The round id will be used as the file names of model output submissions and round-specific model abstract submissions, as well as in the Hub metadata to specify model tasks that may vary across rounds.
+Many Hubs will accept model output submissions over multiple rounds. In the case of the forecast hubs there has typically been one submission round per week, while the scenario hubs have had submission rounds less frequently, typically about once per month. As part of the [Hub metadata](hub-metadata), Hubs should specify a set of `round_id` values that uniquely identify the submission round. For instance, for weekly submissions the round id might be the date that submissions are due to the Hub or a specification of an epidemic week. In instances where the rounds do not follow a predetermined schedule, more generic identifiers such as “round1” may be preferred. The round id will be used as the file names of model output submissions and round-specific model abstract submissions, as well as in the Hub metadata to specify model tasks that may vary across rounds.
