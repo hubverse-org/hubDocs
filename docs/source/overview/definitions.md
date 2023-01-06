@@ -25,7 +25,7 @@ a statistical or mathematical formulation of a model.
 ```
 
 ```{admonition} Modeling software
-code that implements the modeling strategy used by a team to generate model outputs. Each team may have multiple instances of software.
+code that implements the mathematical model formulation/structure used by a team to generate model outputs. Each team may have multiple instances of software.
 ```
 
 ```{admonition} Model output 
