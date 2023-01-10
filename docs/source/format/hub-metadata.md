@@ -1,5 +1,5 @@
 (hub-metadata)=
-# Hub Metadata
+# Hub configuration files
 
 ## Directory Structure
 The `hub-config` directory in a modeling hub is required to contain three files:

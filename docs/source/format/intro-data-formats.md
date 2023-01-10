@@ -7,8 +7,11 @@ On this page we provide an [outline on the contents of this data formats section
 This section of the documentation provides standards for:
 
 * [Structure of hub repositories](hub-structure): standards for file and directory structures for Hubs
-* [Model metadata](model-metadata): Format of metadata describing models
+* [Hub configuration files](hub-metadata): the files needed to set up and run a modeling Hub
+* [Model metadata](model-metadata): metadata describing models
 * [Model output](model-output): standard formats for model output such as forecasts and projections that are saved in Hubs
+* [Target data](target-data): standard formats for target data, the eventually observable quantities of interest to a hub
+* [Model abstracts](model-abstracts): structure for round-specific detailed narrative descriptions of modeling methods and results
 
 (running-examples)=
 ## Running examples

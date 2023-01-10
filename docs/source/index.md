@@ -55,10 +55,10 @@ overview/definitions.md
 format/intro-data-formats.md
 format/hub-structure.md
 format/hub-metadata.md
-format/model-output.md
 format/model-metadata.md
-format/model-abstracts.md
+format/model-output.md
 format/target-data.md
+format/model-abstracts.md
 ```
 
 ```{toctree}
