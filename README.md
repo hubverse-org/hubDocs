@@ -14,6 +14,8 @@ maintaining the content. The live version of the documentation can be found
 The main content of the site lives in [`docs/source`](docs/source/). That is 
 where you will add/edit Markdown files to populate the content of the site.
 
+[This page](https://jupyterbook.org/en/stable/intro.html) provides useful documentation on how to use the Jupyter Book theme, which is the theme currently used by our documentation site.
+
 # Installation 
 
 To build and preview the site locally, the following steps 
