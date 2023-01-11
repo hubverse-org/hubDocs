@@ -14,4 +14,4 @@ There is one directory for each team and within that, possibly multiple files, o
 
 ## Purpose
 
-The `model-abstracts` directory is an optional feature of a hub that may be useful to keep track of round-specific updates to the metadata, e.g. describing modeling assumptions specific to one modeling round. Note: as part of a separate workflow, hubs may find it helpful to associate round-specific metadata with the corresponding model output files.
+The `model-abstracts` directory is an optional feature of a hub that may be useful to keep track of round-specific detailed narrative descriptions of modeling methods and results, e.g. describing modeling assumptions specific to one modeling round. Note: as part of a separate workflow, hubs may find it helpful to associate round-specific metadata with the corresponding model output files.
