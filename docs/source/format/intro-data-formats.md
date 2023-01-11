@@ -17,11 +17,31 @@ This section of the documentation provides standards for:
 ## Running examples
 In this section we introduce some running examples that will be used to illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow. For each Hub, we identify the task ID variables and output types, both of which are discussed in more detail in [the description of tasks metadata](tasks-metadata).
 
+
 ```{margin}
-Note on Example 1 item 2: The US Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
+Note on Example 1: Since the target in the simple forecast hub is defined by a single task_id variable (`target`) which only takes one value (`"wk inc flu hosp"`), the hub maintainers could have opted to not include any `target_key` variable to save space in the file. For example, in CSV submission files, row will have the same value in the `target` column, so this information is redundant.
 ```
 
-```{admonition} Example 1: COVID-19 forecasts, adapted from the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/)
+```{admonition} Example 1: A simple forecast hub
+
+This example is motivated by the [influenza hospitalization forecast hub run by the US CDC](https://github.com/cdcepi/Flusight-forecast-data).  Additionally, we note that the description below was written to mirror the technical set-up of the [simple forecast hub example repository](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub). The following specifications can be determined from [the tasks.json configuration file for this Hub](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json). 
+
+This Hub allows for submissions on a pre-specified set of dates specified by the `origin_date` task-id variable. Each `origin_date` corresponds to a separate modeling round. In each round, the submissions follow the same format. There is a single target, called `wk inc flu hosp` which translates in natural language into "weekly incident influenza hospitalizations". Forecasts in quantile format (with optional mean point forecast) are provided for 1 through 4 weeks ahead at the state and territory level in the US. 
+
+**Task ID variables**
+
+* `target` (the sole **target key** variable): can only take the value "wk inc flu hosp" 
+* `location`: “US”, “01”, “02”, …, “78” ([FIPS codes](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards) for US states and territories)
+* `origin_date` (this variable is specified as the one from which rounds are given IDs): weekly on Mondays
+* `horizon`: 1, 2, 3, 4
+```
+
+
+```{margin}
+Note on Example 2 item 2: The US COVID-19 Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
+```
+
+```{admonition} Example 2: COVID-19 forecasts, adapted from the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/)
 
 This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalizations and deaths, at a set of locations. Each forecast is assumed to originate from a specific date.
 
@@ -39,19 +59,6 @@ This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 
 ```
 
-
-```{admonition} Example 2: Influenza hospitalization forecasts in the US 
-
-A hypothetical forecasting exercise for influenza hospitalization rates per 100,000 population by age group at the state level in the US, with short-term incidence and “seasonal” targets.
-
-**Task ID variables**
-
-* `target` (**target key** variable): “weekly rate”, “peak rate”, “peak week”
-* `location`: “US”, “AL”, “AK”, …, “WY”
-* `age_group`: “0-5 years”, “6-18 years”, …, “65+ years”
-* `origin_date`: weekly on Mondays
-* `horizon` (only applies if the target is “weekly rate”): 1, 2, NA, NA
-```
 
 ```{admonition} Example 3: [US COVID-19 Scenario Modeling Hub](https://covid19scenariomodelinghub.org/)
 Projections are requested for each combination of the following variables.
