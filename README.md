@@ -92,7 +92,11 @@ To use Live Server:
 4. To disconnect the server, click on :no_entry_sign:.
 
 
+# Versioning
 
+Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). While changes to documentation text can be commited without creating a new release and will appear in th `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
+
+Before making a new release, **ensure that URLs to schema files which power the interactive docson widget visualisation of schemas in the [`docs/source/format/hub-metadata.md` page](https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs/blob/main/docs/source/format/hub-metadata.md?plain=1) are updated** to display the new versions of `admin.json` and `tasks.json` schema files.
 
 ## Contribution guidelines
 In general, contributions should be made via pull requests to the `main` branch. 

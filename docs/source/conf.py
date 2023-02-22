@@ -37,6 +37,7 @@ myst_enable_extensions = [
     "deflist",
     "dollarmath",
     "fieldlist",
+    "substitution"
 ]
 
 # -- Options for HTML output
@@ -59,3 +60,8 @@ html_theme_options = {
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+
+myst_substitutions = {
+    'schema_version': "v0.0.1"
+}
