@@ -38,7 +38,11 @@ The administrative hub metadata file contains settings that are expected to rema
 
 ### Hub administrative metadata (`admin.json`) Interactive Schema
 
-   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/admin-schema.json"></script>
+##### Schema Version: {{schema_version}}
+{{'[See raw schema](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
+
+{{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
+
 
    Other things we may want to consider adding here:
 * Something about truth data?
@@ -51,4 +55,8 @@ The hub model task metadata file specifies the model tasks and model output form
 
 ### Model Tasks (`tasks.json`) Interactive Schema
 
-   <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v0.0.1/tasks-schema.json"></script>
+##### Schema Version: {{schema_version}}
+{{'[See raw schema](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
+
+{{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
+

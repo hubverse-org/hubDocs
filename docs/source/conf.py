@@ -61,7 +61,18 @@ html_theme_options = {
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
 
+schema_version = "v1.0.0"
+schema_branch = "br-"+schema_version
+
+import os
+build_type = os.environ.get("READTHEDOCS_VERSION_TYPE")
+if build_type is None:
+    build_type = "unknown"
+
+if build_type in ("tag", "branch"):
+    schema_branch = "main"
 
 myst_substitutions = {
-    'schema_version': "v0.0.1"
+    'schema_version': schema_version,
+    'schema_branch': schema_branch
 }
