@@ -33,7 +33,7 @@ This Hub allows for submissions on a pre-specified set of dates specified by the
 * `target` (the sole **target key** variable): can only take the value "wk inc flu hosp" 
 * `location`: “US”, “01”, “02”, …, “78” ([FIPS codes](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards) for US states and territories)
 * `origin_date` (this variable is specified as the one from which rounds are given IDs): weekly on Mondays
-* `horizon`: 1, 2, 3, 4
+* `horizon`: 1, 2, 3, 4 (in units of weeks, which is specified in the target-metadata)
 ```
 
 
