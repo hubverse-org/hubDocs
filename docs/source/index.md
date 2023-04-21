@@ -4,7 +4,9 @@
 This project is under active development.
 ```
 
-The Consortium of Infectious Disease Modeling Hubs is a collaboration of research teams that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed software to for groups that are running collaborative modeling hub efforts. This website documents the requirements for using the infrastructure that our collaborative group has set up. The following sections of this page provide an outline of the different resources created by this project.
+**The Consortium of Infectious Disease Modeling Hubs** is a collaboration of research teams that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed software for groups that are running collaborative modeling hub efforts. This website documents the requirements for using the infrastructure that the Consortium has set up.  
+
+The following sections of this page provide an outline of the different resources created by this project.
 
 ## Tools for building and hosting modeling hubs
 
