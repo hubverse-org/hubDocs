@@ -33,7 +33,7 @@ The administrative hub configuration file contains global administrative setting
 
 ### Hub administrative configuration (`admin.json`) Interactive Schema
 
-##### Schema Version: {{schema_version}}
+#### Schema Version: {{schema_version}}
 {{'[See raw schema](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
 
 {{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
@@ -47,12 +47,12 @@ The administrative hub configuration file contains global administrative setting
 
 (tasks_metadata)=
 ## Hub model task configuration (`tasks.json` file)
-The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can varie from a simple forecast hub (see {US Forecast Hub}`/format/intro-data-formats.md` to a more complex round related scenario hub (see {US Scenario Modeling Hub}`/format/intro-data-formats.md`).
+The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can varie from a simple forecast hub (see [US Forecast Hub example](/format/intro-data-formats.md) to a more complex round related scenario hub (see [US Scenario Modeling Hub example](/format/intro-data-formats.md)).
 
 
 ### Model Tasks (`tasks.json`) Interactive Schema
 
-##### Schema Version: {{schema_version}}
+#### Schema Version: {{schema_version}}
 {{'[See raw schema](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
 
 {{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
