@@ -26,7 +26,7 @@ We have created some [example Hub repositories](https://github.com/Infectious-Di
 
 ### Schema files for hub configuration
 
-To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](hub-metadata). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.
+To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.
 
 ## Software for modeling hubs
 
@@ -56,7 +56,7 @@ overview/definitions.md
 :hidden:
 format/intro-data-formats.md
 format/hub-structure.md
-format/hub-metadata.md
+format/hub-config.md
 format/model-metadata.md
 format/model-output.md
 format/target-data.md

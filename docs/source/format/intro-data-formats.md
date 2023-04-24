@@ -7,7 +7,7 @@ On this page we provide an [outline on the contents of this data formats section
 This section of the documentation provides standards for:
 
 * [Structure of hub repositories](hub-structure): standards for file and directory structures for Hubs
-* [Hub configuration files](hub-metadata): the files needed to set up and run a modeling Hub
+* [Hub configuration files](hub-config): the files needed to set up and run a modeling Hub
 * [Model metadata](model-metadata): metadata describing models
 * [Model output](model-output): standard formats for model output such as forecasts and projections that are saved in Hubs
 * [Target data](target-data): standard formats for target data, the eventually observable quantities of interest to a hub
@@ -118,4 +118,4 @@ As Hubs define new modeling tasks, they may need to introduce new task ID variab
 
 (submission-rounds)=
 ## Submission rounds
-Many Hubs will accept model output submissions over multiple rounds. In the case of the forecast hubs there has typically been one submission round per week, while the scenario hubs have had submission rounds less frequently, typically about once per month. As part of the [Hub metadata](hub-metadata), Hubs should specify a set of `round_id` values that uniquely identify the submission round. For instance, for weekly submissions the round id might be the date that submissions are due to the Hub or a specification of an epidemic week. In instances where the rounds do not follow a predetermined schedule, more generic identifiers such as “round1” may be preferred. The round id will be used as the file names of model output submissions and round-specific model abstract submissions, as well as in the Hub metadata to specify model tasks that may vary across rounds.
+Many Hubs will accept model output submissions over multiple rounds. In the case of the forecast hubs there has typically been one submission round per week, while the scenario hubs have had submission rounds less frequently, typically about once per month. As part of the [Hub configuration files](hub-config), Hubs should specify a set of `round_id` values that uniquely identify the submission round. For instance, for weekly submissions the round id might be the date that submissions are due to the Hub or a specification of an epidemic week. In instances where the rounds do not follow a predetermined schedule, more generic identifiers such as “round1” may be preferred. The round id will be used as the file names of model output submissions and round-specific model abstract submissions, as well as in the Hub metadata to specify model tasks that may vary across rounds.
