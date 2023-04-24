@@ -56,6 +56,7 @@ overview/definitions.md
 :hidden:
 format/intro-data-formats.md
 format/hub-structure.md
+format/task-id-vars.md
 format/hub-metadata.md
 format/model-metadata.md
 format/model-output.md
