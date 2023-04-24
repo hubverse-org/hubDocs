@@ -65,6 +65,13 @@ format/model-abstracts.md
 
 ```{toctree}
 :maxdepth: 2
+:caption: Software
+:hidden:
+software/overview.md
+```
+
+```{toctree}
+:maxdepth: 2
 :caption: Data validation
 :hidden:
 validation/validation.md
