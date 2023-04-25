@@ -10,7 +10,7 @@ The directory and file structure of a modeling hub should contain only the follo
 * Documentation files
    * Hubs should provide a documentation file (e.g., `README.md`) at the top level that describes the overall structure of the hub, as well as a documentation file within each folder that provides more detail.
 
-* `hub-metadata` directory (see {doc}`/format/hub-metadata`)
+* `hub-config ` directory (see {doc}`/format/hub-config`)
 
 * `model-output` directory (see {doc}`/format/model-output`) 
 
