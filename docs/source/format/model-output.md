@@ -31,7 +31,7 @@ Note on `pmf` model output type: Values are required to sum to 1 across all `typ
 ```{margin}
 Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
 ```
-
+(output_type_table)=
 | `type` | `type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
