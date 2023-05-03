@@ -65,7 +65,7 @@ format/model-abstracts.md
 ```
 
 ```{toctree}
-:maxdepth: 2
+:maxdepth: 3
 :caption: Software
 :hidden:
 software/software-overview.md
