@@ -69,6 +69,7 @@ format/model-abstracts.md
 :caption: Software
 :hidden:
 software/software-overview.md
+software/software-overview.md#hubtemplate
 ```
 
 ```{toctree}
