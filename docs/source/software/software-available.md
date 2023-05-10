@@ -14,7 +14,5 @@ The goal of `hubUtils` is to provide a set of utility functions for downloading,
 
 The `hubValidations` repository facilitates the implementation of general validation rules that are enforced on submissions in the form of pull requests to hub repositories. You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations).  
 
-## [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate)
 
-The `hubTemplate` repository provides a template for groups wishing to build and maintain a new modeling hub, in the style of the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), the [US Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub) or the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe). You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate).  
 
