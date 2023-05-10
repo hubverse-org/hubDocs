@@ -16,6 +16,6 @@ The [Complex Scenario Hub Example](https://github.com/Infectious-Disease-Modelin
 
 ## [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate)  
 
-[`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) is a repository (under development) that provides a template for groups wishing to build and maintain a new modeling hub. This repository may be cloned to start a new repository for a modeling hub.  
+The [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) repository (under development) provides a skeleton structure for groups wishing to build and maintain a new modeling hub. This repository may be cloned to start a new repository for a modeling hub.  
 
 
