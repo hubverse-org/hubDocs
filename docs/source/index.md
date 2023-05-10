@@ -46,6 +46,7 @@ The main benefit of setting up a hub using the structure outlined in this docume
 :maxdepth: 2
 :caption: Overview
 :hidden:
+overview/getting-started.md
 overview/who-we-are.md
 overview/scope.md
 overview/definitions.md
