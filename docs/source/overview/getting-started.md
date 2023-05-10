@@ -2,7 +2,7 @@
 
 The simplest way to set up a modeling hub is to use one of the [example Hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=) listed below, which are based on prior use cases. These repositories provide minimal working examples of hubs and could be used for ideas of how to set up configuration files for new projects. Additionally, we are devloping a [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) repository that provides the skeletal structure of a modeling hub.  
 
-## Examples  
+## [Examples](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=)  
 
 ### 1. [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub)  
 The [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) is designed to be similar to the [US CDC FluSight Hospitalization Forecasting exercise](https://github.com/cdcepi/Flusight-forecast-data) from 2022-2023.  
