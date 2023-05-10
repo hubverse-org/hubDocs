@@ -34,8 +34,7 @@ The main benefit of setting up a hub using the structure outlined in this docume
 
 - [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) is an R package with utility functions for working with data from modelings hubs.  
 - [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles) is an R package with functionality to build simple ensembles of data from modeling hubs.  
-- [`hubValidations`](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations) is an R package that facilitates the implementation of general validation rules to enforce on submissions to modeling hubs.  
-- [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) is a repository that provides a template for groups wishing to build and maintain a new modeling hub.  
+- [`hubValidations`](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations) is an R package that facilitates the implementation of general validation rules to enforce on submissions to modeling hubs.   
 
 
 
