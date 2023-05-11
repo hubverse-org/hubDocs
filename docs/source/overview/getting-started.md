@@ -2,7 +2,7 @@
 
 The simplest way to set up a modeling hub is to directly clone one from the [template hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=&type=template&language=&sort=) or to use one of the [example hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=), which are based on prior use cases. The template hubs provide a skeletal structure of a hub without any data, whereas the example hubs provide minimal working examples of hubs and could be used for ideas of how to set up configuration files for new projects.    
 
-## Template hubs  
+## [Template hubs](https://github.com/Infectious-Disease-Modeling-Hubs?q=&type=template&language=&sort=)  
 
 The [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) repository (under development) provides a skeleton structure for groups wishing to build and maintain a new modeling hub. This repository may be cloned to start a new repository for a modeling hub.  
 
@@ -20,7 +20,7 @@ The [Complex Forecast Hub Example](https://github.com/Infectious-Disease-Modelin
 The [Complex Scenario Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)  
 
 
-## Schema files  
+## [Schema files](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)  
 
 To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
 
