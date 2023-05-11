@@ -46,10 +46,11 @@ The main benefit of setting up a hub using the structure outlined in this docume
 :maxdepth: 2
 :caption: Overview
 :hidden:
-overview/getting-started.md
 overview/who-we-are.md
 overview/scope.md
 overview/definitions.md
+overview/getting-started.md
+overview/software.md
 ```
 
 ```{toctree}
@@ -64,13 +65,6 @@ format/model-metadata.md
 format/model-output.md
 format/target-data.md
 format/model-abstracts.md
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: Software
-:hidden:
-software/software-available.md
 ```
 
 ```{toctree}
