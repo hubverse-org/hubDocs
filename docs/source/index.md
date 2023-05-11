@@ -30,11 +30,7 @@ To take advantage of the infrastructure designed by the Consortium, a hub must c
 
 ### [Software for modeling hubs](overview/software.md)  
 
-The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of tools designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models. 
-
-- [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) is an R package with utility functions for working with data from modelings hubs.  
-- [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles) is an R package with functionality to build simple ensembles of data from modeling hubs.  
-- [`hubValidations`](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations) is an R package that facilitates the implementation of general validation rules to enforce on submissions to modeling hubs.   
+The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of tools designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models. Details on the software available are provided [here](overview/software.md).  
 
 
 
