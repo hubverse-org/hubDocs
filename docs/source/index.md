@@ -12,11 +12,11 @@ The following sections of this page provide an outline of the different resource
 
 The following subsections provide pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.
 
-### Template hubs
+### [Template hubs](overview/getting-started.md/#template-hubs)  
 
-The [template hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=&type=template&language=&sort=) provided by the consortium may be cloned directly to start a new hub. Unlike the example hubs below, these repositories do not have any data in them, they just provide a skeletal structure of a hub. Currently, we only host a single [template hub](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate).
+The [template hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=&type=template&language=&sort=) provided by the consortium may be cloned directly to start a new hub. Unlike the example hubs below, these repositories do not have any data in them, they just provide a skeletal structure of a hub. Currently, we only host a single [template hub](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate).  
 
-### Example hubs
+### Example hubs(overview/getting-started.md/#example-hubs)  
 
 We have created some [example Hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=) that provide minimal working examples of hubs. These repositories could be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the software described below.
 
@@ -24,19 +24,17 @@ We have created some [example Hub repositories](https://github.com/Infectious-Di
 - The [Complex Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).
 - The [Complex Scenario Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)
 
-### Schema files for hub configuration
+### Schema files for hub configuration(overview/getting-started.md/#schema-files)  
 
 To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.
 
-## Software for modeling hubs
+## Software for modeling hubs(overview/software.md)  
 
 The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of tools designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models. 
 
 - [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) is an R package with utility functions for working with data from modelings hubs.  
 - [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles) is an R package with functionality to build simple ensembles of data from modeling hubs.  
 - [`hubValidations`](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations) is an R package that facilitates the implementation of general validation rules to enforce on submissions to modeling hubs.   
-
-
 
 
 
