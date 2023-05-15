@@ -61,7 +61,24 @@ html_theme_options = {
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
 
+schema_version = "v1.0.0"
+# Use schema_branch variable to specify a branch in the schemas repository from which config schema will be source, especially for docson widgets.
+# Useful if the schema being documented hasn't been released to the `main` branch in the schemas repo yet. If version has been released already, set this to "main".
+schema_branch = "br-"+schema_version
+
+# The following statements override any custom branch assigned to schema branch if the build is being run on READTHEDOCS and is either a build for a new tag or on a branch
+# (in contrast to being run in a pull request or locally). This ensures that any production versions of the docs published on the hubDocs `main` branch always 
+# point to schema on the `main` branch of the `schemas` repository. It also allows for previewing docson widgets and links to schema in branches other than the
+# main branch in the schemas repos when developing locally or in pull requests
+import os
+build_type = os.environ.get("READTHEDOCS_VERSION_TYPE")
+if build_type is None:
+    build_type = "unknown"
+
+if build_type in ("tag", "branch"):
+    schema_branch = "main"
 
 myst_substitutions = {
-    'schema_version': "v0.0.1"
+    'schema_version': schema_version,
+    'schema_branch': schema_branch
 }

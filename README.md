@@ -94,9 +94,20 @@ To use Live Server:
 
 # Versioning
 
-Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). While changes to documentation text can be commited without creating a new release and will appear in th `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
+Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). While changes to documentation text can be commited without creating a new release and will appear in the `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
-Before making a new release, **ensure that URLs to schema files which power the interactive docson widget visualisation of schemas in the [`docs/source/format/hub-metadata.md` page](https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs/blob/main/docs/source/format/hub-metadata.md?plain=1) are updated** to display the new versions of `admin.json` and `tasks.json` schema files.
+When creating a new release version:
+
+1. Checkout the main branch and ensure you pull all changes from the remote repository.
+2. Create a new branch of the main branch and name it using the convention `br-<version-number>`
+3. Open `docs/source/conf.py` file and update the value of the `schema_version` variable with the version of the schema in the `schemas` repository you want the release to accompany (e.g. `v0.0.1`). This propagates the appropriate version to various substitution text elements within the docs, including the URLs pointing docson widgets to raw config schema files.
+4. If the version of the schema you are preparing the release for has not been released to `main` branch in the `schemas` repository, you can set the value of the `schema_branch` variable to the name of the branch in the `schemas` repository in which the version is being prepared (e.g. `br-v1.0.0`). This allows you to see what development versions of the schema will look like in the docson widgets while developing locally and in a pull request. If the schema has been released to `main` in the `schemas` repo, set `schema_branch` to `"main"`. The value of this variable is overriden automatically when READTHEDOCS builds the documentation on the `main` branch (or any other branch for that matter, in contrast to a pull request build) after a merge or a new release.
+5. Any any changes to the documentation needed.
+6. Commit and push changes (including changes to `conf.py`)
+7. Create pull request and merge after review.
+8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
+
+
 
 ## Contribution guidelines
 In general, contributions should be made via pull requests to the `main` branch. 
