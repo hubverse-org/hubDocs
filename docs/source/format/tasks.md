@@ -11,7 +11,7 @@ Every Hub is organized around "modeling tasks" that are defined to meet the need
 ## task ID variables
 Hubs typically specify that modeling outputs (e.g., forecasts or projections) should be generated for each combination of values across a set of task ID variables. For modeling exercises where the model outputs correspond to estimates or predictions of a quantity that could in principle be calculated from observable data, these task ID variables should be sufficient to uniquely identify an observed value for the modeling target that could be compared to model outputs to evaluate model accuracy. This is discussed more in the section on [target (a.k.a. truth) data](target-data).
 
-Because they are central to Hubs, these task ID variables serve several purposes:
+Because they are central to Hubs, task ID variables serve several purposes:
 * They are used in the Hub metadata to define modeling tasks of the hub
 * They are used in model outputs to identify the modeling task to which forecasts correspond
 * They are used in the specification of [target data](target-data) and methods to calculate "ground truth" target data values, to allow for alignment of model outputs with true target values
@@ -30,7 +30,9 @@ The figure shows that Hub metadata and target data are specified by the hub itse
 
 Task ID variables can be thought of as columns of a tabular representation in a model output file, where a combination of values of task ID variables would uniquely define a row of data. 
 
-In our [Running Example 1](running-examples), the task ID variables are `target`, `location`, `origin_date`, and `horizon`. We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks-metadata) as a `target_key`). In this example, `target` is the target key. In other examples, (such as [Running Example 3](running-examples)) more than one variable can serve as target keys together.
+We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks-metadata) as a `target_key`). In our [Running Example 1](running-examples), the task ID variables are `target`, `location`, `origin_date`, and `horizon`. In this example, `target` is the target key. In other examples, (such as [Running Example 3](running-examples)) more than one variable can serve as target keys together.
+
+Some task ID variables serve specific purposes. For example, every hub must have a single task ID variable that uniquely defines a submission round. It has become a convention to use a task ID like `origin_date` or `forecast_date` for this purpose, although in practice hubs could use other task ID variables for this  purpose. In the  [Running Example 1](running-examples), this column is `origin_date`. Additionally, for hubs with step-ahead short term predictions, to plot forecasts using standard functionality in the `hubUtils` package, hubs must have either `origin_date` and `horizon` columns or a `target_date` column.
 
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard column names and definitions:
 
