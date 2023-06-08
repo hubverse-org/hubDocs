@@ -43,3 +43,10 @@ format/model-abstracts.md
 :hidden:
 validation/validation.md
 ```
+
+```{toctree}
+:maxdepth: 2
+:caption: Contribute
+:hidden:
+contribute/contribute.md
+```
