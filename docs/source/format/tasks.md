@@ -34,7 +34,7 @@ We note that some task ID variables are special in that they conceptually define
 
 Some task ID variables serve specific purposes. For example, every hub must have a single task ID variable that uniquely defines a submission round. It has become a convention to use a task ID like `origin_date` or `forecast_date` for this purpose, although in practice hubs could use other task ID variables for this  purpose. In [Running Example 1](running-examples), this task ID is `origin_date`. Additionally, to plot forecasts using standard functionality in the `hubUtils` package for hubs with step-ahead short term predictions, hubs must have either `origin_date` and `horizon` task ID or a `target_date` task ID.
 
-In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard column names and definitions:
+In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions:
 
 * `origin_date`: the starting point that can be used for calculating a target_date via the formula target_date = origin_date + horizon * time_units_per_horizon (e.g., with weekly data, target_date is calculated as origin_date + horizon * 7 days).
 * `scenario_id`: a unique identifier for a scenario
@@ -45,7 +45,7 @@ In general, there are no restrictions on what task ID variables may be named, ho
 * `age_group`: a unique identifier for an age group
 
 ```{note}
-We encourage Hubs to avoid redundancy in the model task columns. For example, Hubs should not include all three of `target_date`, `origin_date`, and `horizon` as task ID columns because if any two are specified, the third can be calculated directly. Similarly, if a variable is constant, it should not be included. For example, if a Hub does not include multiple targets, the `target` column could be omitted from the task ID columns.
+We encourage Hubs to avoid redundancy in the model task IDs. For example, Hubs should not include all three of `target_date`, `origin_date`, and `horizon` as task IDs because if any two are specified, the third can be calculated directly. Similarly, if a variable is constant, it should not be included. For example, if a Hub does not include multiple targets, `target` could be omitted from the task IDs.
 ```
 
 As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before. In those cases, the new variables should be added to this list to ensure that the concepts are documented in a central place and can be reused in future efforts.
