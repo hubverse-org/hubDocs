@@ -1,4 +1,4 @@
-# How to contribute to the hubverse  
+# How to contribute
 
 The Consortium of Infectious Disease Modeling Hubs built _the hubverse_ collaboratively and we benefit from your contributions.  
 
