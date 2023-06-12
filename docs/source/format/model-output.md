@@ -50,7 +50,7 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 
 Hubs should specify the collection of task id variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.
 
-Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but bin probabilities for the timing of a season peak:
+Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 
 | `origin_epiweek` | `target` | `horizon` | `type` | `type_id` | `value` |
@@ -59,13 +59,13 @@ Here is an example for a Hub that collects mean and quantile forecasts for one-w
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
 | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
 | EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
-| EW202242 | weekly rate | 1 | bin_prob | 0 | 0.1 |
-| EW202242 | weekly rate | 1 | bin_prob | 0.1 | 0.2 |
-| EW202242 | weekly rate | 1 | bin_prob | 0.2 | 0.7 |
-| EW202242 | peak week | NA | bin_prob | EW202240 | 0.001 |
-| EW202242 | peak week | NA | bin_prob | EW202241 | 0.002 |
+| EW202242 | weekly rate | 1 | pmf | 0 | 0.1 |
+| EW202242 | weekly rate | 1 | pmf | 0.1 | 0.2 |
+| EW202242 | weekly rate | 1 | pmf | 0.2 | 0.7 |
+| EW202242 | peak week | NA | pmf | EW202240 | 0.001 |
+| EW202242 | peak week | NA | pmf | EW202241 | 0.002 |
 | EW202242 | ... | ... | ... | ... | ... |
-| EW202242 | peak week | NA | bin_prob | EW202320 | 0.013 |
+| EW202242 | peak week | NA | pmf | EW202320 | 0.013 |
 | EW202242 | weekly rate | 1 | sample | 1 | 3 |
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 
