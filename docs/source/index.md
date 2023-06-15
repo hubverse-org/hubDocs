@@ -50,3 +50,11 @@ validation/validation.md
 :hidden:
 contribute/contribute.md
 ```
+
+```{toctree}
+:maxdepth: 2
+:caption: Presentations
+:hidden:
+contribute/presentations.md
+```
+
