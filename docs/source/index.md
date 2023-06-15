@@ -55,6 +55,6 @@ contribute/contribute.md
 :maxdepth: 2
 :caption: Presentations
 :hidden:
-contribute/presentations.md
+presentations/presentations.md
 ```
 
