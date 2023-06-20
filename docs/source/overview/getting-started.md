@@ -13,7 +13,7 @@ The [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTempl
 The [example Hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=) provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](software.md). 
 
 ### 1. [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub)  
-The [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) is designed to be similar to the [US CDC FluSight Hospitalization Forecasting exercise](https://github.com/cdcepi/Flusight-forecast-data) from 2022-2023.  
+The [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), but has been modified to provide examples of nowcasts.  
 
 ### 2. [Complex Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub)  
 The [Complex Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).  
