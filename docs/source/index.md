@@ -21,6 +21,8 @@ overview/scope.md
 overview/definitions.md
 overview/getting-started.md
 overview/software.md
+overview/presentations.md
+overview/contribute.md
 ```
 
 ```{toctree}
@@ -42,19 +44,5 @@ format/model-abstracts.md
 :caption: Data validation
 :hidden:
 validation/validation.md
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: Contribute
-:hidden:
-contribute/contribute.md
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: Presentations
-:hidden:
-presentations/presentations.md
 ```
 
