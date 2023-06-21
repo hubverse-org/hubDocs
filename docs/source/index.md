@@ -11,7 +11,6 @@ The [overview](overview/who-we-are.md) section provides an introduction to the p
 
 
 
-
 ```{toctree}
 :maxdepth: 2
 :caption: Overview
@@ -21,6 +20,8 @@ overview/scope.md
 overview/definitions.md
 overview/getting-started.md
 overview/software.md
+overview/presentations.md
+overview/contribute.md
 ```
 
 ```{toctree}
@@ -44,9 +45,3 @@ format/model-abstracts.md
 validation/validation.md
 ```
 
-```{toctree}
-:maxdepth: 2
-:caption: Contribute
-:hidden:
-contribute/contribute.md
-```
