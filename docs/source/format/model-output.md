@@ -19,25 +19,25 @@ Model outputs are contributed by teams, and are represented in a rectangular for
 * Task ids: A set of columns specifying the model task, as described [here](task_id_vars). The columns used as task ids will vary across different Hubs.
 
 * Model output representation: A set of three columns specifying how the model outputs are represented. All three of these columns will be used by all Hubs:
-   1. `type` specifies the type of representation of the predictive distribution
-   2. `type_id` specifies more identifying information specific to the output type
+   1. `output_type` specifies the type of representation of the predictive distribution
+   2. `output_type_id` specifies more identifying information specific to the output type
    3. `value` contains the model’s prediction
 These are described more in the following table:
 
 ```{margin}
-Note on `pmf` model output type: Values are required to sum to 1 across all `type_id` values within each combination of values of task id variables. This representation should only be used if the outcome variable is truly discrete; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
+Note on `pmf` model output type: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task id variables. This representation should only be used if the outcome variable is truly discrete; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
 ```
 
 ```{margin}
-Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
+Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
 ```
 (output_type_table)=
-| `type` | `type_id` | `value` |
+| `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
 | `median` | NA (not used for median predictions) | Numeric: the median of the predictive distribution |
-| `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the type_id |
-| `cdf` | Numeric within the support of the outcome variable: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the type_id |
+| `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
+| `cdf` | Numeric within the support of the outcome variable: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
 | `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
 | `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 
@@ -53,7 +53,7 @@ Hubs should specify the collection of task id variables for which samples are ex
 Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 
-| `origin_epiweek` | `target` | `horizon` | `type` | `type_id` | `value` |
+| `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | ------ | ------ | ------ | 
 | EW202242 | weekly rate | 1 | mean     | NA | 5 |
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
