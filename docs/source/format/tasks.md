@@ -37,10 +37,12 @@ Some task ID variables serve specific purposes. For example, every hub must have
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions:
 
 * `origin_date`: the starting point that can be used for calculating a target_date via the formula target_date = origin_date + horizon * time_units_per_horizon (e.g., with weekly data, target_date is calculated as origin_date + horizon * 7 days).
+* `forecast_date`: usually defines the date that a model is run to produce a forecast.
 * `scenario_id`: a unique identifier for a scenario
 * `location`: a unique identifier for a location
 * `target`: a unique identifier for the target. It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the `target_metadata` section of the [tasks metadata](tasks-metadata).
-* `target_date`: for short-term forecasts, the target_date specifies the date of occurrence of the outcome of interest. For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the target_date is 2022-07-15.
+* `target_variable`/`target_outcome`: task IDs making up unique identifiers of a two-part target. These task can be used in hubs that want to split up the definition of a target across two variables. In this situation, both task IDs eill de specified as target keys in the `target_metadata` section of the [tasks metadata](tasks-metadata).
+* `target_date`/`target_end_date`: for short-term forecasts, the synonymous task IDs `target_date`/`target_end_date` specify the date of occurrence of the outcome of interest. For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the target_date is 2022-07-15.
 * `horizon`: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
 * `age_group`: a unique identifier for an age group
 
