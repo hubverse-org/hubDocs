@@ -25,14 +25,14 @@ overview/contribute.md
 :maxdepth: 2
 :caption: Quickstart - hub administration
 :hidden:
-quickstart_hub_admin/getting-started.md
+quickstart_hub_admin/intro.md
 ```
 
 ```{toctree}
 :maxdepth: 2
 :caption: Quickstart - using hub data
 :hidden:
-quickstart_hub_data/validation.md
+quickstart_hub_data/intro.md
 ```
 
 ```{toctree}

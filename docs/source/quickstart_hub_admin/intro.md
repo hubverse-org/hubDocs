@@ -1,3 +1,5 @@
+# Introduction
+
 # Getting started  
 
 The following subsections provide pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  
