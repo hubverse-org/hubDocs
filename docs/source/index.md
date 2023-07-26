@@ -23,14 +23,14 @@ overview/contribute.md
 
 ```{toctree}
 :maxdepth: 2
-:caption: Quickstart: hub administration
+:caption: Quickstart - hub administration
 :hidden:
 quickstart_hub_admin/getting-started.md
 ```
 
 ```{toctree}
 :maxdepth: 2
-:caption: Quickstart: using hub data
+:caption: Quickstart - using hub data
 :hidden:
 quickstart_hub_data/validation.md
 ```
@@ -56,3 +56,4 @@ user_guide/software.md
 :hidden:
 more_info/presentations.md
 ```
+
