@@ -55,5 +55,6 @@ user_guide/software.md
 :caption: Additional Information
 :hidden:
 more_info/presentations.md
+more_info/getting_help.md
 ```
 
