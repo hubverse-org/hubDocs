@@ -19,6 +19,7 @@ overview/who-we-are.md
 overview/scope.md
 overview/definitions.md
 overview/contribute.md
+overview/contact.md
 ```
 
 ```{toctree}
@@ -26,6 +27,9 @@ overview/contribute.md
 :caption: Quickstart - hub administration
 :hidden:
 quickstart_hub_admin/intro.md
+quickstart_hub_admin/setting-up.md
+quickstart_hub_admin/shema-config.md
+quickstart_hub_admin/using-software.md
 ```
 
 ```{toctree}
@@ -33,6 +37,10 @@ quickstart_hub_admin/intro.md
 :caption: Quickstart - using hub data
 :hidden:
 quickstart_hub_data/intro.md
+quickstart_hub_data/loading-output.md
+quickstart_hub_data/plotting.md
+quickstart_hub_data/evaluate-score.md
+quickstart_hub_data/creating-ensembles.md
 ```
 
 ```{toctree}
@@ -40,6 +48,8 @@ quickstart_hub_data/intro.md
 :caption: User Guide
 :hidden:
 user_guide/intro-data-formats.md
+user_guide/prerequisites.md
+user_guide/setting-repos.md
 user_guide/hub-structure.md
 user_guide/tasks.md
 user_guide/hub-config.md
@@ -47,6 +57,7 @@ user_guide/model-metadata.md
 user_guide/model-output.md
 user_guide/target-data.md
 user_guide/model-abstracts.md
+user_guide/examples.md
 user_guide/software.md
 ```
 
@@ -54,7 +65,9 @@ user_guide/software.md
 :maxdepth: 2
 :caption: Additional Information
 :hidden:
+more_info/getting-help.md
+more_info/release-notes.md
 more_info/presentations.md
-more_info/getting_help.md
+more_info/future.md
 ```
 
