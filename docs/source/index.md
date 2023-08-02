@@ -20,42 +20,54 @@ overview/scope.md
 overview/definitions.md
 overview/data-storage.md
 overview/contribute.md
+overview/contact.md
 ```
 
 ```{toctree}
 :maxdepth: 2
 :caption: Quickstart - hub administration
 :hidden:
-quickstart_hub_admin/intro.md
+quickstart-hub_admin/intro.md
+quickstart-hub_admin/setting-up.md
+quickstart-hub_admin/shema-config.md
+quickstart-hub_admin/using-software.md
 ```
 
 ```{toctree}
 :maxdepth: 2
 :caption: Quickstart - using hub data
 :hidden:
-quickstart_hub_data/intro.md
+quickstart-hub-data/intro.md
+quickstart-hub-data/loading-output.md
+quickstart-hub-data/plotting.md
+quickstart-hub-data/evaluate-score.md
+quickstart-hub-data/creating-ensembles.md
 ```
 
 ```{toctree}
 :maxdepth: 2
 :caption: User Guide
 :hidden:
-user_guide/intro-data-formats.md
-user_guide/hub-structure.md
-user_guide/tasks.md
-user_guide/hub-config.md
-user_guide/model-metadata.md
-user_guide/model-output.md
-user_guide/target-data.md
-user_guide/model-abstracts.md
-user_guide/software.md
+user-guide/intro-data-formats.md
+user-guide/prerequisites.md
+user-guide/setting-repos.md
+user-guide/hub-structure.md
+user-guide/tasks.md
+user-guide/hub-config.md
+user-guide/model-metadata.md
+user-guide/model-output.md
+user-guide/target-data.md
+user-guide/model-abstracts.md
+user-guide/examples.md
+user-guide/software.md
 ```
 
 ```{toctree}
 :maxdepth: 2
 :caption: Additional Information
 :hidden:
-more_info/presentations.md
-more_info/getting_help.md
+more-info/getting-help.md
+more-info/release-notes.md
+more-info/presentations.md
+more-info/future.md
 ```
-
