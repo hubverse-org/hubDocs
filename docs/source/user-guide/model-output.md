@@ -69,13 +69,13 @@ Here is an example for a Hub that collects mean and quantile forecasts for one-w
 | EW202242 | weekly rate | 1 | sample | 1 | 3 |
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 
-We will develop tools that support multiple formats for the submissions, including csv, zipped csv, and parquet. Initial data loading functions will load data and return standard data types for each language (e.g. data frames).
+We will develop tools that support multiple formats for the submissions, including csv, zipped csv, and parquet. Initial data loading functions will load data and return standard data output types for each language (e.g. data frames).
 
 
 ## Other output types
 Some other possible model output representations have been proposed, but are not included on the list above. We document these other proposals and the reasons for their omissions here:
 
-* Other types of point forecasts.  
+* Other output types of point forecasts.  
 * Bin probability. Two notes:
    * If the bins have open left endpoints and closed right endpoints, bin probabilities can be calculated directly from CDF values.
    * We considered a system with a more flexible specification of bin endpoint inclusion status, but noted two disadvantages:
@@ -89,7 +89,7 @@ Some other possible model output representations have been proposed, but are not
 ## Validating forecast values
 Validation of forecast values occurs in two steps:
 
-* The data types and relatively simple limits on values are specified in a json schema file. For example, if appropriate, we might specify that the value is a non-negative integer.
+* The data output types and relatively simple limits on values are specified in a json schema file. For example, if appropriate, we might specify that the value is a non-negative integer.
 
 * Validation of more involved rules that cannot be encoded in a json schema are implemented separately. Examples of such rules include:
    1. A predictive quantile for disease incidence may not be larger than the population size in that location.
