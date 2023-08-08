@@ -47,3 +47,7 @@ a description of a possible future to be modeled, described in terms of models p
 ```{admonition} Scenario projection
 model output that provides estimates of future observations of future trends conditional on specific assumptions about a given scenario. Scenario projects are challenging to evaluate against future observed data since the assumptions under which scenarios were generated likely will never have been exactly met.
 ```
+
+```{admonition} Zoltar
+a research data repository that stores forecasts made by external models in standard formats and provides tools for retrieval, validation, analysis, comparison, visualization, and scoring.
+```
