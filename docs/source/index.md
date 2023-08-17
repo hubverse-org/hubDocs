@@ -27,9 +27,9 @@ overview/contribute.md
 :caption: Quickstart - hub administration
 :hidden:
 quickstart-hub_admin/intro.md
+quickstart-hub_admin/getting-started.md
 quickstart-hub_admin/setting-up.md
 quickstart-hub_admin/shema-config.md
-quickstart-hub_admin/using-software.md
 ```
 
 ```{toctree}
