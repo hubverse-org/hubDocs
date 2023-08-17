@@ -26,10 +26,10 @@ overview/contribute.md
 :maxdepth: 2
 :caption: Quickstart - hub administration
 :hidden:
-quickstart-hub_admin/intro.md
-quickstart-hub_admin/getting-started.md
-quickstart-hub_admin/setting-up.md
-quickstart-hub_admin/shema-config.md
+quickstart-hub-admin/intro.md
+quickstart-hub-admin/getting-started.md
+quickstart-hub-admin/setting-up.md
+quickstart-hub-admin/shema-config.md
 ```
 
 ```{toctree}
