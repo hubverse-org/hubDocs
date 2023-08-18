@@ -20,6 +20,8 @@ Enter a name for your repository.  You can use any name.  Then click on "Create 
 
 This repository ("repo") will be saved on your GitHub account.  
 
+![Example of saved repository](../images/repo_woman.png)  
+
 ## Step 4: Clone your repository  
 
 Clone the repo to your computer so that you can work with it locally.  GitHub has directions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).  
