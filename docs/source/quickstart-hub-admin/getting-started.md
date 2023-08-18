@@ -8,7 +8,7 @@ If you already have a GitHub account, you can move on to the next step.  If you 
 
 ## Step 2: Make a copy of the GitHub template repository  
 
-Go to [hubTemplate[(https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) and click on "Use this template". Select "Create a new repository".  
+Go to [hubTemplate](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate) and click on "Use this template". Select "Create a new repository".  
 
 [![Instructions to create Hub Template copy of repository](../images/hubTemplate.png)](https://github.com/Infectious-Disease-Modeling-Hubs/hubTemplate)  
 
