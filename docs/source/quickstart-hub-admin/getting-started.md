@@ -26,4 +26,4 @@ Clone the repo to your computer so that you can work with it locally.  GitHub ha
 
 ## Congratulations!  
 
-You have just created your first hub repository from the Hubverse. Read about the structure of hub repositories [here](../user-guide/hub.structure.md) and take some time to explore the repository on your computer.  
+You have just created your first hub repository from the Hubverse. Read about the structure of hub repositories [here](../user-guide/hub-structure.md) and take some time to explore the repository on your computer.  
