@@ -29,7 +29,7 @@ overview/contribute.md
 quickstart-hub-admin/intro.md
 quickstart-hub-admin/getting-started.md
 quickstart-hub-admin/setting-up.md
-quickstart-hub-admin/shema-config.md
+quickstart-hub-admin/schema-config.md
 ```
 
 ```{toctree}
