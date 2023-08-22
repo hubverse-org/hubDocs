@@ -1,4 +1,3 @@
-(model-metadata)=
 # Model metadata
 
 ## Directory structure
