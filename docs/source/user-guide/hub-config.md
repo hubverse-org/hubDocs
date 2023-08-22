@@ -1,4 +1,3 @@
-(hub-config)=
 # Hub configuration files
 
 ## Directory Structure
