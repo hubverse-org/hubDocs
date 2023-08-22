@@ -17,7 +17,7 @@ Because they are central to Hubs, task ID variables serve several purposes:
 * They are used in the specification of [target data](target-data) and methods to calculate "ground truth" target data values, to allow for alignment of model outputs with true target values
 The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
 
-```{figure} img/hub-data-relations.jpeg
+```{figure} ../images/hub-data-relations.jpeg
 ---
 figclass: margin-caption
 alt: A figure showing where data from hubs is created.
