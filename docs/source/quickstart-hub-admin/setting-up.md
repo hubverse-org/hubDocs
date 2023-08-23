@@ -15,3 +15,29 @@ In this example, we will be setting up a simple forecast hub in the style of the
 ## 2. Hub administrative configuration  
 
 The first file that we will be working with is [`admin.json`](../user-guide/hub-config.md#hub-administrative-configuration-admin-json-interactive-schema). This is the administrative hub configuration file containing generic information about the hub, as well as static configuration settings for downstream tools such as validations, visualizations, etc. **These global administrative settings are expected to remain fixed throughout a hub's existence and apply to all the modeling rounds for a hub.**  
+
+### Step 1: Find the repository in RStudio  
+
+Open RStudio and go to where your repo is stored on your local computer, using the Files pane.  
+
+![Screenshot of how to find repository in RStudio](../images/files_pane.png)  
+
+### Step 2: Open `admin.json`  
+
+Click on the `hub-config` folder and open `admin.json` by clicking on it. It will appear in the upper left hand pane, which is called the 'source pane'.  
+
+![Screenshot of how to find the admin.json file in RStudio](../images/source_pane.png)  
+
+### Step 3: Examine the file  
+
+You can find a description of each line of code in the  `admin.json` file [here](../user-guide/hub-config.md#hub-administrative-configuration-admin-json-interactive-schema). In the example presented below, you can check the following details:  
+- The maintainer is: "Simple Modeling Hub"  
+- The contact person is: S Brown (sbrown@xxx.com)  
+- The file format for submissions is" "csv"  
+The code can be edited directly on the 'source pane' and saved by clicking on the disk icon indicated by the red arrow below.  
+
+![Screenshot of how to edit and save the admin.json file in RStudio](../images/admin_json.png)  
+
+## Congratulations!  
+
+You are ready to [configure the schema](schema-config.md) for your modeling hub.  
