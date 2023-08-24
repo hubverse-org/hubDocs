@@ -16,12 +16,16 @@ If you are an interested in contributing to  _the hubverse_ , please see [guidel
 
 ## Start to run a hub
 
-If you are an interested in using  _the hubverse_ , to run a hub, please consider joining our monthly "community hubverse meeting".  During the meeting, we have general updates with a broad mix of developers and public health representatives running hubs or thinking about starting to run hubs. If you are interested in joining, please send an email [here](mailto:mzorn@umass.edu).
+If you are an interested in using  _the hubverse_ to run a hub, please consider joining our monthly "community hubverse meeting".  During the meeting, we have general updates with a broad mix of developers and public health representatives running hubs or thinking about starting to run hubs. 
+
+To join the "community hubverse meeting", please send an email [here](mailto:mzorn@umass.edu), including your name, email and a few sentences about how you would like to use the hubverse.  
 
 
 ## Join development team
 
-If you are an experienced programmer and interested in joining the development team, we have a monthly community meeting please (enter contact info). If you are interested in joining, please send an email [here](mailto:mzorn@umass.edu).
+If you are an experienced programmer and interested in joining the development team, we have "development meetings" on all Wednesdays, except the first Wednesday of the month. These development meetings are for technical updates/discussions about ongoing development tasks. 
+
+To join the development team, please send an email [here](mailto:mzorn@umass.edu), including your name, email and a few sentences about what you can contribute to the development team.
 
 ## Governance  
 The governing body of the [Outbreak Hub Consortium](/index.md) is the Coding Council, which is made up of any member of the community who is in attendance at one of the periodic virtual meetings.  This council in general serves as a deliberative body, discussing and setting directions for new conceptual and software development. In general, decisions about design and prioritization are made through consensus at the Coding Council level. If differences arise that cannot be solved by consensus, then decisions are passed along to the Steering Committee, which is made up of three members. Members of the Steering Committee serve one year terms, with elections occurring in June of each calendar year. Members of the Coding Council may nominate themselves or others to serve on the Steering Committee, and a closed-ballot vote is taken if more than three individuals are nominated. The highest three vote-getters serve on the council.
