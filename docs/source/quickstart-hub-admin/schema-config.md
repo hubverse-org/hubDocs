@@ -1,3 +1,0 @@
-# Configuring schema files  
-
-.  
