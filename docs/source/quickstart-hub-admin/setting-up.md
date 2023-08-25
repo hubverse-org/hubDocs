@@ -41,4 +41,4 @@ The code can be edited directly on the 'source pane' and saved by clicking on th
 
 ## Congratulations!  
 
-You are ready to [configure the schema](schema-config.md) for your modeling hub.  
+You are ready to [configure the modeling tasks](task-config.md) for your modeling hub.  
