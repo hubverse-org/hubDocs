@@ -34,10 +34,11 @@ You can find a description of each line of code in the  `admin.json` file [here]
 - The maintainer is: "Simple Modeling Hub"  
 - The contact person is: S Brown (sbrown@xxx.com)  
 - The file format for submissions is" "csv"  
+  
 The code can be edited directly on the 'source pane' and saved by clicking on the disk icon indicated by the red arrow below.  
 
 ![Screenshot of how to edit and save the admin.json file in RStudio](../images/admin_json.png)  
 
 ## Congratulations!  
 
-You are ready to [configure the schema](schema-config.md) for your modeling hub.  
+You are ready to [configure the modeling tasks](tasks-config.md) for your modeling hub.  
