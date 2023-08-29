@@ -24,7 +24,7 @@ Make sure the `tasks.json` file in RStudio is closed, by clicking on the 'x' ico
 
 ## Step 4: Download a premade `tasks.json` file  
 
-Download [the `tasks.json` file from the Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json) by clicking on the *Download Raw File* icon as indicated below.  
+Download the `tasks.json` file from the Simple Forecast Hub Example by going [here](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json) and clicking on the *Download Raw File* icon as indicated below.  
 
 ![Screenshot of how to download a tasks.json file from GitHub](../images/tasks_download.png)  
 
@@ -33,6 +33,12 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 ## Step 5: Examine the new `tasks.json` file  
 
 Open `tasks.json` and read the explanations below on what these lines of code stand for:  
-- This is a <mark style="background-color: #FFFF00">highlighted test</mark>  
+
+### 5.1. Defining the `round_id` and `origin_date` *(starting point)*:  
+- The <mark style="background-color: #32E331">code highlighted in green</mark> states that the *round identifier* is encoded by a *task id* variable in the data.  
+- The <mark style="background-color: #38C7ED">code highlighted in light blue</mark> states that the *round identifier* is `"origin_date"`.  
+- The <mark style="background-color: #FFE331">lines of code highlighted in yellow</mark> state that no *origin dates* are required, and that there three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`).  
 
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
+
+
