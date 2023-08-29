@@ -33,6 +33,6 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 ## Step 5: Examine the new `tasks.json` file  
 
 Open `tasks.json` and read the explanations below on what these lines of code stand for:  
-- This is a <span style="color: red;">test</span>
+- This is a <mark style="background-color: #FFFF00">highlighted test</mark>  
 
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
