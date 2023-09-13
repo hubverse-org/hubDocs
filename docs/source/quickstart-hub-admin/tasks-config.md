@@ -43,7 +43,7 @@ Open `tasks.json` and read the explanations below on what these lines of code st
 
 ### 5.2. Defining the `"target"`:  
 - <mark style="background-color: #32E331">The second line states that `"inc covid hosp"` is the required target.</mark> Additional required targets could be added here.  
-- <mark style="background-color: #38C7ED">The third line states that there are no other optional targets that are valid.</mark> You could add `\["cum covid hosp"\]` if you wanted to allow that target, but not require it.
+- <mark style="background-color: #38C7ED">The third line states that there are no other optional targets that are valid.</mark> You could add `["cum covid hosp"]` if you wanted to allow that target, but not require it.
 
 ![Some lines of code in the tasks.json file](../images/tasks_schema_2.png)  
 
