@@ -34,11 +34,23 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 
 Open `tasks.json` and read the explanations below on what these lines of code stand for:  
 
-### 5.1. Defining the `round_id` and `origin_date` *(starting point)*:  
+### 5.1. Defining the `"round_id"` and `"origin_date"` *(starting point)*:  
 - The <mark style="background-color: #32E331">code highlighted in green</mark> states that the *round identifier* is encoded by a *task id* variable in the data.  
 - The <mark style="background-color: #38C7ED">code highlighted in light blue</mark> states that the *round identifier* is `"origin_date"`.  
 - The <mark style="background-color: #FFE331">lines of code highlighted in yellow</mark> state that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`).  
 
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
 
+### 5.2. Defining the `"target"`:  
+- <mark style="background-color: #32E331">The second line states that `"inc covid hosp"` is the required target.</mark> Additional required targets could be added here.  
+- <mark style="background-color: #38C7ED">The third line states that there are no other optional targets that are valid.</mark> You could add `\["cum covid hosp"\]` if you wanted to allow that target, but not require it.
+
+![Some lines of code in the tasks.json file](../images/tasks_schema_2.png)  
+
+### 5.3. Defining the `"horizon"`:  
+- The `horizon` defines the difference between the `target_date` and the `origin_date` in time units specified by the hub (these could be days, weeks, or months).
+- <mark style="background-color: #32E331">The second line indicates that no horizons are required.</mark>  
+- <mark style="background-color: #38C7ED">The third line states that the forecast can be for up to 6 days **before** the `origin_date`, and up to 14 days **after** the `origin_date`.</mark>  
+
+![More lines of code in the tasks.json file](../images/tasks_schema_3.png)  
 
