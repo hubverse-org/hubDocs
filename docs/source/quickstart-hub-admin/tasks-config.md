@@ -34,23 +34,70 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 
 Open `tasks.json` and read the explanations below on what these lines of code stand for:  
 
-### 5.1. Defining the `"round_id"` and `"origin_date"` *(starting point)*:  
-- The <mark style="background-color: #32E331">code highlighted in green</mark> states that the *round identifier* is encoded by a *task id* variable in the data.  
-- The <mark style="background-color: #38C7ED">code highlighted in light blue</mark> states that the *round identifier* is `"origin_date"`.  
-- The <mark style="background-color: #FFE331">lines of code highlighted in yellow</mark> state that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`).  
+### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
+- <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
+- <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.
+- `task_ids` includes the variables `origin_date`, `target`, `horizon`, and `location`.  
+- <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`).  
 
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
 
-### 5.2. Defining the `"target"`:  
-- <mark style="background-color: #32E331">The second line states that `"inc covid hosp"` is the required target.</mark> Additional required targets could be added here.  
-- <mark style="background-color: #38C7ED">The third line states that there are no other optional targets that are valid.</mark> You could add `["cum covid hosp"]` if you wanted to allow that target, but not require it.
+### 5.2. Setting the `"target"`:  
+- <mark style="background-color: #32E331">The second line</mark> states that `"inc covid hosp"` is the required target. Additional required targets could be added here.  
+- <mark style="background-color: #38C7ED">The third line</mark> states that there are no other optional targets that are valid. You could add `["cum covid hosp"]` if you wanted to allow that target, but not require it.  
 
 ![Some lines of code in the tasks.json file](../images/tasks_schema_2.png)  
 
-### 5.3. Defining the `"horizon"`:  
-- The `horizon` defines the difference between the `target_date` and the `origin_date` in time units specified by the hub (these could be days, weeks, or months).
-- <mark style="background-color: #32E331">The second line indicates that no horizons are required.</mark>  
-- <mark style="background-color: #38C7ED">The third line states that the forecast can be for up to 6 days **before** the `origin_date`, and up to 14 days **after** the `origin_date`.</mark>  
+### 5.3. Setting up the `"horizon"`:  
+- The `horizon` refers to the difference between the `target_date` and the `origin_date` in time units specified by the hub (these could be days, weeks, or months).  
+- <mark style="background-color: #32E331">The second line</mark> indicates that no horizons are required.  
+- <mark style="background-color: #38C7ED">The third line</mark> states that the forecast can be for up to 6 days **before** the `origin_date`, and up to 14 days **after** the `origin_date`.  
 
 ![More lines of code in the tasks.json file](../images/tasks_schema_3.png)  
+
+### 5.4. Establishing the `"location"`:  
+- The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
+- <mark style="background-color: #32E331">The second line</mark> states that no particular location is required.  
+- <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.    
+
+![Even more lines of code in the tasks.json file](../images/tasks_schema_4.png)  
+
+### 5.5. Defining `"output_type"`:  
+- The `output_type` is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`.  
+
+#### 5.5.1. Setting the `"mean"`:  
+- <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
+- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. In this example, the mean is optional, not required.  
+- <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
+
+![Some more lines of code in the tasks.json file](../images/tasks_schema_5-1.png)  
+
+#### 5.5.2. Setting up `"quantile"`:  
+- <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
+- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.010` to `0.990`.  
+- <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+
+![And more lines of code in the tasks.json file](../images/tasks_schema_5-2.png)  
+
+### 5.6. Instituting `"target_metadata"`:  
+- `"target_metadata"` defines the characteristics of each unique `target`.  
+- <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
+- <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
+- <mark style="background-color: #38C7ED">`"target_units"` indicates</mark> the unit of observation used for this target.  In this instance, the unit is count.  
+- <mark style="background-color: #F50088">`"target_keys"` must match</mark> a target set in `task_ids`, to appropriately identify it.  In this instance, the target is `"inc covid hosp"`.  
+- The `"description"` is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
+- <mark style="background-color: #FF4D18">The `"target_type"` defines</mark> the target's statistical data type. In this instance, the target uses discrete data.  
+- <mark style="background-color: #FFE331">`"is_step_ahead"` indicates</mark> whether the target is part of a sequence of values.  In this instance, it is.  
+- <mark style="background-color: #32E331">`"time_unit"` defines</mark> the units of the time steps. In this case, it is days.  
+
+![Target metadata lines of code in the tasks.json file](../images/tasks_schema_6.png)  
+
+### 5.7. Setting up `"submissions_due"`:  
+- `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub.  
+- <mark style="background-color: #FFE331">`relative_to` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  
+- <mark style="background-color: #32E331">`"start"` is a number</mark> used to calculate the beginning of the submission period, based on the `origin_date`. In this example, the start date is six days **prior** to `origin_date`.  
+- <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.
+- For instance, as was mentioned before, in this file, `2022-11-28` is allowed as an `origin_date`. In this case, submissions are due between "2022-11-22" (six days prior) and "2022-11-29" (one day after).  
+
+![Last lines of code in the tasks.json file](../images/tasks_schema_7.png)  
 
