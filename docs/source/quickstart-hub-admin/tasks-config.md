@@ -12,7 +12,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 In your source panel (upper left hand panel), you should see the code below. A description of each line of code in `tasks.json` can be found [here](../user-guide/hub-config.md#model-tasks-tasks-json-interactive-schema).  
 
-![Screenshot of how to open tasks.json file in RStudio](../images/tasks_schema_0.png)  
+![Screenshot of the code in the tasks.json file](../images/tasks_schema_0.png)  
 
 This `tasks.json` file serves as a template, and has very few values filled out, which gives the user flexibility to adapt the Hub to their own needs. Nevertheless, in order to learn how to properly use this schema, we will use a "premade" `tasks.json` file from the [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) that already has values filled in, which will better illustrate what should go in each section.  
 

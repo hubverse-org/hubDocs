@@ -30,6 +30,9 @@ quickstart-hub-admin/intro.md
 quickstart-hub-admin/getting-started.md
 quickstart-hub-admin/setting-up.md
 quickstart-hub-admin/tasks-config.md
+quickstart-hub-admin/model-metadata-schema.md
+quickstart-hub-admin/uploading-validating.md
+quickstart-hub-admin/using-hub.md
 ```
 
 ```{toctree}
