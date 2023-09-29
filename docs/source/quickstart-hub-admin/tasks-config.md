@@ -1,6 +1,6 @@
 # Configuring tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](../user-guide/hub-config.md#model-tasks-tasks-json-interactive-schema) file, which specifies the model tasks (task ids and targets) as well as model output types. A detailed definition of modeling tasks can be found [here](../user-guide/tasks.md).  
+Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model_tasks_schema) file, which specifies the model tasks (task ids and targets) as well as model output types. A detailed definition of modeling tasks can be found [here](../user-guide/tasks.md).  
 
 ## Step 1: Open `tasks.json`  
 
@@ -10,7 +10,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 ## Step 2: Examine the `tasks.json` file  
 
-In your source panel (upper left hand panel), you should see the code below. A description of each line of code in `tasks.json` can be found [here](../user-guide/hub-config.md#model-tasks-tasks-json-interactive-schema).  
+In your source panel (upper left hand panel), you should see the code below. A description of each line of code in `tasks.json` can be found [here](#model_tasks_schema).  
 
 ![Screenshot of the code in the tasks.json file](../images/tasks_schema_0.png)  
 
@@ -28,7 +28,7 @@ Download the `tasks.json` file from the Simple Forecast Hub Example by going [he
 
 ![Screenshot of how to download a tasks.json file from GitHub](../images/tasks_download.png)  
 
-Save the file in the `hub-cofig` folder (which is [in your repository on your local computer](getting-started.md#step-4-clone-your-repository)). This new file should replace the existing `tasks.json` file that was in this folder.  
+Save the file in the `hub-cofig` folder (which is [in your repository on your local computer](#clone_repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
 
 ## Step 5: Examine the new `tasks.json` file  
 
@@ -58,7 +58,7 @@ Open `tasks.json` and read the explanations below on what these lines of code st
 ### 5.4. Establishing the `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required.  
-- <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.    
+- <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.  
 
 ![Even more lines of code in the tasks.json file](../images/tasks_schema_4.png)  
 

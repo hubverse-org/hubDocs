@@ -32,7 +32,10 @@ Your simple hub repository is now ready to be used! You created a simple hub and
 - [x] Uploaded modified files from your local computer to GitHub
 - [x] Validated config files
 
-![Screenshot showing directory of simple files on local computer and GitHub](../images/simple-hub_directory.png)  
+```{image} ../images/simple-hub_directory.png
+:alt: Screenshot showing directory of simple files on local computer and GitHub
+:class: noborder
+```
 
 Next, it is time to start using your modeling hub.  
 

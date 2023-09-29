@@ -30,6 +30,7 @@ The files withing the `hub-config` directory specify general configurations for 
 
 The administrative hub configuration file contains global administrative settings that are expected to remain fixed throughout a hub’s existence and applies to all rounds in a hub.
 
+(hub_admin_config)=
 ### Hub administrative configuration (`admin.json`) Interactive Schema
 
 #### Schema Version: {{schema_version}}
@@ -46,9 +47,9 @@ The administrative hub configuration file contains global administrative setting
 
 (tasks_metadata)=
 ## Hub model task configuration (`tasks.json` file)
-The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can vary from a simple forecast hub (see [US Forecast Hub example](/format/intro-data-formats.md) to a more complex round related scenario hub (see [US Scenario Modeling Hub example](/format/intro-data-formats.md)).
+The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can vary from a simple forecast hub (see [US Forecast Hub example](/user-guide/intro-data-formats.md) to a more complex round related scenario hub (see [US Scenario Modeling Hub example](/user-guide/intro-data-formats.md)).
 
-
+(model_tasks_schema)=
 ### Model Tasks (`tasks.json`) Interactive Schema
 
 #### Schema Version: {{schema_version}}

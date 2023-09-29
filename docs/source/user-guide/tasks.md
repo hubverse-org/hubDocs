@@ -29,7 +29,7 @@ The figure shows that Hub metadata and target data are specified by the hub itse
 
 Task ID variables can be thought of as columns of a tabular representation in a model output file, where a combination of values of task ID variables would uniquely define a row of data. 
 
-We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks-metadata) as a `target_key`). In our [Running Example 1](running-examples), the task ID variables are `target`, `location`, `origin_date`, and `horizon`. In this example, `target` is the target key. In other examples, (such as [Running Example 3](running-examples)) more than one variable can serve as target keys together.
+We note that some task ID variables are special in that they conceptually define a modeling "target" (these are referred to in the [tasks metadata](tasks_metadata) as a `target_key`). In our [Running Example 1](running-examples), the task ID variables are `target`, `location`, `origin_date`, and `horizon`. In this example, `target` is the target key. In other examples, (such as [Running Example 3](running-examples)) more than one variable can serve as target keys together.
 
 Some task ID variables serve specific purposes. For example, every hub must have a single task ID variable that uniquely defines a submission round. It has become a convention to use a task ID like `origin_date` or `forecast_date` for this purpose, although in practice hubs could use other task ID variables for this  purpose. In [Running Example 1](running-examples), this task ID is `origin_date`. Additionally, to plot forecasts using standard functionality in the `hubUtils` package for hubs with step-ahead short term predictions, hubs must have either `origin_date` and `horizon` task ID or a `target_date` task ID.
 
@@ -39,8 +39,8 @@ In general, there are no restrictions on what task ID variables may be named, ho
 * `forecast_date`: usually defines the date that a model is run to produce a forecast.
 * `scenario_id`: a unique identifier for a scenario
 * `location`: a unique identifier for a location
-* `target`: a unique identifier for the target. It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the `target_metadata` section of the [tasks metadata](tasks-metadata).
-* `target_variable`/`target_outcome`: task IDs making up unique identifiers of a two-part target. These task can be used in hubs that want to split up the definition of a target across two variables. In this situation, both task IDs eill de specified as target keys in the `target_metadata` section of the [tasks metadata](tasks-metadata).
+* `target`: a unique identifier for the target. It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the `target_metadata` section of the [tasks metadata](tasks_metadata).
+* `target_variable`/`target_outcome`: task IDs making up unique identifiers of a two-part target. These task can be used in hubs that want to split up the definition of a target across two variables. In this situation, both task IDs eill de specified as target keys in the `target_metadata` section of the [tasks metadata](tasks_metadata).
 * `target_date`/`target_end_date`: for short-term forecasts, the synonymous task IDs `target_date`/`target_end_date` specify the date of occurrence of the outcome of interest. For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the target_date is 2022-07-15.
 * `horizon`: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
 * `age_group`: a unique identifier for an age group

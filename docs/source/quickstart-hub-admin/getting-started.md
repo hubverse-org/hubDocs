@@ -16,12 +16,21 @@ Go to [hubTemplate](https://github.com/Infectious-Disease-Modeling-Hubs/hubTempl
 
 Enter a name for your repository.  You can use any name.  Then click on "Create repository".  
 
-![Naming your repository on GitHub](../images/repo_nam.png)  
+```{image} ../images/repo_nam.png
+:alt: Naming your repository on GitHub
+:class: smaller
+```
 
-This repository ("repo") will be saved on your GitHub account.  
+&nbsp;
+&nbsp;
+- This repository ("repo") will be saved on your GitHub account.  
 
-![Example of saved repository](../images/repo_woman.png)  
+```{image} ../images/repo_woman.png
+:alt: Example of saved repository
+:class: smaller
+```
 
+(clone_repo)=
 ## Step 4: Clone your repository  
 
 Clone the repo to your computer so that you can work with it locally.  GitHub has directions [here](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).  
@@ -29,3 +38,4 @@ Clone the repo to your computer so that you can work with it locally.  GitHub ha
 ## Congratulations!  
 
 You have just created your first hub repository from the Hubverse. Read about the structure of hub repositories [here](../user-guide/hub-structure.md) and take some time to explore the repository on your computer.  
+

@@ -12,7 +12,7 @@ The [`hubTemplate`](https://github.com/Infectious-Disease-Modeling-Hubs/hubTempl
 
 ### [Example hubs](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=)  
 
-The [example Hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=) provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](software.md). 
+The [example Hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=) provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](../user-guide/software.md). 
 
 #### 1. [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub)  
 The [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), but has been modified to provide examples of nowcasts.  
@@ -26,9 +26,9 @@ The [Complex Scenario Hub Example](https://github.com/Infectious-Disease-Modelin
 
 ### [Schema files](https://github.com/Infectious-Disease-Modeling-Hubs/schemas)  
 
-To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
+To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](../user-guide/hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
 
-### [Software for modeling hubs](software.md)  
+### [Software for modeling hubs](../user-guide/software.md)  
 
 The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of tools designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models.  
 
