@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'Modeling Hub Documentation'
-copyright = '2022, Consortium of Infectious Disease Modeling Hubs'
+copyright = '2023, Consortium of Infectious Disease Modeling Hubs'
 author = 'Consortium of Infectious Disease Modeling Hubs'
 
 release = '0.1'

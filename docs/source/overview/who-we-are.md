@@ -20,3 +20,6 @@ Funding supporting this work from:
    Centers for Disease Control and Prevention, Contract #75D30122C12920, August 2022 - August 2023
  - Sole-source contract to support hub infrastructure development:
    Centers for Disease Control and Prevention, Contract #75D30121P10027, February 2021 - February 2022
+ - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since July 2022: 
+   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.  
+   
