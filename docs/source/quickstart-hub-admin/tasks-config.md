@@ -34,7 +34,7 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 
 Open `tasks.json` and explore the content and structure. Some key concepts are defined [here](../overview/definitions.md), and additional explanations are offered below:  
 
-```{admonition} `Important terms`
+```{admonition} Important terms
 * `schema_version`: 
 * `rounds`: 
 * `round_id`: 
@@ -45,7 +45,7 @@ Open `tasks.json` and explore the content and structure. Some key concepts are d
 * `horizon`: 
 * `location`: 
 ```
-```
+
 Now, read below for explanations on what these lines of code stand for:  
 
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
