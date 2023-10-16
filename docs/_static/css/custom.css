@@ -52,5 +52,7 @@ figcaption {
 
 code.literal {
     color: #330066 !important;
+    background-color: inherit !important;
 }
+
 
