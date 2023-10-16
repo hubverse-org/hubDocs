@@ -26,13 +26,13 @@ This technical readme should be stored on your hub. You will need to share this 
 
 ## Accepting forecasts  
 
-Before you put out the word that you are accepting submissions of forecasts and give a date of when the submissions are due, you should be prepared to accept the data.  The [`hubValidations`](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
+Before you put out the word that you are accepting submissions of forecasts and give a date of when the submissions are due, you should be prepared to accept the data.  The [`hubValidations`](https://infectious-disease-modeling-hubs.github.io/hubValidations/) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
 
 ## Looking at the data  
 Once you have collected some forecasts, you will want to explore the data. [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) provides a set of utility functions for downloading, plotting, and scoring forecasts and truth data from modeling hubs.  
 
 ## Building ensembles  
-[`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, or mode.  
+[`hubEnsembles`](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, or mode.  
 
 A [vignette](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-scenario-hub/blob/main/example_workflow.Rmd) is available that details the workflow needed for creating a sample hub.  
 
