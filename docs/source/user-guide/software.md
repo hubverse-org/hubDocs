@@ -14,5 +14,7 @@ The goal of `hubUtils` is to provide a set of utility functions for downloading,
 
 The `hubValidations` repository facilitates the implementation of general validation rules that are enforced on submissions in the form of pull requests to hub repositories. You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubValidations).  
 
+## [`hubVis`](https://github.com/Infectious-Disease-Modeling-Hubs/hubVis)  
 
+The goal of `hubVis` is to provide plotting methods for hub model outputs in order to synthesize and visualize model submissions. You can find the complete package and instructions for use [here]((https://github.com/Infectious-Disease-Modeling-Hubs/hubVis).  
 

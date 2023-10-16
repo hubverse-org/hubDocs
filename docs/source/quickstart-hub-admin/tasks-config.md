@@ -34,25 +34,22 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 
 Open `tasks.json` and explore the content and structure. Some key concepts are defined [here](../overview/definitions.md), and additional explanations are offered below:  
 
-```{admonition} Important terms
-* `schema_version`: 
-* `rounds`: 
-* `round_id`: 
-* `model_tasks`: 
-* `task_ids`: 
-* `origin_date`: 
-* `target`: 
-* `horizon`: 
-* `location`: 
-```
+* `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
+* `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
+* `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.
+* `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
+* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [here](../user-guide/tasks.md#usage-of-task-id-variables).  
+* `horizon`: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
+* `location`: The geographic identifier, such as country codes or FIPS state/county level codes.  
+* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [here](../user-guide/model-output.md#formats-of-model-output).  
 
-Now, read below for explanations on what these lines of code stand for:  
+Now, read below for details on some of the lines of code in this file:  
 
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
 - <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.
 - `task_ids` includes the variables `origin_date`, `target`, `horizon`, and `location`.  
-- <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`).  
+- <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`). To be clear, no specific `origin_date` is required because every submission will have a different `origin_date` as each submission corresponds to a different forecasting time period (compare this with `location`, where some specific locations may be required for every submission.  
 
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
 
@@ -71,13 +68,13 @@ Now, read below for explanations on what these lines of code stand for:
 
 ### 5.4. Establishing the `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
-- <mark style="background-color: #32E331">The second line</mark> states that no particular location is required.  
+- <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
 - <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.  
 
 ![Even more lines of code in the tasks.json file](../images/tasks_schema_4.png)  
 
-### 5.5. Defining `"output_type"`:  
-- The `output_type` is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`.  
+### 5.5. Defining [`"output_type"`](../user-guide/model-output.md#formats-of-model-output):  
+- The [`output_type`](../user-guide/model-output.md#formats-of-model-output) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`.  
 
 #### 5.5.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  

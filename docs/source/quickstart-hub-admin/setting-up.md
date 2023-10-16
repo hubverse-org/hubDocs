@@ -4,7 +4,7 @@ Now we will go through the steps needed to set up and configure your modeling hu
 
 ## 1. Configuring your Modeling Hub  
 
-The files within the `hub-config directory` specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Details about these files can be found [here](../user-guide/hub-config.md).  
+The files within the `hub-config` directory specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Details about these files can be found [here](../user-guide/hub-config.md).  
 
 In order to work with the code in your hub, it is helpful to use software built for this purpose. In our example, we will be using RStudio to work with the code. If you choose to use RStudio, you will need to have R and Rstudio loaded on your computer. Here are directions for downloading  [R](https://cran.rstudio.com/) and [RStudio](https://posit.co/download/rstudio-desktop/).  
 
