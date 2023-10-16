@@ -50,7 +50,7 @@ figcaption {
   text-indent: 2em;
 }
 
-code {
-  color: #330066;
+code.literal {
+    color: #330066 !important;
 }
 
