@@ -104,7 +104,7 @@ Now, read below for details on some of the lines of code in this file:
 ![Target metadata lines of code in the tasks.json file](../images/tasks_schema_6.png)  
 
 ### 5.7. Setting up `"submissions_due"`:  
-- `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub.  
+- `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
 - <mark style="background-color: #FFE331">`relative_to` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  
 - <mark style="background-color: #32E331">`"start"` is a number</mark> used to calculate the beginning of the submission period, based on the `origin_date`. In this example, the start date is six days **prior** to `origin_date`.  
 - <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.
