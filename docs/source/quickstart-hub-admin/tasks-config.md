@@ -32,7 +32,21 @@ Save the file in the `hub-cofig` folder (which is [in your repository on your lo
 
 ## Step 5: Examine the new `tasks.json` file  
 
-Open `tasks.json` and read the explanations below on what these lines of code stand for:  
+Open `tasks.json` and explore the content and structure. Some key concepts are defined [here](../overview/definitions.md), and additional explanations are offered below:  
+
+```{admonition} `Important terms`
+* `schema_version`: 
+* `rounds`: 
+* `round_id`: 
+* `model_tasks`: 
+* `task_ids`: 
+* `origin_date`: 
+* `target`: 
+* `horizon`: 
+* `location`: 
+```
+```
+Now, read below for explanations on what these lines of code stand for:  
 
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  

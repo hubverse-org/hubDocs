@@ -16,8 +16,16 @@ a quantitative outcome of interest for a modeling Hub. For example, "incident ca
 a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, as for forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Other tasks may be more variable, as for scenario hubs that model hypothetical futures with differnt assumptions in different modeling rounds.
 ```
 
-```{admonition} Team 
+```{admonition} Team
 a group of individuals developing modeling software to generate models in response to tasks coordinated by modeling hubs.
+```
+
+```{admonition} Metadata
+a file or series of files that have structured information that describes general characteristics of the object they reference. For instance, model metadata files describe the characteristics of models contributing to a hub.
+```
+
+```{admonition} Schema
+a declarative format used to organize and set the structure of other data including required and optional fields. Schema define the specifications for the configuration files that are required to be present in a modeling hub.
 ```
 
 ```{admonition} Mathematical Model formulation/structure
