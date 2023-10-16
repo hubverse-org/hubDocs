@@ -2,6 +2,8 @@
 
 This quickstart guide provides instructions for creating and hosting a simple hub. Before diving into it step by step, we present a brief overview, and some pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  
 
+**Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../overview/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".  
+
 ## Overview  
 
 The simplest way to set up a modeling hub is to directly clone one from the [template hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=&type=template&language=&sort=) or to use one of the [example hub repositories](https://github.com/Infectious-Disease-Modeling-Hubs?q=example&type=all&language=&sort=), which are based on prior use cases. The template hubs provide a skeletal structure of a hub without any data in them, whereas the example hubs provide minimal working examples of hubs and could be used for ideas of how to set up configuration files for new projects.  

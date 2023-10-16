@@ -1,2 +1,0 @@
-# Loading model output data
-

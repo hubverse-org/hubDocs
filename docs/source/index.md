@@ -37,17 +37,6 @@ quickstart-hub-admin/using-hub.md
 
 ```{toctree}
 :maxdepth: 2
-:caption: Quickstart - using hub data
-:hidden:
-quickstart-hub-data/intro.md
-quickstart-hub-data/loading-output.md
-quickstart-hub-data/plotting.md
-quickstart-hub-data/evaluate-score.md
-quickstart-hub-data/creating-ensembles.md
-```
-
-```{toctree}
-:maxdepth: 2
 :caption: User Guide
 :hidden:
 user-guide/intro-data-formats.md
