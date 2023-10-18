@@ -16,5 +16,5 @@ The `hubValidations` repository facilitates the implementation of general valida
 
 ## [`hubVis`](https://github.com/Infectious-Disease-Modeling-Hubs/hubVis)  
 
-The goal of `hubVis` is to provide plotting methods for hub model outputs in order to synthesize and visualize model submissions. You can find the complete package and instructions for use [here]((https://github.com/Infectious-Disease-Modeling-Hubs/hubVis).  
+The goal of `hubVis` is to provide plotting methods for hub model outputs in order to synthesize and visualize model submissions. You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubVis).  
 
