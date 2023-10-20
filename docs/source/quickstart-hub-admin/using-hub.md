@@ -24,6 +24,8 @@ You now have a repository to collect forecasts, and you need to populate it. You
 
 This technical readme should be stored on your hub. You will need to share this document with modelers when requesting submissions of forecasts.  
 
+[Here](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) is an example of a technical readme that is used by the US COVID-19 Forecast Hub.
+
 ## Accepting forecasts  
 
 Before you put out the word that you are accepting submissions of forecasts and give a date of when the submissions are due, you should be prepared to accept the data.  The [`hubValidations`](https://infectious-disease-modeling-hubs.github.io/hubValidations/) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
