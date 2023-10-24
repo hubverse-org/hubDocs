@@ -28,7 +28,7 @@ Click on the `hub-config` folder and open `admin.json` by clicking on it. It wil
 
 ### Step 3: Examine the file  
 
-You can find a description of each line of code in the  `admin.json` file [here](#hub_admin_config). In the example presented below, you can check the following details:  
+You can find a description of each line of code in the  `admin.json` file [here](../user-guide/hub-config.md). In the example presented below, you can check the following details:  
 - The maintainer is: "Simple Modeling Hub"  
 - The contact person is: S Brown (sbrown@xxx.com)  
 - The file format for submissions is" "csv"  
