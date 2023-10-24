@@ -1,6 +1,18 @@
 # Introduction  
 
-This quickstart guide provides instructions for creating and hosting a simple hub. Before diving into it step by step, we present a brief overview, and some pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  
+This quickstart guide provides instructions for creating and hosting a simple hub. 
+
+It will provide step by step directions to  
+- [] Create a hub repository
+- [] Clone the hub repository to your local computer
+- [] Configure the modeling hub by: 
+  - [] Modifying `admin.json`
+  - [] Modifying `tasks.json`
+- [] Upload modified files from your local computer to GitHub
+- [] Validate config files
+
+
+Before diving into it step by step, we present a brief overview, and some pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  
 
 **Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../overview/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".  
 
