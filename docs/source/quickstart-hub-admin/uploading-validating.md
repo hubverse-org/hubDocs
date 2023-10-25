@@ -15,7 +15,18 @@ Once you have uploaded those two files onto your GitHub repository, you will not
 Now you should validate the config files, to be sure they are properly functional. You can use the `validate_config` function from [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/index.html) to check whether Hub config files are valid. The steps are as follows:  
 
 1. First, you need to install the package `hubUtils`. Instructions for installing it are found [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils#installation).  
-2. Next, you can validate the config files by following [these instructions](https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html#validate-config-files).  
+2. Next, you need to validate the config files. Detailed instructions and explanations can be found [here](https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html#validate-config-files), and here is sample code you can use to validate the config files:  
+```
+library(hubUtils)
+
+validate_config(
+    hub_path = ".",
+    config = c("tasks", "admin"), 
+    config_path = NULL, 
+    schema_version = "from_config", 
+    branch = "main"
+)
+```
 
 Below is an example using the simple hub. You can see that the config files were successfully validated.  
 
