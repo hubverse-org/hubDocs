@@ -40,8 +40,6 @@ quickstart-hub-admin/using-hub.md
 :caption: User Guide
 :hidden:
 user-guide/intro-data-formats.md
-user-guide/prerequisites.md
-user-guide/setting-repos.md
 user-guide/hub-structure.md
 user-guide/tasks.md
 user-guide/hub-config.md
@@ -49,7 +47,6 @@ user-guide/model-metadata.md
 user-guide/model-output.md
 user-guide/target-data.md
 user-guide/model-abstracts.md
-user-guide/examples.md
 user-guide/software.md
 ```
 
@@ -57,8 +54,5 @@ user-guide/software.md
 :maxdepth: 2
 :caption: Additional Information
 :hidden:
-more-info/getting-help.md
-more-info/release-notes.md
 more-info/presentations.md
-more-info/future.md
 ```
