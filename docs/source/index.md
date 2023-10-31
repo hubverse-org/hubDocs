@@ -41,8 +41,8 @@ quickstart-hub-admin/using-hub.md
 :hidden:
 user-guide/intro-data-formats.md
 user-guide/hub-structure.md
-user-guide/tasks.md
 user-guide/hub-config.md
+user-guide/tasks.md
 user-guide/model-metadata.md
 user-guide/model-output.md
 user-guide/target-data.md
