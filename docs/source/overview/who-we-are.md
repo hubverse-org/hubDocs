@@ -11,3 +11,15 @@ Building off of systems designed for influenza forecasting challenges led by the
  - [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe)
  - [German Hospitalization Nowcast Hub](https://github.com/KITmetricslab/hospitalization-nowcast-hub)
  - [US Influenza FluSight 2022 Challenge](https://github.com/cdcepi/Flusight-forecast-data)
+
+
+Funding supporting this work from:
+ - University of Massachusetts as Influenza Forecasting CoE, with COVID supplements since 2020: 
+   Centers for Disease Control and Prevention, Award #U01IP001122, September 2019 - August 2024
+ - Sole-source contract to support hub infrastructure: 
+   Centers for Disease Control and Prevention, Contract #75D30122C12920, August 2022 - August 2023
+ - Sole-source contract to support hub infrastructure development:
+   Centers for Disease Control and Prevention, Contract #75D30121P10027, February 2021 - February 2022
+ - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since June 2022: 
+   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.  
+   

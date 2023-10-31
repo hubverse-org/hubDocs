@@ -6,7 +6,7 @@ This project is under active development.
 
 The hubverse is a collection of open-source software and data tools that enables collaborative forecasting exercises. It is developed by **the Consortium of Infectious Disease Modeling Hubs**, a collaboration of research teams and public health professionals that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed the hubverse for groups that are running collaborative modeling hub efforts. This website documents the requirements for using the hubverse.  
 
-The [overview](overview/who-we-are.md) section provides an introduction to the project, and the [getting started](overview/getting-started.md) section outlines how to set up a working hub, as well as the different resources created by this project.  
+The [overview](overview/who-we-are.md) section provides an introduction to the project, and the [getting started](quickstart-hub-admin/getting-started.md) section outlines how to set up a working hub, as well as the different resources created by this project.  
 
 
 
@@ -18,30 +18,41 @@ The [overview](overview/who-we-are.md) section provides an introduction to the p
 overview/who-we-are.md
 overview/scope.md
 overview/definitions.md
-overview/getting-started.md
-overview/software.md
-overview/presentations.md
+overview/data-storage.md
 overview/contribute.md
 ```
 
 ```{toctree}
 :maxdepth: 2
-:caption: Data formats
+:caption: Quickstart - hub administration
 :hidden:
-format/intro-data-formats.md
-format/hub-structure.md
-format/tasks.md
-format/hub-config.md
-format/model-metadata.md
-format/model-output.md
-format/target-data.md
-format/model-abstracts.md
+quickstart-hub-admin/intro.md
+quickstart-hub-admin/getting-started.md
+quickstart-hub-admin/setting-up.md
+quickstart-hub-admin/tasks-config.md
+quickstart-hub-admin/model-metadata-schema.md
+quickstart-hub-admin/uploading-validating.md
+quickstart-hub-admin/using-hub.md
 ```
 
 ```{toctree}
 :maxdepth: 2
-:caption: Data validation
+:caption: User Guide
 :hidden:
-validation/validation.md
+user-guide/intro-data-formats.md
+user-guide/hub-structure.md
+user-guide/hub-config.md
+user-guide/tasks.md
+user-guide/model-metadata.md
+user-guide/model-output.md
+user-guide/target-data.md
+user-guide/model-abstracts.md
+user-guide/software.md
 ```
 
+```{toctree}
+:maxdepth: 2
+:caption: Additional Information
+:hidden:
+more-info/presentations.md
+```

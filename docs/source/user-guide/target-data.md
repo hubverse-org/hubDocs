@@ -1,5 +1,3 @@
-
-(target-data)=
 # Target data
 
 ## Purpose
@@ -41,7 +39,7 @@ To allow for reproducible analyses in the event of revisions to previously repor
 
 
 ## Calculating modeling targets
-For any modeling Hubs with targets that can be calculated from the truth data, functions should be specified that map time series truth data in the tabular format discussed above to a value of the modeling target for each unique combination of values in the [“task id” columns](task-id-vars). This function should produce data in a tabular format with columns for all task id variables and a value column. These outputs can be consumed by later tools in our pipeline, such as evaluation tools.
+For any modeling Hubs with targets that can be calculated from the truth data, functions should be specified that map time series truth data in the tabular format discussed above to a value of the modeling target for each unique combination of values in the [“task id” columns](task_id_vars). This function should produce data in a tabular format with columns for all task id variables and a value column. These outputs can be consumed by later tools in our pipeline, such as evaluation tools.
 
 
 We illustrate with our second running example: a hypothetical forecasting exercise for influenza hospitalization rates per 100,000 population by age group at the state level in the US, with short-term incidence and “seasonal” targets. Forecasts are requested for each combination of the following variables:
