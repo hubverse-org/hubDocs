@@ -59,7 +59,7 @@ This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 ```
 
 
-```{admonition} Example 3: [US COVID-19 Scenario Modeling Hub](https://covid19scenariomodelinghub.org/)
+```{admonition} Example 3: Multiple target keys
 Projections are requested for each combination of the following variables.
 
 **Task ID variables**

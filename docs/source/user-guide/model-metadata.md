@@ -15,6 +15,8 @@ General goals for model metadata are that
 1. explicit requirements for model metadata should be minimal  
 2. hubs may set fields to be required as necessary for that hub.  
 
+Note: Model metadata is a required feature of a hub and describes the characteristics of models contributing to a Hub, while [Model abstracts](../user-guide/model-abstracts.md) is an optional feature of a hub that is useful for keeping track of round-specific detailed narrative descriptions modeling methods and results.
+
 ## Recommended Standards  
 Many hubs will use a common set of metadata fields, which we place in the following template schema. Individual hubs may want to add additional metadata fields. These should be selected with the goal of specifying fields that are likely to remain stable across rounds, leaving model attributes that are likely to change across rounds to be described in round-specific abstracts. For consistency across Hubs, we encourage the use of a common set of metadata fields with standard names and definitions. We describe fields that have been used in past Hubs in a second section below the template file.  
 

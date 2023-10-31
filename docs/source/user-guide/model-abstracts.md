@@ -15,3 +15,5 @@ There is one directory for each team and within that, possibly multiple files, o
 ## Purpose
 
 The `model-abstracts` directory is an optional feature of a hub that may be useful to keep track of round-specific detailed narrative descriptions of modeling methods and results, e.g. describing modeling assumptions specific to one modeling round. Note: as part of a separate workflow, hubs may find it helpful to associate round-specific metadata with the corresponding model output files.
+
+Note: [Model metadata](../user-guide/model-metadata.md) is a required feature of a hub and describes the characteristics of models contributing to a Hub, while Model abstracts is an optional feature of a hub that is useful for keeping track of round-specific detailed narrative descriptions modeling methods and results.
