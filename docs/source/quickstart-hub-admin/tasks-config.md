@@ -24,11 +24,11 @@ Make sure the `tasks.json` file in RStudio is closed, by clicking on the 'x' ico
 
 ## Step 4: Download a premade `tasks.json` file  
 
-Download the `tasks.json` file from the Simple Forecast Hub Example by going [here](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json) and clicking on the *Download Raw File* icon as indicated below.  
+Download the `tasks.json` file from Example Simple Forecast Hub by going [here](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json) and clicking on the *Download Raw File* icon as indicated below.  
 
 ![Screenshot of how to download a tasks.json file from GitHub](../images/tasks_download.png)  
 
-Save the file in the `hub-cofig` folder (which is [in your repository on your local computer](#clone_repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
+Save the file in the `hub-config` folder (which is [in your repository on your local computer](#clone_repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
 
 ## Step 5: Examine the new `tasks.json` file  
 
@@ -54,8 +54,8 @@ Now, read below for details on some of the lines of code in this file:
 ![Some of the initial lines of code in the tasks.json file](../images/tasks_schema_1.png)  
 
 ### 5.2. Setting the `"target"`:  
-- <mark style="background-color: #32E331">The second line</mark> states that `"inc covid hosp"` is the required target. Additional required targets could be added here.  
-- <mark style="background-color: #38C7ED">The third line</mark> states that there are no other optional targets that are valid. You could add `["cum covid hosp"]` if you wanted to allow that target, but not require it.  
+- <mark style="background-color: #32E331">The second line</mark> states that `"inc covid hosp"` for example is the required target. Additional required targets could be added here.  
+- <mark style="background-color: #38C7ED">The third line</mark> states that there are no other optional targets that are valid. You could add `["cum covid hosp"]` for example if you wanted to allow that target, but not require it.  
 
 ![Some lines of code in the tasks.json file](../images/tasks_schema_2.png)  
 
@@ -78,7 +78,7 @@ Now, read below for details on some of the lines of code in this file:
 
 #### 5.5.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. In this example, the mean is optional, not required. If the mean is included, the "output_type_id" should be NA, since "output_type_id" is not used for mean predictions. 
+- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. In this example, the mean is optional, not required. If the mean is included, the `"output_type_id"` should be NA, since `"output_type_id"` is not used for mean predictions. 
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
 ![Some more lines of code in the tasks.json file](../images/tasks_schema_5-1.png)  
