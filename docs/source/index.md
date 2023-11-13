@@ -20,6 +20,7 @@ overview/scope.md
 overview/definitions.md
 overview/data-storage.md
 overview/contribute.md
+overview/cite.md
 ```
 
 ```{toctree}
