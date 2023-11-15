@@ -1,5 +1,4 @@
 # HubEnsembles vignette  
 
-.. raw:: html
-   :file: ../_static/example_workflow.html
+!![HubEnsembles vignette](../_static/example_workflow.html)  
   
