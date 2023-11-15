@@ -56,4 +56,5 @@ user-guide/software.md
 :caption: Additional Information
 :hidden:
 more-info/presentations.md
+more-info/hubEnsembles_vignette.md
 ```
