@@ -36,5 +36,5 @@ Once you have collected some forecasts, you will want to explore the data. [`hub
 ## Building ensembles  
 [`hubEnsembles`](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, or mode.  
 
-A [vignette](../../_static/supplemental/example_workflow.html) is available that details the workflow needed for creating a sample hub.  
+A [vignette](../../_static/example_workflow.html) is available that details the workflow needed for creating a sample hub.  
 
