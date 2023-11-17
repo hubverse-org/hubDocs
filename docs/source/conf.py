@@ -62,6 +62,7 @@ html_theme_options = {
     #"use_edit_page_button": True,
     "use_issues_button": True,
     "use_sidenotes": True,
+    "nnavbar_persistent": ["theme-switcher", "navbar-icon-links"],
 
 }
 

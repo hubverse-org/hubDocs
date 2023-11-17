@@ -12,7 +12,7 @@ The files within the `hub-config` directory specify general configurations for a
 
 ## 2. Hub administrative configuration  
 
-The first file that we will be working with is [`admin.json`](#hub_admin_config). This is the administrative hub configuration file containing generic information about the hub, as well as static configuration settings for downstream tools such as validations, visualizations, etc. **These global administrative settings are expected to remain fixed throughout a hub's existence and apply to all the modeling rounds for a hub.**  
+The first file that we will be working with is [`admin.json`](../user-guide/hub-config.md#hub_admin_config). This is the administrative hub configuration file containing generic information about the hub, as well as static configuration settings for downstream tools such as validations, visualizations, etc. **These global administrative settings are expected to remain fixed throughout a hub's existence and apply to all the modeling rounds for a hub.**  
 
 ### Step 1: Find the repository in RStudio  
 
