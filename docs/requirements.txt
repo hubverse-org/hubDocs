@@ -15,7 +15,7 @@ mdurl==0.1.2
 myst-parser==2.0.0
 packaging==21.3
 pydata-sphinx-theme==0.14.3
-Pygments==2.13.0
+Pygments==2.16.1
 pyparsing==3.0.9
 pytz==2022.6
 PyYAML==6.0
