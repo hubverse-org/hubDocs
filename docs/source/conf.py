@@ -49,8 +49,8 @@ myst_enable_extensions = [
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
-#html_logo = "_static/LOGO-CovidForecastHub_VIRUS-blue.png"
-html_favicon = "forecast-hub-favicon.png"
+#html_logo = "_static/LOGO-hubverse.png"
+html_favicon = "hubverse-favicon.png"
 html_title = "Hubverse"
 html_theme_options = {
     "home_page_in_toc": False,
