@@ -63,7 +63,12 @@ html_theme_options = {
     "use_issues_button": True,
     "use_sidenotes": True,
     #"navbar_persistent": ["theme-switcher", "navbar-icon-links"],
+}
 
+html[data-theme="dark"] {
+
+    /* whatever you want to change */
+    background: black;
 }
 
 # -- Options for EPUB output
