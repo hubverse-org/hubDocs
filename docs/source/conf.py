@@ -65,12 +65,6 @@ html_theme_options = {
     #"navbar_persistent": ["theme-switcher", "navbar-icon-links"],
 }
 
-html[data-theme="dark"] {
-
-    /* whatever you want to change */
-    background: black;
-}
-
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
 
