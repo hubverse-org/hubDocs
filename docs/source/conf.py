@@ -49,20 +49,21 @@ myst_enable_extensions = [
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
-html_logo = "_static/LOGO-hubverse-withtext.png"
-html_favicon = "hubverse-favicon.png"
-html_title = "Hubverse"
+html_logo = 'LOGO-hubverse-withtext.png'
+html_favicon = 'hubverse-favicon.png'
+html_title = 'Hubverse'
 html_theme_options = {
     "home_page_in_toc": False,
     "github_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
     "repository_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
     "repository_branch": "main",
     "path_to_docs": "docs",
-    "use_repository_button": True,
+    "use_repository_button": False,
     #"use_edit_page_button": True,
     "use_issues_button": True,
     "use_sidenotes": True,
     #"navbar_persistent": ["theme-switcher", "navbar-icon-links"],
+    "logo_only": True,
 }
 
 # -- Options for EPUB output
