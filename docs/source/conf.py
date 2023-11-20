@@ -49,7 +49,7 @@ myst_enable_extensions = [
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
-#html_logo = "_static/LOGO-hubverse.png"
+html_logo = "_static/LOGO-hubverse-withtext.png"
 html_favicon = "hubverse-favicon.png"
 html_title = "Hubverse"
 html_theme_options = {
