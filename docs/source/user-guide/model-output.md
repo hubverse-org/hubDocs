@@ -12,6 +12,7 @@ The `model-output` directory in a modeling hub is required to have the following
    * `<round-id1>.csv` (or parquet, etc)
 
 
+(model_output_format)=
 ## Formats of model output
 Model outputs are contributed by teams, and are represented in a rectangular format, where each row corresponds to a unique model output and columns define: (1) the model task, (2) specification of the representation of the model output, and (3) the model output value. More detail about each of these is given in the following points:
 

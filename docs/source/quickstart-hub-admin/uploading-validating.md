@@ -8,14 +8,17 @@ Follow GitHub directions [here](https://docs.github.com/en/repositories/working-
 
 Once you have uploaded those two files onto your GitHub repository, you will notice that they have been updated by looking at the last commit date, as indicated below.  
 
-![Screenshot of GitHub repository page with arrows pointing at time of last commits](../images/github_commits.png)  
+```{image} ../images/github_commits.png
+:alt: Screenshot of GitHub repository page with arrows pointing at time of last commits
+:class: bordered
+```
 
 ## Validating your config files  
 
 Now you should validate the config files, to be sure they are properly functional. You can use the `validate_config` function from [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/index.html) to check whether Hub config files are valid. The steps are as follows:  
 
-1. First, you need to install the package `hubUtils`. Instructions for installing it in R console are found [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils#installation).  
-2. Next, you need to validate the config files. Detailed instructions and explanations can be found [here](https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html#validate-config-files), and following is sample code you can copy to validate the config files:  
+1. First, you need to install the package `hubUtils`. [Here are instructions for installing `hubUtils` in the R console](https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils#installation).  
+2. Next, you need to validate the config files. [Here are detailed instructions and explanations](https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html#validate-config-files), and following is sample code you can copy to validate the config files:  
 ```
 library(hubUtils)
 
@@ -30,7 +33,10 @@ validate_config(
 
 Below is an example using the simple hub. You can see that the config files were successfully validated.  
 
-![Screenshot of code showing validation of config files](../images/validate_simple-hub-config.png)  
+```{image} ../images/validate_simple-hub-config.png
+:alt: Screenshot of code showing validation of config files
+:class: bordered
+```
 
 ## Congratulations!  
 
@@ -45,7 +51,6 @@ Your simple hub repository is now ready to be used! You created a simple hub and
 
 ```{image} ../images/simple-hub_directory.png
 :alt: Screenshot showing directory of simple files on local computer and GitHub
-:class: noborder
 ```
 
 Next, it is time to start using your modeling hub.  

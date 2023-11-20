@@ -25,6 +25,7 @@ name: hub-data-relations
 The figure shows that Hub metadata and target data are specified by the hub itself, along with any necessary functions to calculate scores or "observed values" from target data. Teams provide model output data that must conform with standards identified in the Hub metadata. 
 ```
 
+(task_id_use)=
 ### Usage of task ID variables
 
 Task ID variables can be thought of as columns of a tabular representation in a model output file, where a combination of values of task ID variables would uniquely define a row of data. 

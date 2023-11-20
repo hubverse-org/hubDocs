@@ -49,8 +49,8 @@ myst_enable_extensions = [
 # -- Options for HTML output
 
 html_theme = 'sphinx_book_theme'
-html_logo = 'LOGO-hubverse-withtext.png'
-html_favicon = 'hubverse-favicon.png'
+html_logo = 'images/LOGO-hubverse-withtext.png'
+html_favicon = 'images/hubverse-favicon.png'
 html_title = 'Hubverse'
 html_theme_options = {
     "home_page_in_toc": False,
@@ -63,7 +63,6 @@ html_theme_options = {
     "use_issues_button": True,
     "use_sidenotes": True,
     #"navbar_persistent": ["theme-switcher", "navbar-icon-links"],
-    "logo_only": True,
 }
 
 # -- Options for EPUB output
