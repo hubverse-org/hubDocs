@@ -54,7 +54,7 @@ html_favicon = 'images/hubverse-favicon.png'
 html_title = 'Hubverse'
 html_theme_options = {
     "home_page_in_toc": False,
-    "github_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
+    #"github_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
     "repository_url": "https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs",
     "repository_branch": "main",
     "path_to_docs": "docs",
