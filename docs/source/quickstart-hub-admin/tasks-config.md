@@ -13,7 +13,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 ## Step 2: Examine the `tasks.json` file  
 
-In your source panel (upper left hand panel), you should see the code below. A description of each line of code in `tasks.json` can be found [here](#model_tasks_schema).  
+In your source panel (upper left hand panel), you should see the code below. [Here is a description of each line of code in `tasks.json`](#model_tasks_schema).  
 
 ```{image} ../images/tasks_schema_0.png
 :alt: Screenshot of the code in the tasks.json file
@@ -50,10 +50,10 @@ Open `tasks.json` and explore the content and structure. Some key concepts are d
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
 * `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.
 * `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
-* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [here](#task_id_use).  
+* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task_id_use).  
 * `horizon`: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
 * `location`: The geographic identifier, such as country codes or FIPS state/county level codes.  
-* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [here](#model_output_format).  
+* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model_output_format).  
 
 Now, read below for details on some of the lines of code in this file:  
 
