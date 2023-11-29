@@ -2,7 +2,7 @@
 
 For each model that is submitted to the hub, a yaml metadata file ([what is a yaml file?](https://circleci.com/blog/what-is-yaml-a-beginner-s-guide/)) must be added to the `model-metadata` directory by the modeling teams. A detailed description of the `model-metadata` directory can be found [here](../user-guide/model-metadata.md).  
 
-Many hubs will use a common set of metadata fields. Metadata fields are defined for a hub in the `model-metadata-schema.json`, which specifies the fields that will be required for each team that submits a forecast.  
+Many hubs will use a common set of metadata fields. Metadata fields are defined for a hub in the `model-metadata-schema.json`, which specifies the fields that will be required for each team that submits a model or forecast.  
 
 ## Step 1: Open `model-metadata-schema.json`  
 

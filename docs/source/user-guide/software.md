@@ -4,7 +4,7 @@ To assist users in building a hub, we have developed a software suite with speci
 
 ## [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/)  
 
-The goal of `hubUtils` is to provide a set of utility functions for downloading, plotting, and scoring forecast and truth data from Infectious Disease Modeling Hubs. You can find instructions to download and use the package [here](https://infectious-disease-modeling-hubs.github.io/hubUtils/).  
+The goal of `hubUtils` is to provide a set of utility functions for downloading, plotting, and scoring models (e.g., forecasts) and truth data from Infectious Disease Modeling Hubs. You can find instructions to download and use the package [here](https://infectious-disease-modeling-hubs.github.io/hubUtils/).  
 
 ## [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles)  
 
