@@ -21,6 +21,7 @@ overview/definitions.md
 overview/data-storage.md
 overview/contribute.md
 overview/cite.md
+overview/contact.md
 ```
 
 ```{toctree}
