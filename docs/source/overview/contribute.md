@@ -6,7 +6,7 @@ The Consortium of Infectious Disease Modeling Hubs built *the hubverse* collabor
 
 The hubverse was created for teams to easily create and set-up collaborative modeling hubs, and we benefit from having groups use these tools and tell us about it.
 
-## File issues
+(file_issues)=## File issues
 
 Let us know if something is not working for you or if something could improve. This could be a bug in the code, a case where the tools are not appropriate for your use case, a problem with the documentation, or something else. Issues can be filed in any of the hubverse repositories. You are also welcome to join the discussion on any existing issue in any of the hubverse repositories.
 
