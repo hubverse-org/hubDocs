@@ -10,31 +10,31 @@ The requirements for 'target data' are:
 1. To define what the truth data source is and provide a pointer to the original source in your technical readme document that will be discussed below.  
 2. To decide where to store a copy of the 'target data' on the hub, to describe the 'target data' and to provide a pointer to the copy in your technical readme document that will be discussed below.  
 
-## Technical Readme  
+## Technical ReadMe  
 
-You now have a repository to collect forecasts, and you need to populate it. You will probably do this by requesting forecasts from modelers. A standard way to do this is to create a technical readme that contains submission instructions. The technical readme should include the following concepts, with their corresponding explanations.  
-- Definition of a forecast  
+You now have a repository to collect models (in this example, forecasts), and you need to populate it. You will probably do this by requesting models (e.g., forecasts) from modelers. A standard way to do this is to create a technical ReadMe that contains submission instructions. The technical ReadMe should include the following concepts, with their corresponding explanations.  
+- Definition of a model or forecast  
 - Ground truth data  
 - Data formatting  
-- Forecast file format  
-- Forecast data validation  
+- Model (e.g., forecast) file format  
+- Model (e.g., forecast) data validation  
 - Retractions  
 - Weekly ensemble and visualization deployment  
 - Policy on late submissions  
 
-This technical readme should be stored on your hub. You will need to share this document with modelers when requesting submissions of forecasts.  
+This technical ReadMe should be stored on your hub. You will need to share this document with modelers when requesting submissions of forecasts.  
 
-[Here](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) is an example of a technical readme that is used by the US COVID-19 Forecast Hub.
+[This is an example of a technical ReadMe](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) that is used by the US COVID-19 Forecast Hub.
 
 ## Accepting forecasts  
 
-Before you put out the word that you are accepting submissions of forecasts and give a date of when the submissions are due, you should be prepared to accept the data.  The [`hubValidations`](https://infectious-disease-modeling-hubs.github.io/hubValidations/) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
+Before you put out the word that you are accepting submissions of models (such as forecasts) and before you give a date of when the submissions are due, you should be prepared to accept the data. The [`hubValidations`](https://infectious-disease-modeling-hubs.github.io/hubValidations/) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
 
 ## Looking at the data  
-Once you have collected some forecasts, you will want to explore the data. [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) provides a set of utility functions for downloading, plotting, and scoring forecasts and truth data from modeling hubs.  
+Once you have collected some models, you will want to explore the data. [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/) provides a set of utility functions for downloading, plotting, and scoring models/forecasts and truth data from modeling hubs.  
 
 ## Building ensembles  
 [`hubEnsembles`](https://infectious-disease-modeling-hubs.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, or mode.  
 
-A [vignette](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-scenario-hub/blob/main/example_workflow.Rmd) is available that details the workflow needed for creating a sample hub.  
+A [vignette](../more-info/hubEnsembles_vignette.md) is available that details the workflow needed for creating a sample hub.  
 
