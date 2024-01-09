@@ -11,7 +11,7 @@ Note:  Due to technical issues, we do not currently support json references or y
 ```
 
 ## Purpose
-The files withing the `hub-config` directory specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub configuration files are used for:
+The files within the `hub-config` directory specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub configuration files are used for:
 * Validating model output submissions
    * `tasks.json` file specifies the file format and task id, output type, value combinations (both required or optional) that submitted model output data must adhere to.
    *  `tasks.json` file also specifies the window of submission for each round (with the time zone information in the `admin.json` file). 
