@@ -6,7 +6,8 @@ The Consortium of Infectious Disease Modeling Hubs built *the hubverse* collabor
 
 The hubverse was created for teams to easily create and set-up collaborative modeling hubs, and we benefit from having groups use these tools and tell us about it.
 
-(file_issues)=## File issues
+(file_issues)=
+## File issues
 
 Let us know if something is not working for you or if something could improve. This could be a bug in the code, a case where the tools are not appropriate for your use case, a problem with the documentation, or something else. Issues can be filed in any of the hubverse repositories. You are also welcome to join the discussion on any existing issue in any of the hubverse repositories.
 
@@ -35,6 +36,10 @@ The governing body of the [Outbreak Hub Consortium](../index.md) is the Coding C
 
 The affiliated modeling hubs are described [here](../index.md).
 
-On July 19, 2022 the following members of the steering committee were elected: - Evan Ray, US Forecast Hub - Lucie Contamin, University of Pittsburgh, MIDAS - Kath Sherratt, European Scenario/Forecast Hub
+On July 19, 2022 the following members of the steering committee were elected: 
+
+- Evan Ray, US Forecast Hub
+- Lucie Contamin, University of Pittsburgh, MIDAS
+- Kath Sherratt, European Scenario/Forecast Hub
 
 Their terms were renewed for another year on July 12, 2023.
