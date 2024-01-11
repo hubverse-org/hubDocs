@@ -52,9 +52,17 @@ figcaption {
   text-indent: 2em;
 }
 
-code.literal {
-    color: #660066 !important;
-    background-color: inherit !important;
+html[data-theme="light"] {
+    code.literal {
+      color: #990099 !important;
+      background-color: white !important;
+  }
 }
 
+html[data-theme="dark"] {
+    code.literal {
+      color: #cc99cc !important;
+      background-color: black !important;
+  }
+}
 
