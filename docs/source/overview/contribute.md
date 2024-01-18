@@ -19,13 +19,13 @@ If you are an interested in contributing to *the hubverse*, please see [guidelin
 
 If you are interested in using *the hubverse* to run a hub, please consider joining our monthly "community hubverse meetings". During these meetings, we provide general updates from a broad mix of developers and public health representatives running hubs or thinking about starting to run hubs.
 
-To join the "community hubverse meeting", please send an email to <a href="mailto:mzorn@umass.edu">Martha Zorn</a>, including your name, email and a few sentences about how you would like to use the hubverse.
+To join the "community hubverse meeting", please send an email to <a href="mailto:hubverse+owner@groups.io">the hubverse group</a>, including your name, email and a few sentences about how you would like to use the hubverse.
 
 ## Join development team
 
 If you are an experienced programmer and interested in joining the development team, we have "development meetings" on all Wednesdays, except the first Wednesday of the month. These development meetings are for technical updates/discussions about ongoing development tasks.
 
-To join the development team, please send an email to <a href="mailto:mzorn@umass.edu">Martha Zorn</a>, including your name, email and a few sentences about what you can contribute to the development team.
+To join the development team, please send an email to <a href="mailto:hubverse+owner@groups.io">the hubverse group</a>, including your name, email and a few sentences about what you can contribute to the development team.
 
 ## Become Hubverse Community Member
 This group is for announcing new features in the Hubverse to the user community. If you would like to become a Hubverse community member, go to [hubverse@groups.io](https://groups.io/g/hubverse) and click on the **+Apply for Membership in this group** on bottom left hand side of the page.

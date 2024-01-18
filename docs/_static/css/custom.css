@@ -8,11 +8,11 @@ img {
   width: 50%;
   margin: 0.5em;
   padding: 0.5em;
-  border: 3px solid  #409EB8;
+  border: 3px solid  #3C88BE;
 }
 
 .bordered{
-  border: 3px solid  #409EB8;
+  border: 3px solid  #3C88BE;
 }
 
 figure {
@@ -54,14 +54,14 @@ figcaption {
 
 html[data-theme="light"] {
     code.literal {
-      color: #990099 !important;
+      color: #3C88BE !important;
       background-color: white !important;
   }
 }
 
 html[data-theme="dark"] {
     code.literal {
-      color: #cc99cc !important;
+      color: #7AC6F4 !important;
       background-color: black !important;
   }
 }
