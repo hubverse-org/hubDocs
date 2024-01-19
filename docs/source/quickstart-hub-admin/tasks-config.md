@@ -138,7 +138,11 @@ Now, read below for details on some of the lines of code in this file:
 
 ### 5.7. Setting up `"submissions_due"`:  
 - `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
-- <mark style="background-color: #FFE331">`relative_to` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  
+  
+There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
+  
+1. By setting a `"relative_to"` date, as well as `"start"` and `"end"` integers which set the range of dates in which submissions are accepted, as explained in the example below.
+- <mark style="background-color: #FFE331">`"relative_to"` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  
 - <mark style="background-color: #32E331">`"start"` is a number</mark> used to calculate the beginning of the submission period, based on the `origin_date`. In this example, the start date is six days **prior** to `origin_date`.  
 - <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.
 - For instance, as was mentioned before, in this file, `2022-11-28` is allowed as an `origin_date`. In this case, submissions are due between "2022-11-22" (six days prior) and "2022-11-29" (one day after).  
@@ -147,4 +151,14 @@ Now, read below for details on some of the lines of code in this file:
 :alt: Last lines of code in the tasks.json file
 :class: bordered
 ```
+---  
+2. By setting explicit `"start"` and `"end"` dates (rather than integers as in the previous case), during which forecast submissions are accepted. In this case, the `"relative_to"` line should be omitted altogether, as in the example below:  
 
+```
+"submissions_due": {
+    "start": "2022-06-07",
+    "end": "2022-07-20"
+}
+```
+<br/>  
+  
