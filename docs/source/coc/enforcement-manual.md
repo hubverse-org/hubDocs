@@ -47,7 +47,7 @@ If the report is about someone on the committee, please send the report to the o
 
 ## Attribution  
 
-This Enforcement Manual is adapted from the Turing Way community handbook [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4) (https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement).
+This Enforcement Manual is adapted from [the Turing Way community handbook](https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement) - [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4).  
 
 
 
