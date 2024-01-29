@@ -47,18 +47,5 @@ If the report is about someone on the committee, please send the report to the o
 
 ## Attribution  
 
-## Attribution  
-
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1, available at <https://www.contributor-covenant.org/version/2/1/code_of_conduct.html>.  
-
-Community Impact Guidelines were inspired by
-[Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/inclusion).  
-
-For answers to common questions about this code of conduct, see the FAQ at
-<https://www.contributor-covenant.org/faq>. Translations are available at <https://www.contributor-covenant.org/translations>.  
-
-
-
-<!---This Enforcement Manual is adapted from **[the Turing Way community handbook](https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement) - [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4)**.  --->  
-
+This Enforcement Manual is adapted from **[the Turing Way community handbook](https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement) - [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4)**.  
 
