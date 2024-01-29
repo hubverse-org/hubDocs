@@ -22,7 +22,7 @@ Upon receiving a report of an incident, the CoC Committee will review the incide
 
 This information will be collected either in person or in writing. The CoC Committee will provide a written summary of the information surrounding the incident. All participants will be anonymised in the summary report, referred to as “Community Member 1”, “Community Member 2”, or “Research Team Member 1”. The “de-anonymising key” will be kept in a separate file and only accessed to link repeated reports against the same person over time.  
 
-The CoC Committee will aim to have a resolution agreed upon within one week. In the event that a resolution can’t be determined in that time, a member of the CoC Committee will respond to the reporter(s) with an update and projected timeline for resolution.  
+The CoC Committee will aim to have a resolution agreed upon within one week. In the event that a resolution can’t be determined in that time frame, a member of the CoC Committee will respond to the reporter(s) with an update and projected timeline for resolution.  
 
 ## Resolutions  
 
@@ -47,7 +47,18 @@ If the report is about someone on the committee, please send the report to the o
 
 ## Attribution  
 
-This Enforcement Manual is adapted from **[the Turing Way community handbook](https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement) - [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4)**.  
+## Attribution  
 
+This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1, available at <https://www.contributor-covenant.org/version/2/1/code_of_conduct.html>.  
+
+Community Impact Guidelines were inspired by
+[Mozilla's code of conduct enforcement ladder](https://github.com/mozilla/inclusion).  
+
+For answers to common questions about this code of conduct, see the FAQ at
+<https://www.contributor-covenant.org/faq>. Translations are available at <https://www.contributor-covenant.org/translations>.  
+
+
+
+<!---This Enforcement Manual is adapted from **[the Turing Way community handbook](https://the-turing-way.netlify.app/community-handbook/coc/coc-enforcement) - [v1.1.0](https://github.com/the-turing-way/the-turing-way/releases/tag/untagged-88f773236dfcdb1e00f4)**.  --->  
 
 
