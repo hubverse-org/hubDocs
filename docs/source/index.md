@@ -54,8 +54,17 @@ user-guide/software.md
 
 ```{toctree}
 :maxdepth: 2
+:caption: Code of Conduct
+:hidden:
+coc/covenant.md
+coc/enforcement-manual.md
+coc/committee.md
+```
+
+```{toctree}
+:maxdepth: 2
 :caption: Additional Information
 :hidden:
 more-info/presentations.md
-more-info/hubEnsembles_vignette.md
+more-info/hubEnsembles-vignette.md
 ```
