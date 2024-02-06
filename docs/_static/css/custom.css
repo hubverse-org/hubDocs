@@ -60,8 +60,6 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-    on-surface: lightgrey !important;
-  
     code.literal {
       color: #7AC6F4 !important;
       background-color: black !important;
