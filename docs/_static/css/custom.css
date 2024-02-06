@@ -60,7 +60,7 @@ html[data-theme="light"] {
 }
 
 html[data-theme="dark"] {
-    surface: lightgrey !important;
+    on-background: lightgrey !important;
   
     code.literal {
       color: #7AC6F4 !important;
