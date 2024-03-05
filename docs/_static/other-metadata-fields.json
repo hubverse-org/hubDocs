@@ -1,104 +1,109 @@
 {
-    "include_viz": {
-      "description": "Indicator for whether the model should be included in the Hub’s visualization",
-      "type": "boolean"
-    },
-    "include_ensemble": {
-      "description": "Indicator for whether the model should be included in the Hub’s ensemble",
-      "type": "boolean"
-    },
-    "include_eval": {
-      "description": "Indicator for whether the model should be scored for inclusion in the Hub’s evaluations",
-      "type": "boolean[aw][ax][ay]"
-    },
-    "ensemble_of_hub_models": {
-      "description": "Indicator for whether this model is an ensemble of other Hub models",
-      "type": "boolean"
-    },
-    "model_details": {
-      "type": "object",
-      "properties": {
-        "data_inputs": {
-          "type": "string"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Optional additional metadata fields",
+    "description": "If needed, we encourage using these additional metadata fields that have been used in the past by other Hubs.",
+    "type": "object",
+    "properties": {
+        "include_viz": {
+            "description": "Indicator for whether the model should be included in the Hub’s visualization",
+            "type": "boolean"
         },
-        "methods": {
-          "type": "string",
-          "maxLength": 200
+        "include_ensemble": {
+            "description": "Indicator for whether the model should be included in the Hub’s ensemble",
+            "type": "boolean"
         },
-        "methods_long": {
-          "type": "string"
+        "include_eval": {
+            "description": "Indicator for whether the model should be scored for inclusion in the Hub’s evaluations",
+            "type": "boolean[aw][ax][ay]"
+        },
+        "ensemble_of_hub_models": {
+            "description": "Indicator for whether this model is an ensemble of other Hub models",
+            "type": "boolean"
+        },
+        "model_details": {
+            "type": "object",
+            "properties": {
+                "data_inputs": {
+                    "type": "string"
+                },
+                "methods": {
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "methods_long": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "data_inputs",
+                "methods"
+            ]
+        },
+        "modeling_NPI": {
+            "type": "string"
+        },
+        "compliance_NPI": {
+            "type": "string"
+        },
+        "contact_tracing": {
+            "type": "string"
+        },
+        "testing": {
+            "type": "string"
+        },
+        "vaccine_efficacy_transmission": {
+            "type": "string"
+        },
+        "vaccine_efficacy_delay": {
+            "type": "string"
+        },
+        "vaccine_hesitancy": {
+            "type": "string"
+        },
+        "vaccine_immunity_duration": {
+            "type": "string"
+        },
+        "natural_immunity_duration": {
+            "type": "string"
+        },
+        "case_fatality_rate": {
+            "type": "string"
+        },
+        "infection_fatality_rate": {
+            "type": "string"
+        },
+        "asymptomatics": {
+            "type": "string"
+        },
+        "age_groups": {
+            "type": "string"
+        },
+        "importations": {
+            "type": "string"
+        },
+        "confidence_interval_method": {
+            "type": "string"
+        },
+        "calibration": {
+            "type": "string"
+        },
+        "spatial_structure": {
+            "type": "string[bc]"
         }
-      },
-      "additionalProperties": false,
-      "required": [
-        "data_inputs",
-        "methods"
-      ]
-    },
-    "modeling_NPI": {
-      "type": "string"
-    },
-    "compliance_NPI": {
-      "type": "string"
-    },
-    "contact_tracing": {
-      "type": "string"
-    },
-    "testing": {
-      "type": "string"
-    },
-    "vaccine_efficacy_transmission": {
-      "type": "string"
-    },
-    "vaccine_efficacy_delay": {
-      "type": "string"
-    },
-    "vaccine_hesitancy": {
-      "type": "string"
-    },
-    "vaccine_immunity_duration": {
-      "type": "string"
-    },
-    "natural_immunity_duration": {
-      "type": "string"
-    },
-    "case_fatality_rate": {
-      "type": "string"
-    },
-    "infection_fatality_rate": {
-      "type": "string"
-    },
-    "asymptomatics": {
-      "type": "string"
-    },
-    "age_groups": {
-      "type": "string"
-    },
-    "importations": {
-      "type": "string"
-    },
-    "confidence_interval_method": {
-      "type": "string"
-    },
-    "calibration": {
-      "type": "string"
-    },
-    "spatial_structure": {
-      "type": "string[bc]"
     },
     "additionalProperties": false,
     "required": [
-      "team_name",
-      "team_abbr",
-      "model_name",
-      "model_abbr",
-      "model_contributors",
-      "website_url",
-      "license",
-      "include_viz",
-      "include_ensemble",
-      "include_eval",
-      "model_details"
+        "team_name",
+        "team_abbr",
+        "model_name",
+        "model_abbr",
+        "model_contributors",
+        "website_url",
+        "license",
+        "include_viz",
+        "include_ensemble",
+        "include_eval",
+        "model_details"
     ]
   }
-
