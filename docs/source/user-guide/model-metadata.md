@@ -32,7 +32,7 @@ Depending on the goals and context of a particular Hub, it may be beneficial to 
 
 [Test](../files/other-metadata-fields.json)
 
-   <script src="../_static/docson/widget.js" data-schema="/files/other-metadata-fields.json"></script>
+   <script src="../_static/docson/widget.js" data-schema="files/other-metadata-fields.json"></script>
 
 
 
