@@ -9,7 +9,9 @@ GitHub is an online software development platform, and GitHub repositories can s
 
 ## 2. [`AWS buckets`](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)  
 
-Amazon Simple Storage Service (Amazon S3) is an object storage service that offers scalability, data availability, security, and performance for projects of different sizes, including for data storage and analytics.
+Amazon Simple Storage Service (Amazon S3) is an object storage service that offers scalability, data availability, security, and performance for projects of different sizes, including for data storage and analytics.  
+
+The Hubverse team will provide S3 hosting upon request. Hub administrators interesting in using S3 should contact the team for more information.
 
 
 ## 3. [`Zoltar`](https://zoltardata.com/about) 
