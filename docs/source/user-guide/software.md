@@ -2,9 +2,17 @@
 
 To assist users in building a hub, we have developed a software suite with specific functions and uses outlined below. These tools are designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models.  
 
+## [`hubData`](https://github.com/Infectious-Disease-Modeling-Hubs/hubData)  
+
+The goal of `hubData` is to provide tools for connecting to, interacting with, and manipulating Hub data. [Here are instructions](https://github.com/Infectious-Disease-Modeling-Hubs/hubData) to download and use the package.  
+
+## [`hubAdmin`](https://github.com/Infectious-Disease-Modeling-Hubs/hubAdmin)  
+
+The `hubAdmin` package contains utility functions for administering Hubs, in particular creating and validating hub configuration files. [Here are instructions](https://github.com/Infectious-Disease-Modeling-Hubs/hubAdmin) to download and use the package.  
+
 ## [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/)  
 
-`hububUtils` has been replaced by `hubAdmin` and `hubData` - more details will be added soon. Prior explanation: The goal of `hubUtils` is to provide a set of utility functions for downloading, plotting, and scoring models (e.g., forecasts) and truth data from Infectious Disease Modeling Hubs. You can find instructions to download and use the package [here](https://infectious-disease-modeling-hubs.github.io/hubUtils/).  
+Much of `hubUtils` has been moved and split across `hubData` and `hubAdmin`, and users are advised to use those packages instead. `HubUtils` still exists but is now a lightweight package that primarily contains general utilities imported by other hubverse packages.  
 
 ## [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles)  
 

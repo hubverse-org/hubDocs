@@ -15,12 +15,12 @@ Once you have uploaded those two files onto your GitHub repository, you will not
 
 ## Validating your config files  
 
-Now you should validate the config files, to be sure they are properly functional. You can use the `validate_config` function from [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/index.html) to check whether Hub config files are valid. The steps are as follows:  
+Now you should validate the config files, to be sure they are properly functional. You can use the `validate_config` function from [`hubAdmin`](https://infectious-disease-modeling-hubs.github.io/hubAdmin/index.html) to check whether Hub config files are valid. The steps are as follows:  
 
-1. First, you need to install the package `hubUtils`. [Here are instructions for installing `hubUtils` in the R console](https://github.com/Infectious-Disease-Modeling-Hubs/hubUtils#installation).  
-2. Next, you need to validate the config files. [Here are detailed instructions and explanations](https://infectious-disease-modeling-hubs.github.io/hubUtils/articles/hub-setup.html#validate-config-files), and following is sample code you can copy to validate the config files:  
+1. First, you need to install the package `hubAdmin`. [Here are instructions for installing `hubAdmin` in the R console](https://github.com/Infectious-Disease-Modeling-Hubs/hubAdmin#installation).  
+2. Next, you need to validate the config files. [Here are detailed instructions and explanations](https://infectious-disease-modeling-hubs.github.io/hubAdmin/articles/hub-setup.html#validate-config-files), and following is sample code you can copy to validate the config files:  
 ```
-library(hubUtils)
+library(hubAdmin)
 
 validate_config(
     hub_path = ".",

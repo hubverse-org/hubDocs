@@ -27,6 +27,7 @@ The following is a [*template metadata schema file* from the **Example Complex F
    <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub/main/hub-config/model-metadata-schema.json"></script>
 
 
+(optional-additional-metadata-fields)=
 ## Optional additional metadata fields  
 Depending on the goals and context of a particular Hub, it may be beneficial to collect more information about the modeling assumptions made by models. The following fields have been included within the model_details metadata field in past Hubs. Where applicable, we recommend that hubs draw from this list to encourage standardization of terminology across Hubs. If Hubs develop new model metadata items, they should be added to this list for future reference.  
 
