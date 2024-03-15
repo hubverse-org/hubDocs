@@ -12,7 +12,7 @@ The `hubAdmin` package contains utility functions for administering Hubs, in par
 
 ## [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/)  
 
-Much of `hubUtils` has been moved and split across `hubData` and `hubAdmin`, and users are advised to use those packages instead. `HubUtils` still exists but is now a lightweight package that primarily contains general utilities imported by other hubverse packages.  
+`hubUtils` is a lightweight package that primarily contains general utilities imported by other hubverse packages. Previously, `hubUtils` was a larger package with more functions, but most of these were moved and split across `hubData` and `hubAdmin`.   
 
 ## [`hubEnsembles`](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles)  
 
