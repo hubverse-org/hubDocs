@@ -22,11 +22,12 @@ Many hubs will use a common set of metadata fields, which we place in the follow
 
 ## Template metadata schema file  
 
-The following is a [*template metadata schema file* from the **Example Complex Forecast Hub**](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub/blob/main/hub-config/model-metadata-schema.json), which is itself drawn from the [**FluSight Forecast Hub**](https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/README.md). Many Hubs will use the same fields listed in the *template metadata schema file*, but some may need fewer or more. Administrators can remove fields as needed, and can use [additional optional metadata fields from this list](#optional-additional-metadata-fields). We encourage administrators to use the same standard names and definitions to maintain consistency across Hubs.  
+The following is a [*template metadata schema file* from the **Example Complex Forecast Hub**](https://github.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub/blob/main/hub-config/model-metadata-schema.json), which is itself drawn from the [**FluSight Forecast Hub**](https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/README.md). Many Hubs will use the same fields listed in the *template metadata schema file*, but some may need fewer or more. A Hub's *model metadata schema file* should include either the single combined field `model_id`, or both of the fields `team_abbr` and `model_abbr`. Administrators can remove other fields as needed, and can use [additional optional metadata fields from this list](#optional-additional-metadata-fields). We encourage administrators to use the same standard names and definitions to maintain consistency across Hubs.  
 
    <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/example-complex-forecast-hub/main/hub-config/model-metadata-schema.json"></script>
 
 
+(optional-additional-metadata-fields)=
 ## Optional additional metadata fields  
 Depending on the goals and context of a particular Hub, it may be beneficial to collect more information about the modeling assumptions made by models. The following fields have been included within the model_details metadata field in past Hubs. Where applicable, we recommend that hubs draw from this list to encourage standardization of terminology across Hubs. If Hubs develop new model metadata items, they should be added to this list for future reference.  
 
