@@ -44,7 +44,7 @@ Save the file in the `hub-config` folder (which is [in your repository on your l
 
 ## Step 5: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Some key concepts are defined [here](../overview/definitions.md), and additional explanations are offered below:  
+Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L50). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
 * `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
@@ -98,11 +98,11 @@ Now, read below for details on some of the lines of code in this file:
 ```
 
 ### 5.5. Defining [`"output_type"`](#model_output_format):  
-- The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`.  
+- The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
 #### 5.5.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. In this example, the mean is optional, not required. If the mean is included, the `"output_type_id"` should be NA, since `"output_type_id"` is not used for mean predictions. 
+- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not chosen, should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`. 
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
 ```{image} ../images/tasks_schema_5-1.png
