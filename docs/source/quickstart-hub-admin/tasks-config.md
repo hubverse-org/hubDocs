@@ -97,7 +97,88 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.5. Defining [`"output_type"`](#model_output_format):  
+### 5.5 `required` and `optional` elements:
+
+As seen previously, each `tasks_ids` has a `required` and a `optional` fields, to indicate expected information and possible additional information, respectively.
+
+- To indicate no possible additional information, `optional` can be set to `null`. 
+- If `required` is set to `null` but NOT `optional`, see for example [`"location"`](#establishing-the-location)): no particular element is required but at least one of the `optional` should be expected.
+- In the case where we have a `model_tasks` with multiple `tasks_ids` including one not requiring any information in a particular task, for example a "peak size" target (see shorten example below). To indicate that the column should be expected but should only contains `NA`, both `required` and `optional` should be set to `null`.
+
+```json
+"model_tasks": [{
+                "task_ids": {
+                    "origin_date": {
+                        "required": null,
+                        "optional": ["2022-11-28"]
+                    },
+                    "target": {
+                        "required": ["inc covid hosp"],
+                        "optional": null
+                    },
+                    "horizon": {
+                        "required": null,
+                        "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    "location": {
+                        "required": ["US"],
+                        "optional": null
+                    }
+                },
+                "output_type": {},
+                "target_metadata": [
+                    {
+                       "target_id": "inc covid hosp",
+                       "target_name": "Daily incident COVID hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "inc covid hosp"
+                       },
+                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+                       "target_type": "discrete",
+                       "is_step_ahead": true,
+                       "time_unit": "day"
+                    }
+                ],
+            "task_ids": {
+                    "origin_date": {
+                        "required": null,
+                        "optional": ["2022-11-28"]
+                    },
+                    "target": {
+                        "required": ["peak size hosp"],
+                        "optional": null
+                    },
+                    "horizon": {
+                        "required": null,
+                        "optional": null
+                    },
+                    "location": {
+                        "required": ["US"],
+                        "optional": null
+                    }
+                },
+                "output_type": {},
+                "target_metadata": [
+                    {
+                       "target_id": "peak size hosp",
+                       "target_name": "COVID-19 peak size hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "peak size hosp"
+                       },
+                       "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
+                       "target_type": "discrete",
+                       "is_step_ahead": false
+                    }
+                ]
+            }]
+
+
+```
+
+
+### 5.6. Defining [`"output_type"`](#model_output_format):  
 - The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
 #### 5.5.1. Setting the `"mean"`:  
@@ -110,7 +191,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-#### 5.5.2. Setting up `"quantile"`:  
+#### 5.6.2. Setting up `"quantile"`:  
 - <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
 - <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.010` to `0.990`.  
 - <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
@@ -120,7 +201,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.6. Instituting `"target_metadata"`:  
+### 5.7. Instituting `"target_metadata"`:  
 - `"target_metadata"` defines the characteristics of each unique `target`.  
 - <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
 - <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
@@ -136,7 +217,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.7. Setting up `"submissions_due"`:  
+### 5.8. Setting up `"submissions_due"`:  
 - `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
   
 There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
