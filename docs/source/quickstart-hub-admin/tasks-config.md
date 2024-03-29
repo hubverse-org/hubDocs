@@ -100,7 +100,7 @@ Now, read below for details on some of the lines of code in this file:
 
 ### 5.5. `required` and `optional` elements:
 
-As seen previously, each `tasks_id` has a `required` and a `optional` property, to indicate expected information and possible additional information, respectively.
+As seen previously, each `tasks_id` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**. 
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.
