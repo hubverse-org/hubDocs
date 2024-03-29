@@ -100,11 +100,11 @@ Now, read below for details on some of the lines of code in this file:
 
 ### 5.5. `required` and `optional` elements:
 
-As seen previously, each `tasks_id` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.
+As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**. 
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.
-- There might also be cases where we have **multiple `model_tasks` and a given `tasks_id` is relevant to one or more of the tasks but not to others**, (see for example the `horizon` task ID in the 2nd model task with "peak size" as target below). To indicate that the `horizon` column is expected in any model output files but should contains `NA` in model tasks where it is not relevant, **both `required` and `optional` should be set to `null`**.
+- There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more models, but not to others.** For example, in the code snippet below, the `horizon` task id is optional for the first model (whose `target` is `inc covid hosp`), but is not needed for the second model (whose `target` is `peak size`). If you want to indicate that the `horizon` column is expected in any model output files but should contain `NA` in model tasks where it is not relevant, **both `required` and `optional` should be set to `null`** in that model task.
 
 ```json
 "model_tasks": [{
