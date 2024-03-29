@@ -202,7 +202,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 :width: 300px
 ```
 
-## Step 7: Define `"target_metadata"`:  
+## Step 7: Defining `"target_metadata"`:  
 - `"target_metadata"` defines the characteristics of each unique `target`.  
 - <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
 - <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
