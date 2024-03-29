@@ -98,7 +98,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.5 `required` and `optional` elements:
+### 5.5. `required` and `optional` elements:
 
 As seen previously, each `tasks_id` has a `required` and a `optional` property, to indicate expected information and possible additional information, respectively.
 
