@@ -14,6 +14,10 @@ To assist users in building a hub, we have developed a software suite with speci
 
 `hubEnsembles` is an R package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, and mode. You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsembles).  
 
+## [`hubExamples`](https://github.com/Infectious-Disease-Modeling-Hubs/hubExamples)  
+
+`hubExamples` is an R package that provides example data for forecasting and scenario modeling hubs in the hubverse format. You can find the complete package and instructions for use [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubExamples). 
+
 ## [`hubUtils`](https://infectious-disease-modeling-hubs.github.io/hubUtils/)  
 
 `hubUtils` is a lightweight R package that primarily contains general utilities imported by other hubverse packages. Previously, `hubUtils` was a larger package with more functions, but most of these were moved and split across `hubData` and `hubAdmin`.   
