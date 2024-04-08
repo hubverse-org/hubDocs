@@ -42,7 +42,7 @@ You can [use this link to download the `tasks.json` file](https://github.com/Inf
 
 Save the file in the `hub-config` folder (which is [in your repository on your local computer](#clone_repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
 
-## Step 5: Examine the new `tasks.json` file  
+### 4.1: Examine the new `tasks.json` file  
 
 Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L50). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
@@ -57,6 +57,7 @@ Open `tasks.json` and explore the content and structure. Some [key concepts are 
 
 Now, read below for details on some of the lines of code in this file:  
 
+## Step 5: Define `"task_ids"`
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
 - <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.
@@ -87,7 +88,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.4. Establishing the `"location"`:  
+### 5.4. Setting up `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
 - <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.  
@@ -97,30 +98,111 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.5. Defining [`"output_type"`](#model_output_format):  
+### 5.5. `required` and `optional` elements:
+
+As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.
+
+- To indicate **no possible additional information**, **`optional` can be set to `null`**. 
+- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.
+- There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks, but not to others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified are expected in the `horizon` column in a model output file. However, **`horizon` is not relevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration and `NA` is expected in the `horizon` column in model output files.
+
+```json
+"model_tasks": [{
+                "task_ids": {
+                    "origin_date": {
+                        "required": null,
+                        "optional": ["2022-11-28"]
+                    },
+                    "target": {
+                        "required": ["inc covid hosp"],
+                        "optional": null
+                    },
+                    "horizon": {
+                        "required": null,
+                        "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    "location": {
+                        "required": ["US"],
+                        "optional": null
+                    }
+                },
+                "output_type": {...},
+                "target_metadata": [
+                    {
+                       "target_id": "inc covid hosp",
+                       "target_name": "Daily incident COVID hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "inc covid hosp"
+                       },
+                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+                       "target_type": "discrete",
+                       "is_step_ahead": true,
+                       "time_unit": "day"
+                    }
+                ],
+            "task_ids": {
+                    "origin_date": {
+                        "required": null,
+                        "optional": ["2022-11-28"]
+                    },
+                    "target": {
+                        "required": ["peak size hosp"],
+                        "optional": null
+                    },
+                    "horizon": {
+                        "required": null,
+                        "optional": null
+                    },
+                    "location": {
+                        "required": ["US"],
+                        "optional": null
+                    }
+                },
+                "output_type": {...},
+                "target_metadata": [
+                    {
+                       "target_id": "peak size hosp",
+                       "target_name": "COVID-19 peak size hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "peak size hosp"
+                       },
+                       "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
+                       "target_type": "discrete",
+                       "is_step_ahead": false
+                    }
+                ]
+            }]
+
+
+```
+
+## Step 6: Define [`"output_type"`](#model_output_format):  
 - The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
-#### 5.5.1. Setting the `"mean"`:  
+### 6.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
 - <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not chosen, should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`. 
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
-```{image} ../images/tasks_schema_5-1.png
+```{image} ../images/tasks_schema_6-1.png
 :alt: Some more lines of code in the tasks.json file
 :class: bordered
 ```
 
-#### 5.5.2. Setting up `"quantile"`:  
+### 6.2. Setting up `"quantile"`:  
 - <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
-- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.010` to `0.990`.  
+- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.
 - <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
 
-```{image} ../images/tasks_schema_5-2.png
+```{image} ../images/tasks_schema_6-2.png
 :alt: And more lines of code in the tasks.json file
 :class: bordered
+:width: 300px
 ```
 
-### 5.6. Instituting `"target_metadata"`:  
+## Step 7: Defining `"target_metadata"`:  
 - `"target_metadata"` defines the characteristics of each unique `target`.  
 - <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
 - <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
@@ -131,12 +213,12 @@ Now, read below for details on some of the lines of code in this file:
 - <mark style="background-color: #FFE331">`"is_step_ahead"` indicates</mark> whether the target is part of a sequence of values.  In this instance, it is.  
 - <mark style="background-color: #32E331">`"time_unit"` defines</mark> the units of the time steps. In this case, it is days.  
 
-```{image} ../images/tasks_schema_6.png
+```{image} ../images/tasks_schema_7.png
 :alt: Target metadata lines of code in the tasks.json file
 :class: bordered
 ```
 
-### 5.7. Setting up `"submissions_due"`:  
+## Step 8: Set up `"submissions_due"`:  
 - `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
   
 There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
@@ -147,7 +229,7 @@ There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas
 - <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.
 - For instance, as was mentioned before, in this file, `2022-11-28` is allowed as an `origin_date`. In this case, submissions are due between "2022-11-22" (six days prior) and "2022-11-29" (one day after).  
 
-```{image} ../images/tasks_schema_7.png
+```{image} ../images/tasks_schema_8.png
 :alt: Last lines of code in the tasks.json file
 :class: bordered
 ```

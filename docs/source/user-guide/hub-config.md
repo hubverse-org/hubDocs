@@ -36,6 +36,9 @@ As of v2.0.1, `admin.json` contains optional settings for hubs that store their 
 ### Hub administrative configuration (`admin.json`) Interactive Schema
 
 #### Schema Version: {{schema_version}}
+
+Please note that the preview below does not show the required fields. Please click on the raw schema link below to see all required fields. 
+
 {{'[See raw schema](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
 
 {{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
