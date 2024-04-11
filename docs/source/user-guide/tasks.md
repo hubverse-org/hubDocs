@@ -60,4 +60,12 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-Document here the properties of a target, as listed in the schema.
+| `Output_type` | `Target_type` |
+| ----------- | ----------- |
+| Mean | String, double, integer |
+| Median | String, double, integer |
+| Quantile | String, double, integer |
+| cdf | Cumulative distribution function values |
+| pmf | Probability mass function values |
+| Sample | String, double, integer |
+
