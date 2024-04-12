@@ -60,12 +60,14 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-| `Output_type` | `Target_type` |
-| ----------- | ----------- |
-| Mean | String, double, integer |
-| Median | String, double, integer |
-| Quantile | String, double, integer |
-| cdf | Cumulative distribution function values |
-| pmf | Probability mass function values |
-| Sample | String, double, integer |
+The following table lists the possible values for `target_type` and the `output_type` with which they can be used. 
 
+| `Target_type` | Mean | Median | Quantile | Cdf   | Pmf   | Sample 
+|--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
+| Continous | X | X | X | X | X | X |
+| Discrete | X | X | X | X | X | X |
+| Nominal | - | - | - | - | X | X |
+| Binary | - | X | - | - | X | X |
+| Date | X | X | X | X | X | X |
+| Ordinal | - | X | X | X | X | X |
+| Compositional | X | X | - | - | - | X |
