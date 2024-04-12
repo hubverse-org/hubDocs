@@ -1,10 +1,6 @@
-# Continuous integration
+# Using continuous integration via Github Actions
 
-Continuous integration (CI) involves frequent code commits to a shared repository, which helps developers identify and debug errors sooner. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI tasks. 
-
-
-
-# Github Actions
+Continuous integration (CI) is a practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI tasks. 
 
 The [`hubverse-actions`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions) repository currently contains directories with templates related to the following Github Actions:
 
@@ -15,8 +11,8 @@ More information can be found [here](https://github.com/Infectious-Disease-Model
 
 ### [`Hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
 This action uploads hub data to Hubverse-hosted cloud storage. Currently, the workflow has a single job, `upload`, that pushes data to an AWS S3 bucket.
-The upload job perform the following steps:
-1.	Inspect the hub's admin config (`admin.json`) for a `cloud` group.
+The `upload` job performs the following steps:
+1.	Inspects the hub's admin config (`admin.json`) for a `cloud` group.
 2.	If `cloud.enabled` is set to `true`:
     -	authenticate to the Hubverse AWS account
     -	use `cloud.host.storage` to determine the name of the hub's S3 bucket
@@ -32,7 +28,7 @@ More information can be found [here](https://github.com/Infectious-Disease-Model
 
 
 
-# Installation
+# Installing continuous integration workflows
 [`hubCI`](https://github.com/Infectious-Disease-Modeling-Hubs/hubCI) is an R software package that provides functionality for setting up hubverse CI workflows. The development version can be installed with:
 
 ``` r
@@ -53,4 +49,4 @@ library(hubCI)
 use_hub_github_action(name = "validate-submission")
 ```
 
-Note: the hub most be configured as an R project (i.e. contain a *.Rproj file)
+Note: the hub must be configured as an R project (i.e. contain a *.Rproj file)
