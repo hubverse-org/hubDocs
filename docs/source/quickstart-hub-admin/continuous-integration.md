@@ -1,6 +1,6 @@
 # Setting up continuous integration via Github Actions
 
-Continuous integration (CI) is a recommended practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI tasks. These tasks are carried out via a *workflow*, an automated process with steps (i.e., *jobs*) that are run either sequentially or in parallel. Workflows are triggered by an *event*, or a specific activity within a repository.   
+Continuous integration (CI) is a recommended practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI tasks. These tasks are carried out via a *workflow*, an automated process with steps (i.e., *jobs*) that are run either sequentially or simultaneously. Workflows are triggered by an *event*, or a specific activity within a repository.   
 
 The [`hubverse-actions`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions) repository currently contains directories with templates related to the following workflows:
 
@@ -20,7 +20,7 @@ More information can be found [here](https://github.com/Infectious-Disease-Model
 ## Continuous integration workflows with `hubValidations`
 
 ### [`cache-hubval-deps`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps)
-This hubverse action makes it so the first time your job is run with the `hubValidations` package, the software components that are required for others to work properly (i.e., *dependencies*) are downloaded and stored on a high-speed storage layer (i.e., *cached*) on the `main` branch. This dependency cache is available to all child branches, including on forks, which speeds up most submission validation workflows.
+This hubverse action downloads the software components that are required for others to work properly (i.e., *dependencies*) in `hubValidations` and stores them on a high-speed storage layer (i.e., *cache*) on the `main` branch. This dependency cache is available to all child branches, including on forks, which speeds up most submission validation workflows.
 
 This action is run on a nightly schedule but can also be triggered by a push to the workflow from the `main` branch. 
 
