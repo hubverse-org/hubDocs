@@ -88,6 +88,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
+(setting_up_location)=
 ### 5.4. Setting up `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
@@ -103,10 +104,10 @@ Now, read below for details on some of the lines of code in this file:
 As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.  
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
-- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.  
+- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting_up_location)): **no particular value is required but at least one of the `optional` values is expected**.  
 - There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks, but not to others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified are expected in the `horizon` column in a model output file. However, **`horizon` is not relevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration and `NA` is expected in the `horizon` column in model output files.  
 
-```json
+```
 "model_tasks": [{
                 "task_ids": {
                     "origin_date": {
