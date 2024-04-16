@@ -37,7 +37,7 @@ More information can be found [here](https://github.com/Infectious-Disease-Model
 
 
 
-## Installing continuous integration workflows
+## Installing continuous integration workflows with `hubValidations`
 You can use the [`hubCI`](https://github.com/Infectious-Disease-Modeling-Hubs/hubCI) software package (R) to set up hubverse CI workflows. The development version can be installed with:
 
 ``` r
@@ -47,9 +47,9 @@ remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations")
 ```
 
 
-# Setting up a Github Action
+## Setting up a Github Action with `hubValidations`
 
-For hubs hosted on GitHub, GitHub Actions can be downloaded with:
+If your hub is hosted on GitHub, you can download GitHub Actions with:
 
 ```{r example, eval = FALSE}
 library(hubCI)
