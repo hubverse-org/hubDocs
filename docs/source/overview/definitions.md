@@ -1,4 +1,14 @@
-# Key definitions
+# Key definitions  
+
+## Modeling horizons nomenclature  
+```{figure} ../images/horizon-nomenclature.png
+---
+figclass: margin-caption
+alt: Figure illustrating the difference between nowcasts, forecasts and projections
+name: horizon-nomenclature
+---
+Figure credits: Alex Vespignani and Nicole Samay. 
+```
 
 ```{admonition} Modeling Hub
 a consortium of research groups working together on a common set of modeling tasks, with the goal of developing ensemble models to provide stakeholders with a single model output representing uncertainty across different modeling assumptions and frameworks.

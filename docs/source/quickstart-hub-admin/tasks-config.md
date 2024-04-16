@@ -48,7 +48,7 @@ Open `tasks.json` and explore the content and structure. Some [key concepts are 
 
 * `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
-* `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.
+* `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
 * `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
 * `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task_id_use).  
 * `horizon`: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
@@ -60,7 +60,7 @@ Now, read below for details on some of the lines of code in this file:
 ## Step 5: Define `"task_ids"`
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
-- <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.
+- <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.  
 - `task_ids` includes the variables `origin_date`, `target`, `horizon`, and `location`.  
 - <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`). To be clear, no specific `origin_date` is required because every submission will have a different `origin_date` as each submission corresponds to a different forecasting time period (compare this with `location`, where some specific locations may be required for every submission.  
 
@@ -98,13 +98,13 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-### 5.5. `required` and `optional` elements:
+### 5.5. `required` and `optional` elements:  
 
-As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.
+As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.  
 
-- To indicate **no possible additional information**, **`optional` can be set to `null`**. 
-- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.
-- There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks, but not to others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified are expected in the `horizon` column in a model output file. However, **`horizon` is not relevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration and `NA` is expected in the `horizon` column in model output files.
+- To indicate **no possible additional information**, **`optional` can be set to `null`**.  
+- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.  
+- There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks, but not to others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified are expected in the `horizon` column in a model output file. However, **`horizon` is not relevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration and `NA` is expected in the `horizon` column in model output files.  
 
 ```json
 "model_tasks": [{
@@ -183,7 +183,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 
 ### 6.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not chosen, should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`. 
+- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not chosen, should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
 ```{image} ../images/tasks_schema_6-1.png
@@ -193,7 +193,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 
 ### 6.2. Setting up `"quantile"`:  
 - <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
-- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.
+- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.  
 - <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
 
 ```{image} ../images/tasks_schema_6-2.png
@@ -223,10 +223,10 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
   
 There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
   
-1. By setting a `"relative_to"` date, as well as `"start"` and `"end"` integers which set the range of dates in which submissions are accepted, as explained in the example below.
+1. By setting a `"relative_to"` date, as well as `"start"` and `"end"` integers which set the range of dates in which submissions are accepted, as explained in the example below.  
 - <mark style="background-color: #FFE331">`"relative_to"` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  
 - <mark style="background-color: #32E331">`"start"` is a number</mark> used to calculate the beginning of the submission period, based on the `origin_date`. In this example, the start date is six days **prior** to `origin_date`.  
-- <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.
+- <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.  
 - For instance, as was mentioned before, in this file, `2022-11-28` is allowed as an `origin_date`. In this case, submissions are due between "2022-11-22" (six days prior) and "2022-11-29" (one day after).  
 
 ```{image} ../images/tasks_schema_8.png

@@ -1,4 +1,4 @@
-# Defining modeling tasks
+# Defining modeling tasks  
 
 Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [tasks.json configuration file](tasks_metadata) for a hub. Modeling tasks are defined for either a single round, or for multiple rounds that are distinguished by different values of a specific `task_id` variable. The three components of modeling tasks are [task ID variables](task_id_vars), [output types](output_types), and [target metadata](target_metadata). Broadly speaking these three components function as follows:
 
