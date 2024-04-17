@@ -1,6 +1,6 @@
 # Setting up continuous integration via Github Actions
 
-Continuous integration (CI) is a recommended practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. CI tasks are carried out via a *workflow*, an automated process with steps (i.e., *jobs*) that are run either sequentially or simultaneously. Workflows are triggered by an *event*, or a specific activity within a repository. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI tasks. 
+Continuous integration (CI) is a recommended practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. CI tasks are carried out via a *workflow*, an automated process with steps (i.e., *jobs*) that are run either sequentially or simultaneously. Workflows are triggered by an *event*, or a specific activity within a repository. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI workflows. 
 This document provides information on:
 * installing continuous integration workflows
 * setting up a hubverse Github Actions
@@ -19,9 +19,9 @@ remotes::install_github("Infectious-Disease-Modeling-Hubs/hubValidations")
 
 The [`hubverse-actions`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions) repository currently contains directories with templates related to the following workflows:
 
-[`cache-hubval-deps`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps)
-[`Validate-submission`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/validate-submission)
-[`Hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
+* [`cache-hubval-deps`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps)
+* [`Validate-submission`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/validate-submission)
+* [`Hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
 
 More information on each of these workflows is provided in the section below. 
 
@@ -60,10 +60,10 @@ More information can be found [here](https://github.com/Infectious-Disease-Model
 
 ### [`Hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
 This action uploads your hub data to Hubverse-hosted cloud storage. Currently, the workflow has a single job, `upload`, that pushes data to an Amazon Web Services (AWS) Simple Storage Service (S3) bucket.
-* The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` group. If cloud is enabled (i.e., if `cloud.enabled` is set to `true`), the job:
-    + authenticates to the Hubverse AWS account
-    + uses `cloud.host.storage` to determine the name of the hub's S3 bucket, and
-    + syncs the hub's `hub-config`, `model-metadata`, and `model-output` directories to the S3 bucket
+The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` group. If cloud is enabled (i.e., if `cloud.enabled` is set to `true`), the job:
+* authenticates to the Hubverse AWS account
+* uses `cloud.host.storage` to determine the name of the hub's S3 bucket, and
+* syncs the hub's `hub-config`, `model-metadata`, and `model-output` directories to the S3 bucket
  
 Before using this action, a member of the Hubverse development team will need to "onboard" your hub to AWS. 
 
