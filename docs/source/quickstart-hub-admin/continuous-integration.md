@@ -3,7 +3,7 @@
 Continuous integration (CI) is a recommended practice that involves automating frequent code commits to a shared repository. This allows code to be continually built and tested, which can help you identify and debug errors sooner. CI tasks are carried out via a *workflow*, an automated process with steps (i.e., *jobs*) that are run either sequentially or simultaneously. Workflows are triggered by an *event*, or a specific activity within a repository. Hubverse hubs can use [GitHub Actions](https://github.com/features/actions) to perform a variety of CI workflows. 
 This document provides information on:
 * installing continuous integration workflows
-* setting up a hubverse Github Actions
+* setting up hubverse Github Actions
 * available hubverse Github Actions
 
 
