@@ -60,7 +60,7 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-Target metadata is an array of objects that defines the characteristics of each target
+Target metadata is an array of objects that defines the characteristics of each target.
 
 It is composed of the following fields:
 * `target_id`: a short description that uniquely identifies the target.
