@@ -60,14 +60,38 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-The following table lists the possible values for `target_type` and the `output_type` with which they can be used. 
+Target metadata is an array of objects that defines the characteristics of each target
 
-| `Target_type` | Mean | Median | Quantile | Cdf   | Pmf   | Sample 
+It is composed of the following fields:
+* `target_id`: a short description that uniquely identifies the target.
+* `target_name`: a longer, human readable description of the target, which could be used as a visualization axis label.
+* `target_units`: the unit of observation used for this target. 
+* `target_keys`: a value that must match a target set in `task_ids`, to appropriately identify it. Each property should have one specified value. Each value, or the combination of values if multiple keys are specified, defines a single target value. The value should be null in the case where the target is not specified as a `task_id` and is specified solely through the `target_id` `target_metadata` property. 
+* `description`: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
+* `target_type`: the target’s statistical data type. The following table lists the possible values for `target_type` and the `output_type` with which they can be used. 
+
+| `target_type` | mean | median | quantile | cdf   | pmf   | sample 
 |--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
-| Continous | X | X | X | X | X | X |
-| Discrete | X | X | X | X | X | X |
-| Nominal | - | - | - | - | X | X |
-| Binary | - | X | - | - | X | X |
-| Date | X | X | X | X | X | X |
-| Ordinal | - | X | X | X | X | X |
-| Compositional | X | X | - | - | - | X |
+| continous | X | X | X | X | - | X |
+| discrete | X | X | X | X | X | X |
+| nominal | - | - | - | - | X | X |
+| binary | - | X | - | - | X | X |
+| date | X | X | X | X | X | X |
+| ordinal | - | X | X | X | X | X |
+| compositional | X | X | - | - | - | X |
+
+* `is_step_ahead`: a Boolean value that indicates whether the target is part of a sequence of values. If `is_step_ahead` is true, then this field is required and defines the unit of time steps. If `is_step_ahead` is false, then this should be left out and/or will be ignored if present.
+* `time_unit`: the units of the time steps in terms of day, week, or month.
+
+### Example
+Here is an example of a Hub that uses incident covid hospitalizations as a target. 
+| field |	value
+|--------- | ----------- |
+| `target_id` |	inc covid hosp
+| `target_name` |	Daily incident COVID hospitalizations
+| `target_units` |	count
+| `target_keys`	| inc covid hosp
+| `description` |	Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system
+| `target_type` |	discrete
+| `is_step_ahead` |	true
+| `time_unit` |	day
