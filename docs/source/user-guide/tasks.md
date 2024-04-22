@@ -60,13 +60,13 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-Target metadata is an array of objects that defines the characteristics of each target.
+Target metadata is an array in the tasks.json schema file that defines the characteristics of each target.
 
 It is composed of the following fields:
 * `target_id`: a short description that uniquely identifies the target.
 * `target_name`: a longer, human readable description of the target, which could be used as a visualization axis label.
 * `target_units`: the unit of observation used for this target. 
-* `target_keys`: a value that must match a target set in `task_ids`, to appropriately identify it. Each property should have one specified value. Each value, or the combination of values if multiple keys are specified, defines a single target value. The value should be null in the case where the target is not specified as a `task_id` and is specified solely through the `target_id` `target_metadata` property. 
+* `target_keys`: a set of one or more name/value pairs that must match a target defined in the `task_ids` section of the schema. Each value, or the combination of values if multiple keys are specified, defines a single target value.
 * `description`: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
 * `target_type`: the target’s statistical data type. The following table lists the possible values for `target_type` and the `output_type` with which they can be used. 
 
