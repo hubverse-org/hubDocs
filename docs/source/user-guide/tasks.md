@@ -84,7 +84,7 @@ It is composed of the following fields:
 * `time_unit`: the units of the time steps in terms of day, week, or month.
 
 ### Example
-Here is an example of how the target metadata fields might appear in the `tasks.json schema` for a Hub whose target is incident covid hospitalizations. 
+Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident covid hospitalizations. 
 
 ```
  "target_metadata": [
