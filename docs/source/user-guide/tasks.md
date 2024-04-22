@@ -84,14 +84,22 @@ It is composed of the following fields:
 * `time_unit`: the units of the time steps in terms of day, week, or month.
 
 ### Example
-Here is an example of a Hub that uses incident covid hospitalizations as a target. 
-| field |	value
-|--------- | ----------- |
-| `target_id` |	inc covid hosp
-| `target_name` |	Daily incident COVID hospitalizations
-| `target_units` |	count
-| `target_keys`	| inc covid hosp
-| `description` |	Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system
-| `target_type` |	discrete
-| `is_step_ahead` |	true
-| `time_unit` |	day
+Here is an example of how the target metadata fields might appear in the `tasks.json schema` for a Hub whose target is incident covid hospitalizations. 
+
+```
+ "target_metadata": [
+                    {
+                       "target_id": "inc covid hosp",
+                       "target_name": "Daily incident COVID hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "inc covid hosp"
+                       },
+                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+                       "target_type": "discrete",
+                       "is_step_ahead": true,
+                       "time_unit": "day"
+                    }
+                ]
+```
+
