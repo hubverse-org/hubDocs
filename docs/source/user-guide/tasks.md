@@ -60,7 +60,7 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-Target metadata is an array in the tasks.json schema file that defines the characteristics of each target.
+Target metadata is an array in the [tasks.json](https://hubdocs.readthedocs.io/en/latest/user-guide/hub-config.html#hub-model-task-configuration-tasks-json-file) schema file that defines the characteristics of each target.
 
 It is composed of the following fields:
 * `target_id`: a short description that uniquely identifies the target.
