@@ -68,14 +68,14 @@ It is composed of the following fields:
 * `target_units`: the unit of observation used for this target. 
 * `target_keys`: a set of one or more name/value pairs that must match a target defined in the `task_ids` section of the schema. Each value, or the combination of values if multiple keys are specified, defines a single target value.
 * `description`: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
-* `target_type`: the target’s statistical data type. The following table lists the possible values for `target_type` and the `output_type` with which they can be used. 
+* `target_type`: the target’s statistical data type. The following table lists the possible values for `target_type` and the `output_type` with which they can be used. We note that for the binary data type row, mean and median `output_type` are X'ed for definitional consistency, but in practice the hubverse recommends using pmf or sample `output_type` as a more natural way to represent these values.
 
 | `target_type` | mean | median | quantile | cdf   | pmf   | sample 
 |--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
 | continous | X | X | X | X | - | X |
 | discrete | X | X | X | X | X | X |
 | nominal | - | - | - | - | X | X |
-| binary | - | X | - | - | X | X |
+| binary | X | X | - | - | X | X |
 | date | X | X | X | X | X | X |
 | ordinal | - | X | X | X | X | X |
 | compositional | X | X | - | - | - | X |
