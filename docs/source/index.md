@@ -16,6 +16,7 @@ The [overview](overview/who-we-are.md) section provides an introduction to the p
 :caption: Overview
 :hidden:
 overview/who-we-are.md
+overview/history.md
 overview/scope.md
 overview/definitions.md
 overview/data-storage.md
