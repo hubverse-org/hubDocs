@@ -25,7 +25,7 @@ The [`hubverse-actions`](https://github.com/Infectious-Disease-Modeling-Hubs/hub
 
 More information on each of these workflows is provided in the section below. 
 
-Please note that while anyone with an RStudio project can download GitHub Actions, your hub needs to be hosted on GitHub in order to use these Actions. GitHub Actions can be downloaded using the command `use_hub_github_action()` with the name of the action in parentheses.
+GitHub Actions can be downloaded using the command `use_hub_github_action()` with the name of the action in parentheses.
 
 For example, to download the github action `validate-submission`, you would use the code below:
 
@@ -35,7 +35,7 @@ library(hubCI)
 use_hub_github_action(name = "validate-submission")
 ```
 
-Note: the hub must be configured as an R project (i.e. contain a *.Rproj file), as this is a requirement of the `usethis` function we are using to create these workflows.  
+Please note that while anyone with an RStudio project can download GitHub Actions, **your hub needs to be hosted on GitHub in order to use these actions**. In addition, your hub must be configured as an R project (i.e. contain a *.Rproj file), as this is a requirement of the `usethis` function we are using to create these workflows.  
 
 ## Available hubverse GitHub Actions
 
