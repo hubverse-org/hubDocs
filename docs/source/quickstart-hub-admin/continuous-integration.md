@@ -35,7 +35,7 @@ library(hubCI)
 use_hub_github_action(name = "validate-submission")
 ```
 
-Please note that while anyone with an RStudio project can download GitHub Actions, **your hub needs to be hosted on GitHub in order to use these actions**. In addition, your hub must be configured as an R project (i.e. contain a *.Rproj file), as this is a requirement of the `usethis` function we are using to create these workflows.  
+Please note that **your hub needs to be hosted on GitHub in order to use these actions**. In addition, your hub must be configured as an R project (i.e. contain a *.Rproj file), as this is a requirement of the `usethis` function we are currently using to download these workflows (this requirement might be relaxed in future).  
 
 ## Available hubverse GitHub Actions
 
