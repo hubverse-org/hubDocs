@@ -60,4 +60,46 @@ The [output_type](output_types) object defines accepted representations for each
 (target_metadata)=
 ## Target metadata
 
-Document here the properties of a target, as listed in the schema.
+Target metadata is an array in the [tasks.json](https://hubdocs.readthedocs.io/en/latest/user-guide/hub-config.html#hub-model-task-configuration-tasks-json-file) schema file that defines the characteristics of each target.
+
+It is composed of the following fields:
+* `target_id`: a short description that uniquely identifies the target.
+* `target_name`: a longer, human readable description of the target, which could be used as a visualization axis label.
+* `target_units`: the unit of observation used for this target. 
+* `target_keys`: a set of one or more name/value pairs that must match a target defined in the `task_ids` section of the schema. Each value, or the combination of values if multiple keys are specified, defines a single target value.
+* `description`: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
+* `target_type`: the target’s statistical data type. The following table lists the possible values for `target_type` and the `output_type` with which they can be used. We note that for the binary data type row, mean and median `output_type` are X'ed for definitional consistency, but in practice the hubverse recommends using pmf or sample `output_type` as a more natural way to represent these values.
+
+| `target_type` | mean | median | quantile | cdf   | pmf   | sample 
+|--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
+| continous | X | X | X | X | - | X |
+| discrete | X | X | X | X | X | X |
+| nominal | - | - | - | - | X | X |
+| binary | X | X | - | - | X | X |
+| date | X | X | X | X | X | X |
+| ordinal | - | X | X | X | X | X |
+| compositional | X | X | - | - | - | X |
+
+* `is_step_ahead`: a Boolean value that indicates whether the target is part of a sequence of values. If `is_step_ahead` is true, then this field is required and defines the unit of time steps. If `is_step_ahead` is false, then this should be left out and/or will be ignored if present.
+* `time_unit`: the units of the time steps in terms of day, week, or month.
+
+### Example
+Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident covid hospitalizations. 
+
+```
+ "target_metadata": [
+                    {
+                       "target_id": "inc covid hosp",
+                       "target_name": "Daily incident COVID hospitalizations",
+                       "target_units": "count",
+                       "target_keys": {
+                           "target": "inc covid hosp"
+                       },
+                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+                       "target_type": "discrete",
+                       "is_step_ahead": true,
+                       "time_unit": "day"
+                    }
+                ]
+```
+

@@ -35,6 +35,7 @@ quickstart-hub-admin/setting-up.md
 quickstart-hub-admin/tasks-config.md
 quickstart-hub-admin/model-metadata-schema.md
 quickstart-hub-admin/uploading-validating.md
+quickstart-hub-admin/continuous-integration.md
 quickstart-hub-admin/using-hub.md
 ```
 
