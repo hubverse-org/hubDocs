@@ -44,7 +44,7 @@ Save the file in the `hub-config` folder (which is [in your repository on your l
 
 ### 4.1: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L50). Simple explanations for elements in the Example Forecast Hub file are offered below:  
+Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
 * `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
@@ -87,6 +87,8 @@ Now, read below for details on some of the lines of code in this file:
 :alt: More lines of code in the tasks.json file
 :class: bordered
 ```
+
+[Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L400).  
 
 (setting_up_location)=
 ### 5.4. Setting up `"location"`:  
