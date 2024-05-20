@@ -36,48 +36,56 @@ In many settings, forecasts will be made for individual modeling tasks, with no 
 
 In this setting, a hub will specify a minimum and maximum number of required samples in the metadata for the prediction task. The associated configuration might look like:
 
+```
+"output_type":{
+	"sample":{
+		"output_type_id_params":{
+			“is_required”: true,
+			“type”: “integer”,
+"min_samples_per_task": 100,
+			"max_samples_per_task": 100
+		},
+		"value":{
+			"type":"double",
+			"minimum":0
+		}
+	}
+}
+```
 
-### Time series truth data
-Access to truth data could take any of the following forms; appropriate mechanisms may differ for different hubs depending on the modeling goals and available systems for data access:
-* storing the data within the hub
-* setting up a separate github repository that contains truth data
-* linking to another resource like covidcast that provides an API for access to truth data
+In words, the above configuration specifies that samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 100 samples per modeling task.
 
+Note that the output_type_id parameters are specified in an “output_type_id_params” block because they are parameters defining the allowable values. For other output types, the “output_type_id” block is used to explicitly list required and optional values.
 
-In any of these cases, the data should be provided in a time series format with the following columns:
-* **Time index**: a column identifying the time of occurrence of an event
-   * Example: For a modeling exercise focusing on daily hospitalizations, the time index may specify the date of admission to the hospital.
-   * Example: For an influenza forecasting challenge focusing on weekly confirmed influenza cases, the time index may specify the value of the epidemic week during which a patient tested positive for influenza.
-* **Keys**: zero or more columns that, taken together, identify strata for analysis.
-   * Example: For a scenario modeling Hub where models are asked to provide projections stratified by task id variables location and age_group, the truth data should contain columns named “location” and “age_group”
-* **Outcome variables**: One or more columns specifying values of outcome variables.
-   * Example: For a Hub in which modelers forecast cases, deaths, and hospitalizations, the truth data should contain columns named “cases”, “deaths”, and “hospitalizations”
+## Compound modeling tasks
 
+There are settings where modeling hubs may wish to identify sets of modeling tasks that the hub will treat as being related to each other. This occurs when multiple distinct values that can be seen as being representations of a single multivariate outcome of interest. In these settings, a subset of the task-id columns (a “compound_taskid_set”) will be used to identify what values are shared for the modeling tasks that are related to each other.
 
-To allow for reproducible analyses in the event of revisions to previously reported data, any system for accessing ground truth data should provide functionality for accessing the data as they were at past points in time.
+As a running example of how compound modeling tasks could be specified in different ways, we will look at a hub reporting on variant proportions observed at a given location and at a given time. In the table below, a single modeling task is a unique combination of values from the task-id variables origin_date, horizon, variant, and location.  In the table below, one set of four rows with the same values in the origin_date, horizon, and location columns but different variant values below represent four predicted variant proportions. 
 
+Base data: mean output_type. In the table below, an entry of “-” stands in for specific values to be provided by the submitter.
 
-## Calculating modeling targets
-For any modeling Hubs with targets that can be calculated from the truth data, functions should be specified that map time series truth data in the tabular format discussed above to a value of the modeling target for each unique combination of values in the [“task id” columns](task_id_vars). This function should produce data in a tabular format with columns for all task id variables and a value column. These outputs can be consumed by later tools in our pipeline, such as evaluation tools.
+| Origin_date | horizon | variant |location | output_type| Output_type_id | value |
+|:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| 2024-03-15 | 7 | AA | MA | sample | - | - |
+| 2024-03-15 | 7 | BB | MA | sample | - | - |
+| 2024-03-15 | 7 | CC | MA | sample | - | - |
+| 2024-03-15 | 7 | DD | MA | sample | - | - |
+| 2024-03-15 | 14 | AA | MA | sample | - | - |
+| 2024-03-15 | 14 | BB | MA | sample | - | - |
+| 2024-03-15 | 14 | CC | MA | sample | - | - |
+| 2024-03-15 | 14 | DD | MA | sample | - | - |
 
+### Three submissions, differing by compound modeling task
+Submission A: sample output_type where **a single modeling task corresponds to a unique combination of origin_date, location, horizon, and variant**. There are eight unique modeling tasks in this example.
 
-We illustrate with our second running example: a hypothetical forecasting exercise for influenza hospitalization rates per 100,000 population by age group at the state level in the US, with short-term incidence and “seasonal” targets. Forecasts are requested for each combination of the following variables:
-* location: “US”, “AL”, “AK”, ..., “WY”
-* age_group: “0-5 years”, “6-18 years”, ..., “65+ years”
-* origin_date: weekly on Mondays
-* outcome_variable: “hospitalizations”
-* target: “weekly rate”, “weekly rate”, “peak rate”, “peak week”
-* horizon (only applies if the target is “weekly rate”): 1, 2, NA, NA
-
-Suppose that $y_{l,a,d}$ represents the hospitalization rate for location $l$ and age group $a$ on the week corresponding to date $d$. Additionally, let $season(d)$ denote the influenza season to which the date $d$ belongs. For a forecast submitted on `origin_date` $d$, the following table specifies how the observed target values can be calculated from known ground truth data:
-
-| Target/horizon combination | Target value |
-| ----------- | ----------- |
-| Target: “weekly rate”, Horizon: 1 | $y_{l,a,d+1}$ |
-| Target: “weekly rate”, Horizon: 2 | $y_{l,a,d+2}$ |
-| Target: “peak rate”, Horizon: NA | $max_{\{d':season(d') = season(d) \}} y_{l,a,d'}$ |
-| Target: “peak week”, Horizon: NA | $argmax_{\{d':season(d') = season(d) \}} y_{l,a,d'}$ | 
-	
-
-A Hub should additionally provide a function that calculates the value of these targets from input ground truth data, ideally in multiple programming languages that are commonly used by modelers.
-
+```
+"output_type_id_params":{
+			“is_required”: true,
+			“type”: “character”,
+			“max_length”: 6,
+"min_samples_per_task": 90,
+			"max_samples_per_task": 100,
+			"compound_taskid_set": ["origin_date", "location", "horizon", "variant"]
+		}
+```
