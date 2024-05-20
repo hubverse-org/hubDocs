@@ -89,3 +89,24 @@ Submission A: sample output_type where **a single modeling task corresponds to a
 			"compound_taskid_set": ["origin_date", "location", "horizon", "variant"]
 		}
 ```
+
+|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
+| $${\color{lightgrey}4}$$ | 2024-03-15 | MA | 14 | AA | sample | s8 | - |
+| $${\color{lightgrey}4}$$ | 2024-03-15 | MA | 14 | AA | sample | s9 | - |
+| $${\color{lightgrey}5}$$ | 2024-03-15 | MA | 14 | BB | sample | s10 | - |
+| $${\color{lightgrey}5}$$ | 2024-03-15 | MA | 14 | BB | sample | s11 | - |
+| $${\color{lightgrey}6}$$ | 2024-03-15 | MA | 14 | CC | sample | s12 | - |
+| $${\color{lightgrey}6}$$ | 2024-03-15 | MA | 14 | CC | sample | s13 | - |
+| $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s14 | - |
+| $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
+
+
