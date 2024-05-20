@@ -1,10 +1,16 @@
-# Target data
+# Sample output_type
 
-## Purpose
-Many Hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is in principle observable. In those cases, the Hub should provide:
-   * Ground truth data, i.e., "target data", for the variables that are used to define modeling targets, either within the hub itself or with a pointer to an external source providing the data. Critically, this truth data source should be openly accessible and should provide access to historical versions of the data that were available as of past dates.
-   * A precise specification of how all modeling targets can be calculated from the ground truth data, ideally with functions implementing those calculations in multiple commonly used programming languages
+## Introduction
+The sample output_type can be used to represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the setup of the model and the configuration settings of the hub, different information may be requested or required to identify each sample.
 
+In the hubverse, a “modeling task” is the element that is being predicted and that can be represented by a univariate (e.g., scalar, or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task id columns that uniquely define a single prediction. We note that this concept is similar to that of a [“forecast unit” in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
+
+Take the following model_output data for the mean output_type as an example:
+| Origin_date | horizon | location | output_type| Output_type_id | value |
+| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- |
+| 2024-03-15 | -1 | MA | mean | NA| - |
+| 2024-03-15 |  0 | MA | mean | NA| - |
+| 2024-03-15 |  1 | MA | mean | NA| - |
 
 ## Auxiliary data
 Optionally, a hub may want to store additional data relevant to the modeling efforts, but not specifically related to the modeling "targets". These data can be stored in the `auxiliary-data` directory of the hub. Examples of data that could be stored in such a directory are:
