@@ -12,12 +12,17 @@ Take the following model_output data for the mean output_type as an example:
 | 2024-03-15 |  0 | MA | mean | NA| - |
 | 2024-03-15 |  1 | MA | mean | NA| - |
 
-## Auxiliary data
-Optionally, a hub may want to store additional data relevant to the modeling efforts, but not specifically related to the modeling "targets". These data can be stored in the `auxiliary-data` directory of the hub. Examples of data that could be stored in such a directory are:
+In the above table, the three task-id columns origin_date, horizon, and location uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples
+{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}
+{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}
+{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}
 
-1. Other data sources that models might want to use as inputs
-2. A list of outliers in the target data
-3. A list of locations to be used in the hub
+In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) prior to the origin date of 2024-03-15 in Massachusetts. 
+
+## Individual modeling tasks
+In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see Compound modeling tasks). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
+
+
 
 ## Recommended standards
 Any hub for which one or more model output targets are defined in terms of a ground truth data source should provide:
