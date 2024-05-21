@@ -77,7 +77,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | 2024-03-15 | 14 | DD | MA | sample | - | - |
 
 ### Three submissions, differing by compound modeling task
-Submission A: sample output_type where **a single modeling task corresponds to a unique combination of origin_date, location, horizon, and variant**. There are eight unique modeling tasks in this example.
+**Submission A**: sample output_type where **a single modeling task corresponds to a unique combination of origin_date, location, horizon, and variant**. There are eight unique modeling tasks in this example.
 
 ```
 "output_type_id_params":{
@@ -110,3 +110,98 @@ Submission A: sample output_type where **a single modeling task corresponds to a
 | $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
 
 
+**Submission B**: sample output_type where a compound modeling task corresponds to a combination of values for origin_date, horizon, and location. In this example, **the proportions of all four variants at a given date, location, and horizon make up the compound modeling task**. In the example data shown below there are two unique compound modeling tasks (shown with the grayed out column) and four samples. 
+
+```
+"output_type_id_params":{
+			“is_required”: true,
+			“type”: “character”,
+			“max_length”: 6,
+"min_samples_per_task": 90,
+			"max_samples_per_task": 100,
+			"compound_taskid_set": ["origin_date", "location", "horizon"]
+		}
+```
+
+|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | AA | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | CC | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | DD | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | AA | sample | s3 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | CC | sample | s3 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | DD | sample | s3 | - |
+
+**Submission C**: sample output_type where each compound modeling task corresponds to a combination of origin_date and location. In this example, there is a single compound modeling task which we can describe as **“Massachusetts with the origin_date of 2024-03-15”**. In the example data shown below there is one unique compound modeling task (shown with the latent grayed out column) and two unique samples. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
+
+```
+"output_type_id_params":{
+			“is_required”: true,
+			“type”: “character”,
+			“max_length”: 6,
+"min_samples_per_task": 90,
+			"max_samples_per_task": 100,
+			"compound_taskid_set": ["origin_date", "location"]
+               }
+```
+
+|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | BB | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | CC | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | DD | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | BB | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | CC | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | DD | sample | s1 | - |
+
+**Submission D**: sample output_type where a compound modeling task corresponds to a combination of values for origin_date, location and variant. In plain language, this could be described as **“trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other.”**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed out column) and two samples for each. 
+
+```
+"output_type_id_params":{
+			“is_required”: true,
+			“type”: “character”,
+			“max_length”: 6,
+"min_samples_per_task": 90,
+			"max_samples_per_task": 100,
+			"compound_taskid_set": ["origin_date", "location", "variant"]
+		}
+```
+
+|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | B | sample | s3 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | ACC | sample | s4 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14| CC | sample | s4 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14 | CC | sample | s5 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s6 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
+| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
