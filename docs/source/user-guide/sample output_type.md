@@ -12,15 +12,15 @@ Take the following model_output data for the mean output_type as an example:
 | 2024-03-15 |  0 | MA | mean | NA| - |
 | 2024-03-15 |  1 | MA | mean | NA| - |
 
-In the above table, the three task-id columns origin_date, horizon, and location uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples
-{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}
-{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}
-{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}
+In the above table, the three task-id columns origin_date, horizon, and location uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples <br>
+{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}<br>
+{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}<br>
+{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}<br>
 
 In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) prior to the origin date of 2024-03-15 in Massachusetts. 
 
 ## Individual modeling tasks
-In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see Compound modeling tasks). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
+In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see [Compound modeling tasks](https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs/edit/mzorn-patch-3/docs/source/user-guide/sample%20output_type.md#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
 
 |compound_idx| Origin_date | horizon | location | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -234,4 +234,42 @@ A hub can specify a "compound_taskid_set" field in the metadata for the sample o
     <td>Y</td>
     <td>Y</td>
   </tr>
+  <tr>
+    <td>[“origin_date”, “location”, “horizon”]</td>
+    <td>X</td>
+    <td>Y</td>
+    <td>Y</td>
+    <td>X</td>
+  </tr>
+  <tr>
+    <td>[“origin_date”, “location”]</td>
+    <td>X</td>
+    <td>X</td>
+    <td>Y</td>
+    <td>X</td>
+  </tr>
+  <tr>
+    <td>[“origin_date”, “location”, “variant”]</td>
+    <td>X</td>
+    <td>X</td>
+    <td>Y</td>
+    <td>Y</td>
+  </tr>
 </table>
+
+In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the output_type_id column) are also present in the “compound_taskid_set”. To talk through the example of [“origin_date”, “horizon”, “location”]:
+<li>Both Submissions B and C would pass validation since when the data are grouped by the “compound_taskid_set” variables you can always find a group of rows that have the same output_type_id.</li>
+<li>Submissions A and D would fail validation since when the data are grouped by the “compound_taskid_set” variables, there would be no rows that share an output_type_id.</li>
+<li>A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of “origin_date”, “horizon” and “location”. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of “origin_date” and “location”. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of “origin_date”, “horizon”, “location”, and “variant”. To achieve this, the hub specifies: <br>
+“compound_taskid_set” : [“origin_date”, “horizon”, “location”]</li>
+
+# Number of samples vs. output_type_id
+The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C and D above, even though the number of unique values of output_type_id changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
+
+# Relationship to output_types
+Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time we choose to only implement the concept of compound modeling tasks for sample output_types, to facilitate data format validation for samples. 
+
+At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
+
+<li>validation that all of the proportions in a set of “mean” output_types sum to 1.</li>
+<li>be used to evaluate the proportions in a set of “mean” output_types, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.</li>
