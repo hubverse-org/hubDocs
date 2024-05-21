@@ -76,7 +76,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | 2024-03-15 | 14 | CC | MA | sample | - | - |
 | 2024-03-15 | 14 | DD | MA | sample | - | - |
 
-### Three submissions, differing by compound modeling task
+### Four submissions, differing by compound modeling task
 **Submission A**: sample output_type where **a single modeling task corresponds to a unique combination of origin_date, location, horizon, and variant**. There are eight unique modeling tasks in this example.
 
 ```
@@ -196,7 +196,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | B | sample | s3 | - |
+| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14| CC | sample | s4 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
@@ -206,7 +206,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
 | $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
 
-# Configuration of output_type_id
+## Configuration of output_type_id
 **The output_type_id column allows a modeler to show which rows of model output belong to the same sample.**
 
 Models may have different internal structures that allow them to naturally generate samples for different compound modeling tasks. 
@@ -263,10 +263,10 @@ In general, a submission will pass validation if the task-id variables that defi
 <li>A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of “origin_date”, “horizon” and “location”. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of “origin_date” and “location”. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of “origin_date”, “horizon”, “location”, and “variant”. To achieve this, the hub specifies: <br>
 “compound_taskid_set” : [“origin_date”, “horizon”, “location”]</li>
 
-# Number of samples vs. output_type_id
+## Number of samples vs. output_type_id
 The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C and D above, even though the number of unique values of output_type_id changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
 
-# Relationship to output_types
+## Relationship to output_types
 Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time we choose to only implement the concept of compound modeling tasks for sample output_types, to facilitate data format validation for samples. 
 
 At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
