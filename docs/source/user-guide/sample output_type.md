@@ -197,7 +197,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
 | $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | B | sample | s3 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | ACC | sample | s4 | - |
+| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14| CC | sample | s4 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
 | $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14 | CC | sample | s5 | - |
