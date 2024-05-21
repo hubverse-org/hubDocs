@@ -214,3 +214,24 @@ For example, some models might be able to simulate data from all horizons sequen
 Some models might not have this capability, and just be able to simulate draws from each horizon entirely independently of other timepoints. This model would accurately represent their output data as in Submission A or B.
 
 A hub can specify a "compound_taskid_set" field in the metadata for the sample output_type to specify the task-id columns that must be used to define separate sample index values (as present in the output_type_id column). The following table shows how different specifications of this field would impact the validity of each of the example submissions A, B, C, and D. 
+
+<table>
+  <tr>
+    <td>  </td>
+    <td colspan="4"><strong>Submission passing validation</strong></td>
+  </tr>
+  <tr>
+    <td><strong>“compound_taskid_set” in schema"</strong></td>
+    <td><strong>A  (o_d,l,h,v)</strong></td>
+    <td><strong>B (o_d,l,h)</strong></td>
+    <td><strong>C (o_d,l)</strong></td>
+    <td><strong>D (o_d,l,v))</strong></td>
+  </tr>
+  <tr>
+    <td>[“origin_date”, “location”, “horizon”, “variant”]</td>
+    <td>Y</td>
+    <td>Y</td>
+    <td>Y</td>
+    <td>Y</td>
+  </tr>
+</table>
