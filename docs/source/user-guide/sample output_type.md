@@ -205,3 +205,12 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s6 | - |
 | $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
 | $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
+
+# Configuration of output_type_id
+**The output_type_id column allows a modeler to show which rows of model output belong to the same sample.**
+
+Models may have different internal structures that allow them to naturally generate samples for different compound modeling tasks. 
+For example, some models might be able to simulate data from all horizons sequentially, taking into account what has happened at the prior horizons. Such a model would accurately represent their output data as in Submissions C and D. 
+Some models might not have this capability, and just be able to simulate draws from each horizon entirely independently of other timepoints. This model would accurately represent their output data as in Submission A or B.
+
+A hub can specify a "compound_taskid_set" field in the metadata for the sample output_type to specify the task-id columns that must be used to define separate sample index values (as present in the output_type_id column). The following table shows how different specifications of this field would impact the validity of each of the example submissions A, B, C, and D. 
