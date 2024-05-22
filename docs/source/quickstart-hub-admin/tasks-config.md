@@ -181,7 +181,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 
 ```
 
-## Step 6: Define [`"output_type"`](#model_output_format):  
+## Step 6: Define [`"output_type"`](#model-output-format):  
 - The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
 ### 6.1. Setting the `"mean"`:  
