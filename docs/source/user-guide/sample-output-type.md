@@ -20,7 +20,7 @@ In the above table, the three task-id columns origin_date, horizon, and location
 In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) prior to the origin date of 2024-03-15 in Massachusetts. 
 
 ## Individual modeling tasks
-In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see [Compound modeling tasks](https://github.com/Infectious-Disease-Modeling-Hubs/hubDocs/edit/mzorn-patch-3/docs/source/user-guide/sample%20output_type.md#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
+In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see [Compound modeling tasks](#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
 
 |compound_idx| Origin_date | horizon | location | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -57,6 +57,7 @@ In words, the above configuration specifies that samples are required, they must
 
 Note that the output_type_id parameters are specified in an “output_type_id_params” block because they are parameters defining the allowable values. For other output types, the “output_type_id” block is used to explicitly list required and optional values.
 
+(compound-modeling-tasks)=
 ## Compound modeling tasks
 
 There are settings where modeling hubs may wish to identify sets of modeling tasks that the hub will treat as being related to each other. This occurs when multiple distinct values that can be seen as being representations of a single multivariate outcome of interest. In these settings, a subset of the task-id columns (a “compound_taskid_set”) will be used to identify what values are shared for the modeling tasks that are related to each other.
