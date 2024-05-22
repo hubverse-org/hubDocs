@@ -12,11 +12,11 @@ The `model-output` directory in a modeling hub is required to have the following
    * `<round-id1>.csv` (or parquet, etc)
 
 
-(model_output_format)=
+(model-output-format)=
 ## Formats of model output
 Model outputs are contributed by teams, and are represented in a rectangular format, where each row corresponds to a unique model output and columns define: (1) the model task, (2) specification of the representation of the model output, and (3) the model output value. More detail about each of these is given in the following points:
 
-* Task ids: A set of columns specifying the model task, as described [here](task_id_vars). The columns used as task ids will vary across different Hubs.
+* Task ids: A set of columns specifying the model task, as described [here](task-id-vars). The columns used as task ids will vary across different Hubs.
 
 * Model output representation: A set of three columns specifying how the model outputs are represented. All three of these columns will be used by all Hubs:
    1. `output_type` specifies the type of representation of the predictive distribution
@@ -31,7 +31,7 @@ Note on `pmf` model output type: Values are required to sum to 1 across all `out
 ```{margin}
 Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
 ```
-(output_type_table)=
+(output-type-table)=
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
