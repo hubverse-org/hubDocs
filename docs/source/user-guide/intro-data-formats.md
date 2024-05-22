@@ -1,6 +1,6 @@
 # Overview
 
-On this page we provide an [outline on the contents of this data formats section](#data-formats-outline), define a few [running examples of Hubs](#running-examples), and describe in some detail the key concepts of [task ID variables](task-id-vars) and [submission rounds](submission-rounds).
+On this page we provide an [outline on the contents of this data formats section](#data-formats-outline), define a few [running examples of Hubs](#running-examples), and describe in some detail the key concepts of [task ID variables](#task-id-vars) and [submission rounds](#submission-rounds).
 
 (data-formats-outline)=
 ## Data Formats section outline
