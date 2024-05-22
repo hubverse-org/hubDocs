@@ -225,7 +225,7 @@ A hub can specify a "compound_taskid_set" field in the metadata for the sample o
     <td><strong>A  (o_d,l,h,v)</strong></td>
     <td><strong>B (o_d,l,h)</strong></td>
     <td><strong>C (o_d,l)</strong></td>
-    <td><strong>D (o_d,l,v))</strong></td>
+    <td><strong>D (o_d,l,v)</strong></td>
   </tr>
   <tr>
     <td>[“origin_date”, “location”, “horizon”, “variant”]</td>
