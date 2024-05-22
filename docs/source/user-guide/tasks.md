@@ -55,7 +55,7 @@ As Hubs define new modeling tasks, they may need to introduce new task ID variab
 (output-types)=
 ## Output types
 
-The [output_type](#output-types) object defines accepted representations for each task. More on the different output types can be found in [this table](output_type_table).
+The [output_type](#output-types) object defines accepted representations for each task. More on the different output types can be found in [this table](#output-type-table).
 
 (target-metadata)=
 ## Target metadata
