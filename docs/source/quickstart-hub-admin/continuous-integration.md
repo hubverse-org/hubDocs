@@ -29,7 +29,7 @@ GitHub Actions can be downloaded using the command `use_hub_github_action()` wit
 
 For example, to download the github action `validate-submission`, you would use the code below:
 
-```{r example, eval = FALSE}
+``` r
 library(hubCI)
 
 use_hub_github_action(name = "validate-submission")
