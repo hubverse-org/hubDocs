@@ -50,6 +50,7 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 
 Hubs should specify the collection of task id variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.
 
+More details about sample-output-type can be found in [sample-output-type](.
 Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 
