@@ -90,7 +90,7 @@ Now, read below for details on some of the lines of code in this file:
 
 [Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L400).  
 
-(setting_up_location)=
+(setting-up-location)=
 ### 5.4. Setting up `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
@@ -182,7 +182,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 ```
 
 ## Step 6: Define [`"output_type"`](#model_output_format):  
-- The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
+- The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
 ### 6.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
