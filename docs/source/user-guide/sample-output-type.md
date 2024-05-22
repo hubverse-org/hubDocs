@@ -288,3 +288,7 @@ At a later time, the hubverse may revisit a way to more generally define compoun
 
 <li>validation that all of the proportions in a set of “mean” output_types sum to 1.</li>
 <li>be used to evaluate the proportions in a set of “mean” output_types, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.</li>
+
+<br>
+
+Documentation about tests for other output types can be found in  [Validation Pull Requests on GitHub](https://infectious-disease-modeling-hubs.github.io/hubValidations/articles/validate-pr.html#validate_pr-check-details).
