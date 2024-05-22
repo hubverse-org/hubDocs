@@ -66,3 +66,14 @@ html[data-theme="dark"] {
   }
 }
 
+.heatMap1 {
+  /*width: 70%;
+  text-align: center;*/
+}
+
+.heatMap1 th {
+  background: lightgrey;
+  word-wrap: break-word;
+  text-align: center;
+}
+.heatMap1 tr:nth-child(odd) { background: grey; }

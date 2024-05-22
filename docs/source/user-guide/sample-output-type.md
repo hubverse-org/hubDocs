@@ -90,6 +90,8 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 		}
 ```
 
+<div class="heatMap">
+
 |compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
@@ -109,6 +111,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 | $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s14 | - |
 | $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
 
+</div>
 
 **Submission B**: sample output_type where a compound modeling task corresponds to a combination of values for origin_date, horizon, and location. In this example, **the proportions of all four variants at a given date, location, and horizon make up the compound modeling task**. In the example data shown below there are two unique compound modeling tasks (shown with the grayed out column) and four samples. 
 
