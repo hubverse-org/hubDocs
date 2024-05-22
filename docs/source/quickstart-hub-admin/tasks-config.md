@@ -1,6 +1,6 @@
 # Configuring tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model_tasks_schema) file, which specifies the model tasks (task ids and targets) as well as model output types. Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
+Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model-tasks-schema) file, which specifies the model tasks (task ids and targets) as well as model output types. Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
 
 ## Step 1: Open `tasks.json`  
 
@@ -13,7 +13,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 ## Step 2: Examine the `tasks.json` file  
 
-In your source panel (upper left hand panel), you should see the code below. [Here is a description of each line of code in `tasks.json`](#model_tasks_schema).  
+In your source panel (upper left hand panel), you should see the code below. [Here is a description of each line of code in `tasks.json`](#model-tasks-schema).  
 
 ```{image} ../images/tasks_schema_0.png
 :alt: Screenshot of the code in the tasks.json file
@@ -40,20 +40,20 @@ You can [use this link to download the `tasks.json` file](https://github.com/Inf
 :class: bordered
 ```
 
-Save the file in the `hub-config` folder (which is [in your repository on your local computer](#clone_repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
+Save the file in the `hub-config` folder (which is [in your repository on your local computer](#clone-repo)). This new file should replace the existing `tasks.json` file that was in this folder.  
 
 ### 4.1: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L50). Simple explanations for elements in the Example Forecast Hub file are offered below:  
+Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
 * `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
 * `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
 * `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
-* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task_id_use).  
+* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task-id-use).  
 * `horizon`: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
 * `location`: The geographic identifier, such as country codes or FIPS state/county level codes.  
-* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model_output_format).  
+* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model-output-format).  
 
 Now, read below for details on some of the lines of code in this file:  
 
@@ -88,7 +88,9 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-(setting_up_location)=
+[Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L400).  
+
+(setting-up-location)=
 ### 5.4. Setting up `"location"`:  
 - The `location` refers to the geographic identifier, such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
@@ -179,8 +181,8 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 
 ```
 
-## Step 6: Define [`"output_type"`](#model_output_format):  
-- The [`output_type`](#model_output_format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
+## Step 6: Define [`"output_type"`](#model-output-format):  
+- The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. In this example they include `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, both of which establish the valid values that can be entered for this output type.  
 
 ### 6.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
