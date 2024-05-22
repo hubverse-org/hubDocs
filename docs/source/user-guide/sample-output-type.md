@@ -1,7 +1,7 @@
-# Sample output_type
+# Sample output type  
 
 ## Introduction
-The sample output_type can be used to represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the setup of the model and the configuration settings of the hub, different information may be requested or required to identify each sample.
+The sample `output_type` can be used to represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the setup of the model and the configuration settings of the hub, different information may be requested or required to identify each sample.
 
 In the hubverse, a “modeling task” is the element that is being predicted and that can be represented by a univariate (e.g., scalar, or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task id columns that uniquely define a single prediction. We note that this concept is similar to that of a [“forecast unit” in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
 
