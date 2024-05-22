@@ -3,7 +3,7 @@
 ## Directory Structure
 The `hub-config` directory in a modeling hub is required to contain three files:
    1. `admin.json` - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. [More details found below](#hub-admin-config).  
-   2. `tasks.json` - JSON file specifing modeling tasks and model output formats, which may be round-specific. [More details found below](tasks-metadata).  
+   2. `tasks.json` - JSON file specifing modeling tasks and model output formats, which may be round-specific. [More details found below](#tasks-metadata).  
    3. `model-metadata-schema.json` - JSON file defining format of model metadata files. [More information can be found here](#model-metadata-schema).  
 
 ```{caution}
