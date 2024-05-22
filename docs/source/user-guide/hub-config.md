@@ -2,9 +2,9 @@
 
 ## Directory Structure
 The `hub-config` directory in a modeling hub is required to contain three files:
-   1. `admin.json` - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. [More details found below](hub_admin_config).  
-   2. `tasks.json` - JSON file specifing modeling tasks and model output formats, which may be round-specific. [More details found below](tasks_metadata).  
-   3. `model-metadata-schema.json` - JSON file defining format of model metadata files. [More information can be found here](model_metadata_schema).  
+   1. `admin.json` - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. [More details found below](#hub-admin-config).  
+   2. `tasks.json` - JSON file specifing modeling tasks and model output formats, which may be round-specific. [More details found below](tasks-metadata).  
+   3. `model-metadata-schema.json` - JSON file defining format of model metadata files. [More information can be found here](#model-metadata-schema).  
 
 ```{caution}
 Note:  Due to technical issues, we do not currently support json references or yaml metadata files.
@@ -32,7 +32,7 @@ The administrative hub configuration file contains global administrative setting
 
 As of v2.0.1, `admin.json` contains optional settings for hubs that store their configuration and model-output data in the cloud (at this time, Amazon Web Services is the supported cloud provider). Like other admin settings, the cloud information should not be updated once the hub has been launched (doing so will break the process that syncs hub data to the cloud).
 
-(hub_admin_config)=
+(hub-admin-config)=
 ### Hub administrative configuration (`admin.json`) Interactive Schema
 
 #### Schema Version: {{schema_version}}
@@ -50,11 +50,11 @@ Please note that the preview below does not show the required fields. Please cli
 * Something about report generation?
 ```
 
-(tasks_metadata)=
+(tasks-metadata)=
 ## Hub model task configuration (`tasks.json` file)
 The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can vary from a simple forecast hub (see [US Forecast Hub example](/user-guide/intro-data-formats.md) to a more complex round related scenario hub (see [US Scenario Modeling Hub example](/user-guide/intro-data-formats.md)).
 
-(model_tasks_schema)=
+(model-tasks-schema)=
 ### Model Tasks (`tasks.json`) Interactive Schema
 
 #### Schema Version: {{schema_version}}
