@@ -106,7 +106,7 @@ Now, read below for details on some of the lines of code in this file:
 As seen previously, each `task_ids` has a `required` and an `optional` property, to indicate expected information and possible additional information, respectively.  
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
-- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting_up_location)): **no particular value is required but at least one of the `optional` values is expected**.  
+- If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required but at least one of the `optional` values is expected**.  
 - There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks, but not to others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified are expected in the `horizon` column in a model output file. However, **`horizon` is not relevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration and `NA` is expected in the `horizon` column in model output files.  
 
 ```
