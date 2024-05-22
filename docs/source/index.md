@@ -49,6 +49,7 @@ user-guide/hub-config.md
 user-guide/tasks.md
 user-guide/model-metadata.md
 user-guide/model-output.md
+user-guide/sample-output_type.md
 user-guide/target-data.md
 user-guide/model-abstracts.md
 user-guide/software.md
