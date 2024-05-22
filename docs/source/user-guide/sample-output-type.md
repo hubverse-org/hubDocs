@@ -1,6 +1,6 @@
 # Sample output type  
 
-## Introduction
+## Introduction  
 The sample `output_type` can be used to represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the setup of the model and the configuration settings of the hub, different information may be requested or required to identify each sample.
 
 In the hubverse, a “modeling task” is the element that is being predicted and that can be represented by a univariate (e.g., scalar, or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task id columns that uniquely define a single prediction. We note that this concept is similar to that of a [“forecast unit” in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
@@ -24,15 +24,15 @@ In many settings, forecasts will be made for individual modeling tasks, with no 
 
 |compound_idx| Origin_date | horizon | location | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | -1 | MA | sample | 0| - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | -1 | MA | sample | 1| - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | -1 | MA | sample | 2| - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | 0 | MA | sample | 3| - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | 0 | MA | sample | 4| - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | 0 | MA | sample | 5| - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | 1 | MA | sample | 6| - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | 1 | MA | sample | 7| - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | 1 | MA | sample | 8| - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 0| - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 1| - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 2| - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 3| - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 4| - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 5| - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 6| - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 7| - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 8| - |
 
 In this setting, a hub will specify a minimum and maximum number of required samples in the metadata for the prediction task. The associated configuration might look like:
 
@@ -90,26 +90,26 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 		}
 ```
 
-<div class="heatMap">
+<div class="heatMap1">
 
 |compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
-| $${\color{lightgrey}4}$$ | 2024-03-15 | MA | 14 | AA | sample | s8 | - |
-| $${\color{lightgrey}4}$$ | 2024-03-15 | MA | 14 | AA | sample | s9 | - |
-| $${\color{lightgrey}5}$$ | 2024-03-15 | MA | 14 | BB | sample | s10 | - |
-| $${\color{lightgrey}5}$$ | 2024-03-15 | MA | 14 | BB | sample | s11 | - |
-| $${\color{lightgrey}6}$$ | 2024-03-15 | MA | 14 | CC | sample | s12 | - |
-| $${\color{lightgrey}6}$$ | 2024-03-15 | MA | 14 | CC | sample | s13 | - |
-| $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s14 | - |
-| $${\color{lightgrey}7}$$ | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
+| ${\color{lightgrey}4}$ | 2024-03-15 | MA | 14 | AA | sample | s8 | - |
+| ${\color{lightgrey}4}$ | 2024-03-15 | MA | 14 | AA | sample | s9 | - |
+| ${\color{lightgrey}5}$ | 2024-03-15 | MA | 14 | BB | sample | s10 | - |
+| ${\color{lightgrey}5}$ | 2024-03-15 | MA | 14 | BB | sample | s11 | - |
+| ${\color{lightgrey}6}$ | 2024-03-15 | MA | 14 | CC | sample | s12 | - |
+| ${\color{lightgrey}6}$ | 2024-03-15 | MA | 14 | CC | sample | s13 | - |
+| ${\color{lightgrey}7}$ | 2024-03-15 | MA | 14 | DD | sample | s14 | - |
+| ${\color{lightgrey}7}$ | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
 
 </div>
 
@@ -126,24 +126,28 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 		}
 ```
 
+<div class="heatMap2">
+
 |compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | AA | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | CC | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | DD | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | AA | sample | s3 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | CC | sample | s3 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | DD | sample | s3 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | AA | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | CC | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | DD | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | AA | sample | s3 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | CC | sample | s3 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | DD | sample | s3 | - |
+
+</div>
 
 **Submission C**: sample output_type where each compound modeling task corresponds to a combination of origin_date and location. In this example, there is a single compound modeling task which we can describe as **“Massachusetts with the origin_date of 2024-03-15”**. In the example data shown below there is one unique compound modeling task (shown with the latent grayed out column) and two unique samples. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
 
@@ -158,24 +162,28 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
                }
 ```
 
+<div class="heatMap3">
+
 |compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | BB | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | CC | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | DD | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | BB | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | CC | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | DD | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | BB | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | CC | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | DD | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | BB | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | CC | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | DD | sample | s1 | - |
+
+</div>
 
 **Submission D**: sample output_type where a compound modeling task corresponds to a combination of values for origin_date, location and variant. In plain language, this could be described as **“trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other.”**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed out column) and two samples for each. 
 
@@ -190,24 +198,28 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 		}
 ```
 
+<div class="heatMap4">
+
 |compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| $${\color{lightgrey}0}$$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
-| $${\color{lightgrey}1}$$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14| CC | sample | s4 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
-| $${\color{lightgrey}2}$$ | 2024-03-15 | MA | 14 | CC | sample | s5 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s6 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
-| $${\color{lightgrey}3}$$ | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
+| ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
+| ${\color{lightgrey}1}$ | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 14| CC | sample | s4 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
+| ${\color{lightgrey}2}$ | 2024-03-15 | MA | 14 | CC | sample | s5 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 14 | DD | sample | s6 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
+| ${\color{lightgrey}3}$ | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
+
+</div>
 
 ## Configuration of output_type_id
 **The output_type_id column allows a modeler to show which rows of model output belong to the same sample.**
@@ -232,31 +244,31 @@ A hub can specify a "compound_taskid_set" field in the metadata for the sample o
   </tr>
   <tr>
     <td>[“origin_date”, “location”, “horizon”, “variant”]</td>
-    <td>Y</td>
-    <td>Y</td>
-    <td>Y</td>
-    <td>Y</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>✅</td>
   </tr>
   <tr>
     <td>[“origin_date”, “location”, “horizon”]</td>
-    <td>X</td>
-    <td>Y</td>
-    <td>Y</td>
-    <td>X</td>
+    <td>❌</td>
+    <td>✅</td>
+    <td>✅</td>
+    <td>❌</td>
   </tr>
   <tr>
     <td>[“origin_date”, “location”]</td>
-    <td>X</td>
-    <td>X</td>
-    <td>Y</td>
-    <td>X</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✅</td>
+    <td>❌</td>
   </tr>
   <tr>
     <td>[“origin_date”, “location”, “variant”]</td>
-    <td>X</td>
-    <td>X</td>
-    <td>Y</td>
-    <td>Y</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✅</td>
+    <td>✅</td>
   </tr>
 </table>
 
