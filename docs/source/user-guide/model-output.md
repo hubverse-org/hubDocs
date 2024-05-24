@@ -10,7 +10,8 @@ The `model-output` directory in a modeling hub is required to have the following
    *  `<round-id1>-<model_id>.csv` (or parquet, etc)
 * `team2-modela`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
-
+     
+where `model_id` = `team_abbr-model_abbr`
 
 (model_output_format)=
 ## Formats of model output
