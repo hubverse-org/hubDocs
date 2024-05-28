@@ -16,7 +16,7 @@ The `model-output` directory in a modeling hub is required to have the following
 ## Formats of model output
 Model outputs are contributed by teams, and are represented in a rectangular format, where each row corresponds to a unique model output and columns define: (1) the model task, (2) specification of the representation of the model output, and (3) the model output value. More detail about each of these is given in the following points:
 
-* Task ids: A set of columns specifying the model task, as described [here](task-id-vars). The columns used as task ids will vary across different Hubs.
+* Task ids: A set of columns specifying the model task, as described [here](#task-id-vars). The columns used as task ids will vary across different Hubs.
 
 * Model output representation: A set of three columns specifying how the model outputs are represented. All three of these columns will be used by all Hubs:
    1. `output_type` specifies the type of representation of the predictive distribution
