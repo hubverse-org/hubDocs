@@ -1,22 +1,27 @@
-# Documentation for Infectious Disease Modeling Hubs
+# Documentation for Infectious Disease Modeling Hubs  
 
-This GitHub repository includes the content needed to generate the static site 
-that contains the documentation about how to build, manage and maintain 
-collaborative modeling hubs.
+This GitHub repository includes the content needed to generate the static site that contains the documentation about how to build, manage and maintain collaborative modeling hubs.
 
-## How the site works
+## Sections  
+1. [How the site works](#site-works)  
+2. [Installation](#installation)
+3. [View local site](#view-site)
+4. [Versioning](#versioning)
+5. [Contribution guidelines](#contributing)
+6. [Style notes](#style)
 
-This site uses [ReadTheDocs](https://readthedocs.org/) and
-[Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and 
-maintaining the content. The live version of the documentation can be found
-[here](https://hubdocs.readthedocs.io/).
+(site-works)=
+## How the site works  
+
+This site uses [ReadTheDocs](https://readthedocs.org/) and [Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and  maintaining the content. The [live version of the documentation can be found in this page](https://hubverse.io/en/latest/).
 
 The main content of the site lives in [`docs/source`](docs/source/). That is 
 where you will add/edit Markdown files to populate the content of the site.
 
 [This page](https://jupyterbook.org/en/stable/intro.html) provides useful documentation on how to use the Jupyter Book theme, which is the theme currently used by our documentation site.
 
-# Installation 
+(installation)=
+## Installation  
 
 To build and preview the site locally, the following steps 
 (assuming you already have python installed) are adapted from the 
@@ -29,13 +34,13 @@ so you need to install myst-parser: `pip install myst-parser`.
 4. In the `docs` folder, run `make html` to build the site locally to inspect changes.
 
 
-# Using a conda environment for local development
+### Using a conda environment for local development
 
 It is preferable to work with the project in a project specific conda environment. For this you will need [Anaconda](https://www.anaconda.com/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) installed.
 
 You can check whether `conda` is installed by running `conda list`.  If `conda` is installed and working, this will display a list of installed packages and their versions.
 
-## Create environment and install dependencies
+### Create environment and install dependencies
 
 You first need to create a python 3.9  `hubdocs` environment and install all additonal python dependencies within it.
 
@@ -50,7 +55,7 @@ conda activate hubdocs
 pip install -r docs/requirements.txt
 ```
 
-## Activate environment
+### Activate environment
 
 Any time you return to the project, you will need to activate the `hubdocs` environment.
 
@@ -59,7 +64,7 @@ Any time you return to the project, you will need to activate the `hubdocs` envi
 conda activate hubdocs
 ```
 
-## Deactivate environment
+### Deactivate environment
 
 When finished, you can deactivate the conda environment with:
 
@@ -67,7 +72,7 @@ When finished, you can deactivate the conda environment with:
 conda deactivate
 ```
 
-## Build site
+### Build site
 
 To build html pages from source, navigate to the `docs/` directory and run `make html`. 
 The resulting HTML pages can be found in the `docs/build/` directory.
@@ -77,6 +82,7 @@ cd docs
 make html
 ```
 
+(view-site)=
 ## View local site
 
 To view the site locally, open any of the html files the `docs/build/` directory in a browser (by right clicking and selecting the application to open the file with.)
@@ -91,8 +97,8 @@ To use Live Server:
 3. When the Live Server is running, you will see the port it it is being served on at the bottom of left of the VSCode toolbar. ![](https://user-images.githubusercontent.com/5583057/203736634-5a3a398d-7067-4962-a457-f7db35e2244c.png) 
 4. To disconnect the server, click on :no_entry_sign:.
 
-
-# Versioning
+(versioning)=
+## Versioning
 
 Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). While changes to documentation text can be commited without creating a new release and will appear in the `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
@@ -108,8 +114,15 @@ When creating a new release version:
 8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
 
+(contributing)=
+## Contribution guidelines  
+In general, contributions should be made via pull requests to the `main` branch. Note that PRs should trigger preview builds of the site, so you should be able to double-check that your changes look as expected.
 
-## Contribution guidelines
-In general, contributions should be made via pull requests to the `main` branch. 
-Note that PRs should trigger preview builds of the site, so you should be able
-to double-check that your changes look as expected.
+(style)=
+## Style notes  
+- New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).  
+- File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).  
+- Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
+- Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.  
+- Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.  
+- Additional stylistic suggestions can be found in [this style guide for Sphinx-based documentations](https://documentation-style-guide-sphinx.readthedocs.io/en/latest/).  
