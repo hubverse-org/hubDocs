@@ -94,6 +94,9 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 		}
 ```
 
+```{attention}
+Rows are shaded to indicate different samples for the same compound forecast task. For example in the table below, the first two rows correspond to the same modeling task but they are highlighted to show that the first row is from sample "s0" while the second row is from sample "s1".
+```
 <div class="heatMap1">
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
