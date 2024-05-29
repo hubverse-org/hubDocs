@@ -4,9 +4,9 @@ This GitHub repository includes the content needed to generate the static site t
 
 ## Sections  
 1. [How the site works](#how-the-site-works)  
-2. [Installation](#installation-and-building)  
+2. [Installation and building](#installation-and-building)  
 3. [View local site](#view-local-site)  
-4. [Versioning](#documentation-versioning)  
+4. [Documentation versioning](#documentation-versioning)  
 6. [Contribution guidelines](#contribution-guidelines)  
 7. [Style notes](#style-notes)  
 
