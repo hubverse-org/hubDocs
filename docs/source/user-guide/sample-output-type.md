@@ -12,10 +12,13 @@ Take the following model_output data for the mean output_type as an example:
 | 2024-03-15 |  0 | MA | mean | NA| - |
 | 2024-03-15 |  1 | MA | mean | NA| - |
 
+
 In the above table, the three task-id columns origin_date, horizon, and location uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples <br>
-{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}<br>
-{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}<br>
-{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}<br>
+```
+{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}
+{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}
+{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}
+```
 
 In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) prior to the origin date of 2024-03-15 in Massachusetts. 
 
