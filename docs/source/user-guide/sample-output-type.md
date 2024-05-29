@@ -45,7 +45,7 @@ In this setting, a hub will specify a minimum and maximum number of required sam
 		"output_type_id_params":{
 			“is_required”: true,
 			“type”: “integer”,
-"min_samples_per_task": 100,
+                        "min_samples_per_task": 100,
 			"max_samples_per_task": 100
 		},
 		"value":{
