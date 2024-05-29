@@ -88,7 +88,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 			“is_required”: true,
 			“type”: “character”,
 			“max_length”: 6,
-"min_samples_per_task": 90,
+                        "min_samples_per_task": 90,
 			"max_samples_per_task": 100,
 			"compound_taskid_set": ["origin_date", "location", "horizon", "variant"]
 		}
