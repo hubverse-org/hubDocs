@@ -56,7 +56,7 @@ In this setting, a hub will specify a minimum and maximum number of required sam
 }
 ```
 
-In words, the above configuration specifies that samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 100 samples per modeling task.
+In words, the above configuration specifies that  "output_type_id_params" samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 100 samples per modeling task. The "value" specifications correspond to the values contained in the "value" column (e..g they must be storable as numeric "double" format and be no less than zero).
 
 Note that the output_type_id parameters are specified in an “output_type_id_params” block because they are parameters defining the allowable values. For other output types, the “output_type_id” block is used to explicitly list required and optional values.
 
