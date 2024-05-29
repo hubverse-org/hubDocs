@@ -6,7 +6,7 @@ The sample `output_type` can be used to represent a probabilistic distribution t
 In the hubverse, a “modeling task” is the element that is being predicted and that can be represented by a univariate (e.g., scalar, or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task id columns that uniquely define a single prediction. We note that this concept is similar to that of a [“forecast unit” in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
 
 Take the following model_output data for the mean output_type as an example:
-| Origin_date | horizon | location | output_type| Output_type_id | value |
+| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | 2024-03-15 | -1 | MA | mean | NA| - |
 | 2024-03-15 |  0 | MA | mean | NA| - |
@@ -22,7 +22,7 @@ In words, the first of these tuples represents a forecast for one day (assume he
 ## Individual modeling tasks
 In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see [Compound modeling tasks](#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the compound_idx column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the output_type_id column indexes the samples that exist for each modeling task.
 
-|compound_idx| Origin_date | horizon | location | output_type| Output_type_id | value |
+|compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 0| - |
 | ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 1| - |
@@ -66,7 +66,7 @@ As a running example of how compound modeling tasks could be specified in differ
 
 Base data: mean output_type. In the table below, an entry of “-” stands in for specific values to be provided by the submitter.
 
-| Origin_date | horizon | variant |location | output_type| Output_type_id | value |
+| origin_date | horizon | variant |location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | 2024-03-15 | 7 | AA | MA | sample | - | - |
 | 2024-03-15 | 7 | BB | MA | sample | - | - |
@@ -93,7 +93,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 
 <div class="heatMap1">
 
-|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
@@ -129,7 +129,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 
 <div class="heatMap2">
 
-|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
@@ -165,7 +165,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 
 <div class="heatMap3">
 
-|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
@@ -201,7 +201,7 @@ Base data: mean output_type. In the table below, an entry of “-” stands in f
 
 <div class="heatMap4">
 
-|compound_idx| Origin_date |location | horizon | variant | output_type| Output_type_id | value |
+|compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
 | ${\color{lightgrey}0}$ | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
