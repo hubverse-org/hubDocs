@@ -127,7 +127,7 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 			“is_required”: true,
 			“type”: “character”,
 			“max_length”: 6,
-"min_samples_per_task": 90,
+                        "min_samples_per_task": 90,
 			"max_samples_per_task": 100,
 			"compound_taskid_set": ["origin_date", "location", "horizon"]
 		}
