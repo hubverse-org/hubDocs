@@ -133,6 +133,10 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 		}
 ```
 
+```{attention}
+Once again, rows are grouped so that each unique sample for each modeling task is together. Therefore, the first four rows correspond to the first sample ("s0") for the first modeling task and the second four rows correspond to the second sample ("s1") for the first modeling task..
+```
+
 <div class="heatMap2">
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
@@ -163,7 +167,7 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 			“is_required”: true,
 			“type”: “character”,
 			“max_length”: 6,
-"min_samples_per_task": 90,
+                        "min_samples_per_task": 90,
 			"max_samples_per_task": 100,
 			"compound_taskid_set": ["origin_date", "location"]
                }
@@ -199,7 +203,7 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 			“is_required”: true,
 			“type”: “character”,
 			“max_length”: 6,
-"min_samples_per_task": 90,
+                        "min_samples_per_task": 90,
 			"max_samples_per_task": 100,
 			"compound_taskid_set": ["origin_date", "location", "variant"]
 		}
@@ -280,10 +284,10 @@ A hub can specify a "compound_taskid_set" field in the metadata for the sample o
 </table>
 
 In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the output_type_id column) are also present in the “compound_taskid_set”. To talk through the example of [“origin_date”, “horizon”, “location”]:
-<li>Both Submissions B and C would pass validation since when the data are grouped by the “compound_taskid_set” variables you can always find a group of rows that have the same output_type_id.</li>
-<li>Submissions A and D would fail validation since when the data are grouped by the “compound_taskid_set” variables, there would be no rows that share an output_type_id.</li>
-<li>A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of “origin_date”, “horizon” and “location”. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of “origin_date” and “location”. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of “origin_date”, “horizon”, “location”, and “variant”. To achieve this, the hub specifies: <br>
-“compound_taskid_set” : [“origin_date”, “horizon”, “location”]</li>
+- Both Submissions B and C would pass validation since when the data are grouped by the “compound_taskid_set” variables you can always find a group of rows that have the same output_type_id.
+- Submissions A and D would fail validation since when the data are grouped by the “compound_taskid_set” variables, there would be no rows that share an output_type_id.
+- A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of “origin_date”, “horizon” and “location”. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of “origin_date” and “location”. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of “origin_date”, “horizon”, “location”, and “variant”. To achieve this, the hub specifies: <br>
+“compound_taskid_set” : [“origin_date”, “horizon”, “location”]
 
 ## Number of samples vs. output_type_id
 The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C and D above, even though the number of unique values of output_type_id changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
@@ -293,8 +297,8 @@ Compound modeling tasks are a general conceptual property of the way targets for
 
 At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
 
-<li>validation that all of the proportions in a set of “mean” output_types sum to 1.</li>
-<li>be used to evaluate the proportions in a set of “mean” output_types, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.</li>
+ - validation that all of the proportions in a set of “mean” output_types sum to 1.
+ - be used to evaluate the proportions in a set of “mean” output_types, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.
 
 <br>
 
