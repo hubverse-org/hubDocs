@@ -3,14 +3,14 @@
 This GitHub repository includes the content needed to generate the static site that contains the documentation about how to build, manage and maintain collaborative modeling hubs.
 
 ## Sections  
-1. [How the site works](#site-works)  
+1. [How the site works](#how-site-works)  
 2. [Installation](#installation-building)
-3. [View local site](#view-site)
+3. [View local site](#view-local-site)
 4. [Versioning](#documentation-versioning)
-5. [Contribution guidelines](#contributing-guidelines)
+5. [Contribution guidelines](#contribution-guidelines)
 6. [Style notes](#style-notes)
 
-(site-works)=
+(how-site-works)=
 ## How the site works  
 
 This site uses [ReadTheDocs](https://readthedocs.org/) and [Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and  maintaining the content. The [live version of the documentation can be found in this page](https://hubverse.io/en/latest/).
@@ -82,7 +82,7 @@ cd docs
 make html
 ```
 
-(view-site)=
+(view-local-site)=
 ## View local site
 
 To view the site locally, open any of the html files the `docs/build/` directory in a browser (by right clicking and selecting the application to open the file with.)
@@ -114,7 +114,7 @@ When creating a new release version:
 8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
 
-(contributing-guidelines)=
+(contribution-guidelines)=
 ## Contribution guidelines  
 In general, contributions should be made via pull requests to the `main` branch. Note that PRs should trigger preview builds of the site, so you should be able to double-check that your changes look as expected.
 
