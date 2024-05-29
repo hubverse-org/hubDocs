@@ -4,11 +4,11 @@ This GitHub repository includes the content needed to generate the static site t
 
 ## Sections  
 1. [How the site works](#site-works)  
-2. [Installation](#installation)
+2. [Installation](#installation-building)
 3. [View local site](#view-site)
-4. [Versioning](#versioning)
-5. [Contribution guidelines](#contributing)
-6. [Style notes](#style)
+4. [Versioning](#documentation-versioning)
+5. [Contribution guidelines](#contributing-guidelines)
+6. [Style notes](#style-notes)
 
 (site-works)=
 ## How the site works  
@@ -20,7 +20,7 @@ where you will add/edit Markdown files to populate the content of the site.
 
 [This page](https://jupyterbook.org/en/stable/intro.html) provides useful documentation on how to use the Jupyter Book theme, which is the theme currently used by our documentation site.
 
-(installation)=
+(installation-building)=
 ## Installation  
 
 To build and preview the site locally, the following steps 
@@ -97,7 +97,7 @@ To use Live Server:
 3. When the Live Server is running, you will see the port it it is being served on at the bottom of left of the VSCode toolbar. ![](https://user-images.githubusercontent.com/5583057/203736634-5a3a398d-7067-4962-a457-f7db35e2244c.png) 
 4. To disconnect the server, click on :no_entry_sign:.
 
-(versioning)=
+(documentation-versioning)=
 ## Versioning
 
 Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas). While changes to documentation text can be commited without creating a new release and will appear in the `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
@@ -114,11 +114,11 @@ When creating a new release version:
 8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
 
-(contributing)=
+(contributing-guidelines)=
 ## Contribution guidelines  
 In general, contributions should be made via pull requests to the `main` branch. Note that PRs should trigger preview builds of the site, so you should be able to double-check that your changes look as expected.
 
-(style)=
+(style-notes)=
 ## Style notes  
 - New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).  
 - File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).  
