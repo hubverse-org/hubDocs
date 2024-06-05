@@ -52,6 +52,15 @@ figcaption {
   text-indent: 2em;
 }
 
+table {
+  border: 2px solid black;
+}
+
+th, td {
+  border: 1px solid rgb(160 160 160);
+  text-align: center;
+}
+
 html[data-theme="light"] {
     code.literal {
       color: #3C88BE !important;
@@ -66,3 +75,26 @@ html[data-theme="dark"] {
   }
 }
 
+.heatMap1 {
+  /*width: 70%;
+  text-align: center;*/
+}
+
+.heatMap1 th {
+  /*background: lightgrey;
+  word-wrap: break-word;
+  text-align: center;*/
+}
+.heatMap1 tr:nth-child(even) { background: grey; }
+
+
+.heatMap2 tr:nth-child(n+5):nth-child(-n+8) { background: grey; }
+.heatMap2 tr:nth-child(n+13):nth-child(-n+16) { background: grey; }
+
+
+.heatMap3 tr:nth-child(n+9) { background: grey; }
+
+.heatMap4 tr:nth-child(n+3):nth-child(-n+4) { background: grey; }
+.heatMap4 tr:nth-child(n+7):nth-child(-n+8) { background: grey; }
+.heatMap4 tr:nth-child(n+11):nth-child(-n+12) { background: grey; }
+.heatMap4 tr:nth-child(n+15):nth-child(-n+16) { background: grey; }
