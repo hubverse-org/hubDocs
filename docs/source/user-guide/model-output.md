@@ -24,6 +24,8 @@ Much of the material in this section has been excerpted and/or adapted from the 
 ```
 
 Model outputs are a specially formatted tabular representation of predictions. Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. Per hubverse convention, there are three groups of columns, each group serving a specific purpose: (1) the "model ID" denotes which model has produced the prediction, (2) the "task IDs" provide details about what is being predicted, and (3) the "model output representation" specifies how the prediction is represented. More detail about each of these is given in the following points:  
+=======
+* Task ids: A set of columns specifying the model task, as described [here](#task-id-vars). The columns used as task ids will vary across different Hubs.  
 
    1. Each model should have a unique identifier that is stored in the `model-id` column.
    2. The details of the outcome (the model task) are provided by the modeler, and can be stored in a series of "task ID" columns as described [in this section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions that were used to generate the predictions. Some example variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, when appropriate, we suggest that Hubs adopt the standard task ID or column names and definitions specified [in the section on usage of task ID variables](#task-id-use).  
@@ -62,6 +64,9 @@ Hubs should specify the collection of task id variables for which samples are ex
 
 More details about sample-output-type can be found in [the page describing sample output type data](../user-guide/sample-output-type.md).  
 
+Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:  
+=======
+More details about sample-output-type can be found in [the page describing sample output type data](../user-guide/sample-output-type.md).
 Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:  
 
 
