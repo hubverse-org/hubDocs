@@ -4,15 +4,16 @@
 The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
 
 * `team1-modela`
-   * `<round-id1>.csv` (or parquet, etc)
-   * `<round-id2>.csv` (or parquet, etc)
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
+   * `<round-id2>-<model_id>.csv` (or parquet, etc)
 * `team1-modelb`
-   * `<round-id1>.csv` (or parquet, etc)
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
 * `team2-modela`
-   * `<round-id1>.csv` (or parquet, etc)
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
 
+where `model_id` = `team_abbr-model_abbr`
 
-(model_output_format)=
+(model-output-format)=
 ## Formats of model output
 ```{margin}
 Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsemblesManuscript). *Journal of Statistical Software*, *(under review)*.
@@ -25,7 +26,7 @@ Much of the material in this section has been excerpted and/or adapted from the 
 Model outputs are a specially formatted tabular representation of predictions. Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. Per hubverse convention, there are three groups of columns, each group serving a specific purpose: (1) the "model ID" denotes which model has produced the prediction, (2) the "task IDs" provide details about what is being predicted, and (3) the "model output representation" specifies how the prediction is represented. More detail about each of these is given in the following points:  
 
    1. Each model should have a unique identifier that is stored in the `model-id` column.
-   2. The details of the outcome (the model task) are provided by the modeler, and can be stored in a series of "task ID" columns as described [in this section on task ID variables](task_id_vars). These "task ID" columns may also include additional information, such as any conditions or assumptions that were used to generate the predictions. Some example variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, when appropriate, we suggest that Hubs adopt the standard task ID or column names and definitions specified [in the section on usage of task ID variables](task_id_use).  
+   2. The details of the outcome (the model task) are provided by the modeler, and can be stored in a series of "task ID" columns as described [in this section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions that were used to generate the predictions. Some example variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, when appropriate, we suggest that Hubs adopt the standard task ID or column names and definitions specified [in the section on usage of task ID variables](#task-id-use).  
    3. "Model output representation" consists of a set of three columns specifying how the model outputs are represented. All three of these columns will be used by all Hubs:  
       1. `output_type` specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
       2. `output_type_id` specifies more identifying information specific to the output type.  
@@ -40,7 +41,7 @@ Note on `pmf` model output type: Values are required to sum to 1 across all `out
 ```{margin}
 Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
 ```
-(output_type_table)=
+(output-type-table)=
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
@@ -57,9 +58,11 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 3. the joint predictive distribution across all locations within each forecast date and horizon
 4. the marginal predictive distribution for each combination of forecast date, location, and horizon
 
-Hubs should specify the collection of task id variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.
+Hubs should specify the collection of task id variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.  
 
-Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:
+More details about sample-output-type can be found in [the page describing sample output type data](../user-guide/sample-output-type.md).  
+
+Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:  
 
 
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
