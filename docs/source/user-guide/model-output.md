@@ -24,7 +24,7 @@ Much of the material in this section has been excerpted and/or adapted from the 
 ```
 
 Model outputs are a specially formatted tabular representation of predictions. Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. Per hubverse convention, there are three groups of columns, each group serving a specific purpose: (1) the "model ID" denotes which model has produced the prediction, (2) the "task IDs" provide details about what is being predicted, and (3) the "model output representation" specifies how the prediction is represented. More detail about each of these is given in the following points:  
-=======
+
 * Task ids: A set of columns specifying the model task, as described [here](#task-id-vars). The columns used as task ids will vary across different Hubs.  
 
    1. Each model should have a unique identifier that is stored in the `model-id` column.
@@ -62,10 +62,6 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 
 Hubs should specify the collection of task id variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.  
 
-More details about sample-output-type can be found in [the page describing sample output type data](../user-guide/sample-output-type.md).  
-
-Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:  
-=======
 More details about sample-output-type can be found in [the page describing sample output type data](../user-guide/sample-output-type.md).
 Here is an example for a Hub that collects mean and quantile forecasts for one-week-ahead incidence, but probabilities for the timing of a season peak:  
 
