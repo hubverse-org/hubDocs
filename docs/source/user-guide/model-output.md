@@ -16,7 +16,7 @@ where `model_id` = `team_abbr-model_abbr`
 (model-output-format)=
 ## Formats of model output
 ```{margin}
-Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsemblesManuscript). *Journal of Statistical Software*, *(under review)*.
+Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsemblesManuscript). *(under review for publication)*.
 ```
 
 ```{admonition} Reference
