@@ -89,6 +89,7 @@ Now, read below for details on some of the lines of code in this file:
 ```
 
 Further details explaining how to use `target_date` and `target_end_date` can be found [here](#defining-target-metadata).  
+Further details explaining 'taregt-id' can be found [here](#calculating-modeling-targets).
 
 (setting-up-location)=
 ### 5.4. Setting up `"location"`:  
