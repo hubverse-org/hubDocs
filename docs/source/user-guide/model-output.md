@@ -4,13 +4,14 @@
 The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
 
 * `team1-modela`
-   * `<round-id1>.csv` (or parquet, etc)
-   * `<round-id2>.csv` (or parquet, etc)
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
+   * `<round-id2>-<model_id>.csv` (or parquet, etc)
 * `team1-modelb`
-   * `<round-id1>.csv` (or parquet, etc)
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
 * `team2-modela`
-   * `<round-id1>.csv` (or parquet, etc)
-
+   * `<round-id1>-<model_id>.csv` (or parquet, etc)
+     
+where `model_id` = `team_abbr-model_abbr`
 
 (model-output-format)=
 ## Formats of model output
