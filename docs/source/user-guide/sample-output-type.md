@@ -1,7 +1,7 @@
 # Sample output type  
 
 ```{caution}
-This will be active as of the week of June 17, 2024. 
+The support for sample output type formats described on this page will be active as of the week of June 17, 2024. 
 ```
 
 ## Introduction  
