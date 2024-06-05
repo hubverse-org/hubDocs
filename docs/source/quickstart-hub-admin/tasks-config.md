@@ -88,7 +88,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-[Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L400).  
+Further details explaining how to use `target_date` and `target_end_date` can be found [here](#defining-target-metadata).  
 
 (setting-up-location)=
 ### 5.4. Setting up `"location"`:  
@@ -205,6 +205,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 :width: 300px
 ```
 
+(defining-target-metadata)=
 ## Step 7: Defining `"target_metadata"`:  
 - `"target_metadata"` defines the characteristics of each unique `target`.  
 - <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
