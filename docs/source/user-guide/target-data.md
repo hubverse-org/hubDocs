@@ -37,7 +37,7 @@ In any of these cases, the data should be provided in a time series format with 
 
 To allow for reproducible analyses in the event of revisions to previously reported data, any system for accessing ground truth data should provide functionality for accessing the data as they were at past points in time.
 
-
+(calculating-modeling-targets)=
 ## Calculating modeling targets
 For any modeling Hubs with targets that can be calculated from the truth data, functions should be specified that map time series truth data in the tabular format discussed above to a value of the modeling target for each unique combination of values in the [“task id” columns](#task-id-vars). This function should produce data in a tabular format with columns for all task id variables and a value column. These outputs can be consumed by later tools in our pipeline, such as evaluation tools.
 
