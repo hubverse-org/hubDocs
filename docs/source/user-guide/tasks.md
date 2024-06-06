@@ -22,7 +22,7 @@ figclass: margin-caption
 alt: A figure showing where data from hubs is created.
 name: hub-data-relations
 ---
-The figure shows that hub metadata are specified by the hub itself. Hubverse provides tools to validate submissions and teams provide model output data that conforms to the standards specified in the hub metadata. Hubverse provides tools to build ensembles. Hubs provides time series data and target observation data, and hubverse provides a function to calculate scores.
+The figure shows that hub metadata are specified by the hub itself. Hubverse provides tools to validate submissions and teams provide model output data that conforms to the standards specified in the hub metadata. Hubverse provides tools to build ensembles. Hubs provide time series data and target observation data, and hubverse provides a function to calculate scores.
 ```
 
 (task-id-use)=
