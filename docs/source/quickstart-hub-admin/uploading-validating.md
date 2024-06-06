@@ -17,26 +17,13 @@ Once you have uploaded those two files onto your GitHub repository, you will not
 
 Now you should validate the config files, to be sure they are properly functional. You can use the `validate_config` function from [`hubAdmin`](https://infectious-disease-modeling-hubs.github.io/hubAdmin/index.html) to check whether Hub config files are valid. The steps are as follows:  
 
-1. First, you need to install the package `hubAdmin`. [Here are instructions for installing `hubAdmin` in the R console](https://github.com/Infectious-Disease-Modeling-Hubs/hubAdmin#installation).  
-2. Next, you need to validate the config files. [Here are detailed instructions and explanations](https://infectious-disease-modeling-hubs.github.io/hubAdmin/articles/hub-setup.html#validate-config-files), and following is sample code you can copy to validate the config files:  
-```
-library(hubAdmin)
+1. First, you need to install the R package `hubAdmin`. [Here are instructions for installing `hubAdmin` in the R console](https://github.com/Infectious-Disease-Modeling-Hubs/hubAdmin#installation).  
+2. Next, you need to validate the Hub's config files. 
+- [`validate_hub_config()`](https://infectious-disease-modeling-hubs.github.io/hubAdmin/reference/validate_hub_config.html) validates the `admin.json`, `tasks.json`, `model-metadata-schema.json` Hub config files in a single call.
+- [`validate_config()`](https://infectious-disease-modeling-hubs.github.io/hubAdmin/reference/validate_config.html) a hub config file against a Infectious Disease Modeling Hubs schema.
+- If you do get any errors, you can pass the result of any of the above functions to `view_config_val_errors()` which print a concise and informative version of validation errors table.
 
-validate_config(
-    hub_path = ".",
-    config = c("tasks", "admin"), 
-    config_path = NULL, 
-    schema_version = "from_config", 
-    branch = "main"
-)
-```
-
-Below is an example using the simple hub. You can see that the config files were successfully validated.  
-
-```{image} ../images/validate_simple-hub-config.png
-:alt: Screenshot of code showing validation of config files
-:class: bordered
-```
+  More detailed [instructions and explanations](https://infectious-disease-modeling-hubs.github.io/hubAdmin/articles/hub-setup.html#validate-config-files).
 
 ## Congratulations!  
 
