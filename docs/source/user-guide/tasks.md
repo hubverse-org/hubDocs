@@ -36,7 +36,7 @@ Some task ID variables serve specific purposes. For example, every hub must have
 
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions:  
 
-* `origin_date`: the starting point that can be used for calculating a target_date via the formula `target_date` = `origin_date` + `horizon` * `time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date` + `horizon` * 7 days).
+* `origin_date`: the starting point that can be used for calculating a target_date via the formula `target_date` = `origin_date` + `horizon` * `time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date` + `horizon` * 7 days). Another reasonable choice for `origin_date` is `reference_date`.
 * `forecast_date`: usually defines the date that a model is run to produce a forecast.
 * `scenario_id`: a unique identifier for a scenario
 * `location`: a unique identifier for a location
