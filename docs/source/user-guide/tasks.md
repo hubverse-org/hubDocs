@@ -46,10 +46,6 @@ In general, there are no restrictions on what task ID variables may be named, ho
 * `horizon`: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
 * `age_group`: a unique identifier for an age group
 
-```{note}
-We encourage Hubs to avoid redundancy in the model task IDs. For example, Hubs should not include all three of `target_date`, `origin_date`, and `horizon` as task IDs because if any two are specified, the third can be calculated directly. Similarly, if a variable is constant, it should not be included. For example, if a Hub does not include multiple targets, `target` could be omitted from the task IDs.
-```
-
 As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before. In those cases, the new variables should be added to this list to ensure that the concepts are documented in a central place and can be reused in future efforts.
 
 (output-types)=
