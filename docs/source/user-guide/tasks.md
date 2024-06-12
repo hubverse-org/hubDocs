@@ -16,13 +16,13 @@ Because they are central to Hubs, task ID variables serve several purposes:
 * They are used in the specification of [target data](#target-data) and methods to calculate "ground truth" target data values, to allow for alignment of model outputs with true target values
 The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
 
-```{figure} ../images/hub-data-relations.jpeg
+```{figure} ../images/hub-data-relations2.jpeg
 ---
 figclass: margin-caption
 alt: A figure showing where data from hubs is created.
 name: hub-data-relations
 ---
-The figure shows that Hub metadata and target data are specified by the hub itself, along with any necessary functions to calculate scores or "observed values" from target data. Teams provide model output data that must conform with standards identified in the Hub metadata. 
+The figure shows that hub metadata are specified by the hub itself. Hubverse provides tools to validate submissions and teams provide model output data that conforms to the standards specified in the hub metadata. Hubverse provides tools to build ensembles. Hubs provide time series data and target observation data, and hubverse provides a function to calculate scores.
 ```
 
 (task-id-use)=
