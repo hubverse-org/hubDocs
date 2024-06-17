@@ -306,4 +306,4 @@ At a later time, the hubverse may revisit a way to more generally define compoun
 
 <br>
 
-Documentation about tests for other output types can be found in  [Validation Pull Requests on GitHub](https://infectious-disease-modeling-hubs.github.io/hubValidations/articles/validate-pr.html#validate_pr-check-details).
+Documentation about tests for other output types can be found in  [Validation Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#validate_pr-check-details).
