@@ -20,7 +20,7 @@ In your source panel (upper left hand panel), you should see the code below. [He
 :class: bordered
 ```
 
-This `tasks.json` file serves as a template, and has very few values filled out, which gives the user flexibility to adapt the Hub to their own needs. Nevertheless, in order to learn how to properly use this schema, we will use a "premade" `tasks.json` file from the [Simple Forecast Hub Example](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub) that already has values filled in, which will better illustrate what should go in each section.  
+This `tasks.json` file serves as a template, and has very few values filled out, which gives the user flexibility to adapt the Hub to their own needs. Nevertheless, in order to learn how to properly use this schema, we will use a "premade" `tasks.json` file from the [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) that already has values filled in, which will better illustrate what should go in each section.  
 
 ## Step 3: Close the `tasks.json` file in RStudio  
 
@@ -33,7 +33,7 @@ Make sure the `tasks.json` file in RStudio is closed, by clicking on the 'x' ico
 
 ## Step 4: Download a premade `tasks.json` file  
 
-You can [use this link to download the `tasks.json` file](https://github.com/Infectious-Disease-Modeling-Hubs/example-simple-forecast-hub/blob/main/hub-config/tasks.json) from the Example Forecast Hub by clicking on the *Download Raw File* icon as indicated below.  
+You can [use this link to download the `tasks.json` file](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json) from the Example Forecast Hub by clicking on the *Download Raw File* icon as indicated below.  
 
 ```{image} ../images/tasks_download.png
 :alt: Screenshot of how to download a tasks.json file from GitHub
@@ -44,9 +44,9 @@ Save the file in the `hub-config` folder (which is [in your repository on your l
 
 ### 4.1: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json). Simple explanations for elements in the Example Forecast Hub file are offered below:  
+Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.1/tasks-schema.json). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
-* `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/).  
+* `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/hubverse-org/schemas/).  
 * `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
 * `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
 * `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
@@ -88,7 +88,7 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-[Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/Infectious-Disease-Modeling-Hubs/schemas/main/v2.0.1/tasks-schema.json#L400).  
+[Further details explaining how to use `target_date` and `target_end_date` can be found here](https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.1/tasks-schema.json#L400).  
 
 (setting-up-location)=
 ### 5.4. Setting up `"location"`:  
@@ -224,7 +224,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 ## Step 8: Set up `"submissions_due"`:  
 - `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
   
-There are [two ways](https://github.com/Infectious-Disease-Modeling-Hubs/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
+There are [two ways](https://github.com/hubverse-org/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) in which one can set the dates during which model forecasts can be submitted:  
   
 1. By setting a `"relative_to"` date, as well as `"start"` and `"end"` integers which set the range of dates in which submissions are accepted, as explained in the example below.  
 - <mark style="background-color: #FFE331">`"relative_to"` specifies</mark> the *task id* variable in relation to which submission start and end dates are calculated.  In this instance it is `"origin_date"`.  

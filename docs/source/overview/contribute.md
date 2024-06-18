@@ -13,7 +13,7 @@ Let us know if something is not working for you or if something could improve. T
 
 ## Contribute code
 
-If you are an interested in contributing to *the hubverse*, please see [guidelines for contributing](https://infectious-disease-modeling-hubs.github.io/hubUtils/CONTRIBUTING.html).
+If you are an interested in contributing to *the hubverse*, please see [guidelines for contributing](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
 
 ## Start to run a hub
 

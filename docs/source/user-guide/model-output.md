@@ -18,11 +18,11 @@ Note that file names are also allowed to contain the following compression exten
 (model-output-format)=
 ## Formats of model output
 ```{margin}
-Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsemblesManuscript). *(under review for publication)*.
+Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/hubverse-org/hubEnsemblesManuscript). *(under review for publication)*.
 ```
 
 ```{admonition} Reference
-Much of the material in this section has been excerpted and/or adapted from the [hubEnsembles manuscript](https://github.com/Infectious-Disease-Modeling-Hubs/hubEnsemblesManuscript).  
+Much of the material in this section has been excerpted and/or adapted from the [hubEnsembles manuscript](https://github.com/hubverse-org/hubEnsemblesManuscript).  
 ```
 
 Model outputs are a specially formatted tabular representation of predictions. Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. Per hubverse convention, there are three groups of columns, each group serving a specific purpose: (1) the "model ID" denotes which model has produced the prediction, (2) the "task IDs" provide details about what is being predicted, and (3) the "model output representation" specifies how the prediction is represented. More detail about each of these is given in the following points:  
