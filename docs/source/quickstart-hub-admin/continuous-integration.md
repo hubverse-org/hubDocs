@@ -8,20 +8,20 @@ This page provides information on:
 
 
 ## Installing continuous integration workflows with `hubCI`
-You can use the [`hubCI`](https://github.com/Infectious-Disease-Modeling-Hubs/hubCI) software package (R) to set up hubverse CI workflows. The development version can be installed with:
+You can use the [`hubCI`](https://github.com/hubverse-org/hubCI) software package (R) to set up hubverse CI workflows. The development version can be installed with:
 
 ``` r
 # install.packages("remotes")
 
-remotes::install_github("Infectious-Disease-Modeling-Hubs/hubCI")
+remotes::install_github("hubverse-org/hubCI")
 ```
 ## Setting up hubverse GitHub Actions
 
-The [`hubverse-actions`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions) repository currently contains directories with templates related to the following workflows:
+The [`hubverse-actions`](https://github.com/hubverse-org/hubverse-actions) repository currently contains directories with templates related to the following workflows:
 
-* [`cache-hubval-deps`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps)
-* [`validate-submission`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/validate-submission)
-* [`hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
+* [`cache-hubval-deps`](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps)
+* [`validate-submission`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission)
+* [`hubverse-aws-upload`](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload)
 
 More information on each of these workflows is provided in the section below. 
 
@@ -39,23 +39,23 @@ Please note that **your hub needs to be hosted on GitHub in order to use these a
 
 ## Available hubverse GitHub Actions
 
-### [`cache-hubval-deps`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps)
+### [`cache-hubval-deps`](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps)
 This hubverse action downloads the software components that are required for others to work properly (i.e., *dependencies*) in `hubValidations` and stores them on a high-speed storage layer (i.e., *cache*) on the `main` branch. This dependency cache is available to all child branches, including on forks, which speeds up most submission validation workflows.
 
 This action is run on a nightly schedule but can also be triggered by a push to the workflow from the `main` branch. 
 
-More information can be found [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/cache-hubval-deps).
+More information can be found [here](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps).
 
 
-### [`validate-submission`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/validate-submission)
+### [`validate-submission`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission)
 This hubverse action installs the `hubValidations` package from GitHub using [pak](https://pak.r-lib.org/) as well as required system dependencies.
 It then performs submission validation checks through the function `hubValidations::validate_pr()`.
 
 The action is triggered by pull requests onto the `main` branch that add or modify files in the `model-output` and/or `model-metadata` directories. 
 
-More information can be found [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/validate-submission) as well as in the hubValidations vignette on [Validating Pull Requests on GitHub](https://infectious-disease-modeling-hubs.github.io/hubValidations/articles/validate-pr.html).
+More information can be found [here](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission) as well as in the hubValidations vignette on [Validating Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html).
 
-### [`hubverse-aws-upload`](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload)
+### [`hubverse-aws-upload`](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload)
 This action uploads your hub data to hubverse-hosted cloud storage. Currently, the workflow has a single job, `upload`, that pushes data to an Amazon Web Services (AWS) Simple Storage Service (S3) bucket.
 The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` group. If cloud is enabled (i.e., if `cloud.enabled` is set to `true`), the job:
 * authenticates to the hubverse AWS account
@@ -64,7 +64,7 @@ The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` gr
  
 Before using this action, a member of the hubverse development team will need to "onboard" your hub to AWS. 
 
-More information can be found [here](https://github.com/Infectious-Disease-Modeling-Hubs/hubverse-actions/tree/main/hubverse-aws-upload).
+More information can be found [here](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload).
 
 
 
