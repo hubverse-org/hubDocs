@@ -65,6 +65,10 @@ html_theme_options = {
     #"navbar_persistent": ["theme-switcher", "navbar-icon-links"],
 }
 
+html_js_files = [
+    'js/custom.js',
+]
+
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
 
