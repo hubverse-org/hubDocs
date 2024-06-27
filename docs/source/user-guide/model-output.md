@@ -41,7 +41,11 @@ Note on `pmf` model output type: Values are required to sum to 1 across all `out
 ```
 
 ```{margin}
-Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a joint distribution across multiple levels of the task id variables. This is discussed more below.
+Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task id variables. This is discussed more below.
+```
+
+```{margin}
+Note on `cdf` model output type and `pmf` output type for ordinal variables: In the hub's `tasks.json` configuration file, the values of the `output_type_id` should be listed in order from low to high.
 ```
 (output-type-table)=
 | `output_type` | `output_type_id` | `value` |
@@ -49,7 +53,7 @@ Note on `sample` model output type: Depending on the Hub specification, samples 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
 | `median` | NA (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
-| `cdf` | Numeric within the support of the outcome variable: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
+| `cdf` | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
 | `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
 | `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 
