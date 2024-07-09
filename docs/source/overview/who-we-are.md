@@ -21,5 +21,9 @@ Funding supporting this work from:
  - Sole-source contract to support hub infrastructure development:
    Centers for Disease Control and Prevention, Contract #75D30121P10027, February 2021 - February 2022
  - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since June 2022: 
-   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.  
-   
+   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.
+
+Hubverse retreat
+Our annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
+
+
