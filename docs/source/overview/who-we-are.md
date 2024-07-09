@@ -29,6 +29,7 @@ Our annual “hubverse retreat” was held June 3-7, 2024 at the University of M
 ```{figure} ../images/hubverse-retreat.png
 ---
 figclass: margin-caption
+class: smaller
 alt: hubverse retreat photo
 name: hubverse-retreat
 ---
