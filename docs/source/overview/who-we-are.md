@@ -13,7 +13,7 @@ Building off of systems designed for influenza forecasting challenges led by the
  - [US Influenza FluSight 2022 Challenge](https://github.com/cdcepi/Flusight-forecast-data)
 
 
-Funding supporting this work from:
+## Funding supporting this work from:
  - University of Massachusetts as Influenza Forecasting CoE, with COVID supplements since 2020: 
    Centers for Disease Control and Prevention, Award #U01IP001122, September 2019 - August 2024
  - Sole-source contract to support hub infrastructure: 
@@ -23,7 +23,15 @@ Funding supporting this work from:
  - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since June 2022: 
    National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.
 
-Hubverse retreat
+## Hubverse retreat
 Our annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
+```{image} ../images/hubverse-retreat.jpg
+:alt: Hubverse retreat photo
+:class: bordered
+```
+Back row (L-R): Becky Sweger, Nick Reich, Kimberlyn Roosa, Martha Zorn, Matt Cornell
+
+Front row (L-R): Evan Ray, Melissa Kerr, Rebecca Borchering, Emily Howerton, Lucie Contamin, Anna Krystalli
+
 
 
