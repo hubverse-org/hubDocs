@@ -25,7 +25,7 @@ Building off of systems designed for influenza forecasting challenges led by the
 
 ## Hubverse retreat
 Our annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
-```{image} ../images/hubverse-retreat.jpg
+```{image} ../images/hubverse-retreat.png
 :alt: Hubverse retreat photo
 :class: bordered
 ```
