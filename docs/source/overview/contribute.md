@@ -36,10 +36,8 @@ The governing body of the [Outbreak Hub Consortium](../index.md) is the Coding C
 
 The affiliated modeling hubs are described [here](../index.md).
 
-On July 19, 2022 the following members of the steering committee were elected: 
+On July 10, 2024 the following members of the steering committee were elected: 
 
 - Evan Ray, US Forecast Hub
 - Lucie Contamin, University of Pittsburgh, MIDAS
 - Anna Krystalli, R-RSE
-
-Their terms were renewed for another year on July 10, 2024.
