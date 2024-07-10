@@ -1,9 +1,5 @@
 # Sample output type  
 
-```{caution}
-The support for sample output type formats described on this page will be active as of the week of June 17, 2024. 
-```
-
 ## Introduction  
 The sample `output_type` can be used to represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the setup of the model and the configuration settings of the hub, different information may be requested or required to identify each sample.
 
