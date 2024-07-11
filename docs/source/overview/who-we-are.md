@@ -24,12 +24,11 @@ Building off of systems designed for influenza forecasting challenges led by the
  - Center for Implementation in Outbreak Analytics and Disease Modeling: Multi-Scale Outbreak Decision-Support Tools funding since September       2023: Centers for Disease Control and Prevention, Subaward #UTAUS-SUB00001195 
 
 ## Hubverse retreat
-Our annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
+Our second annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
 
 ```{figure} ../images/hubverse-retreat.png
 ---
 figclass: margin-caption
-class: smaller
 alt: hubverse retreat photo
 name: hubverse-retreat
 ---
