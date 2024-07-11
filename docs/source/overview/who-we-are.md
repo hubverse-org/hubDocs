@@ -12,8 +12,7 @@ Building off of systems designed for influenza forecasting challenges led by the
  - [German Hospitalization Nowcast Hub](https://github.com/KITmetricslab/hospitalization-nowcast-hub)
  - [US Influenza FluSight 2022 Challenge](https://github.com/cdcepi/Flusight-forecast-data)
 
-
-Funding supporting this work from:
+## Funding supporting this work
  - University of Massachusetts as Influenza Forecasting CoE, with COVID supplements since 2020: 
    Centers for Disease Control and Prevention, Award #U01IP001122, September 2019 - August 2024
  - Sole-source contract to support hub infrastructure: 
@@ -21,5 +20,22 @@ Funding supporting this work from:
  - Sole-source contract to support hub infrastructure development:
    Centers for Disease Control and Prevention, Contract #75D30121P10027, February 2021 - February 2022
  - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since June 2022: 
-   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.  
-   
+   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.
+ - Center for Implementation in Outbreak Analytics and Disease Modeling: Multi-Scale Outbreak Decision-Support Tools funding since September       2023: Centers for Disease Control and Prevention, Subaward #UTAUS-SUB00001195 
+
+## Hubverse retreat
+Our second annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
+
+```{figure} ../images/hubverse-retreat.png
+---
+figclass: margin-caption
+alt: hubverse retreat photo
+name: hubverse-retreat
+---
+Back row (L-R): Becky Sweger, Nick Reich, Kimberlyn Roosa, Martha Zorn, Matt Cornell\
+Front row (L-R): Evan Ray, Melissa Kerr, Rebecca Borchering, Emily Howerton, Lucie Contamin, Anna Krystalli
+```
+
+
+
+
