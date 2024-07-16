@@ -69,7 +69,7 @@ alt: |
     Figure illustrating the difference between nowcasts, forecasts and projections showing a timeline of weekly incident case counts from February 2020 to early March 2021 with projections from April to September 2021.
     The range between the beginning of the graph to March 2021 is labelled "Surveillance Data".
     The "Nowcast" range covers three weeks of preliminary surveillance data and projected data with confidence intervals.
-    The "Forecast" range covers the next four weeks with four slightly diverging models and confidence intervals.
+    The "Forecast" range has no observed data and covers the next four weeks with four slightly diverging model estimates and confidence intervals.
     The "Projections" range covers the time between May 2021 and September 2021 showing confidence intervals of the models.
     
 name: horizon-nomenclature
