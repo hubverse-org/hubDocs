@@ -43,7 +43,8 @@ myst_enable_extensions = [
     "deflist",
     "dollarmath",
     "fieldlist",
-    "substitution"
+    "substitution",
+    "tasklist"
 ]
 
 # -- Options for HTML output
