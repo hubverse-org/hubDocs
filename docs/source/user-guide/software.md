@@ -29,7 +29,7 @@ To assist users in building a hub, we have developed a software suite with speci
 ## [`hubverse`](https://github.com/hubverse-org/hubverse) 
 
 `hubverse` is a collection of packages that enables collaborative modeling exercises through a unified framework for aggregating, visualizing,
-and evaluating forecasts. This package is designed to make it easy to install and load multiple ‘hubverse’ packages in a single step. You can
+and evaluating forecasts. This package is designed to make it easy to install and load multiple `hubverse` packages in a single step. You can
 find the complete package and instructions for use [here](https://github.com/hubverse-org/hubverse).  
 
 ## [`hubVis`](https://github.com/hubverse-org/hubVis)  
