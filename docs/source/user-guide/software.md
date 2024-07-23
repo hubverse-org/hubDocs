@@ -4,11 +4,11 @@ To assist users in building a hub, we have developed a software suite with speci
 
 ## [`hubAdmin`](https://github.com/hubverse-org/hubAdmin)  
 
-`hubAdmin` is an R package that contains utility functions for administering Hubs, in particular creating and validating hub configuration files. [Here are instructions](https://github.com/hubverse-org/hubAdmin) to download and use the package.  
+`hubAdmin` is an R package that contains utility functions for administering hubs, in particular creating and validating hub configuration files. You can find the complete package and instructions for use [here](https://github.com/hubverse-org/hubAdmin).    
 
 ## [`hubData`](https://github.com/hubverse-org/hubData)  
 
-`hubData` is an R package that provides tools for connecting to, interacting with, and manipulating Hub data. [Here are instructions](https://github.com/hubverse-org/hubData) to download and use the package.  
+`hubData` is an R package that provides tools for connecting to, interacting with, and manipulating hub data. You can find the complete package and instructions for use [here](https://github.com/hubverse-org/hubData).   
 
 ## [`hubEnsembles`](https://github.com/hubverse-org/hubEnsembles)  
 
@@ -25,6 +25,12 @@ To assist users in building a hub, we have developed a software suite with speci
 ## [`hubValidations`](https://github.com/hubverse-org/hubValidations)  
 
 `hubValidations` is an R package that facilitates the implementation of general validation rules that are enforced on submissions in the form of pull requests to hub repositories. You can find the complete package and instructions for use [here](https://github.com/hubverse-org/hubValidations).  
+
+## [`hubverse`](https://github.com/hubverse-org/hubverse) 
+
+`hubverse` is a collection of packages that enables collaborative modeling exercises through a unified framework for aggregating, visualizing,
+and evaluating forecasts. This package is designed to make it easy to install and load multiple ‘hubverse’ packages in a single step. You can
+find the complete package and instructions for use [here](https://github.com/hubverse-org/hubverse).  
 
 ## [`hubVis`](https://github.com/hubverse-org/hubVis)  
 
