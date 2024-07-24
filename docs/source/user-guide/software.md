@@ -12,7 +12,7 @@ To assist users in building a hub, we have developed a software suite with speci
 
 ## [`hubCI`](https://github.com/hubverse-org/hubCI)  
 
-`hubCI` is an R package that provides functionality for setting up hubverse Continuous Integration workflows. You can find [the complete package and instructions here](https://github.com/hubverse-org/hubCI).  
+`hubCI` is an R package that provides functionality for setting up hubverse continuous integration workflows. You can find [the complete package and instructions here](https://github.com/hubverse-org/hubCI).  
 
 ## [`hubData`](https://github.com/hubverse-org/hubData)  
 
