@@ -53,6 +53,7 @@ user-guide/sample-output-type.md
 user-guide/target-data.md
 user-guide/model-abstracts.md
 user-guide/software.md
+user-guide/presentations.md
 ```
 
 ```{toctree}
@@ -62,12 +63,4 @@ user-guide/software.md
 coc/covenant.md
 coc/enforcement-manual.md
 coc/committee.md
-```
-
-```{toctree}
-:maxdepth: 2
-:caption: Additional Information
-:hidden:
-more-info/presentations.md
-more-info/hubEnsembles-vignette.md
 ```
