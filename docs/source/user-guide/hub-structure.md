@@ -2,9 +2,9 @@
 
 A hub repository should be structured according to the following guidelines:
 
-1.	If code is included in the hub repository, it should live in a centrally located folder, which we recommend naming `src`.
-2.	Code and scripts must not be present in the `model-output` folder of a hub repository. 
-3.	If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
+1. Code and scripts must not be present in the `model-output` folder of a hub repository.
+2. If code is included in the hub repository, it should live in a centrally located folder, which we recommend naming `src`.
+3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository. 
 
 
