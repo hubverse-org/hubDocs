@@ -1,8 +1,12 @@
-# Structure of Hub repositories
+# Structure of hub repositories
 
-A Hub should be structured according to the following recommendations.  
+A hub repository should be structured according to the following guidelines:
 
-Generally, Hub file structure is intended primarily as a storage space for primary data. All other code and outputs related to model output validation, visualizations, reports, ensemble construction, etc., should be placed in repositories other than the primary Hub location.
+1.	If code is included in the hub repository, it should live in a centrally located folder, which we recommend naming `src`.
+2.	Code and scripts must not be present in the `model-output` folder of a hub repository. 
+3.	If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
+it should be moved to another repository. 
+
 
 The directory and file structure of a modeling hub should contain only the following directories and files:
 
