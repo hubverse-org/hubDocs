@@ -35,6 +35,3 @@ Once you have collected some models, you will want to explore the data. We have 
 
 ## Building ensembles  
 [`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using for instance the mean, median, or mode.  
-
-A [vignette](../more-info/hubEnsembles-vignette.md) is available that details the workflow needed for creating a sample hub.  
-
