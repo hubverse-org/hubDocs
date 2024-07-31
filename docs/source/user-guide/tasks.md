@@ -76,8 +76,8 @@ It is composed of the following fields:
 | ordinal | - | X | X | X | X | X |
 | compositional | X | X | - | - | - | X |
 
-* `is_step_ahead`: a Boolean value that indicates whether the target is part of a sequence of values. If `is_step_ahead` is true, then this field is required and defines the unit of time steps. If `is_step_ahead` is false, then this should be left out and/or will be ignored if present.
-* `time_unit`: the units of the time steps in terms of day, week, or month.
+* `is_step_ahead`: a Boolean value that indicates whether the target is part of a sequence of values, defined by `time_unit`.
+* `time_unit`: When `is_step_ahead` is `true`, this field should be one of `"day"`, `"week"`, or `"month"`, defining the unit of time steps. When `is_step_ahead` is `false`, this field will be ignored.
 
 ### Example
 Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident covid hospitalizations. 
