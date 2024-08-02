@@ -18,6 +18,7 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'myst_parser',
+    'sphinx_design',
 ]
 
 intersphinx_mapping = {
@@ -44,7 +45,8 @@ myst_enable_extensions = [
     "dollarmath",
     "fieldlist",
     "substitution",
-    "tasklist"
+    "tasklist",
+    "colon_fence",
 ]
 
 # -- Options for HTML output
