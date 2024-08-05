@@ -128,14 +128,14 @@ Validation of forecast values occurs in two steps:
 
 > Note the difference in the following discussion between [hubverse schema](https://github.com/hubverse-org/schemas) - the schema which hub config files are validated against - and [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) - the mapping of model output columns to data types.
 
-Because we store model output data as separate files but open them as a single `arrow` dataset using the `hubData` package, for a hub to be successfully accessed as an `arrow dataset`, it's necesssary to ensure that all files conform to the same [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) (i.e. share the same column data types) across the lifetime of the hub. This means that additions of new rounds should not change the overall hub schema at a later date (i.e. after submissions have already started being collected). 
+Because we store model output data as separate files but open them as a single `arrow` dataset using the `hubData` package, for a hub to be successfully accessed as an `arrow dataset`, it is necesssary to ensure that all files conform to the same [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) (i.e. share the same column data types) across the lifetime of the hub. This means that additions of new rounds should not change the overall hub schema at a later date (i.e. after submissions have already started being collected). 
 
 Many common task IDs are covered by the [hubverse schema](#model-tasks-tasks-json-interactive-schema), are validated during hub config validation and should therefore have consistent and stable data types. However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
 - New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
 - New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g. `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).
 - Adding new output types, which might introduce `output_type_id` values of a new data type.
 
-While validation of config files will alert hub administrations to discrepancies in task ID value data types across mideling tasks and rounds, any changes to a hub's config which has the potential to change the overall data type of model output columns after submissions have been collected could cause issues downstream and should be avoided. This is primarily a problem for parquet files, which encapsulate a schema within the file, but has a small chance to cause parsing errors in csvs too.
+While validation of config files will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, any changes to a hub's config which has the potential to change the overall data type of model output columns after submissions have been collected could cause issues downstream and should be avoided. These issues can range from data type casting being required in downstream analysis code that used to work, not being able to filter on columns with data type discrepancies between files before collecting to an inability to open hub model output data as an `arrow` dataset. They are primarily a problem for parquet files, which encapsulate a schema within the file, but have a small chance to cause parsing errors in csvs too.
 
 (output-type-id-datatype)=
 ### The `output_type_id` column data type
@@ -174,5 +174,5 @@ This property should be provided at the top level of `tasks.json` (i.e. sibling 
 ```
 If not supplied or if `"auto"` is set, the default behaviour of automatically detecting the data type from `output_type_id` values is used.
 
-This gives hub administrators the ability to future proof the `output_type_id` column in their model output files if they are unsure whether they may start collecting an output type that could affect the schema, by setting the column to `"character"` (the safest data type that all other values can be encoded as) at the start of data collection.
+This gives hub administrators the ability to future-proof the `output_type_id` column in their model output files if they are unsure whether they may start collecting an output type that could affect the schema, by setting the column to `"character"` (the safest data type that all other values can be encoded as) at the start of data collection.
 
