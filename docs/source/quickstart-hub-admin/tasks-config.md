@@ -247,4 +247,18 @@ There are [two ways](https://github.com/hubverse-org/schemas/blob/de580d56b8fc5c
 ```
 <br/>  
   
-  
+ ## Step 9: Optional - Set up `"output_type_id_datatype"`:   
+
+Once all modeling tasks and rounds have been configured, you may also choose to fix the `output_type_id` column data type across all model output files of the hub using the optional `"output_type_id_datatype"` property.
+
+This property should be provided at the top level of `tasks.json` (i.e. sibling to `rounds` and `schema_version`) and can take any of the following values: `"auto"`, `"character"`, `"double"`, `"integer"`, `"logical"`, `"Date"`.
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
+  "rounds": [...],
+  "output_type_id_datatype": "character"
+}
+```
+
+For more context and details on when and how to use this setting, please see the [`output_type_id` column data type](output-type-id-datatype) section on the **model output** page.
