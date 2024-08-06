@@ -289,6 +289,14 @@ In general, a submission will pass validation if the task-id variables that defi
 - A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of “origin_date”, “horizon” and “location”. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of “origin_date” and “location”. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of “origin_date”, “horizon”, “location”, and “variant”. To achieve this, the hub specifies: <br>
 “compound_taskid_set” : [“origin_date”, “horizon”, “location”]
 
+```{caution}
+#### `“compound_taskid_set”` and derived task-id variables
+
+There is a class of task-ids that can cause problems for validation of compound modeling tasks if not properly configured, that of **derived task-ids** i.e. task-ids whose values depend on the values of other task-id variables. An example is the `target_end_date` task-id which is most commonly derived from the combination of the `reference_date` or `origin_date` and `horizon` task-ids.
+
+If such derived task-ids exist in a hub and all task-ids their values depend on are part of the `compound_taskid_set` then the **derived task-ids must also be part of the `compound_taskid_set`** for model output submission validation to proceed without false `compound_taskid_set` detection errors.
+```
+
 ## Number of samples vs. output_type_id
 The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C and D above, even though the number of unique values of output_type_id changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
 
