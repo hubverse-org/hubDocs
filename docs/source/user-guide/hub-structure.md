@@ -11,39 +11,26 @@ it should be moved to another repository.
 The directory and file structure of a modeling hub should contain only the following directories and files:
 
 | Component | Hub name, location, format | Description | Hub provides | Modeler provides |
-| ------ | ------ | ------ | ------ | ------ | ------ | 
-| Documentation file | e.g., README.md file, located in top level of hub and within each directory | File containing info about the hub structure and additional details about each of the directories| X | - |
+| ------ | ------ | ------ | ------ | ------ | 
+| `Documentation` file | e.g., `README.md` file, located in top level of hub and within each directory | File containing info about the hub structure and additional details about each of the directories| X |  |
+| `Configuration` directory | `hub-config` --> /hub-config/ | Folder storing configuration files | X |  |
+| Admin configuration file | `admin` --> /hub-config/admin.json | Structured text file containing overall configuration settings for the hub | X |  | 
+| Modeling tasks configuration file | `tasks` --> /hub-config/tasks.json | Structured text file that defines modeling tasks and therefore implicity defines the assumed structure for any model submitted | X |  | 
+| Model metadata configuration file | `model-metadata-schema` --> /hub-config/model-metadata-schema.json | Structured text file that defines the expected format of model metadata files submitted by modeling teams | X |  |  
+| `Model output` directory | `model-output` --> /model-output | Folder to collect modeling team model submissions | X |  | 
+| Model output subdirectory | `team1-modela` --> /model-output/team1-modela | Model-specific subdirectory for submissions from one modeling team |  | X | 
+| Model output file | `<round-id1>-<model_id>` --> /model-output/team1-modela/<round-id1><model_id>.csv or .parquet| Round-specific model submission file |  | X | 
+| `Model metadata` directory | `model-metadata` --> /model-metadata | Folder to collect modeling team model metadata submissions | X | | 
+| Model metadata submission file | `team1-modela` --> /model-metadata/team1-modela.yml | Model-specific metadata submission file |  | X | 
+| `Model abstracts` directory (optional) | `model-abstracts` --> /model-abstracts | Folder to collect optional round-specific model metadata | X |  | 
+| Model abstract subdirectory | `team1-modela` --> /model-abstracts/team1-modela | Model-specific subdirectory for round-specific model metadata |  | X | 
+| Model abstract submission file | `<round-id1>` --> /model-abstracts/team1-modela/<round-id1.md | Round-specific model metadata submission |  | X | 
+| `Target data` directory (optional)| `target-data` --> /target-data| Folder to store actual observed (i.e., target) values of an outcome (or links to external open-access sources) and information on how  model targets can be calculated from target data | X | | 
+| `Auxiliary data` directory (optional) | `auxiliary-data` --> /auxiliary-data | Folder to store any additional data related to modeling efforts | X |  | 
+| `src` directory (optional) | `src` --> /src | Folder to store code that is present in the hub repository | X |  | 
 
 
 
-| EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
-| EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
-| EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
-| EW202242 | weekly rate | 1 | pmf | 0 | 0.1 |
-| EW202242 | weekly rate | 1 | pmf | 0.1 | 0.2 |
-| EW202242 | weekly rate | 1 | pmf | 0.2 | 0.7 |
-| EW202242 | peak week | NA | pmf | EW202240 | 0.001 |
-| EW202242 | peak week | NA | pmf | EW202241 | 0.002 |
-| EW202242 | ... | ... | ... | ... | ... |
-| EW202242 | peak week | NA | pmf | EW202320 | 0.013 |
-| EW202242 | weekly rate | 1 | sample | 1 | 3 |
-| EW202242 | weekly rate | 1 | sample | 2 | 3 |
-* Documentation files
-   * Hubs should provide a documentation file (e.g., `README.md`) at the top level that describes the overall structure of the hub, as well as a documentation file within each folder that provides more detail.
-
-* `hub-config ` directory (see {doc}`/user-guide/hub-config`)
-
-* `model-output` directory (see {doc}`/user-guide/model-output`) 
-
-* `model-metadata` directory (see {doc}`/user-guide/model-metadata`)
-
-* `model-abstracts` directory (optional, see {doc}`/user-guide/model-abstracts`)
-
-* `target-data` directory (optional, see {doc}`/user-guide/target-data`)
-
-* `auxiliary-data` directory (optional, see {doc}`/user-guide/target-data`)
-  
-* `src` directory (optional, for code that is present in the hub repository)
 
 * Optionally, any files necessary to define continuous integration workflows, for example for the purpose of validating submissions or updating target data. 
 
