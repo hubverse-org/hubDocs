@@ -10,6 +10,24 @@ it should be moved to another repository.
 
 The directory and file structure of a modeling hub should contain only the following directories and files:
 
+| Component | Hub name, location, format | Description | Hub provides | Modeler provides |
+| ------ | ------ | ------ | ------ | ------ | ------ | 
+| Documentation file | e.g., README.md file, located in top level of hub and within each directory | File containing info about the hub structure and additional details about each of the directories| X | - |
+
+
+
+| EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
+| EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
+| EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
+| EW202242 | weekly rate | 1 | pmf | 0 | 0.1 |
+| EW202242 | weekly rate | 1 | pmf | 0.1 | 0.2 |
+| EW202242 | weekly rate | 1 | pmf | 0.2 | 0.7 |
+| EW202242 | peak week | NA | pmf | EW202240 | 0.001 |
+| EW202242 | peak week | NA | pmf | EW202241 | 0.002 |
+| EW202242 | ... | ... | ... | ... | ... |
+| EW202242 | peak week | NA | pmf | EW202320 | 0.013 |
+| EW202242 | weekly rate | 1 | sample | 1 | 3 |
+| EW202242 | weekly rate | 1 | sample | 2 | 3 |
 * Documentation files
    * Hubs should provide a documentation file (e.g., `README.md`) at the top level that describes the overall structure of the hub, as well as a documentation file within each folder that provides more detail.
 
