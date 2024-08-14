@@ -3,13 +3,14 @@
 This quickstart guide provides instructions for creating and hosting a simple hub. 
 
 It will provide step by step directions to  
-- [ ] Create a hub repository
-- [ ] Clone the hub repository to your local computer
-- [ ] Configure the modeling hub by: 
-  - [ ] Modifying `admin.json`
-  - [ ] Modifying `tasks.json`
-- [ ] Upload modified files from your local computer to GitHub
-- [ ] Validate config files
+- Create a hub repository
+- Clone the hub repository to your local computer
+- Configure the modeling hub by: 
+  - Modifying `admin.json`  
+  - Modifying `tasks.json`  
+  - Creating and scripting task configuration using `hubAdmin` tools  
+- Upload modified files from your local computer to GitHub  
+- Validate config files  
 
 
 Before diving into it step by step, we present a brief overview, and some pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  

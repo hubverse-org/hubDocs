@@ -57,6 +57,7 @@ Open `tasks.json` and explore the content and structure. Some [key concepts are 
 
 Now, read below for details on some of the lines of code in this file:  
 
+(tasks-json-edits)=
 ## Step 5: Define `"task_ids"`
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
