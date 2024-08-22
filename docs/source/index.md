@@ -15,6 +15,7 @@ The [overview](overview/who-we-are.md) section provides an introduction to the p
 :maxdepth: 2
 :caption: Overview
 :hidden:
+overview/who-uses-hubverse.md
 overview/who-we-are.md
 overview/history.md
 overview/scope.md
