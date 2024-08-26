@@ -16,29 +16,32 @@ The following are some of the active and public hubs using the hubverse
 
 ::: {grid-item-card} US CDC FluSight v3 (2023-2024)
 
- - Repo: <https://github.com/cdcepi/FluSight-forecast-hub/>
- - Evaluation reports: <https://reichlab.io/flusight-eval/>
- - Visualization: <https://zoltardata.com/project/360/viz> 
+ - [Flu Forecasting Website](https://www.cdc.gov/flu-forecasting/)
+ - [Repository: FluSight Forecast](https://github.com/cdcepi/FluSight-forecast-hub/#readme))
+ - Resource: [Evaluation reports](https://reichlab.io/flusight-eval/)
+ - Resource: [Interactive Visualization](https://zoltardata.com/project/360/viz)
 
 :::
 
-::: {grid-item-card} ECDC RespiCast
+::: {grid-item-card} CA DPH West Nile Forecasts
 
- - Website + viz: <https://respicast.ecdc.europa.eu/>
- - Flu repo: <https://github.com/european-modelling-hubs/flu-forecast-hub>
- - ARI repo: <https://github.com/european-modelling-hubs/ari-forecast-hub> 
+ - [Official California West Nile Virus website](https://westnile.ca.gov/)
+ - [Repository: West Nile Forecasts](https://github.com/cdphmodeling/wnvca-2024#readme)
 
 :::
 
-::: {grid-item-card} CA DPH West Nile forecasts
 
- - Contact: Tomás Leon, CA DPH
- - Repo: <https://github.com/cdphmodeling/wnvca-2024>
+::: {grid-item-card} European CDC RespiCast
+
+ - [RespiCast Website](https://respicast.ecdc.europa.eu/)
+ - [Repository: Flu Forecast](https://github.com/european-modelling-hubs/flu-forecast-hub#readme)
+ - [Repository: ARI Forecast](https://github.com/european-modelling-hubs/ari-forecast-hub#readme))
 
 :::
 
 ::: {grid-item-card} European CDC RespiCompass
- - Repo: <https://github.com/european-modelling-hubs>
+
+ - [Repository: European CDC RespiCompass](https://github.com/european-modelling-hubs/RespiCompass#readme)
 
 :::
 
