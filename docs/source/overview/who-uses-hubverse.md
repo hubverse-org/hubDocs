@@ -65,4 +65,6 @@ Make good decisions.
 
 ## Hubverse Developers
 
-Be aware of the needs of everyone above.
+If you want to contribute to the hubverse, you should adhere to [our Code Of Conduct](https://hubverse-org.github.io/hubDevs/CODE_OF_CONDUCT.html).
+
+We also have a [contributing guide](contribute.md)
