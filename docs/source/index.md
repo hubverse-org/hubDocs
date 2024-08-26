@@ -17,7 +17,7 @@ The following are some of the active and public hubs using the hubverse
 ::: {grid-item-card} US CDC FluSight v3 (2023-2024)
 
  - [Flu Forecasting Website](https://www.cdc.gov/flu-forecasting/)
- - [Repository: FluSight Forecast](https://github.com/cdcepi/FluSight-forecast-hub/#readme))
+ - [Repository: FluSight Forecast](https://github.com/cdcepi/FluSight-forecast-hub/#readme)
  - Resource: [Evaluation reports](https://reichlab.io/flusight-eval/)
  - Resource: [Interactive Visualization](https://zoltardata.com/project/360/viz)
 
