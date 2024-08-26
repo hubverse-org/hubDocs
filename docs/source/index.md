@@ -35,7 +35,7 @@ The following are some of the active and public hubs using the hubverse
 
  - [RespiCast Website](https://respicast.ecdc.europa.eu/)
  - [Repository: Flu Forecast](https://github.com/european-modelling-hubs/flu-forecast-hub#readme)
- - [Repository: ARI Forecast](https://github.com/european-modelling-hubs/ari-forecast-hub#readme))
+ - [Repository: ARI Forecast](https://github.com/european-modelling-hubs/ari-forecast-hub#readme)
 
 :::
 
