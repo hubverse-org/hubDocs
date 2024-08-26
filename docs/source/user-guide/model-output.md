@@ -122,3 +122,57 @@ Validation of forecast values occurs in two steps:
       * Loads only data that are needed
    * Disadvantages:
       * Harder to work with; teams and people who want to work with files need to install additional libraries
+
+(model-output-schema)=
+## The importance of a stable model output file schema
+
+> Note the difference in the following discussion between [hubverse schema](https://github.com/hubverse-org/schemas) - the schema which hub config files are validated against - and [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) - the mapping of model output columns to data types.
+
+Because we store model output data as separate files but open them as a single [`arrow` dataset](https://arrow.apache.org/docs/r/reference/Dataset.html) using the `hubData` package, for a hub to be [successfully accessed and fully queryable across all columns as an `arrow dataset`](https://arrow.apache.org/docs/r/articles/dataset.html), it is necesssary to ensure that all files conform to the same [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) (i.e. share the same column data types) across the lifetime of the hub. This means that additions of new rounds should not change the overall hub schema at a later date (i.e. after submissions have already started being collected). 
+
+Many common task IDs are covered by the [hubverse schema](#model-tasks-tasks-json-interactive-schema), are validated during hub config validation and should therefore have consistent and stable data types. However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
+- New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
+- New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g. `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).
+- Adding new output types, which might introduce `output_type_id` values of a new data type.
+
+While validation of config files will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, any changes to a hub's config which has the potential to change the overall data type of model output columns after submissions have been collected could cause issues downstream and should be avoided. These issues can range from data type casting being required in downstream analysis code that used to work, not being able to filter on columns with data type discrepancies between files before collecting to an inability to open hub model output data as an `arrow` dataset. They are primarily a problem for parquet files, which encapsulate a schema within the file, but have a small chance to cause parsing errors in csvs too.
+
+(output-type-id-datatype)=
+### The `output_type_id` column data type
+
+Output types are configured and handled differently than task IDs in the hubverse. 
+
+On the one hand, **different output types can have output type ID values of varying data type** and adhering to these data types is imposed by downstream, output type specific hubverse functionality like ensembling or visualisation.
+For example, hubs expect `double` output type ID values for `quantile` output types but `character` output type IDs for a `pmf` output type. 
+
+ On the other hand, the **use of a long format for hubverse model output files requires that these multiple data types are accomodated in a single `output_type_id` column.**
+This makes the output type ID column unique within the model output file in terms of how it's data type is determined, configured and validated. 
+
+During submission validation, two checks are performed on the `output_type_id` column:
+1. **Subsets of `output_type_id` column values** associated with a given output type are **checked for being able to be coerced to the correct data type defined in the config** for that output type. This ensures correct output type specific downstream handling of the data is possible.
+2. The **overall data type of the `output_type_id` column** matches the overall hub schema expectation.
+
+#### Determining the overall `output_type_id` column data type automatically
+
+ To determine the overall `output_type_id` data type, the default behaviour is to automatically **detect the simplest data type that can encode all output type ID values across all rounds and output types** from the config. 
+ 
+ The benefit of this automatic detection is that it provides flexibility to the `output_type_id` column to adapt to the output types a hub is actually collecting. For example, a hub which only collects `mean` and `quantile` output types would, by default, have a `double` `output_type_id` column.
+
+ The risk of this automatic detection however arises if, in subsequent rounds -after submissions have begun-, the hub decides to also start collecting a `pmf` output type. This would change the default `output_type_id` column data type from `double` to `character` and cause a conflict between the `output_type_id` column data type in older and newer files when trying to open the hub as an `arrow` dataset.
+
+### Fixing the `output_type_id` column data type with the `output_type_id_datatype` property
+
+To enable hub administrators to configure and communicate the data type of the `output_type_id` column at a hub level, the hubverse schema allows for the use of an optional `output_type_id_datatype` property.
+This property should be provided at the top level of `tasks.json` (i.e. sibling to `rounds` and `schema_version`), can take any of the following values: `"auto"`, `"character"`, `"double"`, `"integer"`, `"logical"`, `"Date"` and can be used to fix the `output_type_id` column data type.
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
+  "rounds": [...],
+  "output_type_id_datatype": "character"
+}
+```
+If not supplied or if `"auto"` is set, the default behaviour of automatically detecting the data type from `output_type_id` values is used.
+
+This gives hub administrators the ability to future-proof the `output_type_id` column in their model output files if they are unsure whether they may start collecting an output type that could affect the schema, by setting the column to `"character"` (the safest data type that all other values can be encoded as) at the start of data collection.
+
