@@ -1,6 +1,6 @@
 # Configuring tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model-tasks-schema) file, which specifies the model tasks (task ids and targets) as well as model output types. Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
+Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model-tasks-schema) file, which specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)). Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
 
 ## Step 1: Open `tasks.json`  
 

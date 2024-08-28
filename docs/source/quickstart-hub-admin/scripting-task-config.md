@@ -1,8 +1,13 @@
 # Scripting Task Configuration  
 
-The [`hubAdmin` package](https://hubverse-org.github.io/hubAdmin/index.html) provides tools to help with the configuration of tasks that are run on the hub. Specifically, the package has various [`create` functions](https://hubverse-org.github.io/hubAdmin/reference/index.html) that can be used to create objects that are used to build a `"tasks"` config file that can ultimately be written as a `tasks.json` file.  
+The [`hubAdmin` package](https://hubverse-org.github.io/hubAdmin/index.html) provides tools to help with the configuration of [tasks](../user-guide/tasks.md) that are run on the hub. Specifically, the package has various [`create` functions](https://hubverse-org.github.io/hubAdmin/reference/index.html) that can be used to create objects that are used to build a [`"tasks"` config file](https://hubverse-org.github.io/hubAdmin/reference/create_config.html) that can ultimately be written as a [`tasks.json`](#model-tasks-schema) file.  
+
+As was mentioned previously, the `tasks.json` file specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)) that are used in the hub. The `hubAdmin` package provides functions to help with the creation of these objects.  
 
 In this section, we will walk through the process of scripting task configuration using functions from the `hubAdmin` package, in an order similar to that used in the [previous "Configuring tasks" section](#tasks-json-edits).  
+
+## Step 1: Open `model-metadata-schema.json`  
+ 
 
 
 Steps:
@@ -12,13 +17,13 @@ Steps:
 - Load the `hubAdmin` package
 - Follow steps here: https://hubverse-org.github.io/hubAdmin/reference/create_config.html 
 
-## Step 1: Open `model-metadata-schema.json`  
 
 
 
 
 
-## Step 1: Open `model-metadata-schema.json`  
+
+## Step 1: Create an `src` folder   
 
 Check to be sure you are in the `hub-config` folder. Click on `model-metadata-schema.json` to open the file.  
 
