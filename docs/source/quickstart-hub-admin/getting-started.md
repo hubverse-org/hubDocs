@@ -22,7 +22,7 @@ Enter a name for your repository.  You can use any name.  Then click on "Create 
 
 ```{image} ../images/repo_nam.png
 :alt: Naming your repository on GitHub
-:class: smaller
+:class: bordered
 ```
 
 &nbsp;
@@ -31,7 +31,7 @@ Enter a name for your repository.  You can use any name.  Then click on "Create 
 
 ```{image} ../images/repo_woman.png
 :alt: Example of saved repository
-:class: smaller
+:class: bordered
 ```
 
 (clone-repo)=
