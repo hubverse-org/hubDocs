@@ -18,7 +18,7 @@ The first file that we will be working with is [`admin.json`](#hub-admin-config)
 
 Open RStudio and go to where your repo is stored on your local computer, using the Files pane.  
 
-```{image} ../images/files_pane.png
+```{image} ../images/files-pane.png
 :alt: Screenshot of how to find repository in RStudio
 :class: bordered
 ```
@@ -27,7 +27,7 @@ Open RStudio and go to where your repo is stored on your local computer, using t
 
 Click on the `hub-config` folder and open `admin.json` by clicking on it. It will appear in the upper left hand pane, which is called the 'source pane'.  
 
-```{image} ../images/source_pane.png
+```{image} ../images/source-pane.png
 :alt: Screenshot of how to find the admin.json file in RStudio
 :class: bordered
 ```
@@ -41,7 +41,7 @@ You can find a description of each line of code in the  `admin.json` file. In th
   
 The code can be edited directly on the 'source pane' and saved by clicking on the disk icon indicated by the red arrow below.  
 
-```{image} ../images/admin_json.png
+```{image} ../images/admin-json.png
 :alt: Screenshot of how to edit and save the admin.json file in RStudio
 :class: bordered
 ```

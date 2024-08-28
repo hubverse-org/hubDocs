@@ -20,7 +20,7 @@ Go to [hubTemplate](https://github.com/hubverse-org/hubTemplate) and click on "U
 
 Enter a name for your repository.  You can use any name.  Then click on "Create repository".  
 
-```{image} ../images/repo_nam.png
+```{image} ../images/repo-nam.png
 :alt: Naming your repository on GitHub
 :class: bordered
 ```
@@ -29,7 +29,7 @@ Enter a name for your repository.  You can use any name.  Then click on "Create 
 &nbsp;
 - This repository ("repo") will be saved on your GitHub account.  
 
-```{image} ../images/repo_woman.png
+```{image} ../images/repo-woman.png
 :alt: Example of saved repository
 :class: bordered
 ```
