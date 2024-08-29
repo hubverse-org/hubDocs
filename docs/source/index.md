@@ -17,6 +17,43 @@ The hubverse is a collection of open-source software and data tools that enables
 
 The [overview](overview/who-we-are.md) section provides an introduction to the project, and the [getting started](quickstart-hub-admin/getting-started.md) section outlines how to set up a working hub, as well as the different resources created by this project.  
 
+## Active Hubs
+
+The following are some of the active and public hubs using the hubverse
+
+:::::: {grid} 1 1 2 2
+
+::: {grid-item-card} US CDC FluSight (2023-2025)
+
+ - [💻 Flu Forecasting Website](https://www.cdc.gov/flu-forecasting/)
+ - <https://github.com/cdcepi/FluSight-forecast-hub/#readme>
+ - Resource: [📋 Evaluation reports](https://reichlab.io/flusight-eval/)
+ - Resource: [📈 Interactive Visualization](https://zoltardata.com/project/360/viz)
+
+:::
+
+::: {grid-item-card} CA DPH West Nile Forecasts
+
+ - <https://github.com/cdphmodeling/wnvca-2024#readme>
+
+:::
+
+
+::: {grid-item-card} European CDC RespiCast
+
+ - [💻 RespiCast Website](https://respicast.ecdc.europa.eu/)
+ - <https://github.com/european-modelling-hubs/flu-forecast-hub#readme>
+ - <https://github.com/european-modelling-hubs/ari-forecast-hub#readme>
+
+:::
+
+::: {grid-item-card} European CDC RespiCompass
+
+ - <https://github.com/european-modelling-hubs/RespiCompass#readme>
+
+:::
+
+::::::
 
 
 
