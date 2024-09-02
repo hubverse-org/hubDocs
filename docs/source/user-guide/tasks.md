@@ -1,28 +1,37 @@
 # Defining modeling tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project.
-Modeling tasks are defined for a hub in the [tasks.json configuration file](#tasks-metadata) for a hub.
-Modeling tasks are defined for either a single round, or for multiple rounds that are distinguished by different values of a specific `task_id` variable.
-The three components of modeling tasks are [task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata).
-Broadly speaking these three components function as follows:
+Every Hub is organized around "modeling tasks" that define how the target data should be modelled in terms of 
 
- - The [task_ids](#task-id-vars) object defines both labels for columns in submission files and the set of valid values for each column.
-Any unique combination of the values define a single modeling task, or target. 
- - The [output_type](#output-types) object defines accepted representations for each task.
-More on the different output types can be found in [this table](#output-type-table).
- - The [target_metadata](#target-metadata) array provides additional information about each target.
+1. what factors to use for modelling (e.g. date, location, variant, etc) and 
+2. the specific format of the model output.
+
+The [tasks.json configuration file](#tasks-metadata) for a hub is used to structure the modelling tasks so that model submissions can be rapidly validated.
+Modeling tasks are defined for single or multiple rounds[^multiround].
+The three components of modeling tasks are:
+
+ - The [`task_ids`{.codeitem}](#task-id-vars) object defines both labels for columns in submission files and the set of valid values for each column.
+   Any unique combination of the values define a single modeling task, or target. 
+ - The [`output_type`{.codeitem}](#output-types) object defines accepted representations for each task.
+   More on the different output types can be found in [The Model Output Chapter](model-output.md#formats-of-model-output).
+ - The [`target_metadata`{.codeitem}](#target-metadata) array provides additional information about each target.
+
+[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See [the `tasks.json` schema](hub-config.md#hub-model-task-configuration-tasks-json-file) for details.
+
 
 (task-id-vars)=
-## task ID variables
-Hubs typically specify that modeling outputs (e.g., forecasts or projections) should be generated for each combination of values across a set of task ID variables.
+## Task ID variables
+Hubs typically specify that modeling outputs (e.g. forecasts or projections) should be generated for each combination of values across a set of task ID variables.<!-- 2024-09-01
+Zhian: I am not sure if this 52-word sentence below adds anything.
+It appears to be saying that model outputs can be evaluated for accuracy using truth data, which is also stated below.
 For modeling exercises where the model outputs correspond to estimates or predictions of a quantity that could in principle be calculated from observable data, these task ID variables should be sufficient to uniquely identify an observed value for the modeling target that could be compared to model outputs to evaluate model accuracy.
 This is discussed more in the section on [target (a.k.a. truth) data](#target-data).
-
+-->
 Because they are central to Hubs, task ID variables serve several purposes:
+
 * They are used in the Hub metadata to define modeling tasks of the hub
 * They are used in model outputs to identify the modeling task to which forecasts correspond
 * They are used in the specification of [target data](#target-data) and methods to calculate "ground truth" target data values, to allow for alignment of model outputs with true target values
-The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
+  The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
 
 ```{figure} ../images/hub-data-relations2.jpeg
 ---
@@ -75,7 +84,7 @@ In those cases, the new variables should be added to this list to ensure that th
 (output-types)=
 ## Output types
 
-The [output_type](#output-types) object defines accepted representations for each task.
+The output_type object defines accepted representations for each task.
 More on the different output types can be found in [this table](#output-type-table).
 
 (target-metadata)=
