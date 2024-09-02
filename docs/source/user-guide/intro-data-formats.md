@@ -30,9 +30,9 @@ This Hub allows for submissions on a pre-specified set of dates specified by the
 
 **Task ID variables**
 
-* `target` (the sole **target key** variable): can only take the value "inc covid hosp" 
-* `location`: “US”, “01”, “02”, …, “78” ([FIPS codes](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards) for US states and territories)
-* `origin_date` (this variable is specified as the one from which rounds are given IDs): nowcast date
+* `target`{.codeitem} (the sole **target key** variable): can only take the value "inc covid hosp" 
+* `location`{.codeitem}: “US”, “01”, “02”, …, “78” ([FIPS codes](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards) for US states and territories)
+* `origin_date`{.codeitem} (this variable is specified as the one from which rounds are given IDs): nowcast date
 ```
 
 
@@ -46,10 +46,10 @@ This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 
 **Task ID variables**
 
-* `target` (**target key** variable): "cases", "hospitalizations", "deaths"
-* `location`: an identifier of a location, e.g., "US"
-* `origin_date`: date when a forecast was generated, e.g., "2021-07-11"
-* `horizon`: 1, 2, 3, 4 (in units of weeks, which is specified in the target-metadata)
+* `target`{.codeitem} (**target key** variable): "cases", "hospitalizations", "deaths"
+* `location`{.codeitem}: an identifier of a location, e.g., "US"
+* `origin_date`{.codeitem}: date when a forecast was generated, e.g., "2021-07-11"
+* `horizon`{.codeitem}: 1, 2, 3, 4 (in units of weeks, which is specified in the target-metadata)
 
 **Output types**
 
@@ -64,12 +64,12 @@ Projections are requested for each combination of the following variables.
 
 **Task ID variables**
 
-* `outcome_variable` (**target key** variable): “hospitalizations”, “cases”, “deaths”
-* `outcome_measure` (**target key** variable): “incident count”, “cumulative count”
-* `scenario_id`: “low vaccination”
-* `location`: “US”
-* `origin_date`: 2021-07-11
-* `horizon`: 1
+* `outcome_variable`{.codeitem} (**target key** variable): “hospitalizations”, “cases”, “deaths”
+* `outcome_measure`{.codeitem} (**target key** variable): “incident count”, “cumulative count”
+* `scenario_id`{.codeitem}: “low vaccination”
+* `location`{.codeitem}: “US”
+* `origin_date`{.codeitem}: 2021-07-11
+* `horizon`{.codeitem}: 1
 ```
 
 (submission-rounds)=

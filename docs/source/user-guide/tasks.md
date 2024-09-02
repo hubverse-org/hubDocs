@@ -54,20 +54,20 @@ In [Running Example 1](#running-examples), this task ID is `origin_date`.
 
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions:  
 
-* `origin_date`: the starting point that can be used for calculating a target_date via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
+* `origin_date`{.codeitem}: the starting point that can be used for calculating a target_date via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
   Another reasonable choice for `origin_date` is `reference_date`.
-* `forecast_date`: usually defines the date that a model is run to produce a forecast.
-* `scenario_id`: a unique identifier for a scenario
-* `location`: a unique identifier for a location
-* `target`: a unique identifier for the target.
+* `forecast_date`{.codeitem}: usually defines the date that a model is run to produce a forecast.
+* `scenario_id`{.codeitem}: a unique identifier for a scenario
+* `location`{.codeitem}: a unique identifier for a location
+* `target`{.codeitem}: a unique identifier for the target.
   It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the `target_metadata` section of the [tasks metadata](#tasks-metadata).
-* `target_variable`/`target_outcome`: task IDs making up unique identifiers of a two-part target.
+* `target_variable`{.codeitem}/`target_outcome`: task IDs making up unique identifiers of a two-part target.
   These task can be used in hubs that want to split up the definition of a target across two variables.
   In this situation, both task IDs eill de specified as target keys in the `target_metadata` section of the [tasks metadata](#tasks-metadata).
-* `target_date`/`target_end_date`: for short-term forecasts, the synonymous task IDs `target_date`/`target_end_date` specify the date of occurrence of the outcome of interest.
+* `target_date`{.codeitem}/`target_end_date`: for short-term forecasts, the synonymous task IDs `target_date`/`target_end_date` specify the date of occurrence of the outcome of interest.
   For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the target_date is 2022-07-15.
-* `horizon`: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
-* `age_group`: a unique identifier for an age group
+* `horizon`{.codeitem}: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
+* `age_group`{.codeitem}: a unique identifier for an age group
 
 As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
 In those cases, the new variables should be added to this list to ensure that the concepts are documented in a central place and can be reused in future efforts.
@@ -84,13 +84,13 @@ More on the different output types can be found in [this table](#output-type-tab
 Target metadata is an array in the [tasks.json](#tasks-metadata) schema file that defines the characteristics of each target.
 
 It is composed of the following fields:
-* `target_id`: a short description that uniquely identifies the target.
-* `target_name`: a longer, human readable description of the target, which could be used as a visualization axis label.
-* `target_units`: the unit of observation used for this target. 
-* `target_keys`: a set of one or more name/value pairs that must match a target defined in the `task_ids` section of the schema.
+* `target_id`{.codeitem}: a short description that uniquely identifies the target.
+* `target_name`{.codeitem}: a longer, human readable description of the target, which could be used as a visualization axis label.
+* `target_units`{.codeitem}: the unit of observation used for this target. 
+* `target_keys`{.codeitem}: a set of one or more name/value pairs that must match a target defined in the `task_ids` section of the schema.
 Each value, or the combination of values if multiple keys are specified, defines a single target value.
-* `description`: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
-* `target_type`: the target’s statistical data type.
+* `description`{.codeitem}: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
+* `target_type`{.codeitem}: the target’s statistical data type.
 
 The following table lists the possible values for `target_type` and the `output_type` with which they can be used.
 We note that for the binary data type row, mean and median `output_type` are X'ed for definitional consistency, but in practice the hubverse recommends using pmf or sample `output_type` as a more natural way to represent these values.
@@ -105,8 +105,8 @@ We note that for the binary data type row, mean and median `output_type` are X'e
 | ordinal | - | X | X | X | X | X |
 | compositional | X | X | - | - | - | X |
 
-* `is_step_ahead`: a Boolean value that indicates whether the target is part of a sequence of values, defined by `time_unit`.
-* `time_unit`: When `is_step_ahead` is `true`, this field should be one of `"day"`, `"week"`, or `"month"`, defining the unit of time steps.
+* `is_step_ahead`{.codeitem}: a Boolean value that indicates whether the target is part of a sequence of values, defined by `time_unit`.
+* `time_unit`{.codeitem}: When `is_step_ahead` is `true`, this field should be one of `"day"`, `"week"`, or `"month"`, defining the unit of time steps.
   When `is_step_ahead` is `false`, this field will be ignored.
 
 ### Example

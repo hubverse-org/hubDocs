@@ -13,8 +13,8 @@ Note:  Due to technical issues, we do not currently support json references or y
 ## Purpose
 The files within the `hub-config` directory specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub configuration files are used for:
 * Validating model output submissions
-   * `tasks.json` file specifies the file format and task id, output type, value combinations (both required or optional) that submitted model output data must adhere to.
-   *  `tasks.json` file also specifies the window of submission for each round (with the time zone information in the `admin.json` file). 
+   * `tasks.json`{.codeitem} file specifies the file format and task id, output type, value combinations (both required or optional) that submitted model output data must adhere to.
+   * `tasks.json`{.codeitem} file also specifies the window of submission for each round (with the time zone information in the `admin.json` file). 
 * Scoring model outputs
    * the hub configuration files specify the scores that are used
    * the task id variables specified in the `tasks.json` can be used to join model output data with truth data for the purpose of scoring forecasts.
@@ -23,7 +23,7 @@ The files within the `hub-config` directory specify general configurations for a
    * Visualization tools may give special treatment to the hub’s ensemble and baseline models, which are identified in the hub configuration files.
    * The `tasks.json` file contains metadata regarding the targets including human readable description and units which can be used for visualization 
 * Report generation
-   * `admin.json` allows configuration of ensemble and baseline models to be treated specially in reports.
+   * `admin.json`{.codeitem} allows configuration of ensemble and baseline models to be treated specially in reports.
 
 
 ## Hub administrative configuration (`admin.json` file)
