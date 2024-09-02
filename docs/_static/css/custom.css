@@ -63,16 +63,16 @@ th, td {
 
 html[data-theme="light"] {
     code.literal {
-      color: #3C88BE !important;
+      color: #1B579D !important;
       background-color: white !important;
-  }
+    }
 }
 
 html[data-theme="dark"] {
     code.literal {
       color: #7AC6F4 !important;
       background-color: black !important;
-  }
+    }
 }
 
 .heatMap1 {
