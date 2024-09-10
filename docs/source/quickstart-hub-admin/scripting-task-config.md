@@ -178,7 +178,14 @@ json_output <- jsonlite::toJSON(config, pretty = TRUE, auto_unbox = TRUE)
 write(json_output, "hub-config/tasks.json")
 ```
 
-Steps:
-- Follow steps here: https://hubverse-org.github.io/hubAdmin/reference/create_config.html 
+## Step 5: Save and run the script  
+Click on the "save" icon to save the script (green arrow). Then, click on the "Source" icon to run the script.  
 
+```{image} ../images/save-run-scripting-task-config.png
+:alt: Screenshot for saving and running the `scripting-task-config` script in RStudio
+:class: bordered
+```
+
+## Congratulations!  
+You have successfully scripted the configuration of tasks for your modeling hub. The `tasks.json` file has been created and saved in the `hub-config` folder. You can now move on to [configuring the model metadata](model-metadata-schema.md) for your hub.  
 
