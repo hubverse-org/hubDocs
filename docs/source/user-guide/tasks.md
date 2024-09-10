@@ -30,10 +30,11 @@ This is discussed more in the section on [target (a.k.a. truth) data](#target-da
 -->
 Because they are central to Hubs, task ID variables serve several purposes:
 
-* They are used in the Hub metadata to define modeling tasks of the hub
-* They are used in model outputs to identify the modeling task to which forecasts correspond
-* They are used in the specification of [target data](#target-data) and methods to calculate "ground truth" target data values, to allow for alignment of model outputs with true target values
-  The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
+* **Define modelling tasks** of the hub in the hub metadata
+* **Identify modelling tasks corresponding to forecasts** in the model outputs
+* **Allow alignment of model outputs with truth data** by specifying [target data](#target-data) that can help define methods to calculate outputs from "ground truth" data sources. 
+
+The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
 
 ```{figure} ../images/hub-data-relations2.jpeg
 ---
@@ -65,19 +66,19 @@ In [Running Example 1](#running-examples), this task ID is `origin_date`.
 
 In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions:  
 
-* `origin_date`{.codeitem}: the starting point that can be used for calculating a target_date via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
+* `origin_date`{.codeitem}: the starting point that can be used for calculating a `target_date` via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
   Another reasonable choice for `origin_date` is `reference_date`.
 * `forecast_date`{.codeitem}: usually defines the date that a model is run to produce a forecast.
 * `scenario_id`{.codeitem}: a unique identifier for a scenario
 * `location`{.codeitem}: a unique identifier for a location
 * `target`{.codeitem}: a unique identifier for the target.
-  It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the `target_metadata` section of the [tasks metadata](#tasks-metadata).
+  It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in [the `target_metadata` array](#target-metadata).
 * `target_variable`{.codeitem}/`target_outcome`: task IDs making up unique identifiers of a two-part target.
   These task can be used in hubs that want to split up the definition of a target across two variables.
-  In this situation, both task IDs eill de specified as target keys in the `target_metadata` section of the [tasks metadata](#tasks-metadata).
+  In this situation, both task IDs will be specified as target keys in [the `target_metadata` array](#tasks-metadata).
 * `target_date`{.codeitem}/`target_end_date`: for short-term forecasts, the synonymous task IDs `target_date`/`target_end_date` specify the date of occurrence of the outcome of interest.
-  For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the target_date is 2022-07-15.
-* `horizon`{.codeitem}: The difference between the target_date and the origin_date in time units specified by the hub (e.g., may be days, weeks, or months)
+  For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the `target_date` is 2022-07-15.
+* `horizon`{.codeitem}: The difference between the `target_date` and the `origin_date` in time units specified by the hub (e.g., may be days, weeks, or months)
 * `age_group`{.codeitem}: a unique identifier for an age group
 
 As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
@@ -87,7 +88,7 @@ In those cases, the new variables should be added to this list to ensure that th
 ## Output types
 
 The `output_type` object defines accepted representations for each task.
-More on the different output types can be found in [this table](#output-type-table).
+More on the different output types can be found in the [formats of model output section](#output-type-table) from the model output chapter.
 
 (target-metadata)=
 ## Target metadata
