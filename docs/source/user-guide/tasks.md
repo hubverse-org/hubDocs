@@ -1,11 +1,11 @@
-# Defining modeling tasks  
+# Defining modeling tasks
 
 Every Hub is organized around "modeling tasks" that define how the target data should be modelled in terms of 
 
 1. what factors to use for modelling (e.g. date, location, variant, etc) and 
 2. the specific format of the model output.
 
-The [tasks.json configuration file](#tasks-metadata) for a hub is used to structure the modelling tasks so that model submissions can be rapidly validated.
+The [tasks.json configuration file](#tasks-metadata)[^json] for a hub is used to structure the modelling tasks so that model submissions can be rapidly validated.
 Modeling tasks are defined for single or multiple rounds[^multiround].
 The three components of modeling tasks are:
 
@@ -14,6 +14,8 @@ The three components of modeling tasks are:
  - The [`output_type`{.codeitem}](#output-types) object defines accepted representations for each task.
    More on the different output types can be found in [The Model Output Chapter](model-output.md#formats-of-model-output).
  - The [`target_metadata`{.codeitem}](#target-metadata) array provides additional information about each target.
+
+[^json]: Due to technical issues, we do not currently support json references or yaml metadata files.
 
 [^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See [the `tasks.json` schema](hub-config.md#hub-model-task-configuration-tasks-json-file) for details.
 
@@ -84,7 +86,7 @@ In those cases, the new variables should be added to this list to ensure that th
 (output-types)=
 ## Output types
 
-The output_type object defines accepted representations for each task.
+The `output_type` object defines accepted representations for each task.
 More on the different output types can be found in [this table](#output-type-table).
 
 (target-metadata)=
@@ -125,15 +127,15 @@ Here is an example of how the target metadata fields might appear in the `tasks.
 "target_metadata": [
     {
         "target_id": "inc covid hosp",
-            "target_name": "Daily incident COVID hospitalizations",
-            "target_units": "count",
-            "target_keys": {
-                "target": "inc covid hosp"
-            },
-            "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
-            "target_type": "discrete",
-            "is_step_ahead": true,
-            "time_unit": "day"
+        "target_name": "Daily incident COVID hospitalizations",
+        "target_units": "count",
+        "target_keys": {
+            "target": "inc covid hosp"
+        },
+        "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+        "target_type": "discrete",
+        "is_step_ahead": true,
+        "time_unit": "day"
     }
 ]
 ```
