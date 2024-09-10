@@ -1,14 +1,13 @@
 # Hub configuration files
 
 ## Directory Structure
-The `hub-config` directory in a modeling hub is required to contain three files:
-   1. `admin.json` - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. [More details found below](#hub-admin-config).  
-   2. `tasks.json` - JSON file specifing modeling tasks and model output formats, which may be round-specific. [More details found below](#tasks-metadata).  
-   3. `model-metadata-schema.json` - JSON file defining format of model metadata files. [More information can be found here](#model-metadata-schema).  
+The `hub-config` directory in a modeling hub is required to contain three JSON[^json] files:
+   1. `admin.json`{.codeitem} - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. See below for [details on the `admin.json` file](#hub-admin-config).  
+   2. `tasks.json`{.codeitem} - JSON file specifing modeling tasks and model output formats, which may be round-specific. See below for [more details on the `tasks.json` file](#tasks-metadata).
+   3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. See below for [more details on the `model-metadata-schema.json` file](#model-metadata-schema).
 
-```{caution}
-Note:  Due to technical issues, we do not currently support json references or yaml metadata files.
-```
+[^json]: Due to technical issues, we do not currently support json references or yaml metadata files.
+
 
 ## Purpose
 The files within the `hub-config` directory specify general configurations for a hub as well as (possibly round-specific) details of what model outputs are requested or required. Hub configuration files are used for:
