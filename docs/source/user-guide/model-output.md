@@ -3,12 +3,12 @@
 ## Directory structure
 The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
 
-* `team1-modela`
+* `team1-modelA`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
    * `<round-id2>-<model_id>.csv` (or parquet, etc)
-* `team1-modelb`
+* `team1-modelB`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
-* `team2-modela`
+* `team2-modelA`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
 
 where `model_id` = `team_abbr-model_abbr`
@@ -17,13 +17,12 @@ Note that file names are also allowed to contain the following compression exten
 
 (model-output-format)=
 ## Formats of model output
-```{margin}
-Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/hubverse-org/hubEnsemblesManuscript). *(under review for publication)*.
-```
 
 ```{admonition} Reference
-Much of the material in this section has been excerpted and/or adapted from the [hubEnsembles manuscript](https://github.com/hubverse-org/hubEnsemblesManuscript).  
+Much of the material in this section has been excerpted and/or adapted from the [hubEnsembles manuscript](https://github.com/hubverse-org/hubEnsemblesManuscript).[^Shandross-etal]
 ```
+
+[^Shandross-etal]: Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/hubverse-org/hubEnsemblesManuscript). *(under review for publication)*.
 
 Model outputs are a specially formatted tabular representation of predictions. Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. Per hubverse convention, there are three groups of columns, each group serving a specific purpose: (1) the "model ID" denotes which model has produced the prediction, (2) the "task IDs" provide details about what is being predicted, and (3) the "model output representation" specifies how the prediction is represented. More detail about each of these is given in the following points:  
 
@@ -36,27 +35,22 @@ Model outputs are a specially formatted tabular representation of predictions. E
      
 The following table provides examples that better explain how the "model output representation" columns are used:  
 
-```{margin}
-Note on `pmf` model output type: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task id variables. This representation should only be used if the outcome variable is truly discrete; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
-```
-
-```{margin}
-Note on `sample` model output type: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task id variables. This is discussed more below.
-```
-
-```{margin}
-Note on `cdf` model output type and `pmf` output type for ordinal variables: In the hub's `tasks.json` configuration file, the values of the `output_type_id` should be listed in order from low to high.
-```
 (output-type-table)=
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
 | `mean` | NA (not used for mean predictions) | Numeric: the mean of the predictive distribution |
 | `median` | NA (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
-| `cdf` | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
-| `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
-| `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
+| `cdf`[^cdf] | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
+| `pmf`[^pmf] | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable.[^cdf] |
+| `sample`[^sample] | Positive integer sample index | Numeric: a sample from the predictive distribution.
 
+
+[^pmf]: **Note on `pmf` model output type**: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task id variables. This representation should only be used if the outcome variable is truly discrete; if the categories would represent a binned discretization of an underlying continuous variable  a CDF representation is preferred.
+
+[^sample]: **Note on `sample` model output type**: Depending on the Hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task id variables. This is discussed more below.
+
+[^cdf]: **Note on `cdf` model output type** and `pmf` output type for ordinal variables: In the hub's `tasks.json` configuration file, the values of the `output_type_id` should be listed in order from low to high.
 
 We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representations all summarize the marginal predictive distribution for a single combination of model task id variables. On the other hand, the `sample` representation may capture dependence across combinations of multiple model task id variables by recording samples from a joint predictive distribution. For example, suppose that the model task id variables are “forecast date”, “location” and “horizon”. A predictive mean will summarize the predictive distribution for a single combination of forecast date, location and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task id variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
@@ -113,6 +107,7 @@ Validation of forecast values occurs in two steps:
    2. The probabilities assigned to bins must be non-negative and must sum to 1 within each model task, up to some specified tolerance.
 
 ## File formats
+
 * Considerations about `csv`:
    1. Some projects have run into 100 MB file size limits when using csv formatted files.
 * Considerations about `parquet`:
@@ -126,16 +121,30 @@ Validation of forecast values occurs in two steps:
 (model-output-schema)=
 ## The importance of a stable model output file schema
 
-> Note the difference in the following discussion between [hubverse schema](https://github.com/hubverse-org/schemas) - the schema which hub config files are validated against - and [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) - the mapping of model output columns to data types.
+:::{note}
+The following discussion addresses two different types of schemas:
+ - [hubverse schema](https://github.com/hubverse-org/schemas)---the schema for **validating hub configuration files**
+ - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the schema for **model output columns in parquet files[^csv]**
+:::
 
-Because we store model output data as separate files but open them as a single [`arrow` dataset](https://arrow.apache.org/docs/r/reference/Dataset.html) using the `hubData` package, for a hub to be [successfully accessed and fully queryable across all columns as an `arrow dataset`](https://arrow.apache.org/docs/r/articles/dataset.html), it is necesssary to ensure that all files conform to the same [`arrow schema`](https://arrow.apache.org/docs/11.0/r/reference/Schema.html) (i.e. share the same column data types) across the lifetime of the hub. This means that additions of new rounds should not change the overall hub schema at a later date (i.e. after submissions have already started being collected). 
+[^csv]: This section is primarily a concern for parquet files, which encapsulate a schema within the file, but the broader issues have consequences for all output filetypes.
 
-Many common task IDs are covered by the [hubverse schema](#model-tasks-tasks-json-interactive-schema), are validated during hub config validation and should therefore have consistent and stable data types. However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
+Model output data are stored as separate files, but we use the `hubData` package to open them as a single [arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).
+**It is necesssary to ensure that all files conform to the same arrow schema** (i.e. share the same column data types) across the lifetime of the hub.
+When we know that all data types conform to the arrow schema, we can be sure that a hub can be [successfully accessed and fully queryable across all columns as an arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
+This means that **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e. after submissions have already started being collected). 
+
+Many common task IDs should have consistent and stable data types because they are validated during hub configuration.
+However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
 - New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
 - New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g. `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).
 - Adding new output types, which might introduce `output_type_id` values of a new data type.
 
-While validation of config files will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, any changes to a hub's config which has the potential to change the overall data type of model output columns after submissions have been collected could cause issues downstream and should be avoided. These issues can range from data type casting being required in downstream analysis code that used to work, not being able to filter on columns with data type discrepancies between files before collecting to an inability to open hub model output data as an `arrow` dataset. They are primarily a problem for parquet files, which encapsulate a schema within the file, but have a small chance to cause parsing errors in csvs too.
+While validation of config files will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, modifications that will change the overall data type of model output columns _after submissions have been collected_ could cause downstream issues and _should be avoided_.
+Some examples of issues caused by a change in the overal data type of model output columns:
+ - data type casting being required in downstream analysis code that used to work, 
+ - not being able to filter on columns with data type discrepancies between files before collecting
+ - an inability to open hub model output data as an `arrow` dataset
 
 (output-type-id-datatype)=
 ### The `output_type_id` column data type
