@@ -1,6 +1,6 @@
 # Scripting Task Configuration  
 
-The [`hubAdmin` package](https://hubverse-org.github.io/hubAdmin/index.html) provides tools to help with the configuration of [tasks](../user-guide/tasks.md) that are run on the hub. Specifically, the package has various [`create` functions](https://hubverse-org.github.io/hubAdmin/reference/index.html) that can be used to create objects that are used to build a [`"tasks"` config file](https://hubverse-org.github.io/hubAdmin/reference/create_config.html) that can ultimately be written as a [`tasks.json`](#model-tasks-schema) file.  
+The [`hubAdmin` package](https://hubverse-org.github.io/hubAdmin/index.html) provides tools to help with the [configuration of tasks](../user-guide/tasks.md) that are run on the hub. Specifically, the package has various [`create` functions](https://hubverse-org.github.io/hubAdmin/reference/index.html) that can be used to create objects that are used to build a [`"tasks"` config file](https://hubverse-org.github.io/hubAdmin/reference/create_config.html) that can ultimately be written as a [`tasks.json` file](#model-tasks-schema).  
 
 As was mentioned previously, the `tasks.json` file specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)) that are used in the hub. The `hubAdmin` package provides functions to help with the creation of these objects.  
 
