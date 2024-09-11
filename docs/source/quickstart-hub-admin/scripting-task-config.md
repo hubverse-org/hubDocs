@@ -33,7 +33,7 @@ install.packages("hubAdmin", repos = c("https://hubverse-org.r-universe.dev", "h
 ```
 
 ```{image} ../images/install-hubAdmin.png
-:alt: Screenshot showing command for installing hubAdmin package
+:alt: Screenshot showing command for installing hubAdmin package, as described in text.
 :class: bordered
 ```
 
