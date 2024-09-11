@@ -29,13 +29,16 @@ The [`hubTemplate`](https://github.com/hubverse-org/hubTemplate) repository (und
 
 The [example Hub repositories](https://github.com/hubverse-org?q=example&type=all&language=&sort=) provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](../user-guide/software.md). 
 
-#### 1. [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub)  
+#### 1. Simple Forecast Hub Example
+
 The [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), but has been modified to provide examples of nowcasts.  
 
-#### 2. [Complex Forecast Hub Example](https://github.com/hubverse-org/example-complex-forecast-hub)  
+#### 2. Complex Forecast Hub Example
+
 The [Complex Forecast Hub Example](https://github.com/hubverse-org/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).  
 
-#### 3. [Complex Scenario Hub Example](https://github.com/hubverse-org/example-complex-scenario-hub)  
+#### 3. Complex Scenario Hub Example
+
 The [Complex Scenario Hub Example](https://github.com/hubverse-org/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)  
 
 
