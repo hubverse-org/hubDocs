@@ -13,15 +13,11 @@ Building off of systems designed for influenza forecasting challenges led by the
  - [US Influenza FluSight 2022 Challenge](https://github.com/cdcepi/Flusight-forecast-data)
 
 ## Funding supporting this work
- - University of Massachusetts as Influenza Forecasting CoE, with COVID supplements since 2020: 
-   Centers for Disease Control and Prevention, Award #U01IP001122, September 2019 - August 2024
- - Sole-source contract to support hub infrastructure: 
-   Centers for Disease Control and Prevention, Contract #75D30122C12920, August 2022 - August 2023
- - Sole-source contract to support hub infrastructure development:
-   Centers for Disease Control and Prevention, Contract #75D30121P10027, February 2021 - February 2022
- - Models of Infectious Disease Agent Study (MIDAS) funding for personnel since June 2022: 
-   National Institute of General Medical Sciences (NIGMS) grant #U24GM132013.
- - Center for Implementation in Outbreak Analytics and Disease Modeling: Multi-Scale Outbreak Decision-Support Tools funding since September       2023: Centers for Disease Control and Prevention, Subaward #UTAUS-SUB00001195 
+ - US Centers for Disease Control and Prevention (US CDC), Cooperative Agreement (U01IP001122), September 2019 - August 2024
+ - US CDC, Sole-source Contract (75D30122C12920), August 2022 - August 2023
+ - US CDC, Sole-source contract (75D30121P10027), February 2021 - February 2022
+ - National Institute of General Medical Sciences, MIDAS Coordination Center grant (U24GM132013), July 2019 - June 2024.
+ - US CDC Center for Forecasting and Outbreak Analytics, Insight Net Center of Implementation based at UT-Austin and UMass-Amherst (NU38FT000008), Sept 2023 - Aug 2028. 
 
 ## Hubverse retreat
 Our second annual “hubverse retreat” was held June 3-7, 2024 at the University of Massachusetts, Amherst. This year’s retreat focused on the future of hubs in the cloud, dashboarding, and the archiving of hub data using hubverse standards.
