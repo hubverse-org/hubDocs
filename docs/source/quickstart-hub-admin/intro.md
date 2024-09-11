@@ -25,7 +25,7 @@ The simplest way to set up a modeling hub is to directly clone one from the [tem
 
 The [`hubTemplate`](https://github.com/hubverse-org/hubTemplate) repository (under development) provides a skeleton structure for groups wishing to build and maintain a new modeling hub. This repository may be cloned to start a new repository for a modeling hub.  
 
-### [Example hubs](https://github.com/hubverse-org?q=example&type=all&language=&sort=)  
+### Example hubs
 
 The [example Hub repositories](https://github.com/hubverse-org?q=example&type=all&language=&sort=) provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](../user-guide/software.md). 
 
