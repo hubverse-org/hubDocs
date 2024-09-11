@@ -46,7 +46,7 @@ The [Complex Scenario Hub Example](https://github.com/hubverse-org/example-compl
 
 To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](../user-guide/hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/hubverse-org/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
 
-### [Software for modeling hubs](../user-guide/software.md)  
+### Software for modeling hubs 
 
-The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of tools designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models.  
+The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of [tools designed to support common modeling hub tasks](../user-guide/software.md), like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models.  
 
