@@ -42,7 +42,7 @@ The [Complex Forecast Hub Example](https://github.com/hubverse-org/example-compl
 The [Complex Scenario Hub Example](https://github.com/hubverse-org/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)  
 
 
-### [Schema files](https://github.com/hubverse-org/schemas)  
+### Schema files 
 
 To take advantage of the infrastructure designed by the Consortium, a hub must contain JSON configuration files in a [specific location and format](../user-guide/hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/hubverse-org/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
 
