@@ -20,7 +20,7 @@ Open RStudio and make sure you are in the main folder of your repo. Create a new
 In the files pane, click on the `src` folder and ensure you are inside the folder by checking the path at the top of the pane. The path (circled below in green) should now show the `src` folder. Click on the "New Blank File" icon and select "R Script". Name the file "scripting-task-config".  
 
 ```{image} ../images/new-scripting-task-config.png
-:alt: Screenshot for creating a new R Script called "scripting-task-config" in the "src" folder
+:alt: Screenshot for creating a new R Script called "scripting-task-config" in the "src" folder, as described in text.
 :class: bordered
 ```
  
