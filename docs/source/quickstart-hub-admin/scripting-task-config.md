@@ -189,7 +189,7 @@ Write or copy the lines of code written below after the `round` objects in your 
 config <- create_config(rounds)
 
 # Write the `config` object to a JSON file (note that this will overwrite any existing file with the same name in the "hub-config" folder)
-write_config(config, hub_path = ".")
+write_config(config, hub_path = ".", overwrite = TRUE)
 ```
 
 ## Step 5: Save and run the script  
