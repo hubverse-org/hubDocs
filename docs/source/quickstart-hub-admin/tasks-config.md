@@ -1,12 +1,12 @@
 # Configuring tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model-tasks-schema) file, which specifies the model tasks (task ids and targets) as well as model output types. Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
+Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json`](#model-tasks-schema) file, which specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)). Here is [a detailed definition of modeling tasks](../user-guide/tasks.md).  
 
 ## Step 1: Open `tasks.json`  
 
 Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to open the file.  
 
-```{image} ../images/tasks_json.png
+```{image} ../images/tasks-json.png
 :alt: Screenshot of how to open tasks.json file in RStudio
 :class: bordered
 ```
@@ -15,7 +15,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 In your source panel (upper left hand panel), you should see the code below. [Here is a description of each line of code in `tasks.json`](#model-tasks-schema).  
 
-```{image} ../images/tasks_schema_0.png
+```{image} ../images/tasks-schema-0.png
 :alt: Screenshot of the code in the tasks.json file
 :class: bordered
 ```
@@ -26,7 +26,7 @@ This `tasks.json` file serves as a template, and has very few values filled out,
 
 Make sure the `tasks.json` file in RStudio is closed, by clicking on the 'x' icon, as indicated below.  
 
-```{image} ../images/tasks_close.png
+```{image} ../images/tasks-close.png
 :alt: Screenshot of how to close tasks.json file in RStudio
 :class: bordered
 ```
@@ -35,7 +35,7 @@ Make sure the `tasks.json` file in RStudio is closed, by clicking on the 'x' ico
 
 You can [use this link to download the `tasks.json` file](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json) from the Example Forecast Hub by clicking on the *Download Raw File* icon as indicated below.  
 
-```{image} ../images/tasks_download.png
+```{image} ../images/tasks-download.png
 :alt: Screenshot of how to download a tasks.json file from GitHub
 :class: bordered
 ```
@@ -57,6 +57,7 @@ Open `tasks.json` and explore the content and structure. Some [key concepts are 
 
 Now, read below for details on some of the lines of code in this file:  
 
+(tasks-json-edits)=
 ## Step 5: Define `"task_ids"`
 ### 5.1. Establishing the `"round_id"` and `"origin_date"` *(starting point)*:  
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.  
@@ -64,7 +65,7 @@ Now, read below for details on some of the lines of code in this file:
 - `task_ids` includes the variables `origin_date`, `target`, `horizon`, and `location`.  
 - <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required, and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`). To be clear, no specific `origin_date` is required because every submission will have a different `origin_date` as each submission corresponds to a different forecasting time period (compare this with `location`, where some specific locations may be required for every submission.  
 
-```{image} ../images/tasks_schema_1.png
+```{image} ../images/tasks-schema-1.png
 :alt: Some of the initial lines of code in the tasks.json file
 :class: bordered
 ```
@@ -73,7 +74,7 @@ Now, read below for details on some of the lines of code in this file:
 - <mark style="background-color: #32E331">The second line</mark> states that `"inc covid hosp"` for example is the required target. Additional required targets could be added here.  
 - <mark style="background-color: #38C7ED">The third line</mark> states that there are no other optional targets that are valid. You could add `["cum covid hosp"]` for example if you wanted to allow that target, but not require it.  
 
-```{image} ../images/tasks_schema_2.png
+```{image} ../images/tasks-schema-2.png
 :alt: Some lines of code in the tasks.json file
 :class: bordered
 ```
@@ -83,7 +84,7 @@ Now, read below for details on some of the lines of code in this file:
 - <mark style="background-color: #32E331">The second line</mark> indicates that no horizons are required.  
 - <mark style="background-color: #38C7ED">The third line</mark> states that the forecast can be for up to 6 days **before** the `origin_date`, and up to 14 days **after** the `origin_date`.  
 
-```{image} ../images/tasks_schema_3.png
+```{image} ../images/tasks-schema-3.png
 :alt: More lines of code in the tasks.json file
 :class: bordered
 ```
@@ -96,7 +97,7 @@ Now, read below for details on some of the lines of code in this file:
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although in some instances, certain locations might be required for all submissions.  
 - <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. In this example, they are FIPS codes for US states and territories.  
 
-```{image} ../images/tasks_schema_4.png
+```{image} ../images/tasks-schema-4.png
 :alt: Even more lines of code in the tasks.json file
 :class: bordered
 ```
@@ -189,7 +190,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 - <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not chosen, should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
-```{image} ../images/tasks_schema_6-1.png
+```{image} ../images/tasks-schema-6-1.png
 :alt: Some more lines of code in the tasks.json file
 :class: bordered
 ```
@@ -199,7 +200,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 - <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.  
 - <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
 
-```{image} ../images/tasks_schema_6-2.png
+```{image} ../images/tasks-schema-6-2.png
 :alt: And more lines of code in the tasks.json file
 :class: bordered
 :width: 300px
@@ -216,7 +217,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property,
 - <mark style="background-color: #FFE331">`"is_step_ahead"` indicates</mark> whether the target is part of a sequence of values.  In this instance, it is.  
 - <mark style="background-color: #32E331">`"time_unit"` defines</mark> the units of the time steps. In this case, it is days.  
 
-```{image} ../images/tasks_schema_7.png
+```{image} ../images/tasks-schema-7.png
 :alt: Target metadata lines of code in the tasks.json file
 :class: bordered
 ```
@@ -232,7 +233,7 @@ There are [two ways](https://github.com/hubverse-org/schemas/blob/de580d56b8fc5c
 - <mark style="background-color: #38C7ED">On the other hand, `"end"` is a number</mark> used to calculate when the submission period is finished, based on the `origin_date`. In this example, the end date is one day **after** `origin_date`.  
 - For instance, as was mentioned before, in this file, `2022-11-28` is allowed as an `origin_date`. In this case, submissions are due between "2022-11-22" (six days prior) and "2022-11-29" (one day after).  
 
-```{image} ../images/tasks_schema_8.png
+```{image} ../images/tasks-schema-8.png
 :alt: Last lines of code in the tasks.json file
 :class: bordered
 ```

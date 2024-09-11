@@ -8,7 +8,7 @@ Follow GitHub directions [here](https://docs.github.com/en/repositories/working-
 
 Once you have uploaded those two files onto your GitHub repository, you will notice that they have been updated by looking at the last commit date, as indicated below.  
 
-```{image} ../images/github_commits.png
+```{image} ../images/github-commits.png
 :alt: Screenshot of GitHub repository page with arrows pointing at time of last commits
 :class: bordered
 ```
@@ -36,7 +36,7 @@ Your simple hub repository is now ready to be used! You created a simple hub and
 - [x] Uploaded modified files from your local computer to GitHub
 - [x] Validated config files
 
-```{image} ../images/simple-hub_directory.png
+```{image} ../images/simple-hub-directory.png
 :alt: Screenshot showing directory of simple files on local computer and GitHub
 ```
 
