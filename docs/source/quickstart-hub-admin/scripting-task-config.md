@@ -46,14 +46,18 @@ Write or copy the lines of code written below into your `scripting-task-config.R
 library(hubAdmin)
 
 # Create a representation of a task ID item as a list object of `class task_id`, the `origin_date_id`
-origin_date_id <- create_task_id("origin_date", 
-                                 required = NULL, 
-                                 optional = c("2023-01-02", "2023-01-09", "2023-01-16"))
+origin_date_id <- create_task_id(
+  "origin_date", 
+  required = NULL, 
+  optional = c("2023-01-02", "2023-01-09", "2023-01-16")
+)
 
 # Create a representation of a task ID item as a list object of `class task_id`, the `location_id`
-location_id <- create_task_id("location",
-                              required = "US",
-                              optional = c("01", "02", "04", "05", "06"))
+location_id <- create_task_id(
+  "location",
+  required = "US",
+  optional = c("01", "02", "04", "05", "06")
+)
 
 # Create a representation of a task ID item as a list object of `class task_id`, the `horizon_id`
 horizon_id <- create_task_id("horizon", required = 1L, optional = 2:4)
@@ -71,19 +75,22 @@ Write or copy the lines of code written below after the `task_id` objects in you
 
 ``` r
 # Create a representation of a `mean` output type as a list object of class `output_type_item`
-mean_example <- create_output_type_mean(is_required = TRUE, 
-                                        value_type = "double", 
-                                        value_minimum = 0L)
+mean_example <- create_output_type_mean(
+  is_required = TRUE, 
+  value_type = "double", 
+  value_minimum = 0L
+)
 
 # Create a representation of a `median` output type as a list object of class `output_type_item`
-median_example <- create_output_type_median(is_required = FALSE, 
-                                            value_type = "integer")
+median_example <- create_output_type_median(is_required = FALSE, value_type = "integer")
 
 # Create a representation of a `quantile` output type as a list object of class `output_type_item`
-quantile_example <- create_output_type_quantile(required = c(0.25, 0.5, 0.75), 
-                                                optional = c(0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), 
-                                                value_type = "double", 
-                                                value_minimum = 0)
+quantile_example <- create_output_type_quantile(
+  required = c(0.25, 0.5, 0.75), 
+  optional = c(0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9), 
+  value_type = "double", 
+  value_minimum = 0
+)
 
 # Combine the point estimate `output_type_item` objects to create an `output_type` class object, the `output_type_example1`
 output_type_example1 <-  create_output_type(mean_example, median_example)
@@ -97,22 +104,26 @@ Write or copy the lines of code written below after the `output_type` objects in
 
 ``` r
 # Create a representation of a `target_metadata` item as a list object of class `target_metadata_item`, the `target_metadata_item1` that will hold the metadata for the target of incident influenza hospitalizations
-target_metadata_item1 <- create_target_metadata_item(target_id = "inc hosp", 
-                                                     target_name = "Weekly incident influenza hospitalizations", 
-                                                     target_units = "rate per 100,000 population", 
-                                                     target_keys = list(target = "inc hosp"), 
-                                                     target_type = "discrete", 
-                                                     is_step_ahead = TRUE, 
-                                                     time_unit = "week")
+target_metadata_item1 <- create_target_metadata_item(
+  target_id = "inc hosp", 
+  target_name = "Weekly incident influenza hospitalizations", 
+  target_units = "rate per 100,000 population", 
+  target_keys = list(target = "inc hosp"), 
+  target_type = "discrete", 
+  is_step_ahead = TRUE, 
+  time_unit = "week"
+)
 
 # Create a representation of a `target_metadata` item as a list object of class `target_metadata_item`, the `target_metadata_item2`, that will hold the metadata for the target of incident influenza deaths
-target_metadata_item2 <- create_target_metadata_item(target_id = "inc death", 
-                                                     target_name = "Weekly incident influenza deaths", 
-                                                     target_units = "rate per 100,000 population", 
-                                                     target_keys = list(target = "inc death"), 
-                                                     target_type = "discrete", 
-                                                     is_step_ahead = TRUE, 
-                                                     time_unit = "week")
+target_metadata_item2 <- create_target_metadata_item(
+  target_id = "inc death", 
+  target_name = "Weekly incident influenza deaths", 
+  target_units = "rate per 100,000 population", 
+  target_keys = list(target = "inc death"), 
+  target_type = "discrete", 
+  is_step_ahead = TRUE, 
+  time_unit = "week"
+)
 
 # Combine the `target_metadata_item` objects to create a `target_metadata` class object, the `target_metadata_example`
 target_metadata_example <- create_target_metadata(target_metadata_item1, target_metadata_item2)
@@ -123,14 +134,18 @@ Write or copy the lines of code written below after the `target_metadata` object
 
 ``` r
 #Create an object of class `model_task` representing a model task, the `model_task_item1`
-model_task_item1 <- create_model_task(task_ids = task_ids_example, 
-                                      output_type = output_type_example1, 
-                                      target_metadata = target_metadata_example)
+model_task_item1 <- create_model_task(
+  task_ids = task_ids_example, 
+  output_type = output_type_example1, 
+  target_metadata = target_metadata_example
+)
 
 #Create another object of class `model_task` representing a similar model task, the `model_task_item2`
-model_task_item2 <- create_model_task(task_ids = task_ids_example, 
-                                      output_type = output_type_example2, 
-                                      target_metadata = target_metadata_example)
+model_task_item2 <- create_model_task(
+  task_ids = task_ids_example, 
+  output_type = output_type_example2, 
+  target_metadata = target_metadata_example
+)
 
 # Combine the `model_task` objects to create a `model_tasks` class object, the `model_task_example`
 model_task_example <- create_model_tasks(model_task_item1, model_task_item2)
@@ -174,8 +189,7 @@ Write or copy the lines of code written below after the `round` objects in your 
 config <- create_config(rounds)
 
 # Write the `config` object to a JSON file (note that this will overwrite any existing file with the same name in the "hub-config" folder)
-json_output <- jsonlite::toJSON(config, pretty = TRUE, auto_unbox = TRUE)
-write(json_output, "hub-config/tasks.json")
+write_config(config, hub_path = ".")
 ```
 
 ## Step 5: Save and run the script  
