@@ -11,7 +11,7 @@ In this section, we will walk through the process of scripting task configuratio
 Open RStudio and make sure you are in the main folder of your repo. Create a new folder called `src` by clicking on the "New Folder" icon.  
 
 ```{image} ../images/src-folder.png
-:alt: Screenshot for creating a new folder in RStudio called "src"
+:alt: Screenshot for creating a new folder in RStudio called "src", as described in text.
 :class: bordered
 ```
 
