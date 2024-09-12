@@ -187,10 +187,12 @@ This section is primarily a concern for parquet files, which encapsulate a schem
 ```
 
 
-Model output data are stored as separate files, but we use the `hubData` package to open them as a single [arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).
+Model output data are stored as separate files, but we use the `hubData` package to open them as a single [arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).[^trouble]
 **It is necesssary to ensure that all files conform to the same arrow schema** (i.e. share the same column data types) across the lifetime of the hub.
 When we know that all data types conform to the arrow schema, we can be sure that a hub can be [successfully accessed and fully queryable across all columns as an arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
 This means that **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e. after submissions have already started being collected). 
+
+[^troube]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
 
 Many common task IDs should have consistent and stable data types because they are validated during hub configuration.
 However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
@@ -202,7 +204,7 @@ While validation of config files will alert hub administrations to discrepancies
 Some examples of issues caused by a change in the overal data type of model output columns:
  - data type casting being required in downstream analysis code that used to work, 
  - not being able to filter on columns with data type discrepancies between files before collecting
- - an inability to open hub model output data as an `arrow` dataset
+ - errors when opening hub model output data with popular analytics tools like arrow, pandas, and polars
 
 (output-type-id-datatype)=
 ### The `output_type_id` column data type
