@@ -147,7 +147,7 @@ Here is an example of how the target metadata fields might appear in the `tasks.
 
 ### Details
 
-It is composed of the following fields:
+Target metadata comprises the following fields:
 * `target_id`{.codeitem}: a short description that uniquely identifies the target.
 * `target_name`{.codeitem}: a longer, human readable description of the target, which could be used as a visualization axis label.
 * `target_units`{.codeitem}: the unit of observation used for this target. 
