@@ -17,9 +17,13 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'myst_parser',
-    'sphinx_design',
+    'myst_parser', # markdown (NOTE: this is NOT mystmd)
+    'sphinx_design', # tab panels and boxes 
+    'sphinxcontrib.mermaid', # compose diagrams in code
 ]
+
+# -- Options for mermaid
+mermaid_d3_zoom = True
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
