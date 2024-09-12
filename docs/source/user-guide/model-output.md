@@ -181,10 +181,11 @@ from the `hubValidations` R package, which performs two validation tasks:
 ```{admonition} NOTE
 The following discussion addresses two different types of schemas:
  - [hubverse schema](https://github.com/hubverse-org/schemas)---the schema for **validating hub configuration files**
- - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the schema for **model output columns in parquet files**[^csv]
+ - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the schema for **model output columns in parquet files**.
+
+This section is primarily a concern for parquet files, which encapsulate a schema within the file, but the broader issues have consequences for all output filetypes.
 ```
 
-[^csv]: This section is primarily a concern for parquet files, which encapsulate a schema within the file, but the broader issues have consequences for all output filetypes.
 
 Model output data are stored as separate files, but we use the `hubData` package to open them as a single [arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).
 **It is necesssary to ensure that all files conform to the same arrow schema** (i.e. share the same column data types) across the lifetime of the hub.
