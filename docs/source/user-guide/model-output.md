@@ -42,19 +42,22 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 ### File formats
 
-Hubs can take submissions in tabular data formats, namely CSV and parquet. Hubs
-can be set up to take either or both if necessary. Both have advantages and
-tradeoffs:
+Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
+submission formats are _not mutuatlly exclusive_; **Hubs may choose between
+ `parquet` (arrow) `csv`, or both**. Both formats have advantages and tradeoffs:
 
 * Considerations about `csv`:
-   1. Some projects have run into 100 MB file size limits when using csv formatted files.
+   * Advantages
+     * Compatibility: Files are human-readable and are widely supported by many tools
+   * Disadvantages:
+     * Size: Some projects have run into 100 MB file size limits when using `csv` formatted files.
 * Considerations about `parquet`:
    * Advantages:
       * Speed
-      * Size: In combination, splitting files up and using parquet would get around GitHub limits on file sizes
+      * Size: In combination, splitting files up and using `parquet` would get around GitHub limits on file sizes
       * Loads only data that are needed
    * Disadvantages:
-      * Harder to work with; teams and people who want to work with files need to install additional libraries
+      * Compatibility: Harder to work with; teams and people who want to work with files need to install additional libraries
 
 
 (model-output-format)=
