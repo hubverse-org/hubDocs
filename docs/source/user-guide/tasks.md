@@ -1,6 +1,6 @@
 # Defining modeling tasks
 
-Every Hub is organized around "modeling tasks" that define how the target data should be modelled in terms of 
+Every Hub is organized around "modeling tasks" that define how the target data (that is, the very thing the hub is trying to predict) should be modeled in terms of 
 
 1. what factors to use for modelling (e.g. date, location, variant, etc) and 
 2. the specific format of the model output.
@@ -144,7 +144,7 @@ Here is an example of how the target metadata fields might appear in the `tasks.
 
 ### Details
 
-It is composed of the following fields:
+Target metadata comprises the following fields:
 * `target_id`{.codeitem}: a short description that uniquely identifies the target.
 * `target_name`{.codeitem}: a longer, human readable description of the target, which could be used as a visualization axis label.
 * `target_units`{.codeitem}: the unit of observation used for this target. 
