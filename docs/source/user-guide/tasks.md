@@ -59,15 +59,12 @@ Moreover, these tables are presented in a [long/narrow representation](https://e
 Task ID variables are used to parameterize modelling efforts. 
 However, some task ID variables serve specific purposes to define submission rounds and targets.
 Every hub must have **a single task ID variable that uniquely defines a submission round.**
-It has become a convention to use a task ID like `origin_date` or `forecast_date` for this purpose, although this is not a specific restriction.
+It has become a convention to use a task ID formatted in `YYYY-MM-DD` format (e.g. `origin_date` or `forecast_date`). 
 For example, in [Running Example 1](#running-examples), this task ID is `origin_date`.
 
 There can be **one or more task ID variables to define a modelling "target"** (these are referred to in the [tasks metadata](#tasks-metadata) as a `target_key`).
 For example, in our [Running Example 1](#running-example-1), the task ID variables are `target`, `location`, and `origin_date`.
 In this example, `target` is the target key and can only take on one value "inc covid hosp".
-In other examples, (such as [Running Example 3](#running-example-3)) more than one variable can serve as target keys together.
-In example 3, both `outcome_variable` and `outcome_measure` make up the target keys.  
-
 
 
 #### Proposed standard of Task ID variables
