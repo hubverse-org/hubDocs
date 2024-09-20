@@ -27,17 +27,17 @@ This Hub allows for submissions on a pre-specified set of dates specified by the
 
 #### Task ID variables
 
-* `target`{.codeitem} (the sole **target key** variable[^target-key]): can only take the value "inc covid hosp" 
+* `target`{.codeitem} (the sole **target key** variable, see the NOTE, below): can only take the value "inc covid hosp" 
 * `location`{.codeitem}: “US”, “01”, “02”, …, “78” ([FIPS codes for US states and territories](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards))
 * `origin_date`{.codeitem} (this variable is specified as the one from which rounds are given IDs): nowcast date
+
+#### NOTE
+
+Since the target in the simple forecast hub is defined by a single task_id variable (`target`) which only takes one value (`inc covid hosp`), the hub maintainers could have opted to not include any `target_key` variable to save space in the file. 
+For example, in CSV submission files, row will have the same value in the `target` column, so this information is redundant.
+
 ```
 
-[^target-key]: Since the target in the simple forecast hub is defined by a
-    single task_id variable (`target`) which only takes one value (`inc covid
-    hosp`), the hub maintainers could have opted to not include any
-    `target_key` variable to save space in the file. For example, in CSV
-    submission files, row will have the same value in the `target` column, so
-    this information is redundant.
 
 
 (running-example-2)=
@@ -55,11 +55,15 @@ This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 #### Output Types
 
 * a set of predictive quantiles at specified probability levels
-* a predictive mean[^predictive-dist]
+* a predictive mean (see NOTE)
+
+#### NOTE
+
+
+The US COVID-19 Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
 
 ```
 
-[^predictive-dist]: The US COVID-19 Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
 
 
 (running-example-3)=
