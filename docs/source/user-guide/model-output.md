@@ -67,7 +67,7 @@ submission formats are _not mutuatlly exclusive_; **Hubs may choose between
 Much of the material in this section has been excerpted and/or adapted from the [hubEnsembles manuscript](https://github.com/hubverse-org/hubEnsemblesManuscript).[^Shandross-etal]
 ```
 
-[^Shandross-etal]: Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://github.com/hubverse-org/hubEnsemblesManuscript). *(under review for publication)*.
+[^Shandross-etal]: Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://www.medrxiv.org/content/10.1101/2024.06.24.24309416v1). *(under review for publication)* (Repo: https://github.com/hubverse-org/hubEnsemblesManuscript).
 
 _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. 
@@ -195,7 +195,7 @@ Model output data are stored as separate files, but we use the `hubData` package
 When we know that all data types conform to the arrow schema, we can be sure that a hub can be [successfully accessed and fully queryable across all columns as an arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
 This means that **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e. after submissions have already started being collected). 
 
-[^troube]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
+[^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
 
 Many common task IDs should have consistent and stable data types because they are validated during hub configuration.
 However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
