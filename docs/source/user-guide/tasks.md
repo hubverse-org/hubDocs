@@ -1,8 +1,8 @@
 # Defining modeling tasks
 
-Every Hub is organized around "modeling tasks" that define how the target data (that is, the very thing the hub is trying to predict) should be modeled in terms of 
+Every Hub is organized around a set of "modeling tasks". These modeling tasks define how the target data should be modeled in terms of 
 
-1. what factors to use for modelling (e.g. date, location, variant, etc) and 
+1. what variables to use for modeling (e.g. date, location, variant, etc) and 
 2. the specific format of the model output.
 
 The [tasks.json configuration file](#tasks-metadata)[^json] for a hub is used to structure the modelling tasks so that model submissions can be rapidly validated.
@@ -15,7 +15,7 @@ The three components of modeling tasks are:
    More on the different output types can be found in [The Model Output Chapter](model-output.md#formats-of-model-output).
  - The [`target_metadata`{.codeitem} array](#target-metadata) provides additional information about each target.
 
-[^json]: Due to technical issues, we do not currently support json references or yaml metadata files.
+[^json]: Due to technical issues, we do not currently support [json references](http://niem.github.io/json/reference/json-schema/references/) or yaml metadata files.
 
 [^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See [the `tasks.json` schema](hub-config.md#hub-model-task-configuration-tasks-json-file) for details.
 
@@ -27,7 +27,7 @@ Because they are central to Hubs, task ID variables serve several purposes:
 
 * **Define modelling tasks** of the hub in the hub metadata
 * **Identify modelling tasks corresponding to forecasts** in the model outputs
-* **Allow alignment of model outputs with truth data** by specifying [target data](#target-data) that can help define methods to calculate outputs from "ground truth" data sources. 
+* **Allow alignment of model outputs with [target data](#target-data)** that are derived from "ground truth" data sources. 
 
 The relationships between these items are illustrated at a high level in the following diagram; sections to follow provide more detail.
 
