@@ -69,7 +69,7 @@ In this example, `target` is the target key and can only take on one value "inc 
 
 #### Proposed standard of Task ID variables
 
-In general, there are no restrictions on what task ID variables may be named, however when appropriate, we suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
+We strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
 
 * `origin_date`{.codeitem}: the starting point that can be used for calculating a `target_date` via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
   Another reasonable choice for `origin_date` is `reference_date`.
@@ -85,6 +85,8 @@ In general, there are no restrictions on what task ID variables may be named, ho
   For instance, if models are requested to forecast the number of hospitalizations that will occur on 2022-07-15, the `target_date` is 2022-07-15.
 * `horizon`{.codeitem}: The difference between the `target_date` and the `origin_date` in time units specified by the hub (e.g., may be days, weeks, or months)
 * `age_group`{.codeitem}: a unique identifier for an age group
+
+While there are no general restrictions on task ID column names or definitions, using the standards defined above ensures that these task IDs are strongly validated against the schema.
 
 [^new-vars]: As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
 In those cases, the new variables should be added to this list to ensure that the concepts are documented in a central place and can be reused in future efforts.
