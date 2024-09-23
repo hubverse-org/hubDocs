@@ -148,7 +148,7 @@ More details about sample-output-type can be found in [the page describing sampl
 
 Some other possible model output representations have been proposed, but are not included on the list above. We document these other proposals and the reasons for their omissions here:
 
-#### Point forecasts
+#### Point estimates
 
 * Bin probability. Two notes:
    * If the bins have open left endpoints and closed right endpoints, bin probabilities can be calculated directly from CDF values.
@@ -157,10 +157,10 @@ Some other possible model output representations have been proposed, but are not
       * It might be beneficial to adopt limited standards that encourage Hubs to adopt settings that are consistent with the common definitions. For example, if a Hub were to adopt bins with open right endpoints, the resulting probabilities would be incompatible with the conventions around cumulative distribution functions.
 * Probability of “success” in a setting with a binary outcome
    * This can be captured with a CDF representation if the outcome variable is ordered, or a categorical representation if the outcome variable is not ordered.
-* Compositional. For example, we might request a probabilistic forecast of the proportion of hospitalizations next week that are due to influenza A/H1, A/H3, and B.
-   * Note that if only point forecasts for the composition were required, a categorical output representation could be used.
+* Compositional. For example, we might request a probabilistic estimate of the proportion of hospitalizations next week that are due to influenza A/H1, A/H3, and B.
+   * Note that if only point estimates for the composition were required, a categorical output representation could be used.
 
-## Validating forecast values
+## Validating prediction values
 
 Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validations checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) from the `hubValidations` R package).  
 
