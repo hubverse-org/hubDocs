@@ -171,11 +171,7 @@ from the `hubValidations` R package, which performs two validation tasks:
 
 * Validation of more involved rules that cannot be encoded in a json schema are
   implemented separately (such as specific relationships between outputs and
-  targets). Examples of such rules include:
-   1. A predictive quantile for disease incidence may not be larger than the
-      population size in that location.
-   2. The probabilities assigned to bins must be non-negative and must sum to 1
-      within each model task, up to some specified tolerance.
+  targets). You can a table with the details of each check in [the `validate_submission()` documentation](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html#details) and [the `validate_pr()` documentation](https://hubverse-org.github.io/hubValidations/reference/validate_pr.html#details).
 
 
 (model-output-schema)=
