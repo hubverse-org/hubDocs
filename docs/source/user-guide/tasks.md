@@ -22,12 +22,7 @@ The three components of modeling tasks are:
 
 (task-id-vars)=
 ## Task ID variables
-Hubs typically specify that modeling outputs (e.g. forecasts or projections) should be generated for each combination of values across a set of task ID variables.<!-- 2024-09-01
-Zhian: I am not sure if this 52-word sentence below adds anything.
-It appears to be saying that model outputs can be evaluated for accuracy using truth data, which is also stated below.
-For modeling exercises where the model outputs correspond to estimates or predictions of a quantity that could in principle be calculated from observable data, these task ID variables should be sufficient to uniquely identify an observed value for the modeling target that could be compared to model outputs to evaluate model accuracy.
-This is discussed more in the section on [target (a.k.a. truth) data](#target-data).
--->
+Hubs typically specify that modeling outputs (e.g. forecasts or projections) should be generated for each combination of values across a set of task ID variables.
 Because they are central to Hubs, task ID variables serve several purposes:
 
 * **Define modelling tasks** of the hub in the hub metadata
