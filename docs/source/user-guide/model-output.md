@@ -83,7 +83,7 @@ As shown in [the model output submission table](#model-output-example-table) abo
       ID" columns as described [in this section on task ID
       variables](#task-id-vars). These "task ID" columns may also include
       additional information, such as any conditions or assumptions that were
-      used to generate the predictions. Some example variables include
+      used to generate the predictions. Some example task ID variables include
       `target`, `location`, `reference_date`, and `horizon`.    Although there
       are no restrictions on naming task ID variables, when appropriate, we
       suggest that Hubs adopt the standard task ID or column names and
@@ -91,7 +91,7 @@ As shown in [the model output submission table](#model-output-example-table) abo
       variables](#task-id-use).  
    3. **"Model output representation" (3 columns)**: consists of a set of three
       columns specifying how the model outputs are represented. All three of
-      these columns will be used by all Hubs:  
+      these columns will be present in all model output data:  
       1. `output_type` specifies the type of representation of the predictive
          distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`,
          `"cmf"`, `"pmf"`, or `"sample"`.  
@@ -183,8 +183,8 @@ from the `hubValidations` R package, which performs two validation tasks:
 
 ```{admonition} NOTE
 The following discussion addresses two different types of schemas:
- - [hubverse schema](https://github.com/hubverse-org/schemas)---the schema for **validating hub configuration files**
- - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the schema for **model output columns in parquet files**.
+ - [hubverse schema](https://github.com/hubverse-org/schemas)---the schema used for **validating hub configuration files**
+ - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the mapping of model output columns to arrow data types.
 
 This section is primarily a concern for parquet files, which encapsulate a schema within the file, but the broader issues have consequences for all output filetypes.
 ```
@@ -192,7 +192,7 @@ This section is primarily a concern for parquet files, which encapsulate a schem
 
 Model output data are stored as separate files, but we use the `hubData` package to open them as a single [arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).[^trouble]
 **It is necesssary to ensure that all files conform to the same arrow schema** (i.e. share the same column data types) across the lifetime of the hub.
-When we know that all data types conform to the arrow schema, we can be sure that a hub can be [successfully accessed and fully queryable across all columns as an arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
+When we know that all data types conform to the arrow schema, we can be sure that a hub can be [successfully accessed and is fully queryable across all columns as an arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
 This means that **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e. after submissions have already started being collected). 
 
 [^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
