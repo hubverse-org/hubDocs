@@ -23,21 +23,21 @@ is an example for a Hub that collects mean and quantile forecasts for
 one-week-ahead incidence, but probabilities for the timing of a season peak:  
 
 :::{table} An example of a model output submission for modelA
-| `model_id` | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
-| ---------- | ------ | ------ | ------ | ------ | ------ | ------ | 
-| modelA | EW202242 | weekly rate | 1 | mean     | NA | 5 |
-| modelA | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
-| modelA | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
-| modelA | EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
-| modelA | EW202242 | weekly rate | 1 | pmf | 0 | 0.1 |
-| modelA | EW202242 | weekly rate | 1 | pmf | 0.1 | 0.2 |
-| modelA | EW202242 | weekly rate | 1 | pmf | 0.2 | 0.7 |
-| modelA | EW202242 | peak week | NA | pmf | EW202240 | 0.001 |
-| modelA | EW202242 | peak week | NA | pmf | EW202241 | 0.002 |
-| modelA | EW202242 | ... | ... | ... | ... | ... |
-| modelA | EW202242 | peak week | NA | pmf | EW202320 | 0.013 |
-| modelA | EW202242 | weekly rate | 1 | sample | 1 | 3 |
-| modelA | EW202242 | weekly rate | 1 | sample | 2 | 3 |
+| `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
+| ------ | ------ | ------ | ------ | ------ | ------ | 
+| EW202242 | weekly rate | 1 | mean     | NA | 5 |
+| EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
+| EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
+| EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
+| EW202242 | weekly rate | 1 | pmf | 0 | 0.1 |
+| EW202242 | weekly rate | 1 | pmf | 0.1 | 0.2 |
+| EW202242 | weekly rate | 1 | pmf | 0.2 | 0.7 |
+| EW202242 | peak week | NA | pmf | EW202240 | 0.001 |
+| EW202242 | peak week | NA | pmf | EW202241 | 0.002 |
+| EW202242 | ... | ... | ... | ... | ... |
+| EW202242 | peak week | NA | pmf | EW202320 | 0.013 |
+| EW202242 | weekly rate | 1 | sample | 1 | 3 |
+| EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
 
 ### File formats
@@ -71,36 +71,35 @@ Much of the material in this section has been excerpted and/or adapted from the 
 
 _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a single, unique prediction and each column provides information about what is being predicted, its scope, and its value. 
-Per hubverse convention, **there are three groups of columns**, each group serving a specific purpose: (1) the **"model ID"** is a single column that denotes which model has produced the prediction, (2) the **"task ID"** columns provide details about what is being predicted, and (3) the three **"model output representation"** columns specifies the type of prediction, identifying information about that prediction, and the value of the prediction. 
+Per hubverse convention, **there are two groups of columns**[^model-id], each group serving a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the three **"model output representation"** columns specifies the type of prediction, identifying information about that prediction, and the value of the prediction. 
 
-As shown in [the model output submission table](#model-output-example-table) above, the
-**"model ID"** is in the `model_id` column; there are 3 **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and finally there are three **"model output representation"** columns: `output_type`, `output_type_id`, and `value`. More detail about each of these column groups is given in the following points:  
+[^model-id]: When using models for downstream analysis with [the `collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
 
-   1. **"Model ID" (1 column)**: Each model should have a unique identifier
-      that is stored in the `model-id` column.
-   2. **"Task IDs" (multiple columns)**:  The details of the outcome (the model
-      task) are provided by the modeler, and can be stored in a series of "task
-      ID" columns as described [in this section on task ID
-      variables](#task-id-vars). These "task ID" columns may also include
-      additional information, such as any conditions or assumptions that were
-      used to generate the predictions. Some example task ID variables include
-      `target`, `location`, `reference_date`, and `horizon`.    Although there
-      are no restrictions on naming task ID variables, when appropriate, we
-      suggest that Hubs adopt the standard task ID or column names and
-      definitions specified [in the section on usage of task ID
-      variables](#task-id-use).  
-   3. **"Model output representation" (3 columns)**: consists of a set of three
-      columns specifying how the model outputs are represented. All three of
-      these columns will be present in all model output data:  
-      1. `output_type` specifies the type of representation of the predictive
-         distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`,
-         `"cmf"`, `"pmf"`, or `"sample"`.  
-      2. `output_type_id` specifies more identifying information specific to
-         the output type, which varies depending on the `output_type`
-      3. `value` contains the model’s prediction.  
+As shown in [the model output submission table](#model-output-example-table) above, there are 3 **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and fithere are three **"model output representation"** columns: `output_type`, `output_type_id`, and `value`.
+More detail about each of these column groups is given in the following points:  
+
+1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model
+   task) are provided by the modeler, and can be stored in a series of "task
+   ID" columns as described [in this section on task ID
+   variables](#task-id-vars). These "task ID" columns may also include
+   additional information, such as any conditions or assumptions that were used
+   to generate the predictions. Some example task ID variables include
+   `target`, `location`, `reference_date`, and `horizon`.    Although there are
+   no restrictions on naming task ID variables, when appropriate, we suggest
+   that Hubs adopt the standard task ID or column names and definitions
+   specified [in the section on usage of task ID variables](#task-id-use).
+2. **"Model output representation" (3 columns)**: consists of a set of three
+   columns specifying how the model outputs are represented. All three of these
+   columns will be present in all model output data:
+  1. `output_type` specifies the type of representation of the predictive
+     distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
+     `"pmf"`, or `"sample"`.
+  2. `output_type_id` specifies more identifying information specific to the
+     output type, which varies depending on the `output_type`
+  3. `value` contains the model’s prediction.
 
 
-The following table provides examples that better explain how the "model output representation" columns are used:  
+The following table provides examples that better explain how the "model output representation" columns are used:
 
 (output-type-table)=
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
