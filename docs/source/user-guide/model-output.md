@@ -162,7 +162,9 @@ Some other possible model output representations have been proposed, but are not
 
 ## Validating forecast values
 
-Validation of forecast submissions is done with the function 
+Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validations checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) from the `hubValidations` R package).  
+
+Teams can also validate their submissions locally via the function 
 [`validate_submissions()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html)
 from the `hubValidations` R package, which performs two validation tasks:
 
