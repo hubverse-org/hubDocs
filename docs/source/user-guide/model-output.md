@@ -201,7 +201,7 @@ However, there are a number of situations where a single consistent data type ca
 - Adding new output types, which might introduce `output_type_id` values of a new data type.
 
 While validation of config files will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, modifications that will change the overall data type of model output columns _after submissions have been collected_ could cause downstream issues and _should be avoided_.
-Some examples of issues caused by a change in the overal data type of model output columns:
+Changing the overall data type of model output columns can cause a range of issues (in order of _increasing severity_):
  - data type casting being required in downstream analysis code that used to work, 
  - not being able to filter on columns with data type discrepancies between files before collecting
  - errors when opening hub model output data with popular analytics tools like arrow, pandas, and polars
