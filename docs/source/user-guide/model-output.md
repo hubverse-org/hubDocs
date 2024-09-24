@@ -194,7 +194,7 @@ This means that **additions of new rounds _should not_ change the overall hub sc
 
 [^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
 
-Many common task IDs should have consistent and stable data types because they are validated during hub configuration.
+Many common task IDs should have consistent and stable data types because they are validated against [the task IDs in the hubverse schema](#model-tasks-tasks-json-interactive-schema) during model submission.
 However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
 - New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
 - New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g. `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).
