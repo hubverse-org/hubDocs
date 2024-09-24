@@ -99,7 +99,7 @@ More detail about each of these column groups is given in the following points:
   3. `value` contains the model’s prediction.
 
 
-The following table provides examples that better explain how the "model output representation" columns are used:
+The following table provides more detail on how to configure the three "model output representation" columns based on each model output type:
 
 (output-type-table)=
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
