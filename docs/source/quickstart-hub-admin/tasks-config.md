@@ -46,14 +46,14 @@ Save the file in the `hub-config` folder (which is [in your repository on your l
 
 Open `tasks.json` and explore the content and structure. Some [key concepts are defined here](../overview/definitions.md), and [a full explanation of all the supported elements in a `tasks.json` file can be found here](https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.1/tasks-schema.json). Simple explanations for elements in the Example Forecast Hub file are offered below:  
 
-* `schema_version`: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/hubverse-org/schemas/).  
-* `round_id`: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
-* `model_tasks`: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
-* `task_ids`: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
-* `origin_date`: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task-id-use).  
-* `horizon`: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
-* `location`: The geographic identifier, such as country codes or FIPS state/county level codes.  
-* `output_type`: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model-output-format).  
+* `schema_version`{.codeitem}: Modeling Hub [Schema](../overview/definitions.md) versions are all housed in [this repository](https://github.com/hubverse-org/schemas/).  
+* `round_id`{.codeitem}: The [round](../overview/definitions.md) identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
+* `model_tasks`{.codeitem}: Model [tasks](../overview/definitions.md) include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
+* `task_ids`{.codeitem}: The [task](../overview/definitions.md) identifiers set the optional and required elements that go into a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
+* `origin_date`{.codeitem}: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date` can be found [in the section on the usage of task ID variables](#task-id-use).  
+* `horizon`{.codeitem}: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future, or even days into the past, as in [nowcasts](../overview/definitions.md).  
+* `location`{.codeitem}: The geographic identifier, such as country codes or FIPS state/county level codes.  
+* `output_type`{.codeitem}: A [Model output](../overview/definitions.md) type establishes the valid model output types such as the mean, or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model-output-format).  
 
 Now, read below for details on some of the lines of code in this file:  
 

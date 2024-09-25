@@ -18,58 +18,66 @@ This section of the documentation provides standards for:
 In this section we introduce some running examples that will be used to illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow. For each Hub, we identify the task ID variables and output types, both of which are discussed in more detail in [the description of tasks metadata](#tasks-metadata).
 
 
-```{margin}
-Note on Example 1: Since the target in the simple forecast hub is defined by a single task_id variable (`target`) which only takes one value (`inc covid hosp`), the hub maintainers could have opted to not include any `target_key` variable to save space in the file. For example, in CSV submission files, row will have the same value in the `target` column, so this information is redundant.
-```
-
+(running-example-1)=
 ```{admonition} Example 1: A simple forecast hub
 
 This example is adapted from [COVID-19 hospitalization forecasts submitted to the US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) to provide examples of nowcasts.  Additionally, we note that the description below was written to mirror the technical set-up of the [simple forecast hub example repository](https://github.com/hubverse-org/example-simple-forecast-hub). The following specifications can be determined from [the tasks.json configuration file for this Hub](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json). 
 
-This Hub allows for submissions on a pre-specified set of dates specified by the `origin_date` task-id variable. Each `origin_date` corresponds to a separate modeling round. In each round, the submissions follow the same format. There is a single target, called `inc covid hosp` which translates in natural language into "weekly incident COVID-19 hospitalizations" for that day. Mean point forecasts are provided at the state and territory level in the US.  
+This Hub allows for submissions on a pre-specified set of dates specified by the `origin_date` task ID variable. **Each `origin_date` corresponds to a separate modeling round.** In each round, the submissions follow the same format. **There is a single target, called `inc covid hosp`** which, in English, translates to **"weekly incident COVID-19 hospitalizations"** for that day. Mean point forecasts are provided at the state and territory level in the US.  
 
-**Task ID variables**
+#### Task ID variables
 
-* `target` (the sole **target key** variable): can only take the value "inc covid hosp" 
-* `location`: “US”, “01”, “02”, …, “78” ([FIPS codes](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards) for US states and territories)
-* `origin_date` (this variable is specified as the one from which rounds are given IDs): nowcast date
+* `target`{.codeitem} (the sole **target key** variable, see the NOTE, below): can only take the value "inc covid hosp" 
+* `location`{.codeitem}: “US”, “01”, “02”, …, “78” ([FIPS codes for US states and territories](https://en.wikipedia.org/wiki/Federal_Information_Processing_Standards))
+* `origin_date`{.codeitem} (this variable is specified as the one from which rounds are given IDs): nowcast date
+
+#### NOTE
+
+Since the target in the simple forecast hub is defined by a single task_id variable (`target`) which only takes one value (`inc covid hosp`), the hub maintainers could have opted to not include any `target_key` variable to save space in the file. 
+For example, in CSV submission files, row will have the same value in the `target` column, so this information is redundant.
+
 ```
 
 
-```{margin}
-Note on Example 2 item 2: The US COVID-19 Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
-```
 
+(running-example-2)=
 ```{admonition} Example 2: COVID-19 forecasts, adapted from the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/)
 
 This Hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalizations and deaths, at a set of locations. Each forecast is assumed to originate from a specific date.
 
-**Task ID variables**
+#### Task ID variables
 
-* `target` (**target key** variable): "cases", "hospitalizations", "deaths"
-* `location`: an identifier of a location, e.g., "US"
-* `origin_date`: date when a forecast was generated, e.g., "2021-07-11"
-* `horizon`: 1, 2, 3, 4 (in units of weeks, which is specified in the target-metadata)
+* `target`{.codeitem} (**target key** variable): "cases", "hospitalizations", "deaths"
+* `location`{.codeitem}: an identifier of a location, e.g., "US"
+* `origin_date`{.codeitem}: date when a forecast was generated, e.g., "2021-07-11"
+* `horizon`{.codeitem}: 1, 2, 3, 4 (in units of weeks, which is specified in the target-metadata)
 
-**Output types**
+#### Output Types
 
 * a set of predictive quantiles at specified probability levels
-* a predictive mean
+* a predictive mean (see NOTE)
+
+#### NOTE
+
+
+The US COVID-19 Forecast Hub actually did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
 
 ```
 
 
+
+(running-example-3)=
 ```{admonition} Example 3: Multiple target keys
 Projections are requested for each combination of the following variables.
 
-**Task ID variables**
+#### Task ID variables
 
-* `outcome_variable` (**target key** variable): “hospitalizations”, “cases”, “deaths”
-* `outcome_measure` (**target key** variable): “incident count”, “cumulative count”
-* `scenario_id`: “low vaccination”
-* `location`: “US”
-* `origin_date`: 2021-07-11
-* `horizon`: 1
+* `outcome_variable`{.codeitem} (**target key** variable): “hospitalizations”, “cases”, “deaths”
+* `outcome_measure`{.codeitem} (**target key** variable): “incident count”, “cumulative count”
+* `scenario_id`{.codeitem}: “low vaccination”
+* `location`{.codeitem}: “US”
+* `origin_date`{.codeitem}: 2021-07-11
+* `horizon`{.codeitem}: 1
 ```
 
 (submission-rounds)=

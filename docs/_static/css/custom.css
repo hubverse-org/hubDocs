@@ -63,17 +63,26 @@ th, td {
 
 html[data-theme="light"] {
     code.literal {
-      color: #3C88BE !important;
+      color: #1B579D !important;
       background-color: white !important;
-  }
+    }
+    code.codeitem {
+        font-weight: bold;
+        background-color: #FDFD9B !important;
+    }
 }
 
 html[data-theme="dark"] {
     code.literal {
       color: #7AC6F4 !important;
       background-color: black !important;
-  }
+    }
+    code.codeitem {
+        font-weight: bold;
+        background-color: #302503 !important;
+    }
 }
+
 
 .heatMap1 {
   /*width: 70%;
