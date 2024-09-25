@@ -32,7 +32,7 @@ The directory and file structure of a modeling hub should contain only the follo
 | ------ | ------ | ------ | ------ | ------ | 
 | Model output directory | `model-output/` | Folder to collect modeling team model submissions | X |  | 
 | Model output subdirectory | `model-output/team1-modela/` | Model-specific subdirectory for submissions from one modeling team |  | X | 
-| Model output file | `model-output/team1-modela/<round-id1><model_id>.csv` or .parquet| Round-specific model submission file |  | X | 
+| Model output file | `model-output/team1-modela/<round-id1>-<model_id>.csv` or .parquet| Round-specific model submission file |  | X | 
 ```
 
 ``` {table} Model Metadata (model-metadata/)
