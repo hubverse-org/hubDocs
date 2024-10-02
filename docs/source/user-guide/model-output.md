@@ -1,7 +1,8 @@
 # Model output
 
 ## Directory structure
-The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
+
+The `model-output`[^model-output] directory in a modeling hub is required to have the following subdirectory and file structure:
 
 * `team1-modelA`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
@@ -14,6 +15,11 @@ The `model-output` directory in a modeling hub is required to have the following
 where `model_id` = `team_abbr-model_abbr`
 
 Note that file names are also allowed to contain the following compression extension prefixes: .snappy, .gzip, .gz, .brotli, .zstd, .lz4, .lzo, .bz2, e.g. `<round-id1>-<model_id>.gz.parquet`.
+
+[^model-output]: The directory is required, but the name is flexible. You can
+    use a custom directory path by setting the `"model_output_dir"` key in the
+    `admin.json` file. More details can be found in the `admin.json` schema
+    definition
 
 (model-output-example-table)=
 ### Example model submission file
