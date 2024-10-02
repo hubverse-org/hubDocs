@@ -40,13 +40,6 @@ Please note that the preview below does not show the required fields. Please cli
 
 {{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/schemas/BRANCH/SCHEMA_VERSION/admin-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
 
-```{note}
-   Other things we may want to consider adding here:
-* Something about truth data?
-* Something about scoring?
-* Something about report generation?
-```
-
 (tasks-metadata)=
 ## Hub model task configuration (`tasks.json` file)
 The hub model task configuration file specifies the model tasks (tasks id and targets) as well as model output types. The `tasks.json` file is flexible enough to accomodate different style of hubs. Hubs can vary from a simple forecast hub (see [US Forecast Hub example](/user-guide/intro-data-formats.md) to a more complex round related scenario hub (see [US Scenario Modeling Hub example](/user-guide/intro-data-formats.md)).
