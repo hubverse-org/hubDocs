@@ -36,7 +36,7 @@ They will be validated on submission.
 
 As a modeler, you will need to
 
- - understand the definitions of and differences between [model output types](/user-guide/model-output.md#formats-of-model-output)
+ - understand the definitions of and differences between [model output types](#model-output-format)
  - understand the [structure of model output datasets](https://hubverse-org.github.io/hubData/articles/connect_hub.html#structure-of-hubverse-datasets)
  - build ensembles using the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles).
 
