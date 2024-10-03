@@ -8,7 +8,7 @@ A hub repository should be structured according to the following guidelines:
 it should be moved to another repository. 
 
 [^model-output]: The directory is required, but the name is flexible. You can
-  use a custom directory path by setting the `"model_output_dir"` key in the
+  use a custom directory path by setting the `"model_output_dir"` property in the
   `admin.json` file. More details can be found in the `admin.json` schema
   definition.
 
