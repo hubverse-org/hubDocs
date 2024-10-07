@@ -2,7 +2,7 @@
 
 This quickstart guide provides instructions for creating and hosting a simple hub. 
 
-It will provide step by step directions to  
+It will provide step-by-step directions to  
 - Create a hub repository
 - Clone the hub repository to your local computer
 - Configure the modeling hub by: 
@@ -12,7 +12,7 @@ It will provide step by step directions to
 - Upload modified files from your local computer to GitHub  
 - Validate config files  
 
-Before diving into it step by step, we present a brief overview, and some pointers to resources developed by the Consortium to make designing, launching, and maintaining hubs easier.  
+Before proceeding step by step, we present a brief overview and some pointers to resources developed by the Consortium to facilitate the design, launch, and maintenance of hubs.  
 
 **Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../overview/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".  
 
@@ -26,11 +26,11 @@ The [`hubTemplate` repository](https://github.com/hubverse-org/hubTemplate) prov
 
 ### Example hubs
 
-The example hub repositories provide minimal working examples of hubs that can be used for ideas of how to set up configuration files for new projects. They are also used as use-cases for testing the [software for modeling hubs](../user-guide/software.md). 
+The example hub repositories provide minimal working examples of hubs that can be used to generate ideas for setting up configuration files for new projects. They are also used as use cases for testing the [software for modeling hubs](../user-guide/software.md). 
 
 #### 1. Simple Forecast Hub Example
 
-The [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub), but has been modified to provide examples of nowcasts.  
+The [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) but modified to provide examples of nowcasts.  
 
 #### 2. Complex Forecast Hub Example
 
@@ -42,7 +42,7 @@ The [Complex Scenario Hub Example](https://github.com/hubverse-org/example-compl
 
 ### Schema files 
 
-To take advantage of the infrastructure designed by the Consortium, a hub must contain [JSON configuration files in a specific location and format](../user-guide/hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/hubverse-org/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
+To take advantage of the infrastructure designed by the Consortium, a hub must contain [JSON configuration files in specific locations and formats](../user-guide/hub-config). The schemas that define the structure and formats of the configuration files live in their own [schemas repository](https://github.com/hubverse-org/schemas). The schemas are versioned, and every hub must point to a specific version of the schemas that they are using.  
 
 ### Software for modeling hubs 
 
