@@ -2,11 +2,15 @@
 
 A hub repository should be structured according to the following guidelines:
 
-1. Code and scripts must not be present in the `model-output` directory of a hub repository.
+1. Code and scripts must not be present in the `model-output`[^model-output] directory of a hub repository.
 2. If code is included in the hub repository, it should live in a centrally located directory, which we recommend naming `src`.
 3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository. 
 
+[^model-output]: The directory is required, but the name is flexible. You can
+  use a custom directory path by setting the `"model_output_dir"` property in the
+  `admin.json` file. More details can be found in the `admin.json` schema
+  definition.
 
 The directory and file structure of a modeling hub should contain only the following directories, subdirectories, and files:
 
