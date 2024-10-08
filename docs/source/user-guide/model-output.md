@@ -1,7 +1,8 @@
 # Model output
 
 ## Directory structure
-The `model-output` directory in a modeling hub is required to have the following subdirectory and file structure:
+
+The `model-output`[^model-output] directory in a modeling hub is required to have the following subdirectory and file structure:
 
 * `team1-modelA`
    * `<round-id1>-<model_id>.csv` (or parquet, etc)
@@ -14,6 +15,11 @@ The `model-output` directory in a modeling hub is required to have the following
 where `model_id` = `team_abbr-model_abbr`
 
 Note that file names are also allowed to contain the following compression extension prefixes: .snappy, .gzip, .gz, .brotli, .zstd, .lz4, .lzo, .bz2, e.g. `<round-id1>-<model_id>.gz.parquet`.
+
+[^model-output]: The directory is required, but the name is flexible. You can
+    use a custom directory path by setting the `"model_output_dir"` property in the
+    `admin.json` file. More details can be found in the `admin.json` schema
+    definition
 
 (model-output-example-table)=
 ### Example model submission file
@@ -40,6 +46,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
 
+(formats-of-model-output)=
 ### File formats
 
 Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
@@ -194,7 +201,7 @@ This means that **additions of new rounds _should not_ change the overall hub sc
 
 [^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
 
-Many common task IDs should have consistent and stable data types because they are validated against [the task IDs in the hubverse schema](#model-tasks-tasks-json-interactive-schema) during model submission.
+Many common task IDs should have consistent and stable data types because they are validated against [the task IDs in the hubverse schema](#model-tasks-schema) during model submission.
 However, there are a number of situations where a single consistent data type cannot be guaranteed, e.g.:
 - New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
 - New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g. `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).

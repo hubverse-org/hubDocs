@@ -12,12 +12,12 @@ The three components of modeling tasks are:
  - The [`task_ids`{.codeitem} object](#task-id-vars) defines both labels for columns in submission files and the set of valid values for each column.
    Any unique combination of the values define a single modeling task, or target. 
  - The [`output_type`{.codeitem} object](#output-types) defines accepted representations _for each task_.
-   More on the different output types can be found in [The Model Output Chapter](model-output.md#formats-of-model-output).
+   More on the different output types can be found in [The Model Output Chapter](#formats-of-model-output).
  - The [`target_metadata`{.codeitem} array](#target-metadata) provides additional information about each target.
 
 [^json]: Due to technical issues, we do not currently support [json references](http://niem.github.io/json/reference/json-schema/references/) or yaml metadata files.
 
-[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See [the `tasks.json` schema](hub-config.md#hub-model-task-configuration-tasks-json-file) for details.
+[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See [the `tasks.json` schema](#tasks-metadata) for details.
 
 
 (task-id-vars)=
