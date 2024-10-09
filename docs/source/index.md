@@ -1,10 +1,6 @@
-# The hubverse: open tools for collaborative modeling
+# The hubverse: open tools for collaborative modeling  
 
-```{caution}
-This project is under active development.
-```
-
-```{admonition} What is The Hubverse For?
+```{admonition} What is The Hubverse For?  
 :class: seealso
 
 **The goal of the hubverse** is to **ensure stakeholders have model summaries they can trust** by facilitating collaborative modeling efforts that are rapidly validated and summarized.
