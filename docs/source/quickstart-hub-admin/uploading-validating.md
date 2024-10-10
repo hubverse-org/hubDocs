@@ -21,7 +21,7 @@ Now, you should validate the config files to be sure they are properly functiona
 2. Next, you need to validate the Hub's config files. 
 - [`validate_hub_config()`](https://hubverse-org.github.io/hubAdmin/reference/validate_hub_config.html) validates the `admin.json`, `tasks.json`, `model-metadata-schema.json` hub config files in a single call.
 - If you get any errors, you can pass the result of the above functions to `view_config_val_errors()`, which prints a concise and informative version of the validation errors table.
-- Click on the link for more [detailed instructions and explanations](https://hubverse-org.github.io/hubAdmin/articles/hub-setup.html#validate-config-files).
+- More detailed explanations can be found in [hubAdmin's "Setting Up a Hub" vignette](https://hubverse-org.github.io/hubAdmin/articles/hub-setup.html#validate-config-files).
 
 ## Congratulations!  
 
