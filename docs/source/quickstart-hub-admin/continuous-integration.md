@@ -8,7 +8,7 @@ This page provides information on:
 
 
 ## Installing continuous integration workflows with `hubCI`
-You can use the [`hubCI` software package (R)](https://github.com/hubverse-org/hubCI) to set up hubverse CI workflows. The development version can be installed with:
+You can use the [`hubCI` R package](https://github.com/hubverse-org/hubCI) to set up hubverse CI workflows. The development version can be installed with:
 
 ``` r
 # install.packages("remotes")
