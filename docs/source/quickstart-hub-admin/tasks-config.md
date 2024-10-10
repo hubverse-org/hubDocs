@@ -13,7 +13,7 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 ## Step 2: Examine the `tasks.json` file  
 
-You should see the code below in your source panel (upper left-hand panel). [Each line of code in `tasks.json`](#model-tasks-schema) is detailed in the link.  
+You should see the code below in your source panel (upper left-hand panel). This has a specific structure and you can explore that [in the interactive `tasks.json` schema explorer](#model-tasks-schema)  
 
 ```{image} ../images/tasks-schema-0.png
 :alt: Screenshot of the code in the tasks.json file
