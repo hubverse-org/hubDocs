@@ -79,4 +79,4 @@ The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` gr
  
 Before using this action, a member of the hubverse development team will need to "onboard" your hub to AWS. 
 
-More information can be found on [the `hubverse-aws-upload` GitHub page](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload).  
+More information can be found on [the `hubverse-aws-upload` README](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload#readme).  
