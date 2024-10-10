@@ -49,7 +49,7 @@ More information can be found on [the README for `cache-hubval-deps`](https://gi
 
 
 ### [`validate-submission`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission)
-This hubverse action installs the `hubValidations` package from GitHub using [pak](https://pak.r-lib.org/) and the required system dependencies.
+This hubverse action installs the `hubValidations` package and the required system dependencies using [pak](https://pak.r-lib.org/).
 It then performs submission validation checks through the function `hubValidations::validate_pr()`.
 
 The action is triggered by pull requests onto the `main` branch that add or modify files in the `model-output` and/or `model-metadata` directories. 
