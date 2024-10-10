@@ -17,7 +17,7 @@ Once you have uploaded those two files onto your GitHub repository, you will not
 
 Now, you should validate the config files to be sure they are properly functional. You can use the `validate_config` function from [`hubAdmin`](https://hubverse-org.github.io/hubAdmin/index.html) to check whether Hub config files are valid. The steps are as follows:  
 
-1. First, you must install the R package `hubAdmin`. Click on the link for [instructions for installing `hubAdmin` in the R console](https://github.com/hubverse-org/hubAdmin#installation).  
+1. First, you must [follow the instructions to install the R package `hubAdmin` in the R console](https://github.com/hubverse-org/hubAdmin#installation).  
 2. Next, you need to validate the Hub's config files. 
 - [`validate_hub_config()`](https://hubverse-org.github.io/hubAdmin/reference/validate_hub_config.html) validates the `admin.json`, `tasks.json`, `model-metadata-schema.json` hub config files in a single call.
 - [`validate_config()`](https://hubverse-org.github.io/hubAdmin/reference/validate_config.html) validates a single hub config file against its corresponding schema.
