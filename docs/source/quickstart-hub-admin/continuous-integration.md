@@ -54,7 +54,7 @@ It then performs submission validation checks through the function `hubValidatio
 
 The action is triggered by pull requests onto the `main` branch that add or modify files in the `model-output` and/or `model-metadata` directories. 
 
-More information can be found on [the `validate-submission` GitHub page](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission) and in the hubValidations vignette on [Validating Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html).
+More information can be found on [the `validate-submission` README](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission#readme) and in the hubValidations vignette on [Validating Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html).
 
 ### [`validate-config`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-config)
 
