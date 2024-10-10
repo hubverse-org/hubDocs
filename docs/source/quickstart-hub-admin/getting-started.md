@@ -4,7 +4,7 @@ To host a modeling hub, you must decide where to host, store, and archive the da
 
 ## Step 1: Create or open your GitHub account  
 
-You can go ahead and move on to the next step if you already have a GitHub account.  If you do not have a GitHub account, [follow these instructions to create a GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account) (a free account is fine).  
+_If you already have a GitHub account, you can move on to the next step._ If you do not have a GitHub account, [follow these instructions to create a GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account) (a free account is fine).  
 
 ## Step 2: Make a copy of the GitHub template repository  
 
