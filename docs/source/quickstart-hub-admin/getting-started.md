@@ -18,7 +18,7 @@ Go to [hubTemplate](https://github.com/hubverse-org/hubTemplate) and click on "U
 
 ## Step 3: Name and create the repository  
 
-Enter a name for your repository—you can use any name.  Then click on "Create repository".  
+Enter a name for your repository---you can use any name.  Then click on "Create repository".  
 
 ```{image} ../images/repo-nam.png
 :alt: Naming your repository on GitHub
