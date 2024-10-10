@@ -73,7 +73,7 @@ The action is triggered by pull requests onto the `main` branch, which adds or m
 ### [`hubverse-aws-upload`](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload)
 This action uploads your hub data to hubverse-hosted cloud storage. Currently, the workflow has a single job, `upload`, that pushes data to an Amazon Web Services (AWS) Simple Storage Service (S3) bucket.
 The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` group. If cloud is enabled (i.e., if `cloud.enabled` is set to `true`), the job:
-* authenticates to the hubverse AWS account
+* authenticates to the hubverse AWS account,
 * uses `cloud.host.storage` to determine the name of the hub's S3 bucket and
 * syncs the hub's `hub-config`, `model-metadata`, and `model-output` directories to the S3 bucket
  
