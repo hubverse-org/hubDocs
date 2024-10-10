@@ -4,7 +4,7 @@ First, it is helpful to understand the target data we want to compile.
 
 ## Target data  
 
-Many hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is, in principle, observable. We refer to this as 'target data'. Click on the link to read [a detailed description of target data](../user-guide/target-data.md).  
+Many hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is, in principle, observable. We refer to this as 'target data', which is detailed in the [Target Data chapter](../user-guide/target-data.md).  
 
 The requirements for 'target data' are:  
 1. Define the truth data source and provide a pointer to the original source in your technical ReadMe document, which will be discussed below.  
