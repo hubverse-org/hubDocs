@@ -44,7 +44,7 @@ Save the file in the `hub-config` folder (which is [in your repository on your l
 
 ### 4.1: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Simple explanations for elements in the Example Forecast Hub file are offered below (*click on the hyperlinks for a full explanation of all the supported elements in [a `tasks.json` file](https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.1/tasks-schema.json) and definitions of [key concepts](../overview/definitions.md)*):  
+Open `tasks.json` and explore the content and structure. Simple explanations for elements in the Example Forecast Hub file are offered below (*click on the hyperlinks for a full explanation of all the supported elements in [a `tasks.json` file](#model-tasks-schema) and definitions of [key concepts](../overview/definitions.md)*):  
 
 * `schema_version`{.codeitem}: Modeling hub schema versions are all housed in [the schemas repository](https://github.com/hubverse-org/schemas/).  
 * `round_id`{.codeitem}: The round identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
