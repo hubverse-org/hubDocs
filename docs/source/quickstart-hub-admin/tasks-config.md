@@ -89,7 +89,6 @@ Now, read below for details on some of the lines of code in this file:
 :class: bordered
 ```
 
-Click on the link to read more on [how to use `target_date` and `target_end_date`](https://raw.githubusercontent.com/hubverse-org/schemas/main/v2.0.1/tasks-schema.json#L400).  
 
 (setting-up-location)=
 ### 5.4. Setting up `"location"`:  
