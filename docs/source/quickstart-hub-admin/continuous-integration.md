@@ -45,7 +45,7 @@ This hubverse action downloads the software components required for others to wo
 
 This action is run on a nightly schedule but can also be triggered by a push to the workflow from the `main` branch. 
 
-More information can be found on [the `cache-hubval-deps` GitHub page](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps).
+More information can be found on [the README for `cache-hubval-deps`](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps#readme).
 
 
 ### [`validate-submission`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission)
