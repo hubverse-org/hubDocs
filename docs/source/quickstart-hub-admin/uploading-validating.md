@@ -20,7 +20,6 @@ Now, you should validate the config files to be sure they are properly functiona
 1. First, you must [follow the instructions to install the R package `hubAdmin` in the R console](https://github.com/hubverse-org/hubAdmin#installation).  
 2. Next, you need to validate the Hub's config files. 
 - [`validate_hub_config()`](https://hubverse-org.github.io/hubAdmin/reference/validate_hub_config.html) validates the `admin.json`, `tasks.json`, `model-metadata-schema.json` hub config files in a single call.
-- [`validate_config()`](https://hubverse-org.github.io/hubAdmin/reference/validate_config.html) validates a single hub config file against its corresponding schema.
 - If you get any errors, you can pass the result of the above functions to `view_config_val_errors()`, which prints a concise and informative version of the validation errors table.
 - Click on the link for more [detailed instructions and explanations](https://hubverse-org.github.io/hubAdmin/articles/hub-setup.html#validate-config-files).
 
