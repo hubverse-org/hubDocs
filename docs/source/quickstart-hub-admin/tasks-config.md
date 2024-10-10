@@ -225,7 +225,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ## Step 8: Set up `"submissions_due"`:  
 - `"submissions_due"` establishes the dates by which model forecasts must be submitted to the hub. It is used by `hubValidations` when validating submission files.  
   
-[The schema permits two ways](https://github.com/hubverse-org/schemas/blob/de580d56b8fc5c24dd36a32994182e37b8b0ac95/v2.0.0/tasks-schema.json#L1323-L1380) to set the dates during which model forecasts can be submitted:  
+The schema permits two ways to set the dates during which model forecasts can be submitted:  
   
 1. By setting a `"relative_to"` date, as well as `"start"` and `"end"` integers, which set the range of dates in which submissions are accepted, as explained in the example below.  
 - <mark style="background-color: #FFE331">`"relative_to"` specifies</mark> the *task id* variable with which submission start and end dates are calculated.  In this instance, it is `"origin_date"`.  
