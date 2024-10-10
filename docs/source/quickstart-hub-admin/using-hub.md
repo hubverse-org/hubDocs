@@ -7,12 +7,12 @@ First, it is helpful to understand the target data we want to compile.
 Many hubs will focus on modeling tasks where the goal is to estimate or predict a quantity that is, in principle, observable. We refer to this as 'target data', which is detailed in the [Target Data chapter](../user-guide/target-data.md).  
 
 The requirements for 'target data' are:  
-1. Define the truth data source and provide a pointer to the original source in your technical ReadMe document, which will be discussed below.  
-2. Decide where to store a copy of the 'target data' on the hub, describe the 'target data', and provide a pointer to the copy in your technical ReadMe document, which will be discussed below.  
+1. Define the truth data source and provide a pointer to the original source in your technical README document, which will be discussed below.  
+2. Decide where to store a copy of the 'target data' on the hub, describe the 'target data', and provide a pointer to the copy in your technical README document, which will be discussed below.  
 
-## Technical ReadMe  
+## Technical README  
 
-You now have a repository to collect models (in this example, forecasts), and you need to populate it. You should probably request models (e.g., forecasts) from modelers. A standard way to do this is to create a technical ReadMe that contains submission instructions. The technical ReadMe should include the following concepts with their corresponding explanations.  
+You now have a repository to collect models (in this example, forecasts), and you need to populate it. You should probably request models (e.g., forecasts) from modelers. A standard way to do this is to create a technical README that contains submission instructions. The technical README should include the following concepts with their corresponding explanations.  
 - Definition of a model or forecast  
 - Ground truth data  
 - Data formatting  
@@ -22,9 +22,9 @@ You now have a repository to collect models (in this example, forecasts), and yo
 - Weekly ensemble and visualization deployment  
 - Policy on late submissions  
 
-This technical ReadMe should be stored on your hub. When requesting forecast submissions, you will need to share this document with modelers.  
+This technical README should be stored on your hub. When requesting forecast submissions, you will need to share this document with modelers.  
 
-[This is an example of a technical ReadMe](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) that is used by the US COVID-19 Forecast Hub.
+[This is an example of a technical README](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) that is used by the US COVID-19 Forecast Hub.
 
 ## Accepting forecasts  
 
