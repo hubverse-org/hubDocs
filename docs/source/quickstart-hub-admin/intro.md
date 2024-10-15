@@ -12,13 +12,13 @@ It will provide step-by-step directions to
 - Upload modified files from your local computer to GitHub  
 - Validate config files  
 
-Before proceeding step by step, we present a brief overview and some pointers to resources developed by the Consortium to facilitate the design, launch, and maintenance of hubs.  
+Before proceeding step by step, we'd like to present a brief overview and some pointers to resources developed by the Consortium to facilitate the design, launch, and maintenance of hubs.  
 
 **Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../overview/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".  
 
 ## Overview  
 
-The simplest way to set up a modeling hub is to directly clone one from the [`hubTemplate` repository](https://github.com/hubverse-org/hubTemplate) or to use one of the example hub repositories such as the [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub), the [Complex Forecast Hub Example](https://github.com/hubverse-org/example-complex-forecast-hub) or the [Complex Scenario Hub Example](https://github.com/hubverse-org/example-complex-scenario-hub). These are based on prior use cases. The template hubs provide a skeletal structure of a hub without any data in them, whereas the example hubs provide minimal working examples of hubs and could be used for ideas of how to set up configuration files for new projects.  
+The simplest way to set up a modeling hub is to directly clone one from the [`hubTemplate` repository](https://github.com/hubverse-org/hubTemplate) or to use one of the example hub repositories such as the [simple forecast hub example](https://github.com/hubverse-org/example-simple-forecast-hub), the [complex forecast hub example](https://github.com/hubverse-org/example-complex-forecast-hub) or the [complex scenario hub example](https://github.com/hubverse-org/example-complex-scenario-hub). These are based on prior use cases. The template hubs provide a skeletal structure of a hub without any data in them, whereas the example hubs provide minimal working examples of hubs and could be used for ideas of how to set up configuration files for new projects.  
 
 ### Template hubs  
 
@@ -28,17 +28,17 @@ The [`hubTemplate` repository](https://github.com/hubverse-org/hubTemplate) prov
 
 The example hub repositories provide minimal working examples of hubs that can be used to generate ideas for setting up configuration files for new projects. They are also used as use cases for testing the [software for modeling hubs](../user-guide/software.md). 
 
-#### 1. Simple Forecast Hub Example
+#### 1. Simple forecast hub example
 
-The [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) but modified to provide examples of nowcasts.  
+The [simple forecast hub example](https://github.com/hubverse-org/example-simple-forecast-hub) is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) but modified to provide examples of nowcasts.  
 
-#### 2. Complex Forecast Hub Example
+#### 2. Complex forecast hub example
 
-The [Complex Forecast Hub Example](https://github.com/hubverse-org/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).  
+The [complex forecast hub example](https://github.com/hubverse-org/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).  
 
-#### 3. Complex Scenario Hub Example
+#### 3. Complex scenario hub example
 
-The [Complex Scenario Hub Example](https://github.com/hubverse-org/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)  
+The [complex scenario hub example](https://github.com/hubverse-org/example-complex-scenario-hub) is designed to be similar to the [US COVID-19 Scenario Modeling Hub](https://github.com/midas-network/covid19-scenario-modeling-hub)  
 
 ### Schema files 
 
