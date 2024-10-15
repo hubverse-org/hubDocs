@@ -1,10 +1,10 @@
 # Getting started  
 
-To host a modeling hub, you must decide where to host, store, and archive the data. We support [three data storage options](../overview/data-storage.md), but we will focus on GitHub for this quickstart guide.  
+To host a modeling hub, you must decide where to host, store, and archive the data. We support [three data storage options](../overview/data-storage.md), but for this quickstart guide, we will focus on GitHub.  
 
 ## Step 1: Create or open your GitHub account  
 
-_If you already have a GitHub account, you can move on to the next step._ If you do not have a GitHub account, [follow these instructions to create a GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account) (a free account is fine).  
+_If you already have a GitHub account, you can move on to the next step._ If you do not have a GitHub account, follow these [instructions to create a GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account) (a free account is fine).  
 
 ## Step 2: Make a copy of the GitHub template repository  
 
@@ -41,5 +41,5 @@ Clone the repo to your computer so that you can work with it locally.  GitHub ha
 
 ## Congratulations!  
 
-You have just created your first hub repository from the Hubverse. You can read about [the structure of hub repositories](../user-guide/hub-structure.md) and explore the repository on your computer.  
+You have just created your first hub repository from the Hubverse. You can read about the [structure of hub repositories](../user-guide/hub-structure.md) and explore the repository on your computer.  
 
