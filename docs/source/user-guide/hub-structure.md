@@ -2,7 +2,7 @@
 
 A hub repository should be structured according to the following guidelines:
 
-1. Code and scripts must not be present in the `model-output`[^model-output] directory of a hub repository.
+1. Code and scripts must not be present in a hub repository's `model-output`[^model-output] directory.
 2. If code is included in the hub repository, it should live in a centrally located directory, which we recommend naming `src`.
 3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository. 
@@ -27,7 +27,7 @@ The directory and file structure of a modeling hub should contain only the follo
 | ------ | ------ | ------ | ------ | ------ | 
 | Configuration directory | `hub-config/` | Folder storing configuration files | X |  |
 | Admin configuration file | `hub-config/admin.json` | Structured text file containing overall configuration settings for the hub | X |  | 
-| Modeling tasks configuration file | `hub-config/tasks.json` | Structured text file that defines modeling tasks and therefore implicity defines the assumed structure for any model submitted | X |  | 
+| Modeling tasks configuration file | `hub-config/tasks.json` | Structured text file that defines modeling tasks and, therefore, implicitly defines the assumed structure for any model submitted | X |  | 
 | Model metadata configuration file | `hub-config/model-metadata-schema.json` | Structured text file that defines the expected format of model metadata files submitted by modeling teams | X |  |  
 ```
 
@@ -49,7 +49,7 @@ The directory and file structure of a modeling hub should contain only the follo
 
 ## Optional Components
 
-The following components are not required for a hub, but may be useful:
+The following components are not required for a hub but may be useful:
 
 ``` {table} Model Abstracts (model-abstracts/)
 | Component | Location | Description | Hub provides | Modeler provides |
@@ -68,7 +68,7 @@ The following components are not required for a hub, but may be useful:
 ```
 
 
-* Optionally, a hub may store any files necessary to define continuous integration workflows, for example for the purpose of validating submissions or updating target data. 
+* Optionally, a hub may store any files necessary to define continuous integration workflows, such as those for validating submissions or updating target data. 
 
-Although most hubs to date have been housed in GitHub repositories, the proposed structure is more general and can be adapted for use on any shared filesystem. 
+Although most hubs have been housed in GitHub repositories, the proposed structure is more general and can be adapted to any shared filesystem. 
 
