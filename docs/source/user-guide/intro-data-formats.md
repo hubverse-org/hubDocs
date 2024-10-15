@@ -15,7 +15,7 @@ This section of the documentation provides standards for:
 
 (running-examples)=
 ## Running examples
-In this section, we introduce some running examples that will illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow. We identify the task ID variables and output types for each hub, which are discussed in more detail in the [description of tasks metadata](#tasks-metadata).
+In this section, we introduce some running examples that will illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the following sections. We identify the task ID variables and output types for each hub, which are discussed in more detail in the [description of tasks metadata](#tasks-metadata).
 
 
 (running-example-1)=
@@ -35,10 +35,7 @@ This hub allows submissions on a pre-specified set of dates specified by the `or
 
 Since the target in the simple forecast hub is defined by a single task_id variable (`target`) that only takes one value (`inc covid hosp`), the hub maintainers could have opted not to include any `target_key` variable to save space in the file. 
 For example, the row in CSV submission files will have the same value in the `target` column, making this information redundant.
-
 ```
-
-
 
 (running-example-2)=
 ```{admonition} Example 2: COVID-19 forecasts, adapted from the [US COVID-19 Forecast Hub](https://covid19forecasthub.org/)
@@ -52,19 +49,15 @@ This hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 * `origin_date`{.codeitem}: the date when a forecast was generated, e.g., "2021-07-11"
 * `horizon`{.codeitem}: 1, 2, 3, 4 (in units of weeks, which is specified in the target metadata)
 
-#### Output Types
+#### Output types
 
 * a set of predictive quantiles at specified probability levels
 * a predictive mean (see NOTE)
 
 #### NOTE
 
-
 The US COVID-19 Forecast Hub did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
-
 ```
-
-
 
 (running-example-3)=
 ```{admonition} Example 3: Multiple target keys
