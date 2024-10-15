@@ -17,7 +17,7 @@ The three components of modeling tasks are:
 
 [^json]: Due to technical issues, we do not currently support [json references](http://niem.github.io/json/reference/json-schema/references/) or yaml metadata files.
 
-[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true` and the `round_id` should be a column defined in the `task_ids`. See the [`tasks.json` schema](#tasks-metadata) for details.
+[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true`, and the `round_id` should be a column defined in the `task_ids`. See the [`tasks.json` schema](#tasks-metadata) for details.
 
 
 (task-id-vars)=
@@ -49,7 +49,7 @@ Moreover, these tables are presented in a [long/narrow representation](https://e
 
 [^tidy]: This type of data is also known as "tidy data," a term coined by Hadley Wickham that's heavily used in the R community. You can read more about the concept in the [Data tidying chapter of the R4DS book](https://r4ds.hadley.nz/data-tidy#sec-tidy-data) and the [Tidy Data paper by Wickham (2014)](https://www.jstatsoft.org/article/view/v059i10).
 
-#### Special Task ID variables
+#### Special task ID variables
 
 Task ID variables are used to parameterize modeling efforts. 
 However, some task ID variables serve specific purposes in defining submission rounds and targets.
@@ -62,7 +62,7 @@ For example, in our [Running Example 1](#running-example-1), the task ID variabl
 In this example, `target` is the target key and can only take on one value, "inc covid hosp".
 
 
-#### Proposed standard of Task ID variables
+#### Proposed standard of task ID variables
 
 We strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
 
