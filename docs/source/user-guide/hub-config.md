@@ -2,9 +2,9 @@
 
 ## Directory Structure
 The `hub-config` directory in a modeling hub is required to contain three JSON[^json] files:
-   1. `admin.json`{.codeitem} - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. See below for [details on the `admin.json` file](#hub-admin-config).  
-   2. `tasks.json`{.codeitem} - JSON file specifing modeling tasks and model output formats, which may be round-specific. See below for [more details on the `tasks.json` file](#tasks-metadata).
-   3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. See below for [more details on the `model-metadata-schema.json` file](#model-metadata-schema).
+   1. `admin.json`{.codeitem} - JSON file containing generic information about the hub as well as static configuration settings for downstream tools such as validations, visualizations, etc. This file also contains optional cloud settings for hubs that use cloud storage. See [the hub administrative configuration (`admin.json`) Interactive Schema section](#hub-admin-config) below for details on the `admin.json` file.  
+   2. `tasks.json`{.codeitem} - JSON file specifing modeling tasks and model output formats, which may be round-specific. See [the hub model task configuration (`tasks.json` file)](#tasks-metadata) below for more details on the `tasks.json` file.  
+   3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. The [template metadata schema file section](#model-metadata-schema) has more information on the `model-metadata-schema.json` file.
 
 [^json]: Due to technical issues, we do not currently support json references or yaml metadata files.
 
