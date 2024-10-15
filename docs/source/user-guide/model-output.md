@@ -51,7 +51,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
 submission formats are _not mutually exclusive_; **hubs may choose between
- `parquet` (arrow), `csv`, or both**. Both formats have advantages and tradeoffs:
+ `parquet` (Arrow), `csv`, or both**. Both formats have advantages and tradeoffs:
 
 * Considerations about `csv`:
    * Advantages
@@ -92,9 +92,9 @@ More detail about each of these column groups is given in the following points:
    additional information, such as any conditions or assumptions that were used
    to generate the predictions. Some example task ID variables include
    `target`, `location`, `reference_date`, and `horizon`.    Although there are
-   no restrictions on naming task ID variables, when appropriate, we suggest
-   that hubs adopt the standard task ID or column names and definitions
-   specified in the [section on usage of task ID variables](#task-id-use).
+   no restrictions on naming task ID variables, we suggest
+that hubs adopt the standard task ID or column names and definitions
+specified in the [section on usage of task ID variables](#task-id-use) when appropriate.
 2. **"Model output representation" (3 columns)**: consists of three
    columns specifying how the model outputs are represented. All three of these
    columns will be present in all model output data:
@@ -139,7 +139,7 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 In contrast, we cannot assume the same for the `sample` representation.
 By recording samples from a joint predictive distribution, **the `sample` representation may capture dependence across combinations of multiple model task ID variables**.
 
-For example, suppose the model task ID variables are “forecast date”, “location” and “horizon”. 
+For example, suppose the model task ID variables are “forecast date”, “location”, and “horizon”. 
 A predictive mean will summarize the predictive distribution for a single combination of forecast date, location, and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task ID variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
 2. the joint predictive distribution across all horizons within each forecast date and location
@@ -152,7 +152,7 @@ More details about sample-output-type can be found in the [page describing sampl
 
 ### Omitted output types
 
-Some other possible model output representations have been proposed but have not been included in the list above. We document these other proposals and the reasons for their omissions here:
+Some other possible model output representations have been proposed but not included in the list above. We document these other proposals and the reasons for their omissions here:
 
 #### Point estimates
 
@@ -188,15 +188,15 @@ from the `hubValidations` R package, which performs two validation tasks:
 ```{admonition} NOTE
 The following discussion addresses two different types of schemas:
  - [hubverse schema](https://github.com/hubverse-org/schemas)---the schema used for **validating hub configuration files**
- - [arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the mapping of model output columns to arrow data types.
+ - [Arrow schema](https://arrow.apache.org/docs/11.0/r/reference/Schema.html)---the mapping of model output columns to Arrow data types.
 
 This section concerns parquet files, which encapsulate a schema within the file, but the broader issues have consequences for all output file types.
 ```
 
 
 Model output data are stored as separate files, but we use the `hubData` package to open them as a single [Arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).[^trouble]
-**It is necessary to ensure that all files conform to the same arrow schema** (i.e., share the same column data types) across the hub's lifetime.
-When we know that all data types conform to the arrow schema, we can be sure that a hub can be successfully accessed and is fully queryable across all columns as [an Arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
+**It is necessary to ensure that all files conform to the same Arrow schema** (i.e., share the same column data types) across the hub's lifetime.
+When we know that all data types conform to the Arrow schema, we can be sure that a hub can be successfully accessed and is fully queryable across all columns as [an Arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
 Thus, **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e., after submissions have already started being collected). 
 
 [^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
@@ -234,7 +234,7 @@ During submission validation, two checks are performed on the `output_type_id` c
  
  The benefit of this automatic detection is that it provides flexibility to the `output_type_id` column to adapt to the output types a hub is collecting. For example, a hub that only collects `mean` and `quantile` output types would, by default, have a `double` `output_type_id` column.
 
- However, the risk of this automatic detection arises if, after submissions have begun in subsequent rounds, the hub also starts collecting a `pmf` output type. If this happens, it would change the default `output_type_id` column data type from `double` to `character` and cause a conflict between the `output_type_id` column data type in older and newer files when trying to open the hub as an `arrow` dataset.
+ However, the risk of this automatic detection arises if the hub also starts collecting a `pmf` output type after submissions have begun in subsequent rounds. If this happens, it would change the default `output_type_id` column data type from `double` to `character` and cause a conflict between the `output_type_id` column data type in older and newer files when trying to open the hub as an `arrow` dataset.
 
 ### Fixing the `output_type_id` column data type with the `output_type_id_datatype` property
 
