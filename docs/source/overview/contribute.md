@@ -1,6 +1,6 @@
 # How to contribute
 
-The Consortium of Infectious Disease Modeling Hubs built *the hubverse* collaboratively, and we benefit from your contributions.
+The Consortium of Infectious Disease Modeling Hubs built the hubverse collaboratively, and we benefit from your contributions.
 
 ## Use and test our software and tools
 
@@ -13,26 +13,26 @@ Let us know if something is not working for you or if something could improve. T
 
 ## Contribute code
 
-If you want to contribute to *the hubverse*, please see [the guidelines for contributing](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
+If you want to contribute to *the hubverse*, please see the [guidelines for contributing](https://hubverse-org.github.io/hubUtils/CONTRIBUTING.html).
 
 ## Start to run a hub
 
-If you are interested in using *the hubverse* to run a hub, please consider joining our monthly "community hubverse meetings". During these meetings, we provide general updates from a broad mix of developers and public health representatives running hubs or thinking about starting to run hubs.
+If you want to use *the hubverse* to run a hub, please consider joining our monthly "community hubverse meetings". During these meetings, we provide general updates from a broad mix of developers and public health representatives running hubs or thinking about starting to run hubs.
 
-To join the "community hubverse meeting," please send an email to <a href="mailto:hubverse+owner@groups.io">the hubverse group</a>, including your name, email, and a few sentences about how you would like to use the hubverse.
+To join the "community hubverse meeting," please send an email to the <a href="mailto:hubverse+owner@groups.io">hubverse group</a>, including your name, email, and a few sentences about how you would like to use the hubverse.
 
 ## Join the development team
 
-If you are an experienced programmer and interested in joining the development team, we have "development meetings" on all Wednesdays except the first Wednesday of the month. These meetings are for technical updates and discussions about ongoing development tasks.
+If you are an experienced programmer interested in joining the development team, we have "development meetings" on all Wednesdays except the first Wednesday of the month. These meetings are for technical updates and discussions about ongoing development tasks.
 
-To join the development team, please send an email to <a href="mailto:hubverse+owner@groups.io">the hubverse group</a>, including your name, email, and a few sentences about what you can contribute to the development team.
+To join the development team, please send an email to the <a href="mailto:hubverse+owner@groups.io">hubverse group</a>, including your name, email, and a few sentences about what you can contribute to the development team.
 
 ## Become Hubverse Community Member
 This group is used to announce new features in the Hubverse to the user community. If you would like to become a Hubverse community member, go to [hubverse@groups.io](https://groups.io/g/hubverse) and click on the **+Apply for Membership in this group** at the bottom left-hand side of the page.
 
 ## Governance
 
-The governing body of [the Consortium of Infectious Disease Modeling Hubs](who-we-are.md) is the Coding Council, which is made up of any member of the community who is in attendance at one of the periodic virtual meetings. This council generally serves as a deliberative body, discussing and setting directions for new conceptual and software development. Typically, decisions about design and prioritization are made through consensus at the Coding Council level. If differences cannot be solved by consensus, then decisions are passed to the Steering Committee, which comprises three members. Members of the Steering Committee serve one-year terms, with elections occurring in July of each calendar year. Members of the Coding Council may nominate themselves or others to serve on the Steering Committee, and a closed-ballot vote is taken if more than three individuals are nominated. The highest three vote-getters serve on the council.  
+The governing body of the [Consortium of Infectious Disease Modeling Hubs](who-we-are.md) is the Coding Council, which comprises any community member attending one of the periodic virtual meetings. This council generally serves as a deliberative body, discussing and setting directions for new conceptual and software development. Typically, decisions about design and prioritization are made through consensus at the Coding Council level. If differences cannot be solved by consensus, then decisions are passed to the Steering Committee, which comprises three members. Members of the Steering Committee serve one-year terms, with elections occurring in July of each calendar year. Members of the Coding Council may nominate themselves or others to serve on the Steering Committee, and a closed-ballot vote is taken if more than three individuals are nominated. The highest three vote-getters serve on the council.  
 
 On July 10, 2024, the following members of the steering committee were elected: 
 
