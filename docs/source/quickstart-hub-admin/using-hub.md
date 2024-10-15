@@ -31,7 +31,7 @@ This technical README should be stored on your hub. When requesting forecast sub
 Before you announce that you are accepting model submissions (such as forecasts) and give a due date, you should be prepared to accept the data. The [`hubValidations`](https://hubverse-org.github.io/hubValidations/) repository facilitates the implementation of general validation rules that are enforced on submissions in the form of [pull requests](https://docs.github.com/articles/about-pull-requests) to hub repositories.  
 
 ## Looking at the data  
-Once you have collected some models, you will want to explore the data. We have built [a software suite](../user-guide/software.md) to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases, evaluating the predictions made by different models.
+Once you have collected some models, you will want to explore the data. We have built a [software suite](../user-guide/software.md) to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases, evaluating the predictions made by different models.
 
 ## Building ensembles  
 [`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using, for instance, the mean, median, or mode.  
