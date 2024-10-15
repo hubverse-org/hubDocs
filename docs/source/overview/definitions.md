@@ -1,6 +1,6 @@
 # Key definitions  
 
-```{admonition} Modeling Hub
+```{admonition} Modeling hub
 a consortium of research groups working together on a common set of modeling tasks to develop ensemble models to provide stakeholders with a single model output representing uncertainty across different modeling assumptions and frameworks.
 ```
 
@@ -9,11 +9,11 @@ a time period for which a set of specific model outputs are solicited. Rounds de
 ```
 
 ```{admonition} Target
-a quantitative outcome of interest for a modeling Hub. For example, "incident case counts." Targets typically (and sometimes implicitly) refer to a value of an observable variable in a given window of time, a given location, and possibly other stratifications (such as age group).
+a quantitative outcome of interest for a modeling hub. For example, "incident case counts." Targets typically (and sometimes implicitly) refer to a value of an observable variable in a given window of time, a given location, and possibly other stratifications (such as age group).
 ```
 
 ```{admonition} Task
-a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, such as forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Other tasks may be more variable, such as scenario hubs that model hypothetical futures with different assumptions in different modeling rounds.
+a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, such as for forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Scenario hubs that model hypothetical futures with different assumptions in different modeling rounds may need variable tasks.
 ```
 
 ```{admonition} Team
@@ -28,7 +28,7 @@ a file or series of files with structured information describing the general cha
 a declarative format used to organize and set the structure of other data, including required and optional fields. Schema define the specifications for the configuration files that are required to be present in a modeling hub.
 ```
 
-```{admonition} Mathematical Model formulation/structure
+```{admonition} Mathematical model formulation/structure
 a statistical or mathematical formulation of a model.
 ```
 
@@ -37,7 +37,7 @@ code that implements a team's mathematical model formulation/structure to genera
 ```
 
 ```{admonition} Model output 
-a set of target results generated in response to some modeling task for a specific round. A model might result from a single team’s response to the task, or it might be an ensemble of results representing the outcomes of multiple efforts.
+a set of target results generated in response to some modeling task for a specific round. A model might result from a single team’s response to the task or from an ensemble of results representing the outcomes of multiple efforts.
 ```
 
 ```{admonition} Nowcast
@@ -70,7 +70,7 @@ alt: |
     The range from the graph's beginning to March 2021 is labeled "Surveillance Data."
     The "Nowcast" range covers three weeks of preliminary surveillance and projected data with confidence intervals.
     The "Forecast" range has no observed data and covers the next four weeks with four slightly diverging model estimates and confidence intervals.
-    The "Projections" range covers the time between May 2021 and September 2021 and shows the models' confidence intervals.
+    The "Projections" range covers the period between May 2021 and September 2021 and shows the models' confidence intervals.
     
 name: horizon-nomenclature
 ---
