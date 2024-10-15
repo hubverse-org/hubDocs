@@ -15,13 +15,13 @@ This section of the documentation provides standards for:
 
 (running-examples)=
 ## Running examples
-In this section, we introduce some running examples that will illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow. We identify the task ID variables and output types for each hub, which are discussed in more detail in [the description of tasks metadata](#tasks-metadata).
+In this section, we introduce some running examples that will illustrate and motivate the proposed infrastructure, as well as some core concepts that will be used repeatedly in the sections to follow. We identify the task ID variables and output types for each hub, which are discussed in more detail in the [description of tasks metadata](#tasks-metadata).
 
 
 (running-example-1)=
 ```{admonition} Example 1: A simple forecast hub
 
-This example is adapted from [COVID-19 hospitalization forecasts submitted to the US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) to provide examples of nowcasts.  Also, we would like to point out that the description below was written to mirror the technical set-up of the [simple forecast hub example repository](https://github.com/hubverse-org/example-simple-forecast-hub). The following specifications can be determined from [the tasks.json configuration file for this hub](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json). 
+This example is adapted from [COVID-19 hospitalization forecasts submitted to the US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) to provide examples of nowcasts.  Also, we would like to point out that the description below was written to mirror the technical set-up of the [simple forecast hub example repository](https://github.com/hubverse-org/example-simple-forecast-hub). The following specifications can be determined from the [tasks.json configuration file for this hub](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json). 
 
 This hub allows submissions on a pre-specified set of dates specified by the `origin_date` task ID variable. **Each `origin_date` corresponds to a separate modeling round.** In each round, the submissions follow the same format. **There is a single target, called `inc covid hosp`**, which, in English, translates to **"weekly incident COVID-19 hospitalizations"** for that day. Mean point forecasts are provided at the state and territory level in the US.  
 
