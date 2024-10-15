@@ -1,10 +1,10 @@
-# Scripting Task Configuration  
+# Scripting task configuration  
 
 The [`hubAdmin` package](https://hubverse-org.github.io/hubAdmin/index.html) provides tools to help with the [configuration of tasks](../user-guide/tasks.md) that are run on the hub. Specifically, the package has various [`create` functions](https://hubverse-org.github.io/hubAdmin/reference/index.html) that can be used to create objects that are used to build a [`"tasks"` config file](https://hubverse-org.github.io/hubAdmin/reference/create_config.html) that can ultimately be written as a [`tasks.json` file](#model-tasks-schema).  
 
 As mentioned previously, the `tasks.json` file specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)) used in the hub. The `hubAdmin` package provides functions to help create these objects.  
 
-In this section, we will walk through the process of scripting task configuration using functions from the `hubAdmin` package in an order similar to that used in the [previous "Configuring tasks" section](#tasks-json-edits).  
+In this section, we will walk through the process of scripting task configuration using functions from the `hubAdmin` package in an order similar to that used in the [previous configuring tasks section](#tasks-json-edits).  
 
 ## Step 1: Create an `src` folder  
 
@@ -15,7 +15,7 @@ Open RStudio and ensure you are in your repo's main folder. Click on the "New Fo
 :class: bordered
 ```
 
-## Step 2: Create a new R Script within the `src` folder  
+## Step 2: Create a new R script within the `src` folder  
 
 In the files pane, click on the `src` folder and ensure you are inside the folder by checking the path at the top of the pane. The path (circled below in green) should now show the `src` folder. Click on the "New Blank File" icon and select "R Script". Name the file "scripting-task-config".  
 
@@ -26,7 +26,7 @@ In the files pane, click on the `src` folder and ensure you are inside the folde
  
 ## Step 3: Install the `hubAdmin` package  
 
-In the Console of RSudio, install [latest version of the `hubAdmin` package from the R-universe](https://hubverse-org.r-universe.dev/hubAdmin) by running the following command:  
+In the Console of RSudio, install the [latest version of the `hubAdmin` package from the R-universe](https://hubverse-org.r-universe.dev/hubAdmin) by running the following command:  
 
 ``` r
 install.packages("hubAdmin", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))

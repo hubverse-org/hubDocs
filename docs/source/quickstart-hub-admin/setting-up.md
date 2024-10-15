@@ -2,11 +2,11 @@
 
 We will follow the steps to set up and configure your modeling hub.  
 
-It is helpful to use software built for this purpose to work with the code in your hub. In our example, we will use RStudio to work with the code. If you choose to use RStudio, you should have R and RStudio loaded on your computer. Click on the links to read [directions for downloading  R](https://cran.rstudio.com/) and [directions for downloading RStudio](https://posit.co/download/rstudio-desktop/).  
+Using software built to work with the code in your hub is helpful. In our example, we will use RStudio to work with the code. If you choose to use RStudio, you should have R and RStudio loaded on your computer. Click on the links to read [directions for downloading  R](https://cran.rstudio.com/) and [directions for downloading RStudio](https://posit.co/download/rstudio-desktop/).  
 
-In this example, we will set up a simple forecast hub in the style of the [Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub). This hub is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) but modified to provide examples of nowcasts. 
+In this example, we will set up a simple forecast hub in the style of the [simple forecast hub example](https://github.com/hubverse-org/example-simple-forecast-hub). This hub is adapted from forecasts submitted to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) but modified to provide examples of nowcasts. 
 
-## 1. Configuring your Modeling Hub  
+## 1. Configuring your modeling hub  
 
 The files within the `hub-config` directory specify general hub configurations and (possibly round-specific) details of what model outputs are requested or required. The linked page provides more information about [hub configuration files](../user-guide/hub-config.md).  
 

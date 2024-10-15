@@ -1,6 +1,6 @@
 # Configuring model metadata  
 
-For each model that is submitted to the hub, a yaml metadata file ([what is a yaml file?](https://circleci.com/blog/what-is-yaml-a-beginner-s-guide/)) must be added to the `model-metadata` directory by the modeling teams. Details about the `model-metadata` directory can be found in [the model metadata chapter](../user-guide/model-metadata.md).  
+For each model that is submitted to the hub, a yaml metadata file ([what is a yaml file?](https://circleci.com/blog/what-is-yaml-a-beginner-s-guide/)) must be added to the `model-metadata` directory by the modeling teams. Details about the `model-metadata` directory can be found in the [model metadata chapter](../user-guide/model-metadata.md).  
 
 Many hubs will use a standard set of metadata fields. A hub's metadata fields are defined in the `model-metadata-schema.json`, which specifies the fields that will be required for each team that submits a model or forecast.  
 

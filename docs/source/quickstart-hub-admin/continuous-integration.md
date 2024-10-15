@@ -45,7 +45,7 @@ This hubverse action downloads the software components required for others to wo
 
 This action is run on a nightly schedule but can also be triggered by a push to the workflow from the `main` branch. 
 
-More information can be found on [the README for `cache-hubval-deps`](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps#readme).
+More information can be found on the [README for `cache-hubval-deps`](https://github.com/hubverse-org/hubverse-actions/tree/main/cache-hubval-deps#readme).
 
 
 ### [`validate-submission`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission)
@@ -54,7 +54,7 @@ It then performs submission validation checks through the function `hubValidatio
 
 The action is triggered by pull requests onto the `main` branch that add or modify files in the `model-output` and/or `model-metadata` directories. 
 
-More information can be found on [the `validate-submission` README](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission#readme) and in the hubValidations vignette on [Validating Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html).
+More information can be found on the [`validate-submission` README](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-submission#readme) and in the hubValidations vignette on [Validating Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html).
 
 ### [`validate-config`](https://github.com/hubverse-org/hubverse-actions/tree/main/validate-config)
 
@@ -79,4 +79,4 @@ The `upload` job inspects the hub's admin config (`admin.json`) for a `cloud` gr
  
 Before using this action, a member of the hubverse development team will need to "onboard" your hub to AWS. 
 
-More information can be found on [the `hubverse-aws-upload` README](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload#readme).  
+More information can be found on the [`hubverse-aws-upload` README](https://github.com/hubverse-org/hubverse-actions/tree/main/hubverse-aws-upload#readme).  
