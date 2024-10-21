@@ -225,7 +225,7 @@ For example, hubs expect `double` output type ID values for `quantile` output ty
 This characteristic makes the output type ID column unique within the model output file in terms of how its data type is determined, configured, and validated. 
 
 During submission validation, two checks are performed on the `output_type_id` column:
-1. **Subsets of `output_type_id` column values** associated with a given output type are **checked for being able to be coerced to the correct data type defined in the config** for that output type. This check ensures that correct output type specific downstream data handling is possible.
+1. **Subsets of `output_type_id` column values** associated with a given output type are **checked for being able to be coerced to the correct data type defined in the config** for that output type. This check ensures that correct output type–specific downstream data handling is possible.
 2. The **overall data type of the `output_type_id` column** matches the overall hub schema expectation.
 
 #### Determining the overall `output_type_id` column data type automatically
