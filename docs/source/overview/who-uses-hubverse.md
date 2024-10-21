@@ -30,9 +30,10 @@ Do that freaky modeling magic you do with whatever resources you have on hand.
 You use R? Great! Python? Go for it! Excel? Nobody's stopping you! Dark Magick? Uh, maybe try a TI-86.
 
 You will be most interested in knowing how to format your output.
-For that, you can use a function from the [`{hubAdmin}` R package ](https://hubverse-org.github.io/hubAdmin) to create an expanded model output grid.
-You can then fit your outputs into that format and submit them to the hub.
-They will be validated on submission.
+For that, you can use functions from the [`{hubValidations}` R package ](https://hubverse-org.github.io/hubValidations):
+
+- Use [`submission_tmpl()`](https://hubverse-org.github.io/hubValidations/reference/submission_tmpl.html) to create a submission template and get an idea of what your model outputs should look like to be successfully incorporated into a hub. This includes accepted values for different columns as well the data types each column should adhere to. You can subset this template depending on the type of model output you're submitting and populate it with your model output values.
+- Use  [`validate_submission()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) to validate your model output file prior to submitting. This can help pick up any issues with your submission prior to submitting. The sames checks will be also run as part of your submission but running them locally means you have access to additional check output that can hep you identify and fix any problems faster. See more about [validating your submission locally](https://hubverse-org.github.io/hubValidations/articles/validate-submission.html).
 
 As a modeler, you will need to
 
