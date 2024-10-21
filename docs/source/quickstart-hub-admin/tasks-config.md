@@ -1,10 +1,10 @@
 # Configuring tasks  
 
-Every Hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json` file](#model-tasks-schema), which specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)). You can read a detailed definition of modeling tasks [in the "Defining Modeling Tasks" chapter](../user-guide/tasks.md).  
+Every hub is organized around "modeling tasks" that are defined to meet the needs of a project. Modeling tasks are defined for a hub in the [`tasks.json` file](#model-tasks-schema), which specifies the three components of modeling tasks ([task ID variables](#task-id-vars), [output types](#output-types), and [target metadata](#target-metadata)). You can read a detailed definition of modeling tasks in the [defining modeling tasks section](../user-guide/tasks.md).  
 
 ## Step 1: Open `tasks.json`  
 
-Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to open the file.  
+Make sure you are in  the `hub-config` folder. Then, click on `tasks.json` to open the file.  
 
 ```{image} ../images/tasks-json.png
 :alt: Screenshot of how to open tasks.json file in RStudio
@@ -13,14 +13,14 @@ Check to be sure you are in  the `hub-config` folder. Click on `tasks.json` to o
 
 ## Step 2: Examine the `tasks.json` file  
 
-You should see the code below in your source panel (upper left-hand panel). This has a specific structure and you can explore that [in the interactive `tasks.json` schema explorer](#model-tasks-schema)  
+You should see the code below in your source panel (upper left-hand panel). It has a specific structure that you can explore in the [interactive `tasks.json` schema explorer](#model-tasks-schema)  
 
 ```{image} ../images/tasks-schema-0.png
 :alt: Screenshot of the code in the tasks.json file
 :class: bordered
 ```
 
-This `tasks.json` file serves as a template and has very few values filled out, giving the user flexibility to adapt the Hub to their needs. Nevertheless, to learn how to use this schema properly, we will use a "premade" `tasks.json` file from [the Simple Forecast Hub Example](https://github.com/hubverse-org/example-simple-forecast-hub) that already has values filled in, which will better illustrate what should go in each section.  
+This `tasks.json` file serves as a template and has very few values filled out, allowing users to adapt the hub to their needs. Nevertheless, to learn how to use this schema properly, we will use a "premade" `tasks.json` file from the [simple forecast hub example](https://github.com/hubverse-org/example-simple-forecast-hub) that already has values filled in, which will better illustrate what should go in each section.  
 
 ## Step 3: Close the `tasks.json` file in RStudio  
 
@@ -33,27 +33,27 @@ Ensure the `tasks.json` file in RStudio is closed by clicking the 'x' icon, as i
 
 ## Step 4: Download a premade `tasks.json` file  
 
-You can use the link to download [the `tasks.json` file](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json) from the Example Forecast Hub by clicking on the *Download Raw File* icon as indicated below.  
+You can use the link to download the [`tasks.json` file](https://github.com/hubverse-org/example-simple-forecast-hub/blob/main/hub-config/tasks.json) from the example forecast hub by clicking on the *Download Raw File* icon as indicated below.  
 
 ```{image} ../images/tasks-download.png
 :alt: Screenshot of how to download a tasks.json file from GitHub
 :class: bordered
 ```
 
-Save the file in the `hub-config` folder (which is [in your repository on your local computer](#clone-repo)). This new file should replace this folder's existing `tasks.json` file.  
+Save the file in the `hub-config` folder (which is in [your repository on your local computer](#clone-repo)). This new file should replace the existing `tasks.json` file in this folder.  
 
 ### 4.1: Examine the new `tasks.json` file  
 
-Open `tasks.json` and explore the content and structure. Simple explanations for elements in the Example Forecast Hub file are offered below (*click on the hyperlinks for a full explanation of all the supported elements in [a `tasks.json` file](#model-tasks-schema) and definitions of [key concepts](../overview/definitions.md)*):  
+Open `tasks.json` and explore the content and structure. Simple explanations for elements in the example forecast hub file are offered below (*click on the hyperlinks for a full explanation of all the supported elements in a [`tasks.json` file](#model-tasks-schema) and definitions of [key concepts](../overview/definitions.md)*):  
 
-* `schema_version`{.codeitem}: Modeling hub schema versions are all housed in [the schemas repository](https://github.com/hubverse-org/schemas/).  
+* `schema_version`{.codeitem}: Modeling hub schema versions are all housed in the [schemas repository](https://github.com/hubverse-org/schemas/).  
 * `round_id`{.codeitem}: The round identifier establishes which date from a forecast submission is used to identify the submission round it corresponds to (e.g., the origin date).  
 * `model_tasks`{.codeitem}: Model tasks include all the goals of the modeling effort, including the `task_ids`, `output_type`, and `target_metadata`.  
 * `task_ids`{.codeitem}: The task identifiers set the optional and required elements in a forecast submission, such as the `target`, `horizon`, `location`, and `origin date`.  
-* `origin_date`{.codeitem}: The date when a forecast was generated. More information on this and other dates, including how to use the `origin_date` to calculate the `target_date`, can be found [in the section on the usage of task ID variables](#task-id-use).  
+* `origin_date`{.codeitem}: The date when a forecast was generated. More information on this and other dates, including using the `origin_date` to calculate the `target_date`, can be found in the [section on using task ID variables](#task-id-use).  
 * `horizon`{.codeitem}: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future or even days into the past, as in nowcasts.  
 * `location`{.codeitem}: The geographic identifier, such as country codes or FIPS state/county level codes.  
-* `output_type`{.codeitem}: A model output type establishes the valid model output types, such as the mean or specific quantiles. A more detailed explanation of model outputs can be found [in the section on model output formats](#model-output-format).  
+* `output_type`{.codeitem}: A model output type establishes the valid model output types, such as the mean or specific quantiles. A more detailed explanation of model outputs can be found in the [section on model output formats](#model-output-format).  
 
 Now, read below for details on some of the lines of code in this file:  
 
@@ -94,7 +94,7 @@ Now, read below for details on some of the lines of code in this file:
 ### 5.4. Setting up `"location"`:  
 - The `location` refers to geographic identifiers such as country codes or FIPS state/county level codes.  
 - <mark style="background-color: #32E331">The second line</mark> states that no particular location is required, although, in some instances, specific locations might be required for all submissions.  
-- <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. The locations correspond to FIPS codes for US states and territories in this example.  
+- <mark style="background-color: #38C7ED">The third line</mark> indicates the locations that may be submitted. The locations in this example correspond to FIPS codes for US states and territories.  
 
 ```{image} ../images/tasks-schema-4.png
 :alt: Even more lines of code in the tasks.json file
@@ -107,7 +107,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required, but at least one of the `optional` values is expected**.  
-- There may be cases where we have **multiple `model_tasks` and a given task id is relevant to one or more model tasks but not others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. However, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and `NA` is expected in the `horizon` column in model output files.  
+- There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. However, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and `NA` is expected in the `horizon` column in model output files.  
 
 ```
 "model_tasks": [{
@@ -247,7 +247,7 @@ The schema permits two ways to set the dates during which model forecasts can be
 ```
 <br/>  
   
- ## Step 9: Optional - Set up `"output_type_id_datatype"`:   
+ ## Step 9: Optional - set up `"output_type_id_datatype"`:   
 
 Once all modeling tasks and rounds have been configured, you may also choose to fix the `output_type_id` column data type across all model output files of the hub using the optional `"output_type_id_datatype"` property.
 

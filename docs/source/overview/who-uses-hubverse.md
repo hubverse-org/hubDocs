@@ -1,20 +1,20 @@
 # Who is the hubverse for?
 
 A **modeling hub** consists of one or more **hub administrators** who are responsible for coordinating model submissions from **modelers** who submit **model outputs** in a standardized format defined by the hub.
-Model outputs are validated on submission and at the end of every round, a summary of the individual and ensemble model outputs is presented to **stakeholders** who may be responsible for informing policy decisions.
+Model outputs are validated upon submission and at the end of every round. A summary of the individual and ensemble model outputs is presented to **stakeholders** who may be responsible for informing policy decisions.
 All of these roles are directly supported by **hubverse developers** 
 You may fit one, several, or none of these roles.
-Below are details of what aspects of the hubverse each role are going to interact with.
+Below are details of what aspects of the hubverse each role will interact with.
 
 ## Hub administrators
 
 You are responsible for setting up hubs in response to official challenges that define specific modeling targets and timeframes.
 This involves:
 
- - setting up central repository for the model submissions and target data
+ - setting up a central repository for the model submissions and target data
  - codifying the submission format for the modeling efforts in `tasks.json`
-   - submission cadance (`rounds`)
-      - modeling tasks (`model_tasks`) that correspond to specific modeling targets (e.g. incident hospitalizations)
+   - submission cadence (`rounds`)
+      - modeling tasks (`model_tasks`) that correspond to specific modeling targets (e.g., incident hospitalizations)
         - combinations of categorical variables for model inputs (`task_ids`)
         - modeling output types and valid ranges (`output_type`)
  - transforming truth (target) data into standardized modeling targets for downstream validation
@@ -25,7 +25,7 @@ You can use the [`{hubAdmin}` R package](https://hubverse-org.github.io/hubAdmin
 
 ## Modelers
 
-You will ultimately submit your model outputs in the format specified by the Hub Administrators.
+You will ultimately submit your model outputs in the format specified by the hub administrators.
 Do that freaky modeling magic you do with whatever resources you have on hand.
 You use R? Great! Python? Go for it! Excel? Nobody's stopping you! Dark Magick? Uh, maybe try a TI-86.
 
@@ -46,7 +46,7 @@ As a modeler, you will need to
 ## Data analysts
 
 With the standardized data formats and schema in each hub, you can confidently write analysis scripts that will work for all model submissions to a hub.
-No data cleaning needed.
+No data cleaning is needed.
 To get started, you can read the [accessing data from a hub vignette](https://hubverse-org.github.io/hubData/articles/connect_hub.html) from the [`{hubData}` R package](https://hubverse-org.github.io/hubData)
 
 Once you have access to the data, you can summarise it in the following ways:
@@ -68,7 +68,7 @@ Make good decisions.
 
 ## Hubverse developers
 
-If you want to contribute to the hubverse, you should adhere to [our Code Of Conduct](https://hubverse-org.github.io/hubDevs/CODE_OF_CONDUCT.html).
+If you want to contribute to the hubverse, you should adhere to our [Code Of Conduct](https://hubverse-org.github.io/hubDevs/CODE_OF_CONDUCT.html).
 
 We have a [contributing guide](contribute.md) that describes the process for contributing minor fixes.
 If you want to know more about our packaging process and other valuable details, you can find more in the [`{hubDevs}` R package](https://hubverse-org.github.io/hubDevs/index.html).
