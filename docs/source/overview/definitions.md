@@ -13,7 +13,7 @@ a quantitative outcome of interest for a modeling hub. For example, "incident ca
 ```
 
 ```{admonition} Task
-a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, such as for forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Scenario hubs that model hypothetical futures with different assumptions in different modeling rounds may need variable tasks.
+a definition of the goals of a modeling effort, possibly including conditions, assumptions, and targets. Some tasks may be fixed across rounds, such as for forecast hubs that regularly solicit predictions for a set time horizon in the near-term future. Other tasks may be more variable; for example, those in scenario hubs that model hypothetical futures with different assumptions for different modeling rounds.
 ```
 
 ```{admonition} Team
