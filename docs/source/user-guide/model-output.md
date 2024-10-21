@@ -31,7 +31,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 :::{table} An example of a model output submission for modelA
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | ------ | ------ | ------ | 
-| EW202242 | weekly rate | 1 | mean     | NA | 5 |
+| EW202242 | weekly rate | 1 | mean     | NA[^batman] | 5 |
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
 | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
 | EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
@@ -45,6 +45,10 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 | EW202242 | weekly rate | 1 | sample | 1 | 3 |
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
+
+[^batman]: `NA` (without quotes) indicates missingness in R, which is the expected `output_type_id` for a `mean` `output_type`. 
+  This is discussed in the [Output type table](#output-type-table)
+
 
 (formats-of-model-output)=
 ### File formats
@@ -112,8 +116,8 @@ The following table provides more detail on how to configure the three "model ou
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
-| `mean` | `"NA"`[^batman] (not used for mean predictions) | Numeric: the mean of the predictive distribution |
-| `median` | `"NA"` (not used for median predictions) | Numeric: the median of the predictive distribution |
+| `mean` | None[^missingno] (not used for mean predictions) | Numeric: the mean of the predictive distribution |
+| `median` | None (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
 | `cdf`[^cdf] | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
 | `pmf`[^pmf] | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable.[^cdf] |
@@ -121,10 +125,11 @@ The following table provides more detail on how to configure the three "model ou
 :::
 
 
-[^batman]: Why have `"NA"` as the `output_type_id`? There are two reasons for this. 
-  First, this provides a placeholder for the model output CSV file in the presence of other output types for validation.
-  The second reason is that we already use `null` to indicate the presence of an absence in the `required` and `optional` fields, and having this allows hubverse tools to treat point estimates without special handling. 
-
+[^missingno]: Point estimates don't have an `output_type_id` because you can only have one point estimate for each combination of task IDs.
+   However, because the `output_type_id` column is requrired, something has to go in this place, which is a missing value. 
+   This is encoded as [`NA_character_` in R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) (which is why our schemas prior to 4.0.0 encoded these as `["NA"]`).
+   **If you use Python** to write parquet files, the `output_type_id` column should be an array of `None` and you will need to [explicitly cast the `output_type_id` column as a "string"](https://github.com/hubverse-org/hubValidations/issues/131#issuecomment-2427654006) (via Pandas):    
+   `df["output_type_id"] = df["output_type_id"].astype("string")`
 [^pmf]: **Note on `pmf` model output type**: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task ID variables. This representation should only be used if the outcome variable is truly discrete; a CDF representation is preferred if the categories represent a binned discretization of an underlying continuous variable.
 
 [^sample]: **Note on `sample` model output type**: Depending on the hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task ID variables — further details are discussed below.
