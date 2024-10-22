@@ -44,7 +44,7 @@ A modeling hub works as an ecosystem of resources from the hub administrators, m
 ### Usage of task ID variables
 
 **Task ID variables represent columns in model output files.**
-It's important to understand that model output files are in **tabular format (e.g., csv or Parquet).**
+It's important to understand that model output files are in **tabular format (e.g., csv or parquet).**
 Moreover, these tables are presented in a [long/narrow representation](https://en.wikipedia.org/wiki/Wide_and_narrow_data) where each row of data represents a unique combination of task ID variables and a single value from the model output[^tidy]. 
 
 [^tidy]: This type of data is also known as "tidy data," a term coined by Hadley Wickham that's heavily used in the R community. You can read more about the concept in the [Data tidying chapter of the R4DS book](https://r4ds.hadley.nz/data-tidy#sec-tidy-data) and the [Tidy Data paper by Wickham (2014)](https://www.jstatsoft.org/article/view/v059i10).
