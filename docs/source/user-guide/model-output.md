@@ -50,7 +50,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
   This is discussed in the [Output type table](#output-type-table)
 
 
-(formats-of-model-output)=
+(file-formats)=
 ### File formats
 
 Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
@@ -70,7 +70,10 @@ submission formats are _not mutually exclusive_; **hubs may choose between
    * Disadvantages:
       * Compatibility: Harder to work with; teams and people who want to work with files need to install additional libraries
 
-(model-output-format)=
+Examples of how to create these file formats in R and Python are listed below in
+[the Writing Model Output section](#writing-model-output).
+
+(formats-of-model-output)=
 ## Formats of model output
 
 ```{admonition} Reference
@@ -157,21 +160,28 @@ variables — further details are discussed below.
 
 :::
 
+(writing-model-output)=
 ## Writing model output to a hub
 
 When submitting model output to a hub, it should be placed in a folder with the
-name of your model in the model outputs folder specified by the hub administrator
-(this is usually called `model-output`). Below are two examples of writing model
-output to a hub in R and Python using parquet and CSV files. In these examples,
-we are assuming that `path_to_hub` is the path to the hub cloned on your local
-computer and `model_out_tbl` is the
-tabular output from your model formatted as specified above.
+name of your model in the model outputs folder specified by the hub
+administrator (this is usually called `model-output`). Below are two examples
+of writing model output to a hub in R and Python using parquet and CSV files.
+In these examples, we are assuming the following variables already exist:
+
+ - `model_out_tbl` is the tabular output from your model formatted as specified
+   in [the Formats of Model Output section](#formats-of-model-output).
+ - `path_to_hub` is the path to the hub cloned on your local computer
+ - `model_name` is the file name of your model formatted as
+   `<round_id>-<model_name>.csv` (or parquet)
 
 (example-csv)=
 ### Example: model output as CSV
 
 To write to CSV, you would use the `write_csv()` from the readr package in R and
 the `to_csv()` method in Python. 
+
+#### Writing CSV with R
 
 ```r
 library("fs")
@@ -180,6 +190,8 @@ library("readr")
 outfile <- path(path_to_hub, "model-output", "team1-modelA", model_name)
 write_csv(model_out_tbl, outfile)
 ```
+
+#### Writing CSV with Python
 
 ```python
 import pandas as pd
@@ -198,6 +210,9 @@ additionally need to ensure that the `output_type_id` column matches the
 In practice, you will need to know whether or not the expected data type is a
 **string/character** or a **float/numeric**.
 
+
+#### Writing parquet with R
+
 ```r
 library("fs")
 library("arrow")
@@ -206,6 +221,9 @@ outfile <- path(path_to_hub, "model-output", "team1-modelA", model_name)
 model_out_tbl$output_type_id <- as.character(model_out_tbl$output_type_id) # or as.numeric()
 arrow::write_parquet(model_out_tbl, outfile)
 ```
+
+
+#### Writing parquet with Python
 
 ```python
 import pandas as pd
