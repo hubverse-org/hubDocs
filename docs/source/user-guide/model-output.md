@@ -101,12 +101,12 @@ specified in the [section on usage of task ID variables](#task-id-use) when appr
 2. **"Model output representation" (3 columns)**: consists of three
    columns specifying how the model outputs are represented. All three of these
    columns will be present in all model output data:
-  1. `output_type` specifies the type of representation of the predictive
-     distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
-     `"pmf"`, or `"sample"`.
-  2. `output_type_id` specifies more identifying information specific to the
-     output type, which varies depending on the `output_type`.
-  3. `value` contains the model’s prediction.
+   1. `output_type`{.codeitem} specifies the type of representation of the predictive
+      distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
+      `"pmf"`, or `"sample"`.
+   2. `output_type_id`{.codeitem} specifies more identifying information specific to the
+      output type, which varies depending on the `output_type`.
+   3. `value`{.codeitem} contains the model’s prediction.
 
 
 The following table provides more detail on how to configure the three "model output representation" columns based on each model output type.
@@ -123,7 +123,7 @@ The following table provides more detail on how to configure the three "model ou
 | `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 :::
 
-:::{note} Caveats for model `output_type_id`s
+:::{note} 
 :name: output-type-caveats
 
 The model output type ids have different caveats depending on the `output_type`:
