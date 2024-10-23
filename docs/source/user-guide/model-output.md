@@ -82,29 +82,14 @@ Per hubverse convention, **there are two groups of columns**[^model-id], each gr
 
 [^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
 
-As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are three **"model output representation"** columns: `output_type`, `output_type_id`, and `value`.
+As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are three **"model output representation"** columns: `output_type`, `output_type_id`, and `value`.  
 More detail about each of these column groups is given in the following points:  
 
-1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model
-   task) are provided by the modeler and can be stored in a series of "task
-   ID" columns as described in this [section on task ID
-   variables](#task-id-vars). These "task ID" columns may also include
-   additional information, such as any conditions or assumptions that were used
-   to generate the predictions. Some example task ID variables include
-   `target`, `location`, `reference_date`, and `horizon`.    Although there are
-   no restrictions on naming task ID variables, we suggest
-that hubs adopt the standard task ID or column names and definitions
-specified in the [section on usage of task ID variables](#task-id-use) when appropriate.
-2. **"Model output representation" (3 columns)**: consists of three
-   columns specifying how the model outputs are represented. All three of these
-   columns will be present in all model output data:
-  1. `output_type` specifies the type of representation of the predictive
-     distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
-     `"pmf"`, or `"sample"`.
-  2. `output_type_id` specifies more identifying information specific to the
-     output type, which varies depending on the `output_type`.
-  3. `value` contains the model’s prediction.
-
+1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions that were used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
+2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:  
+  - (i) `output_type` specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
+  - (ii) `output_type_id` specifies more identifying information specific to the output type, which varies depending on the `output_type`.  
+3. `value` contains the model’s prediction.  
 
 The following table provides more detail on how to configure the three "model output representation" columns based on each model output type:
 
