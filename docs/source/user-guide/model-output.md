@@ -47,7 +47,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 :::
 
 [^batman]: `NA` (without quotes) indicates missingness in R, which is the expected `output_type_id` for a `mean` `output_type`. 
-  This is discussed in the [Output type table](#output-type-table)
+  This is discussed in the [output type table](#output-type-table)
 
 
 (file-formats)=
@@ -71,7 +71,7 @@ submission formats are _not mutually exclusive_; **hubs may choose between
       * Compatibility: Harder to work with; teams and people who want to work with files need to install additional libraries
 
 Examples of how to create these file formats in R and Python are listed below in
-[the Writing Model Output section](#writing-model-output).
+[the writing model output section](#writing-model-output).
 
 (formats-of-model-output)=
 ## Formats of model output
@@ -129,7 +129,7 @@ The following table provides more detail on how to configure the three "model ou
 :::{note} 
 :name: output-type-caveats
 
-The model output type ids have different caveats depending on the `output_type`:
+The model output type IDs have different caveats depending on the `output_type`:
 
 `mean` and `median`
 : Point estimates do not have an `output_type_id` because you can only have one
@@ -170,7 +170,7 @@ of writing model output to a hub in R and Python using parquet and CSV files.
 In these examples, we are assuming the following variables already exist:
 
  - `model_out_tbl` is the tabular output from your model formatted as specified
-   in [the Formats of Model Output section](#formats-of-model-output).
+   in [the formats of model output section](#formats-of-model-output).
  - `path_to_hub` is the path to the hub cloned on your local computer
  - `model_name` is the file name of your model formatted as
    `<round_id>-<model_name>.csv` (or parquet)
@@ -178,7 +178,7 @@ In these examples, we are assuming the following variables already exist:
 (example-csv)=
 ### Example: model output as CSV
 
-To write to CSV, you would use the `write_csv()` from the readr package in R and
+To write to CSV, you would use the `write_csv()` from the `readr` package in R and
 the `to_csv()` method in Python. 
 
 #### Writing CSV with R
