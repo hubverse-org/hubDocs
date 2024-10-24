@@ -85,7 +85,7 @@ Per hubverse convention, **there are two groups of columns and one column for mo
 As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.  
 More detail about each of these column groups is given in the following points:  
 
-1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions that were used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
+1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
 2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:  
     1. `output_type` specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
     2. `output_type_id` specifies more identifying information specific to the output type, which varies depending on the `output_type`.  
@@ -147,7 +147,7 @@ Some other possible model output representations have been proposed but not incl
       * This additional flexibility would introduce substantial extra complexity to the metadata specifications and tooling
       * Adopting limited standards that encourage hubs to adopt settings consistent with the common definitions might be beneficial. For example, if a hub adopted bins with open right endpoints, the resulting probabilities would be incompatible with the conventions around cumulative distribution functions.
 * Probability of “success” in a setting with a binary outcome
-   * This can be captured with a CDF representation if the outcome variable is ordered or a categorical representation if the outcome variable is not ordered.
+   * This can be captured with a CDF representation if the outcome variable is ordered or a categorical representation if the outcome variable is not.
 * Compositional. For example, we might request a probabilistic estimate of the proportion of hospitalizations next week due to influenza A/H1, A/H3, and B.
    * Note that a categorical output representation could be used if only point estimates for the composition were required.
 
@@ -203,7 +203,7 @@ Changing the overall data type of model output columns can cause a range of issu
 
 Output types are configured and handled differently than task IDs in the hubverse. 
 
-On the one hand, **different output types can have output type ID values of varying data type**, and adhering to these data types is imposed by downstream, output type specific hubverse functionality like ensembling or visualization.
+On the one hand, **different output types can have output type ID values of varying data type**, and adhering to these data types is imposed by downstream, output type-specific hubverse functionality like ensembling or visualization.
 For example, hubs expect `double` output type ID values for `quantile` output types but `character` output type IDs for a `pmf` output type. 
 
  On the other hand, the **use of a long format for hubverse model output files requires that these multiple data types are accommodated in a single `output_type_id` column.**
