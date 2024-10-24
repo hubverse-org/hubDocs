@@ -78,7 +78,7 @@ Much of the material in this section has been excerpted or adapted from the [hub
 
 _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value. 
-Per hubverse convention, **there are two groups of columns and one column for model output**[^model-id]. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction.  
+Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction.  
 
 [^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
 
