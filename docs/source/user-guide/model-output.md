@@ -31,7 +31,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 :::{table} An example of a model output submission for modelA
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | ------ | ------ | ------ | 
-| EW202242 | weekly rate | 1 | mean     | NA | 5 |
+| EW202242 | weekly rate | 1 | mean     | NA[^batman] | 5 |
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
 | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
 | EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
@@ -46,7 +46,11 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
 
-(formats-of-model-output)=
+[^batman]: `NA` (without quotes) indicates missingness in R, which is the expected `output_type_id` for a `mean` `output_type`. 
+  This is discussed in the [output type table](#output-type-table)
+
+
+(file-formats)=
 ### File formats
 
 Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
@@ -66,8 +70,10 @@ submission formats are _not mutually exclusive_; **hubs may choose between
    * Disadvantages:
       * Compatibility: Harder to work with; teams and people who want to work with files need to install additional libraries
 
+Examples of how to create these file formats in R and Python are listed below in
+[the writing model output section](#writing-model-output).
 
-(model-output-format)=
+(formats-of-model-output)=
 ## Formats of model output
 
 ```{admonition} Reference
@@ -98,39 +104,135 @@ specified in the [section on usage of task ID variables](#task-id-use) when appr
 2. **"Model output representation" (3 columns)**: consists of three
    columns specifying how the model outputs are represented. All three of these
    columns will be present in all model output data:
-  1. `output_type` specifies the type of representation of the predictive
-     distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
-     `"pmf"`, or `"sample"`.
-  2. `output_type_id` specifies more identifying information specific to the
-     output type, which varies depending on the `output_type`.
-  3. `value` contains the model’s prediction.
+   1. `output_type`{.codeitem} specifies the type of representation of the predictive
+      distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`,
+      `"pmf"`, or `"sample"`.
+   2. `output_type_id`{.codeitem} specifies more identifying information specific to the
+      output type, which varies depending on the `output_type`.
+   3. `value`{.codeitem} contains the model’s prediction.
 
 
-The following table provides more detail on how to configure the three "model output representation" columns based on each model output type:
+The following table provides more detail on how to configure the three "model output representation" columns based on each model output type.
 
 (output-type-table)=
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
-| `mean` | `"NA"`[^batman] (not used for mean predictions) | Numeric: the mean of the predictive distribution |
-| `median` | `"NA"` (not used for median predictions) | Numeric: the median of the predictive distribution |
+| `mean` | `NA`/`None` (not used for mean predictions) | Numeric: the mean of the predictive distribution |
+| `median` | `NA`/`None` (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
-| `cdf`[^cdf] | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
-| `pmf`[^pmf] | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable.[^cdf] |
-| `sample`[^sample] | Positive integer sample index | Numeric: a sample from the predictive distribution.
+| `cdf` | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
+| `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
+| `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 :::
 
+:::{note} 
+:name: output-type-caveats
 
-[^batman]: Why have `"NA"` as the `output_type_id`? There are two reasons for this. 
-  First, this provides a placeholder for the model output CSV file in the presence of other output types for validation.
-  The second reason is that we already use `null` to indicate the presence of an absence in the `required` and `optional` fields, and having this allows hubverse tools to treat point estimates without special handling. 
+The model output type IDs have different caveats depending on the `output_type`:
 
-[^pmf]: **Note on `pmf` model output type**: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task ID variables. This representation should only be used if the outcome variable is truly discrete; a CDF representation is preferred if the categories represent a binned discretization of an underlying continuous variable.
+`mean` and `median`
+: Point estimates do not have an `output_type_id` because you can only have one
+point estimate for each combination of task IDs. However, because the
+`output_type_id` column is required, something has to go in this place, which
+is a missing value. This is encoded as [`NA` in
+R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) (which is why
+our schemas prior to 4.0.0 encoded these as `["NA"]`) and `None` in Python. See
+[The example on writing parquet files](#example-parquet) for details.
 
-[^sample]: **Note on `sample` model output type**: Depending on the hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task ID variables — further details are discussed below.
+`pmf`
+: Values are required to sum to 1 across all
+`output_type_id` values within each combination of values of task ID variables.
+This representation should only be used if the outcome variable is truly
+discrete; a CDF representation is preferred if the categories represent a
+binned discretization of an underlying continuous variable.
 
-[^cdf]: **Note on `cdf` model output type** and `pmf` output type for ordinal variables: In the hub's `tasks.json` configuration file, the values of the `output_type_id` should be listed in order from low to high.
+`sample`
+: Depending on the hub specification, samples with the same sample index
+(specified by the `output_type_id`) may be assumed to correspond to a single
+sample from a joint distribution across multiple levels of the task ID
+variables — further details are discussed below.
 
+
+`cdf` (and `pmf` for ordinal variables)
+: In the hub's `tasks.json` configuration file, the values of the
+`output_type_id` should be listed in order from low to high.
+
+:::
+
+(writing-model-output)=
+## Writing model output to a hub
+
+When submitting model output to a hub, it should be placed in a folder with the
+name of your model in the model outputs folder specified by the hub
+administrator (this is usually called `model-output`). Below are two examples
+of writing model output to a hub in R and Python using parquet and CSV files.
+In these examples, we are assuming the following variables already exist:
+
+ - `model_out_tbl` is the tabular output from your model formatted as specified
+   in [the formats of model output section](#formats-of-model-output).
+ - `path_to_hub` is the path to the hub cloned on your local computer
+ - `model_name` is the file name of your model formatted as
+   `<round_id>-<model_name>.csv` (or parquet)
+
+(example-csv)=
+### Example: model output as CSV
+
+To write to CSV, you would use the `write_csv()` from the `readr` package in R and
+the `to_csv()` method in Python. 
+
+#### Writing CSV with R
+
+```r
+library("fs")
+library("readr")
+# ... generate model data ...
+outfile <- path(path_to_hub, "model-output", "team1-modelA", model_name)
+write_csv(model_out_tbl, outfile)
+```
+
+#### Writing CSV with Python
+
+```python
+import pandas as pd
+import os.path
+# ... generate model data ...
+outfile = os.path.join(path_to_hub, "model-output", "team1-modelA", model_name)
+model_out_tbl.to_csv(outfile, index = False, na_rep = "NA")
+```
+
+(example-parquet)=
+### Example: model output as parquet
+
+Writing to parquet is similar as writing to CSV, but with the caveat that you
+additionally need to ensure that the `output_type_id` column matches the
+[expected `output_type_id_datatype` property of the schema](#output-type-id-datatype).
+In practice, you will need to know whether or not the expected data type is a
+**string/character** or a **float/numeric**.
+
+
+#### Writing parquet with R
+
+```r
+library("fs")
+library("arrow")
+# ... generate model data ...
+outfile <- path(path_to_hub, "model-output", "team1-modelA", model_name)
+model_out_tbl$output_type_id <- as.character(model_out_tbl$output_type_id) # or as.numeric()
+arrow::write_parquet(model_out_tbl, outfile)
+```
+
+
+#### Writing parquet with Python
+
+```python
+import pandas as pd
+import os.path
+# ... generate model data ...
+outfile = os.path.join(path_to_hub, "model-output", "team1-modelA", model_name)
+model_out_tbl["output_type_id"] = model_out_tbl["output_type_id"].astype("string") # or "float"
+model_out_tbl.to_parquet(outfile)
+```
 
 (model-output-task-relationship)=
 ## Model output relationships to task ID variables
