@@ -156,7 +156,7 @@ administrator (this is usually called `model-output`). Below are two examples
 of writing model output to a hub in R and Python using parquet and CSV files.
 In these examples, we are assuming the following variables already exist:
 
- - `model_out_tbl` is the tabular output from your model formatted as specified
+ - `model_out` is the tabular output from your model formatted as specified
    in [the formats of model output section](#formats-of-model-output).
  - `hub_path` is the path to the hub cloned on your local computer
  - `file_name` is the file name of your model formatted as
@@ -175,7 +175,7 @@ library("fs")
 library("readr")
 # ... generate model data ...
 outfile <- path(hub_path, "model-output", "team1-modelA", model_id)
-write_csv(model_out_tbl, outfile)
+write_csv(model_out, outfile)
 ```
 
 #### Writing CSV with Python
@@ -185,7 +185,7 @@ import pandas as pd
 import os.path
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", "team1-modelA", model_id)
-model_out_tbl.to_csv(outfile, index = False, na_rep = "NA")
+model_out.to_csv(outfile, index = False, na_rep = "NA")
 ```
 
 (example-parquet)=
@@ -205,8 +205,8 @@ library("fs")
 library("arrow")
 # ... generate model data ...
 outfile <- path(hub_path, "model-output", "team1-modelA", model_id)
-model_out_tbl$output_type_id <- as.character(model_out_tbl$output_type_id) # or as.numeric()
-arrow::write_parquet(model_out_tbl, outfile)
+model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric()
+arrow::write_parquet(model_out, outfile)
 ```
 
 
@@ -217,8 +217,8 @@ import pandas as pd
 import os.path
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", "team1-modelA", model_id)
-model_out_tbl["output_type_id"] = model_out_tbl["output_type_id"].astype("string") # or "float"
-model_out_tbl.to_parquet(outfile)
+model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float"
+model_out.to_parquet(outfile)
 ```
 
 (model-output-task-relationship)=
