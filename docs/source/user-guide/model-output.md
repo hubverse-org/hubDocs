@@ -26,7 +26,7 @@ Note that file names are also allowed to contain the following compression exten
 
 Each model submission file will have the same representation for each hub. Here
 is an example of a hub that collects mean and quantile forecasts for
-one-week-ahead incidence, but probabilities for the timing of a season peak:  
+one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 :::{table} An example of a model output submission for modelA
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
@@ -73,6 +73,8 @@ submission formats are _not mutually exclusive_; **hubs may choose between
 Examples of how to create these file formats in R and Python are listed below in
 [the writing model output section](#writing-model-output).
 
+
+
 (formats-of-model-output)=
 ## Formats of model output
 
@@ -84,9 +86,72 @@ Much of the material in this section has been excerpted or adapted from the [hub
 
 _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value. 
-Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction.  
+Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction. [Details about the column specifications](column-details) can be found below.
 
 [^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
+
+The model output follows the specification of the `tasks.json` configuration
+file of the hub. If you are creating a model and you would like to know what
+data type your columns should be in, the hubVerse has utilities to provide and
+arrow schema and even a full submission template from the `tasks.json`
+configuration file. 
+
+### Arrow Schema
+
+**The hubverse package `hubData()` has functionality that will generate an
+arrow schema so that you can ensure your output matches the expected type.** 
+
+Here is some example code that can help. In this example, `tasks_path` is the
+path to your `tasks.json` config file (note: it can also be a URL like [the
+simple forecasts example hub `tasks.json`
+file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json))
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubData::read_config_file(tasks_path)
+schema <- hubData::create_hub_schema(config_tasks)
+```
+
+The schema output will look something like this:
+
+```
+Schema
+origin_date: date32[day]
+target: string
+horizon: int32
+location: string
+age_group: string
+output_type: string
+output_type_id: double
+value: int32
+model_id: string
+```
+
+### Submission Template
+
+**The hubverse package `hubValidations()` has functionality
+that will generate template data to get your started.** This submission
+template can be written as a CSV or parquet file and then imported in to
+whatever software you use to run your model.
+
+Here is some example code that can help. In this example, `tasks_path` is the
+path to your `tasks.json` config file (note: it can also be a URL like [the
+simple forecasts example hub `tasks.json`
+file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json))
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubData::read_config_file(tasks_path)
+rounds <- hubData::get_round_ids(config_tasks)
+this_round <- rounds[length(rounds)]
+# create the submission template (this may take some time if your submission uses samples)
+tmpl <- hubValidations::submission_tmpl(config_tasks, round_id = this_round)
+# write the template to a parquet file to use in your model code. 
+arrow::write_parquet(tmpl, "/path/to/template.parquet")
+```
+
+(column-details)=
+### Details about model output column specifications
 
 As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.  
 More detail about each of these column groups is given in the following points:  
@@ -147,6 +212,9 @@ variables — further details are discussed below.
 
 :::
 
+## 
+
+
 (writing-model-output)=
 ## Writing model output to a hub
 
@@ -195,8 +263,7 @@ Writing to parquet is similar as writing to CSV, but with the caveat that you
 additionally need to ensure that the `output_type_id` column matches the
 [expected `output_type_id_datatype` property of the schema](#output-type-id-datatype).
 In practice, you will need to know whether or not the expected data type is a
-**string/character** or a **float/numeric**.
-
+**string/character**, **float/numeric**, or an **Int/integer**.
 
 #### Writing parquet with R
 
@@ -205,7 +272,7 @@ library("fs")
 library("arrow")
 # ... generate model data ...
 outfile <- path(hub_path, "model-output", "team1-modelA", model_id)
-model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric()
+model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric(), or as.integer()
 arrow::write_parquet(model_out, outfile)
 ```
 
@@ -217,7 +284,7 @@ import pandas as pd
 import os.path
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", "team1-modelA", model_id)
-model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float"
+model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
 model_out.to_parquet(outfile)
 ```
 
