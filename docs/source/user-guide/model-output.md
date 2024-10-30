@@ -92,72 +92,12 @@ Per hubverse convention, **there are two groups of columns providing metadata ab
 
 [^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename. 
 
-The model output follows the specification of the `tasks.json` configuration
-file of the hub. If you are creating a model and would like to know what
-data type your columns should be in, the hubVerse has utilities to provide an
-arrow schema and even a full submission template from the `tasks.json`
-configuration file. 
-
-### Arrow Schema
-
-**The hubverse packages `hubData()` and `hubUtils()` have functionality that will generate an
-arrow schema so that you can ensure your output matches the expected type.** 
-
-Here is some example code that can help. In this example, `tasks_path` is the
-path to your `tasks.json` config file (note: it can also be a URL like [the
-simple forecasts example hub `tasks.json`
-file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json))
-
-```r
-# read the configuration file and get the latest round
-config_tasks <- hubUtils::read_config_file(tasks_path)
-schema <- hubData::create_hub_schema(config_tasks)
-```
-
-The schema output will look something like this:
-
-```
-Schema
-origin_date: date32[day]
-target: string
-horizon: int32
-location: string
-age_group: string
-output_type: string
-output_type_id: double
-value: int32
-model_id: string
-```
-
-### Submission Template
-
-**The hubverse package `hubValidations()` has functionality
-that will generate template data to get your started.** This submission
-template can be written as a CSV or parquet file and then imported in to
-whatever software you use to run your model.
-
-Here is some example code that can help. In this example, `tasks_path` is the
-path to your `tasks.json` config file (note: it can also be a URL like [the
-simple forecasts example hub `tasks.json`
-file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub/refs/heads/main/hub-config/tasks.json))
-
-```r
-# read the configuration file and get the latest round
-config_tasks <- hubUtils::read_config_file(tasks_path)
-rounds <- hubUtils::get_round_ids(config_tasks)
-this_round <- rounds[length(rounds)]
-# create the submission template (this may take some time if your submission uses samples)
-tmpl <- hubValidations::submission_tmpl(config_tasks = config_tasks, round_id = this_round)
-# write the template to a parquet file to use in your model code. 
-arrow::write_parquet(tmpl, "/path/to/template.parquet")
-```
 
 (column-details)=
 ### Details about model output column specifications
 
 As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.  
 More detail about each of these column groups is given in the following points:  
-
 
 1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
 2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:  
@@ -213,11 +153,15 @@ variables — further details are discussed below.
 
 :::
 
-## 
-
 
 (writing-model-output)=
 ## Writing model output to a hub
+
+The model output follows the specification of the `tasks.json` configuration
+file of the hub. If you are creating a model and would like to know what
+data type your columns should be in, the hubVerse has utilities to provide an
+arrow schema and even a full submission template from the `tasks.json`
+configuration file. 
 
 When submitting model output to a hub, it should be placed in a folder with the
 name of your `model_id` in the model outputs folder specified by the hub
@@ -225,17 +169,51 @@ administrator (this is usually called `model-output`). Below are R and Python ex
 for writing Hubverse-compliant model output files in both CSV and parquet format.
 In these examples, we are assuming the following variables already exist:
 
- - `model_out` is the tabular output from your model formatted as specified
-   in [the formats of model output section](#formats-of-model-output).
  - `hub_path` is the path to the hub cloned on your local computer
  - `model_id` is the combination of `<team_abbr>-<model_abbr>` 
  - `file_name` is the file name of your model formatted as
    `<round_id>-<model_id>.csv` (or `.parquet`)
+ - `model_out` is the tabular output from your model formatted as specified
+   in [the formats of model output section](#formats-of-model-output).
+
+### Submission Template
+
+**The hubverse package `hubValidations()` has functionality
+that will generate template data to get your started.** This submission
+template can be written as a CSV or parquet file and then imported in to
+whatever software you use to run your model.
+
+Here is some example code that can help. In this example, `hub_path` is the
+path to the hub on your local machine.
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubUtils::read_config(hub_path)
+rounds <- hubUtils::get_round_ids(config_tasks)
+this_round <- rounds[length(rounds)]
+
+# create the submission template (this may take some time if your submission uses samples)
+tmpl <- hubValidations::submission_tmpl(config_tasks = config_tasks, round_id = this_round)
+```
+
+You can then either write this template to a csv file with the `readr` package:
+
+```r
+# write the template to a csv file to use in your model code. 
+readr::write_csv(tmpl, "/path/to/template.csv")
+```
+
+OR you can write it to a parquet file with the `arrow` package:
+
+```r
+# write the template to a parquet file to use in your model code. 
+arrow::write_parquet(tmpl, "/path/to/template.parquet")
+```
 
 (example-csv)=
 ### Example: model output as CSV
 
-The sections below provide examples for writing CSV model output files that correctly encode missing data.
+The sections below provide examples for writing CSV model output files.
 
 #### Writing CSV with R
 
@@ -252,6 +230,7 @@ Python users can use the `pandas` package when creating CSV model output files.
 ```python
 import pandas as pd
 import os.path
+
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", model_id, file_name)
 model_out.to_csv(outfile, index = False)
@@ -260,21 +239,52 @@ model_out.to_csv(outfile, index = False)
 (example-parquet)=
 ### Example: model output as parquet
 
-Unlike a CSV, a parquet files contain embedded information about the data types of its
-columns. Therefore, when writing model output files as parquet, it's critical that you
-first ensure the data type of the `output_type_id` column matches the
-[expected `output_type_id_datatype` property of the schema](#output-type-id-datatype).
+Unlike a CSV, a parquet files contain embedded information about the data types
+of its columns. 
+Therefore, when writing model output files as parquet, it's
+critical that you first ensure the data type of your columns matches the
+expected type from the Arrow schema.
 
 If the data types of the model output parquet file don't match the hub's schema, the
 submission will not validate.
 In practice, you will need to know whether or not the expected data type is a
 **string/character**, **float/numeric**, or an **Int/integer**.
 
+#### Arrow Schema
+
+**The hubverse packages `hubData()` and `hubUtils()` have functionality that will generate an
+arrow schema so that you can ensure your output matches the expected type.** 
+
+Here is some example code that can help. In this example, `hub_path` is the
+path to the hub on your local machine.
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubUtils::read_config(hub_path, "tasks")
+schema <- hubData::create_hub_schema(config_tasks)
+```
+
+The schema output will look something like this:
+
+```
+Schema
+origin_date: date32[day]
+target: string
+horizon: int32
+location: string
+age_group: string
+output_type: string
+output_type_id: double
+value: int32
+model_id: string
+```
+
 #### Writing parquet with R
 
 ```r
 # ... generate model data ...
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
+
 # update the output_type_id data type to match the hub's schema
 model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric(), or as.integer()
 arrow::write_parquet(model_out, outfile)
@@ -288,6 +298,7 @@ import pandas as pd
 import os.path
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", model_id, file_name)
+
 # update the output_type_id data type to match the hub's schema
 model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
 model_out.to_parquet(outfile)
