@@ -98,7 +98,7 @@ configuration file.
 
 ### Arrow Schema
 
-**The hubverse package `hubData()` has functionality that will generate an
+**The hubverse packages `hubData()` and `hubUtils()` have functionality that will generate an
 arrow schema so that you can ensure your output matches the expected type.** 
 
 Here is some example code that can help. In this example, `tasks_path` is the
