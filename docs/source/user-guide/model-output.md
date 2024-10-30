@@ -88,7 +88,7 @@ _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value. 
 Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction. [Details about the column specifications](column-details) can be found below.
 
-[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
+[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename. 
 
 The model output follows the specification of the `tasks.json` configuration
 file of the hub. If you are creating a model and you would like to know what
@@ -227,6 +227,7 @@ In these examples, we are assuming the following variables already exist:
  - `model_out` is the tabular output from your model formatted as specified
    in [the formats of model output section](#formats-of-model-output).
  - `hub_path` is the path to the hub cloned on your local computer
+ - `model_id` is the combination of `<team_abbr>-<model_abbr>` 
  - `file_name` is the file name of your model formatted as
    `<round_id>-<model_id>.csv` (or parquet)
 
@@ -239,11 +240,9 @@ the `to_csv()` method in Python.
 #### Writing CSV with R
 
 ```r
-library("fs")
-library("readr")
 # ... generate model data ...
-outfile <- path(hub_path, "model-output", "team1-modelA", model_id)
-write_csv(model_out, outfile)
+outfile <- fs::path(hub_path, "model-output", model_id, file_name)
+readr::write_csv(model_out, outfile)
 ```
 
 #### Writing CSV with Python
@@ -268,10 +267,8 @@ In practice, you will need to know whether or not the expected data type is a
 #### Writing parquet with R
 
 ```r
-library("fs")
-library("arrow")
 # ... generate model data ...
-outfile <- path(hub_path, "model-output", "team1-modelA", model_id)
+outfile <- fs::path(hub_path, "model-output", model_id, file_name)
 model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric(), or as.integer()
 arrow::write_parquet(model_out, outfile)
 ```
