@@ -298,14 +298,14 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 In contrast, we cannot assume the same for the `sample` representation.
 By recording samples from a joint predictive distribution, **the `sample` representation may capture dependence across combinations of multiple model task ID variables**.
 
-For example, suppose the model task ID variables are “forecast date”, “location”, and “horizon”. 
+For example, suppose the model task ID variables are "forecast date", "location", and "horizon". 
 A predictive mean will summarize the predictive distribution for a single combination of forecast date, location, and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task ID variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
 2. the joint predictive distribution across all horizons within each forecast date and location
 3. the joint predictive distribution across all locations within each forecast date and horizon
 4. the marginal predictive distribution for each combination of forecast date, location, and horizon
 
-Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.  
+Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are "joint across" locations and horizons.  
 
 More details about sample-output-type can be found in the [page describing sample output type data](../user-guide/sample-output-type.md).
 
@@ -320,7 +320,7 @@ Some other possible model output representations have been proposed but not incl
    * We considered a system with a more flexible specification of bin endpoint inclusion status but noted two disadvantages:
       * This additional flexibility would introduce substantial extra complexity to the metadata specifications and tooling
       * Adopting limited standards that encourage hubs to adopt settings consistent with the common definitions might be beneficial. For example, if a hub adopted bins with open right endpoints, the resulting probabilities would be incompatible with the conventions around cumulative distribution functions.
-* Probability of “success” in a setting with a binary outcome
+* Probability of "success" in a setting with a binary outcome
    * This can be captured with a CDF representation if the outcome variable is ordered or a categorical representation if the outcome variable is not.
 * Compositional. For example, we might request a probabilistic estimate of the proportion of hospitalizations next week due to influenza A/H1, A/H3, and B.
    * Note that a categorical output representation could be used if only point estimates for the composition were required.
