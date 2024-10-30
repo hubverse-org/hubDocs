@@ -91,7 +91,7 @@ Per hubverse convention, **there are two groups of columns providing metadata ab
 [^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename. 
 
 The model output follows the specification of the `tasks.json` configuration
-file of the hub. If you are creating a model and you would like to know what
+file of the hub. If you are creating a model and would like to know what
 data type your columns should be in, the hubVerse has utilities to provide and
 arrow schema and even a full submission template from the `tasks.json`
 configuration file. 
@@ -108,7 +108,7 @@ file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub
 
 ```r
 # read the configuration file and get the latest round
-config_tasks <- hubData::read_config_file(tasks_path)
+config_tasks <- hubUtils::read_config_file(tasks_path)
 schema <- hubData::create_hub_schema(config_tasks)
 ```
 
@@ -141,11 +141,11 @@ file](https://raw.githubusercontent.com/hubverse-org/example-simple-forecast-hub
 
 ```r
 # read the configuration file and get the latest round
-config_tasks <- hubData::read_config_file(tasks_path)
-rounds <- hubData::get_round_ids(config_tasks)
+config_tasks <- hubUtils::read_config_file(tasks_path)
+rounds <- hubUtils::get_round_ids(config_tasks)
 this_round <- rounds[length(rounds)]
 # create the submission template (this may take some time if your submission uses samples)
-tmpl <- hubValidations::submission_tmpl(config_tasks, round_id = this_round)
+tmpl <- hubValidations::submission_tmpl(config_tasks = config_tasks, round_id = this_round)
 # write the template to a parquet file to use in your model code. 
 arrow::write_parquet(tmpl, "/path/to/template.parquet")
 ```
@@ -219,9 +219,9 @@ variables — further details are discussed below.
 ## Writing model output to a hub
 
 When submitting model output to a hub, it should be placed in a folder with the
-name of your model in the model outputs folder specified by the hub
-administrator (this is usually called `model-output`). Below are two examples
-of writing model output to a hub in R and Python using parquet and CSV files.
+name of your `model_id` in the model outputs folder specified by the hub
+administrator (this is usually called `model-output`). Below are R and Python examples
+for writing Hubverse-compliant model output files in both CSV and parquet format.
 In these examples, we are assuming the following variables already exist:
 
  - `model_out` is the tabular output from your model formatted as specified
@@ -229,16 +229,16 @@ In these examples, we are assuming the following variables already exist:
  - `hub_path` is the path to the hub cloned on your local computer
  - `model_id` is the combination of `<team_abbr>-<model_abbr>` 
  - `file_name` is the file name of your model formatted as
-   `<round_id>-<model_id>.csv` (or parquet)
+   `<round_id>-<model_id>.csv` (or `.parquet`)
 
 (example-csv)=
 ### Example: model output as CSV
 
-To write to CSV, you would use the `write_csv()` from the `readr` package in R and
-the `to_csv()` method in Python. 
+The sections below provide examples for writing CSV model output files that correctly encode missing data.
 
 #### Writing CSV with R
 
+When writing a model output file in R, use the `readr` package.
 ```r
 # ... generate model data ...
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
@@ -247,11 +247,12 @@ readr::write_csv(model_out, outfile)
 
 #### Writing CSV with Python
 
+Python users can use the `pandas` package when creating CSV model output files.
 ```python
 import pandas as pd
 import os.path
 # ... generate model data ...
-outfile = os.path.join(hub_path, "model-output", "team1-modelA", model_id)
+outfile = os.path.join(hub_path, "model-output", "team1-modelA", file_name)
 model_out.to_csv(outfile, index = False, na_rep = "NA")
 ```
 
@@ -280,7 +281,7 @@ arrow::write_parquet(model_out, outfile)
 import pandas as pd
 import os.path
 # ... generate model data ...
-outfile = os.path.join(hub_path, "model-output", "team1-modelA", model_id)
+outfile = os.path.join(hub_path, "model-output", "team1-modelA", file_name)
 model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
 model_out.to_parquet(outfile)
 ```
