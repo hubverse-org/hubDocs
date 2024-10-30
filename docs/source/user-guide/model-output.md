@@ -251,8 +251,8 @@ Python users can use the `pandas` package when creating CSV model output files.
 import pandas as pd
 import os.path
 # ... generate model data ...
-outfile = os.path.join(hub_path, "model-output", "team1-modelA", file_name)
-model_out.to_csv(outfile, index = False, na_rep = "NA")
+outfile = os.path.join(hub_path, "model-output", model_id, file_name)
+model_out.to_csv(outfile, index = False)
 ```
 
 (example-parquet)=
@@ -285,7 +285,7 @@ arrow::write_parquet(model_out, outfile)
 import pandas as pd
 import os.path
 # ... generate model data ...
-outfile = os.path.join(hub_path, "model-output", "team1-modelA", file_name)
+outfile = os.path.join(hub_path, "model-output", model_id, file_name)
 # update the output_type_id data type to match the hub's schema
 model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
 model_out.to_parquet(outfile)
