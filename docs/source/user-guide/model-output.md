@@ -92,7 +92,7 @@ Per hubverse convention, **there are two groups of columns providing metadata ab
 
 The model output follows the specification of the `tasks.json` configuration
 file of the hub. If you are creating a model and would like to know what
-data type your columns should be in, the hubVerse has utilities to provide and
+data type your columns should be in, the hubVerse has utilities to provide an
 arrow schema and even a full submission template from the `tasks.json`
 configuration file. 
 
@@ -188,8 +188,7 @@ The model output type IDs have different caveats depending on the `output_type`:
 point estimate for each combination of task IDs. However, because the
 `output_type_id` column is required, something has to go in this place, which
 is a missing value. This is encoded as [`NA` in
-R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) (which is why
-our schemas prior to 4.0.0 encoded these as `["NA"]`) and `None` in Python. See
+R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) and `None` in Python. See
 [The example on writing parquet files](#example-parquet) for details.
 
 `pmf`
@@ -259,9 +258,13 @@ model_out.to_csv(outfile, index = False, na_rep = "NA")
 (example-parquet)=
 ### Example: model output as parquet
 
-Writing to parquet is similar as writing to CSV, but with the caveat that you
-additionally need to ensure that the `output_type_id` column matches the
+Unlike a CSV, a parquet files contain embedded information about the data types of its
+columns. Therefore, when writing model output files as parquet, it's critical that you
+first ensure the data type of the `output_type_id` column matches the
 [expected `output_type_id_datatype` property of the schema](#output-type-id-datatype).
+
+If the data types of the model output parquet file don't match the hub's schema, the
+submission will not validate.
 In practice, you will need to know whether or not the expected data type is a
 **string/character**, **float/numeric**, or an **Int/integer**.
 
@@ -270,6 +273,7 @@ In practice, you will need to know whether or not the expected data type is a
 ```r
 # ... generate model data ...
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
+# update the output_type_id data type to match the hub's schema
 model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric(), or as.integer()
 arrow::write_parquet(model_out, outfile)
 ```
@@ -282,6 +286,7 @@ import pandas as pd
 import os.path
 # ... generate model data ...
 outfile = os.path.join(hub_path, "model-output", "team1-modelA", file_name)
+# update the output_type_id data type to match the hub's schema
 model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
 model_out.to_parquet(outfile)
 ```
