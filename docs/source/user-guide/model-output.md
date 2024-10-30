@@ -130,8 +130,9 @@ The model output type IDs have different caveats depending on the `output_type`:
 point estimate for each combination of task IDs. However, because the
 `output_type_id` column is required, something has to go in this place, which
 is a missing value. This is encoded as [`NA` in
-R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) and `None` in Python. See
-[The example on writing parquet files](#example-parquet) for details.
+R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) and `None` in
+Python. See [The example on writing parquet files](#example-parquet) for
+details.
 
 `pmf`
 : Values are required to sum to 1 across all
@@ -159,27 +160,29 @@ variables — further details are discussed below.
 
 The model output follows the specification of the `tasks.json` configuration
 file of the hub. If you are creating a model and would like to know what
-data type your columns should be in, the hubVerse has utilities to provide an
-arrow schema and even a full submission template from the `tasks.json`
-configuration file. 
+data type your columns should be in, the Hubverse has utilities to provide [an
+arrow schema](#arrow-schema) and even a [full submission
+template](#submission-template) from the `tasks.json` configuration file. 
 
 When submitting model output to a hub, it should be placed in a folder with the
 name of your `model_id` in the model outputs folder specified by the hub
-administrator (this is usually called `model-output`). Below are R and Python examples
-for writing Hubverse-compliant model output files in both CSV and parquet format.
-In these examples, we are assuming the following variables already exist:
+administrator (this is usually called `model-output`). Below are R and Python
+examples for writing Hubverse-compliant model output files in both CSV and
+parquet format. In these examples, we are assuming the following variables
+already exist:
 
  - `hub_path` is the path to the hub cloned on your local computer
- - `model_id` is the combination of `<team_abbr>-<model_abbr>` 
+ - `model_id` is the combination of `<team_abbr>-<model_abbr>`
  - `file_name` is the file name of your model formatted as
    `<round_id>-<model_id>.csv` (or `.parquet`)
  - `model_out` is the tabular output from your model formatted as specified
    in [the formats of model output section](#formats-of-model-output).
 
+(submission-template)=
 ### Submission Template
 
 **The hubverse package `hubValidations()` has functionality
-that will generate template data to get your started.** This submission
+that will generate template data to get you started.** This submission
 template can be written as a CSV or parquet file and then imported in to
 whatever software you use to run your model.
 
@@ -213,7 +216,11 @@ arrow::write_parquet(tmpl, "/path/to/template.parquet")
 (example-csv)=
 ### Example: model output as CSV
 
-The sections below provide examples for writing CSV model output files.
+The sections below provide examples for writing CSV model output files. A note
+that missing data in a CSV file should be either a blank cell (that is, two 
+adjacent commas `,,`) or `NA` without quotes[^no-quotes] (e.g. `,NA,`).
+
+[^no-quotes]: You can quote me on this: No quotes.
 
 #### Writing CSV with R
 
@@ -240,16 +247,17 @@ model_out.to_csv(outfile, index = False)
 ### Example: model output as parquet
 
 Unlike a CSV, a parquet files contain embedded information about the data types
-of its columns. 
+of its columns.
 Therefore, when writing model output files as parquet, it's
 critical that you first ensure the data type of your columns matches the
-expected type from the Arrow schema.
+expected type from [the Arrow schema](#arrow-schema).
 
 If the data types of the model output parquet file don't match the hub's schema, the
 submission will not validate.
 In practice, you will need to know whether or not the expected data type is a
 **string/character**, **float/numeric**, or an **Int/integer**.
 
+(arrow-schema)=
 #### Arrow Schema
 
 **The hubverse packages `hubData()` and `hubUtils()` have functionality that will generate an
