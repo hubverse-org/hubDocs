@@ -46,7 +46,9 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
 
-[^batman]: `NA` (without quotes) indicates missingness in R, which is the expected `output_type_id` for a `mean` `output_type`. 
+[^batman]: The `output_type_id` for point estimates (e.g. `mean`) is not applicable. To
+reflect this, we need to signal that this is a missing value. In R, missing values are
+encoded as `NA`, and in Python, they are encoded as `None`.
   This is discussed in the [output type table](#output-type-table)
 
 
