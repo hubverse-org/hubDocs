@@ -181,7 +181,7 @@ already exist:
 (submission-template)=
 ### Submission Template
 
-**The hubverse package `hubValidations()` has functionality
+**The hubverse package `hubValidations` has functionality
 that will generate template data to get you started.** This submission
 template can be written as a CSV or parquet file and then imported in to
 whatever software you use to run your model.
@@ -260,7 +260,7 @@ In practice, you will need to know whether or not the expected data type is a
 (arrow-schema)=
 #### Arrow Schema
 
-**The hubverse packages `hubData()` and `hubUtils()` have functionality that will generate an
+**The hubverse packages `hubData` and `hubUtils` have functionality that will generate an
 arrow schema so that you can ensure your output matches the expected type.** 
 
 Here is some example code that can help. In this example, `hub_path` is the
@@ -287,6 +287,11 @@ value: int32
 model_id: string
 ```
 
+If you have a data frame of model output data (e.g. `model_out`) and want to coerce the column data types to the hub schema, you can also use [`hubData::coerce_to_hub_schema()`](https://hubverse-org.github.io/hubData/reference/coerce_to_hub_schema.html), e.g. 
+```r
+hubData::coerce_to_hub_schema(model_out, config_tasks)
+```
+
 #### Writing parquet with R
 
 ```r
@@ -294,7 +299,7 @@ model_id: string
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
 
 # update the output_type_id data type to match the hub's schema
-model_out$output_type_id <- as.character(model_out$output_type_id) # or as.numeric(), or as.integer()
+model_out$output_type_id <- as.numeric(model_out$output_type_id) # or as.character(), or as.integer()
 arrow::write_parquet(model_out, outfile)
 ```
 
@@ -308,7 +313,7 @@ import os.path
 outfile = os.path.join(hub_path, "model-output", model_id, file_name)
 
 # update the output_type_id data type to match the hub's schema
-model_out["output_type_id"] = model_out["output_type_id"].astype("string") # or "float", or "Int64"
+model_out["output_type_id"] = model_out["output_type_id"].astype("float") # or "string", or "Int64"
 model_out.to_parquet(outfile)
 ```
 
