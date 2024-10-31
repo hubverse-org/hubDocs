@@ -233,7 +233,8 @@ readr::write_csv(model_out, outfile)
 
 #### Writing CSV with Python
 
-Python users can use the `pandas` package when creating CSV model output files.
+This example uses the `pandas` package when creating CSV model output files.
+
 ```python
 import pandas as pd
 import os.path
@@ -287,24 +288,32 @@ value: int32
 model_id: string
 ```
 
-If you have a data frame of model output data (e.g. `model_out`) and want to coerce the column data types to the hub schema, you can also use [`hubData::coerce_to_hub_schema()`](https://hubverse-org.github.io/hubData/reference/coerce_to_hub_schema.html), e.g. 
-```r
-hubData::coerce_to_hub_schema(model_out, config_tasks)
-```
 
 #### Writing parquet with R
+
+You can use the
+[`hubData::coerce_to_hub_schema()`](https://hubverse-org.github.io/hubData/reference/coerce_to_hub_schema.html), function to ensure your data is in the correct format before writing out.
 
 ```r
 # ... generate model data ...
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
 
-# update the output_type_id data type to match the hub's schema
-model_out$output_type_id <- as.numeric(model_out$output_type_id) # or as.character(), or as.integer()
+# coerce model output data to the data types of the hub schema
+config_tasks <- hubData::read_config(hub_path, "tasks")
+model_out <- hubData::coerce_to_hub_schema(model_out, config_tasks)
+
+# write to parquet file
 arrow::write_parquet(model_out, outfile)
 ```
 
 
 #### Writing parquet with Python
+
+his example uses the `pandas` package to create parquet files. Importantly, if
+you are creating a parquet file, you will need to **ensure your column types
+match the hub schema**. You can do this by using the [`astype()` method](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.astype.html) for pandas DataFrames[^polars]
+
+[^polars]: If you prefer to use polars for your model output, you would use the polars [`cast()` method](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.cast.html#polars.DataFrame.cast).
 
 ```python
 import pandas as pd
