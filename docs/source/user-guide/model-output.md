@@ -26,12 +26,12 @@ Note that file names are also allowed to contain the following compression exten
 
 Each model submission file will have the same representation for each hub. Here
 is an example of a hub that collects mean and quantile forecasts for
-one-week-ahead incidence, but probabilities for the timing of a season peak:  
+one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 :::{table} An example of a model output submission for modelA
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | ------ | ------ | ------ | 
-| EW202242 | weekly rate | 1 | mean     | NA | 5 |
+| EW202242 | weekly rate | 1 | mean     | NA[^batman] | 5 |
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
 | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
 | EW202242 | weekly rate | 1 | quantile | 0.75 | 10 |
@@ -46,7 +46,13 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 | EW202242 | weekly rate | 1 | sample | 2 | 3 |
 :::
 
-(formats-of-model-output)=
+[^batman]: The `output_type_id` for point estimates (e.g. `mean`) is not applicable. To
+reflect this, we need to signal that this is a missing value. In R, missing values are
+encoded as `NA`, and in Python, they are encoded as `None`.
+  This is discussed in the [output type table](#output-type-table)
+
+
+(file-formats)=
 ### File formats
 
 Hubs can take submissions in tabular data formats, namely `csv` and `parquet`. These
@@ -66,8 +72,12 @@ submission formats are _not mutually exclusive_; **hubs may choose between
    * Disadvantages:
       * Compatibility: Harder to work with; teams and people who want to work with files need to install additional libraries
 
+Examples of how to create these file formats in R and Python are listed below in
+[the writing model output section](#writing-model-output).
 
-(model-output-format)=
+
+
+(formats-of-model-output)=
 ## Formats of model output
 
 ```{admonition} Reference
@@ -78,44 +88,243 @@ Much of the material in this section has been excerpted or adapted from the [hub
 
 _Model outputs are a specially formatted tabular representation of predictions._
 Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value. 
-Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction.  
+Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction. [Details about the column specifications](column-details) can be found below.
 
-[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended added that identifies the model from its filename. 
+[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename. 
+
+
+(column-details)=
+### Details about model output column specifications
 
 As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.  
 More detail about each of these column groups is given in the following points:  
 
 1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
 2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:  
-    1. `output_type` specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
-    2. `output_type_id` specifies more identifying information specific to the output type, which varies depending on the `output_type`.  
-3. `value` contains the model’s prediction.  
+    1. `output_type`{.codeitem} specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
+    2. `output_type_id`{.codeitem} specifies more identifying information specific to the output type, which varies depending on the `output_type`.  
+3. `value`{.codeitem} contains the model’s prediction.  
 
-The following table provides more detail on how to configure the three "model output representation" columns based on each model output type:
+
+The following table provides more detail on how to configure the three "model output representation" columns based on each model output type.
 
 (output-type-table)=
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
 | `output_type` | `output_type_id` | `value` |
 | ------ | ------ | ------ | 
-| `mean` | `"NA"`[^batman] (not used for mean predictions) | Numeric: the mean of the predictive distribution |
-| `median` | `"NA"` (not used for median predictions) | Numeric: the median of the predictive distribution |
+| `mean` | `NA`/`None` (not used for mean predictions) | Numeric: the mean of the predictive distribution |
+| `median` | `NA`/`None` (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
-| `cdf`[^cdf] | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
-| `pmf`[^pmf] | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable.[^cdf] |
-| `sample`[^sample] | Positive integer sample index | Numeric: a sample from the predictive distribution.
+| `cdf` | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
+| `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
+| `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
+:::
+
+:::{note} 
+:name: output-type-caveats
+
+The model output type IDs have different caveats depending on the `output_type`:
+
+`mean` and `median`
+: Point estimates do not have an `output_type_id` because you can only have one
+point estimate for each combination of task IDs. However, because the
+`output_type_id` column is required, something has to go in this place, which
+is a missing value. This is encoded as [`NA` in
+R](https://www.njtierney.com/post/2020/09/17/missing-flavour/) and `None` in
+Python. See [The example on writing parquet files](#example-parquet) for
+details.
+
+`pmf`
+: Values are required to sum to 1 across all
+`output_type_id` values within each combination of values of task ID variables.
+This representation should only be used if the outcome variable is truly
+discrete; a CDF representation is preferred if the categories represent a
+binned discretization of an underlying continuous variable.
+
+`sample`
+: Depending on the hub specification, samples with the same sample index
+(specified by the `output_type_id`) may be assumed to correspond to a single
+sample from a joint distribution across multiple levels of the task ID
+variables — further details are discussed below.
+
+
+`cdf` (and `pmf` for ordinal variables)
+: In the hub's `tasks.json` configuration file, the values of the
+`output_type_id` should be listed in order from low to high.
+
 :::
 
 
-[^batman]: Why have `"NA"` as the `output_type_id`? There are two reasons for this. 
-  First, this provides a placeholder for the model output CSV file in the presence of other output types for validation.
-  The second reason is that we already use `null` to indicate the presence of an absence in the `required` and `optional` fields, and having this allows hubverse tools to treat point estimates without special handling. 
+(writing-model-output)=
+## Writing model output to a hub
 
-[^pmf]: **Note on `pmf` model output type**: Values are required to sum to 1 across all `output_type_id` values within each combination of values of task ID variables. This representation should only be used if the outcome variable is truly discrete; a CDF representation is preferred if the categories represent a binned discretization of an underlying continuous variable.
+The model output follows the specification of the `tasks.json` configuration
+file of the hub. If you are creating a model and would like to know what
+data type your columns should be in, the Hubverse has utilities to provide [an
+arrow schema](#arrow-schema) and even a [full submission
+template](#submission-template) from the `tasks.json` configuration file. 
 
-[^sample]: **Note on `sample` model output type**: Depending on the hub specification, samples with the same sample index (specified by the `output_type_id`) may be assumed to correspond to a single sample from a joint distribution across multiple levels of the task ID variables — further details are discussed below.
+When submitting model output to a hub, it should be placed in a folder with the
+name of your `model_id` in the model outputs folder specified by the hub
+administrator (this is usually called `model-output`). Below are R and Python
+examples for writing Hubverse-compliant model output files in both CSV and
+parquet format. In these examples, we are assuming the following variables
+already exist:
 
-[^cdf]: **Note on `cdf` model output type** and `pmf` output type for ordinal variables: In the hub's `tasks.json` configuration file, the values of the `output_type_id` should be listed in order from low to high.
+ - `hub_path` is the path to the hub cloned on your local computer
+ - `model_id` is the combination of `<team_abbr>-<model_abbr>`
+ - `file_name` is the file name of your model formatted as
+   `<round_id>-<model_id>.csv` (or `.parquet`)
+ - `model_out` is the tabular output from your model formatted as specified
+   in [the formats of model output section](#formats-of-model-output).
 
+(submission-template)=
+### Submission Template
+
+**The hubverse package `hubValidations` has functionality
+that will generate template data to get you started.** This submission
+template can be written as a CSV or parquet file and then imported in to
+whatever software you use to run your model.
+
+Here is some example code that can help. In this example, `hub_path` is the
+path to the hub on your local machine.
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubUtils::read_config(hub_path)
+rounds <- hubUtils::get_round_ids(config_tasks)
+this_round <- rounds[length(rounds)]
+
+# create the submission template (this may take some time if your submission uses samples)
+tmpl <- hubValidations::submission_tmpl(config_tasks = config_tasks, round_id = this_round)
+```
+
+You can then either write this template to a csv file with the `readr` package:
+
+```r
+# write the template to a csv file to use in your model code. 
+readr::write_csv(tmpl, "/path/to/template.csv")
+```
+
+OR you can write it to a parquet file with the `arrow` package:
+
+```r
+# write the template to a parquet file to use in your model code. 
+arrow::write_parquet(tmpl, "/path/to/template.parquet")
+```
+
+(example-csv)=
+### Example: model output as CSV
+
+The sections below provide examples for writing CSV model output files. A note
+that missing data in a CSV file should be either a blank cell (that is, two 
+adjacent commas `,,`) or `NA` without quotes[^no-quotes] (e.g. `,NA,`).
+
+[^no-quotes]: You can quote me on this: No quotes.
+
+#### Writing CSV with R
+
+When writing a model output file in R, use the `readr` package.
+```r
+# ... generate model data ...
+outfile <- fs::path(hub_path, "model-output", model_id, file_name)
+readr::write_csv(model_out, outfile)
+```
+
+#### Writing CSV with Python
+
+This example uses the `pandas` package when creating CSV model output files.
+
+```python
+import pandas as pd
+import os.path
+
+# ... generate model data ...
+outfile = os.path.join(hub_path, "model-output", model_id, file_name)
+model_out.to_csv(outfile, index = False)
+```
+
+(example-parquet)=
+### Example: model output as parquet
+
+Unlike a CSV, a parquet files contain embedded information about the data types
+of its columns.
+Therefore, when writing model output files as parquet, it's
+critical that you first ensure the data type of your columns matches the
+expected type from [the Arrow schema](#arrow-schema).
+
+If the data types of the model output parquet file don't match the hub's schema, the
+submission will not validate.
+In practice, you will need to know whether or not the expected data type is a
+**string/character**, **float/numeric**, or an **Int/integer**.
+
+(arrow-schema)=
+#### Arrow Schema
+
+**The hubverse packages `hubData` and `hubUtils` have functionality that will generate an
+arrow schema so that you can ensure your output matches the expected type.** 
+
+Here is some example code that can help. In this example, `hub_path` is the
+path to the hub on your local machine.
+
+```r
+# read the configuration file and get the latest round
+config_tasks <- hubUtils::read_config(hub_path, "tasks")
+schema <- hubData::create_hub_schema(config_tasks)
+```
+
+The schema output will look something like this:
+
+```
+Schema
+origin_date: date32[day]
+target: string
+horizon: int32
+location: string
+age_group: string
+output_type: string
+output_type_id: double
+value: int32
+model_id: string
+```
+
+
+#### Writing parquet with R
+
+You can use the
+[`hubData::coerce_to_hub_schema()`](https://hubverse-org.github.io/hubData/reference/coerce_to_hub_schema.html), function to ensure your data is in the correct format before writing out.
+
+```r
+# ... generate model data ...
+outfile <- fs::path(hub_path, "model-output", model_id, file_name)
+
+# coerce model output data to the data types of the hub schema
+config_tasks <- hubData::read_config(hub_path, "tasks")
+model_out <- hubData::coerce_to_hub_schema(model_out, config_tasks)
+
+# write to parquet file
+arrow::write_parquet(model_out, outfile)
+```
+
+
+#### Writing parquet with Python
+
+his example uses the `pandas` package to create parquet files. Importantly, if
+you are creating a parquet file, you will need to **ensure your column types
+match the hub schema**. You can do this by using the [`astype()` method](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.astype.html) for pandas DataFrames[^polars]
+
+[^polars]: If you prefer to use polars for your model output, you would use the polars [`cast()` method](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.cast.html#polars.DataFrame.cast).
+
+```python
+import pandas as pd
+import os.path
+# ... generate model data ...
+outfile = os.path.join(hub_path, "model-output", model_id, file_name)
+
+# update the output_type_id data type to match the hub's schema
+model_out["output_type_id"] = model_out["output_type_id"].astype("float") # or "string", or "Int64"
+model_out.to_parquet(outfile)
+```
 
 (model-output-task-relationship)=
 ## Model output relationships to task ID variables
@@ -124,14 +333,14 @@ We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representat
 In contrast, we cannot assume the same for the `sample` representation.
 By recording samples from a joint predictive distribution, **the `sample` representation may capture dependence across combinations of multiple model task ID variables**.
 
-For example, suppose the model task ID variables are “forecast date”, “location”, and “horizon”. 
+For example, suppose the model task ID variables are "forecast date", "location", and "horizon". 
 A predictive mean will summarize the predictive distribution for a single combination of forecast date, location, and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task ID variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
 2. the joint predictive distribution across all horizons within each forecast date and location
 3. the joint predictive distribution across all locations within each forecast date and horizon
 4. the marginal predictive distribution for each combination of forecast date, location, and horizon
 
-Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are “joint across” locations and horizons.  
+Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are "joint across" locations and horizons.  
 
 More details about sample-output-type can be found in the [page describing sample output type data](../user-guide/sample-output-type.md).
 
@@ -146,7 +355,7 @@ Some other possible model output representations have been proposed but not incl
    * We considered a system with a more flexible specification of bin endpoint inclusion status but noted two disadvantages:
       * This additional flexibility would introduce substantial extra complexity to the metadata specifications and tooling
       * Adopting limited standards that encourage hubs to adopt settings consistent with the common definitions might be beneficial. For example, if a hub adopted bins with open right endpoints, the resulting probabilities would be incompatible with the conventions around cumulative distribution functions.
-* Probability of “success” in a setting with a binary outcome
+* Probability of "success" in a setting with a binary outcome
    * This can be captured with a CDF representation if the outcome variable is ordered or a categorical representation if the outcome variable is not.
 * Compositional. For example, we might request a probabilistic estimate of the proportion of hospitalizations next week due to influenza A/H1, A/H3, and B.
    * Note that a categorical output representation could be used if only point estimates for the composition were required.

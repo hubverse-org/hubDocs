@@ -186,8 +186,10 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 
 ### 6.1. Setting the `"mean"`:  
 - <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`, whereas the one that is not selected should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
+- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`[^missy], whereas the one that is not selected should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
 - <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
+
+[^missy]: `NA` (without quotes) is how missingness is represented in R. This notation may seem a bit strange, but it allows us to indicate what we expect to see from modeler submissions.
 
 ```{image} ../images/tasks-schema-6-1.png
 :alt: Some more lines of code in the tasks.json file
