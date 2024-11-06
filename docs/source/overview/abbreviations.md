@@ -1,6 +1,6 @@
 # Abbreviations
 
-The hubverse code often has abbreviations which may not be familiar to users. This page provides a list of abbreviations and their meanings. Let us know if we missed any by filing an issue on the [hubDocs GitHub repository](https://github.com/hubverse-org/hubDocs/issues).  
+The hubverse code often has abbreviations which may not be familiar to users. This page provides a list of abbreviations and their meanings. Let us know if we missed any by [filing an issue on the hubDocs GitHub repository](https://github.com/hubverse-org/hubDocs/issues).  
 
 | abbreviation | meaning 
 | ------------ | ------- |
