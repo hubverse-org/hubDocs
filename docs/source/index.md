@@ -62,6 +62,7 @@ overview/who-we-are.md
 overview/history.md
 overview/scope.md
 overview/definitions.md
+overview/abbreviations.md
 overview/data-storage.md
 overview/contribute.md
 overview/cite.md
