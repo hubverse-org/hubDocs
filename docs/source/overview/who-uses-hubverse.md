@@ -7,7 +7,7 @@ You may fit one, several, or none of these roles.
 Below are details of what aspects of the hubverse each role will interact with.
 
 ```{image} ../images/hubverse_roles.png
-:alt: Schematic of the hubverse showing different roles
+:alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysis, and finally stakeholders. 
 :caption: A schematic illustration of the hubverse, showing different roles
 ```
 
