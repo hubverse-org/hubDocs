@@ -1,19 +1,30 @@
-Target data formats
+Target (Observed) Data
 ================
 
 ## Overview
 
 ### Definitions
 
-Target data are the observed data being modeled as the prediction target
-in a collaborative modeling exercise, sometimes referred to as “ground
-truth” data. Some hubverse tools work with target data directly,
-e.g. for plotting forecasts and data alongside each other. Other
-hubverse tools took with *oracle outputs*, which are derived from the
-target data and represent model output that would have been generated if
-the target data values had been known ahead of time. We describe these
-formats briefly here, and give more detail about the oracle outputs in
-the remainder of this document.
+_**Target data**_ are the _observed data being modeled_ as the prediction target
+in a collaborative modeling exercise.
+These data come in two forms:
+
+1. **time series** data[^truth], which are the _observed_ counts or rates partitioned
+   for each unique combination of [task id values](#task-id-vars).
+2. **oracle output** data are _derived from the time series data_ and represent 
+   model output that would have been generated if the target data values had 
+   been known ahead of time.
+
+Hubverse tools like [hubVis](https://hubverse-org.github.io/hubVis) make use of
+the time series data for visualizations while other hubverse tools like
+[hubEvals](https://hubverse-org.github.io/hubEvals) and
+[hubEnsembles](https://hubverse-org.github.io/hubEnsembles) make use of the
+oracle output data for model evaluations. We describe these formats briefly
+here, and give more detail about the oracle outputs in the remainder of this
+document.
+
+[^truth]: this is sometimes referred to as “ground truth” data, but we no longer
+use this term in the hubverse.
 
 #### Time series
 
