@@ -164,7 +164,7 @@ guidelines, or if the code is small in scope it can be placed within the
 Here, we describe the format of the oracle output in more detail. We
 begin with an abstract overview before providing some specific examples.
 
-### Oracle output format: the details
+### The `oracle_value` column
 
 Oracle output follows a similar format as model outputs, but the `value`
 column is named `oracle_value`, and it contains the value of the
@@ -190,11 +190,43 @@ was known with certainty. The implications of this vary depending on the
       probability distribution that places all of its probability at the
       observed value.
 
-An important difference between oracle output and model output is that
-any information from the task id variables or `output_type` and
-`output_type_id` columns that is not needed to correctly align
-observations with the corresponding predictions can be omitted from the
-oracle output. Specifically,
+### Oracle output vs model output
+
+The oracle output is designed to align with [model
+output](#formats-of-model-output) task ID and model output representation
+columns. This allows the two to be merged so that `value` can be compared
+and evaluated against the corresponding `oracle_value`. The important
+difference between the outputs is that the oracle output is necessarily going
+to have a subset of the task ID columns as the model output data and, depending
+on the hub, may not have either of the model output representation columns.
+
+#### Model output representation columns
+
+**The `output_type` and `output_type_id` columns only need to be included if the
+hub collects pmf or cdf outputs.** As was described above, for those two output
+types the `oracle_value` depends on the `output_type_id`. On the other hand,
+the `oracle_value` is not specific to the quantile level for quantile forecasts
+or the sample index for sample forecasts, and so for these output types (as
+well as mean and median), the `output_type_id` is not needed to align
+observations with predictions.
+
+If the hub collects quantile, sample, mean, or median outputs alongside pmf or
+cdf outputs, a combined oracle output dataset may be created with all output
+types. In that case, the oracle output should include an `output_type_id`
+column, but the value of that column will be ignored when merging the oracle
+output with predictions of output type quantile, sample, mean, or median. For
+those output types, the oracle output data should only include one row with the
+observed value for the quantile or sample forecasts in each task id group,
+rather than one row for each quantile level or for each sample index. The
+`output_type_id` column in those rows may be set to a missing value as a
+representation of the fact that that value does not contain information about
+the quantile level or sample index specified as the `output_type_id` in the
+model outputs. The precise mechanism used to represent missing values differs
+depending on the tools being used. For example, in CSV files, an empty string
+(`""`) may be used, while in parquet files, a `null` is used.
+
+
+#### Task ID columns
 
 - The oracle output should include enough of the task id variables and
   columns with metadata about the outputs (`output_type` and
@@ -210,31 +242,6 @@ oracle output. Specifically,
   correspond to a particular `target_date` regardless of the forecast
   horizon. Similarly, in a scenario projection setting, the
   `scenario_id` can be omitted.
-- The `output_type` and `output_type_id` columns only need to be
-  included if the hub collects pmf or cdf outputs. As was described
-  above, for those two output types the `oracle_value` depends on the
-  `output_type_id`. On the other hand, the `oracle_value` is not
-  specific to the quantile level for quantile forecasts or the sample
-  index for sample forecasts, and so for these output types (as well as
-  mean and median), the `output_type_id` is not needed to align
-  observations with predictions.
-  - If the hub collects quantile, sample, mean, or median outputs
-    alongside pmf or cdf outputs, a combined oracle output dataset may
-    be created with all output types. In that case, the oracle output
-    should include an `output_type_id` column, but the value of that
-    column will be ignored when merging the oracle output with
-    predictions of output type quantile, sample, mean, or median. For
-    those output types, the oracle output data should only include one
-    row with the observed value for the quantile or sample forecasts in
-    each task id group, rather than one row for each quantile level or
-    for each sample index. The `output_type_id` column in those rows may
-    be set to a missing value as a representation of the fact that that
-    value does not contain information about the quantile level or
-    sample index specified as the `output_type_id` in the model outputs.
-    The precise mechanism used to represent missing values differs
-    depending on the tools being used. For example, in CSV files, an
-    empty string (`""`) may be used, while in parquet files, a `null` is
-    used.
 
 ### Oracle output format: examples
 
