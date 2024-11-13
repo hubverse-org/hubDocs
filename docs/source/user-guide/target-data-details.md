@@ -1,9 +1,7 @@
 Target (Observed) Data
 ================
 
-## Overview
-
-### Definitions
+## Definitions
 
 _**Target data**_ are the _observed data being modeled_ as the prediction target
 in a collaborative modeling exercise.
@@ -26,7 +24,7 @@ document.
 [^truth]: this is sometimes referred to as “ground truth” data, but we no longer
 use this term in the hubverse.
 
-#### Time series
+### Time series
 
 The first format is *time series* data. This is often the native or
 “raw” format for data. Each row of the data set contains one observed
@@ -50,7 +48,7 @@ restrictions that hubverse tools impose on data in this format is that
 it should have a column named `observation` and a column with a time
 index, such as `date` or `time`.
 
-#### Oracle output
+### Oracle output
 
 Oracle output follows a format that is similar to a [hubverse model
 output
@@ -73,16 +71,16 @@ example in `hubExamples`:
 
 | location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
-| 25 | 2022-11-19 | wk inc flu hosp | quantile | NA | 79 |
-| 25 | 2022-11-26 | wk inc flu hosp | quantile | NA | 221 |
-| 25 | 2022-12-03 | wk inc flu hosp | quantile | NA | 446 |
-| 25 | 2022-12-10 | wk inc flu hosp | quantile | NA | 578 |
+| 25 | 2022-11-19 | wk inc flu hosp | quantile | `<NA>` | 79 |
+| 25 | 2022-11-26 | wk inc flu hosp | quantile | `<NA>` | 221 |
+| 25 | 2022-12-03 | wk inc flu hosp | quantile | `<NA>` | 446 |
+| 25 | 2022-12-10 | wk inc flu hosp | quantile | `<NA>` | 578 |
 
 In this example, the observed weekly influenza hospitalization count in
 MA on the week ending 2022-11-19 was 79. A probability distribution that
 places probability 1 on that outcome will have all quantiles equal to
 that observed value, so 79 appears as the `oracle_value` for quantile
-outputs for that `location` and `target_end_date`. The use of `<NA>` for
+outputs for that `location` and `target_end_date`. The use of ``<NA>`` for
 the `output_type_id` represents the fact that this `oracle_value` is
 relevant for all quantile levels; this convention will be described in
 more detail below.
@@ -120,7 +118,7 @@ raw time series data, such as the peak time or peak incidence, and in
 hubs that collect pmf or cdf predictions, the formats will differ more
 substantively.
 
-### Uses of target time series data and oracle output
+## Uses of target time series data and oracle output
 
 Each data format is useful for different purposes (see table below).
 Modelers will most often estimate model parameters by fitting to the raw
@@ -138,14 +136,14 @@ oracle output. The primary use case of oracle output is for evaluation.
 Common uses for target time series and oracle output data. A ✅
 indicates which data formats are most commonly used for each purpose.
 
-### How hubs should provide access to target time series data and oracle output
+## How hubs should provide access to target time series data and oracle output
 
 Hubs should ensure that standardized procedures for accessing target
 data are available. The data formats that a hub provides may depend on
 the needs of the specific hub, and which hubverse tools the hub wants to
 use. For example, a hub that will not be conducting evaluations by
 comparing predictions to observed target values may not need to provide
-data in the **oracle output** format.
+data in the oracle output format.
 
 Access to target time series data and oracle output can be provided in
 either of two ways:
@@ -303,19 +301,19 @@ In addition, for the model output data, we are only showing the
 :::{table} A subset of **model output** showing `mean` predictions across four horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
 |---:|:---|:---|:---|:---|:---|---:|
-| 0 | 25 | 2022-11-19 | wk inc flu hosp | mean | NA | 51.18476 |
-| 1 | 25 | 2022-11-26 | wk inc flu hosp | mean | NA | 51.39129 |
-| 2 | 25 | 2022-12-03 | wk inc flu hosp | mean | NA | 51.89889 |
-| 3 | 25 | 2022-12-10 | wk inc flu hosp | mean | NA | 52.54409 |
+| 0 | 25 | 2022-11-19 | wk inc flu hosp | mean | `<NA>` | 51.18476 |
+| 1 | 25 | 2022-11-26 | wk inc flu hosp | mean | `<NA>` | 51.39129 |
+| 2 | 25 | 2022-12-03 | wk inc flu hosp | mean | `<NA>` | 51.89889 |
+| 3 | 25 | 2022-12-10 | wk inc flu hosp | mean | `<NA>` | 52.54409 |
 :::
 
 :::{table} The `mean` **oracle output** from 19 November to 10 December 2022
 | location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
-| 25 | 2022-11-19 | wk inc flu hosp | mean | NA | 79 |
-| 25 | 2022-11-26 | wk inc flu hosp | mean | NA | 221 |
-| 25 | 2022-12-03 | wk inc flu hosp | mean | NA | 446 |
-| 25 | 2022-12-10 | wk inc flu hosp | mean | NA | 578 |
+| 25 | 2022-11-19 | wk inc flu hosp | mean | `<NA>` | 79 |
+| 25 | 2022-11-26 | wk inc flu hosp | mean | `<NA>` | 221 |
+| 25 | 2022-12-03 | wk inc flu hosp | mean | `<NA>` | 446 |
+| 25 | 2022-12-10 | wk inc flu hosp | mean | `<NA>` | 578 |
 :::
 
 For the `mean` output type, the `oracle_value` is the numeric value of
@@ -323,7 +321,7 @@ the prediction target. Here, the first row of the oracle output
 indicates that 79 flu hospitalizations were reported in Massachusettes for the
 week ending on 2022-11-19. This can be viewed as the mean of a
 “predictive distribution” that is entirely concentrated on that observed
-value. The use of `<NA>` for the `output_type_id` matches the convention
+value. The use of ``<NA>`` for the `output_type_id` matches the convention
 for model output with the mean output type.
 
 #### Output type `median`
@@ -331,25 +329,25 @@ for model output with the mean output type.
 :::{table} A subset of **model output** showing `median` predictions across four horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
 |---:|:---|:---|:---|:---|:---|---:|
-| 0 | 25 | 2022-11-19 | wk inc flu hosp | median | NA | 51 |
-| 1 | 25 | 2022-11-26 | wk inc flu hosp | median | NA | 51 |
-| 2 | 25 | 2022-12-03 | wk inc flu hosp | median | NA | 51 |
-| 3 | 25 | 2022-12-10 | wk inc flu hosp | median | NA | 51 |
+| 0 | 25 | 2022-11-19 | wk inc flu hosp | median | `<NA>` | 51 |
+| 1 | 25 | 2022-11-26 | wk inc flu hosp | median | `<NA>` | 51 |
+| 2 | 25 | 2022-12-03 | wk inc flu hosp | median | `<NA>` | 51 |
+| 3 | 25 | 2022-12-10 | wk inc flu hosp | median | `<NA>` | 51 |
 :::
 
 :::{table} The `median` **oracle output** from 19 November to 10 December 2022
 | location | target_end_date | target | output_type | output_type_id | observation |
 |:---|:---|:---|:---|:---|---:|
-| 25 | 2022-11-19 | wk inc flu hosp | median | NA | 79 |
-| 25 | 2022-11-26 | wk inc flu hosp | median | NA | 221 |
-| 25 | 2022-12-03 | wk inc flu hosp | median | NA | 446 |
-| 25 | 2022-12-10 | wk inc flu hosp | median | NA | 578 |
+| 25 | 2022-11-19 | wk inc flu hosp | median | `<NA>` | 79 |
+| 25 | 2022-11-26 | wk inc flu hosp | median | `<NA>` | 221 |
+| 25 | 2022-12-03 | wk inc flu hosp | median | `<NA>` | 446 |
+| 25 | 2022-12-10 | wk inc flu hosp | median | `<NA>` | 578 |
 :::
 
 The `oracle_value` for the `median` output type is the same as for the
 `mean` output type: the numeric value of the prediction target. This is
 the median of a distribution that is entirely concentrated on that
-observed value. Again, the use of `<NA>` for the `output_type_id`
+observed value. Again, the use of ``<NA>`` for the `output_type_id`
 matches the convention for model output with the median output type.
 
 #### Output type `quantile`
@@ -376,10 +374,10 @@ matches the convention for model output with the median output type.
 :::{table} The `quantile` **oracle output** from 19 November to 10 December 2022
 | location | target_end_date | target | output_type | output_type_id | observation |
 |:---|:---|:---|:---|:---|---:|
-| 25 | 2022-11-19 | wk inc flu hosp | quantile | NA | 79 |
-| 25 | 2022-11-26 | wk inc flu hosp | quantile | NA | 221 |
-| 25 | 2022-12-03 | wk inc flu hosp | quantile | NA | 446 |
-| 25 | 2022-12-10 | wk inc flu hosp | quantile | NA | 578 |
+| 25 | 2022-11-19 | wk inc flu hosp | quantile | `<NA>` | 79 |
+| 25 | 2022-11-26 | wk inc flu hosp | quantile | `<NA>` | 221 |
+| 25 | 2022-12-03 | wk inc flu hosp | quantile | `<NA>` | 446 |
+| 25 | 2022-12-10 | wk inc flu hosp | quantile | `<NA>` | 578 |
 :::
 
 As with the `mean` and `median` output types, the `oracle_value` for a
@@ -407,10 +405,10 @@ convention, we use `output_type_id = <NA>` to indicate that this
 :::{table} The `sample` **oracle output** from 19 November to 10 December 2022
 | location | target_end_date | target | output_type | output_type_id | observation |
 |:---|:---|:---|:---|:---|---:|
-| 25 | 2022-11-19 | wk inc flu hosp | sample | NA | 79 |
-| 25 | 2022-11-26 | wk inc flu hosp | sample | NA | 221 |
-| 25 | 2022-12-03 | wk inc flu hosp | sample | NA | 446 |
-| 25 | 2022-12-10 | wk inc flu hosp | sample | NA | 578 |
+| 25 | 2022-11-19 | wk inc flu hosp | sample | `<NA>` | 79 |
+| 25 | 2022-11-26 | wk inc flu hosp | sample | `<NA>` | 221 |
+| 25 | 2022-12-03 | wk inc flu hosp | sample | `<NA>` | 446 |
+| 25 | 2022-12-10 | wk inc flu hosp | sample | `<NA>` | 578 |
 :::
 
 As with the above output types, the `oracle_value` for a sample type is
