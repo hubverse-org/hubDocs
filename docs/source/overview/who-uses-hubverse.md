@@ -8,7 +8,6 @@ Below are details of what aspects of the hubverse each role will interact with.
 
 ```{image} ../images/hubverse_roles.png
 :alt: Schematic of the hubverse showing different roles
-:class: bordered
 :caption: A schematic illustration of the hubverse, showing different roles
 ```
 
