@@ -172,22 +172,23 @@ prediction that would be reported if the observed value of the target
 was known with certainty. The implications of this vary depending on the
 `output_type`:
 
-- For the `mean`, `median`, `quantile`, and `sample` output types, the
-  `oracle_value` is the observed value of the prediction target. This
+- **For the `mean`, `median`, `quantile`, and `sample` output types, the
+  `oracle_value` is the observed value of the prediction target.** This
   `oracle_value` is the same for all quantile levels and all sample
   indices, since a predictive distribution that places all of its
   probability on the observed outcome will have all quantiles equal to
   that value and all samples from that distribution will be equal to the
   observed value.
-- For the `pmf` output type, the `oracle_value` is `1` when the
-  `output_type_id` corresponds to the observed category (indicating a
-  probability of 1 for that category) and `0` for other categories.
-- For the `cdf` output type, the `oracle_value` is `0` for any
-  `output_type_id` levels that are less than the observed value, and `1`
-  for any `output_type_id` levels that are greater than or equal to the
-  observed value, corresponding to the step function cdf of a
-  probability distribution that places all of its probability at the
-  observed value.
+- **For `pmf` and `cdf` output types, the `oracle_value` is either `1` or `0`**
+    - For the `pmf` output type, the `oracle_value` is `1` when the
+      `output_type_id` corresponds to the observed category (indicating a
+      probability of 1 for that category) and `0` for other categories.
+    - For the `cdf` output type, the `oracle_value` is `0` for any
+      `output_type_id` levels that are less than the observed value, and `1`
+      for any `output_type_id` levels that are greater than or equal to the
+      observed value, corresponding to the step function cdf of a
+      probability distribution that places all of its probability at the
+      observed value.
 
 An important difference between oracle output and model output is that
 any information from the task id variables or `output_type` and
