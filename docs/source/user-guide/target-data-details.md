@@ -210,38 +210,18 @@ or the sample index for sample forecasts, and so for these output types (as
 well as mean and median), the `output_type_id` is not needed to align
 observations with predictions.
 
-If the hub collects quantile, sample, mean, or median outputs alongside pmf or
-cdf outputs, a combined oracle output dataset may be created with all output
-types. In that case, the oracle output should include an `output_type_id`
-column, but the value of that column will be ignored when merging the oracle
-output with predictions of output type quantile, sample, mean, or median. For
-those output types, the oracle output data should only include one row with the
-observed value for the quantile or sample forecasts in each task id group,
-rather than one row for each quantile level or for each sample index. The
-`output_type_id` column in those rows may be set to a missing value as a
-representation of the fact that that value does not contain information about
-the quantile level or sample index specified as the `output_type_id` in the
-model outputs. The precise mechanism used to represent missing values differs
-depending on the tools being used. For example, in CSV files, an empty string
-(`""`) may be used, while in parquet files, a `null` is used.
-
-
 #### Task ID columns
 
-- The oracle output should include enough of the task id variables and
-  columns with metadata about the outputs (`output_type` and
-  `output_type_id`) to uniquely identify which `oracle_value`s
-  correspond to which predicted `value`s. For example, this will
-  typically include task id variables such as `location` and
-  `target_date` (or `target_end_date`), since the `oracle_value` will be
-  specific to the `location` and `target_date`.
-- Any task id variables that are not necessary to match observations
-  with predictions can be omitted from the oracle output. For example,
-  if `target_date` is included then `reference_date` and `horizon`
-  variables can be omitted because the same observation will generally
-  correspond to a particular `target_date` regardless of the forecast
-  horizon. Similarly, in a scenario projection setting, the
-  `scenario_id` can be omitted.
+The model output can contain any number of task ID columns that are used to
+provide details about what is being predicted based on
+
+ - independent task ID variables (e.g. `location`, `target_date`, and `age_group`),
+ - derived task ID variables (e.g. `horizon`, `reference_date`, `origin_date`), and
+ - scenario-specific task ID variables (e.g. `scenario_id`).
+
+The oracle output will contain the **independent task ID variables** that are
+necessary to match the `oracle_value` column with `value` column of the model
+output.
 
 ### Oracle output format: examples
 
