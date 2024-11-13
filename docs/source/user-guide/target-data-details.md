@@ -202,24 +202,26 @@ on the hub, may not have either of the model output representation columns.
 
 #### Model output representation columns
 
-**The `output_type` and `output_type_id` columns only need to be included if the
-hub collects pmf or cdf outputs.** As was described above, for those two output
-types the `oracle_value` depends on the `output_type_id`. On the other hand,
-the `oracle_value` is not specific to the quantile level for quantile forecasts
-or the sample index for sample forecasts, and so for these output types (as
-well as mean and median), the `output_type_id` is not needed to align
-observations with predictions.
+**The `output_type` and `output_type_id` columns only need to be included if
+the hub collects `pmf` or `cdf` outputs.** As was described above, for those
+two output types the `oracle_value` depends on the `output_type_id`. On the
+other hand, the `oracle_value` is not specific to the quantile level for
+quantile forecasts or the sample index for sample forecasts, and so for these
+output types (as well as mean and median), the `output_type_id` is not needed
+to align observations with predictions.
 
 #### Task ID columns
 
 The model output can contain any number of task ID columns that are used to
 provide details about what is being predicted based on
 
- - independent task ID variables (e.g. `location`, `target_date`, and `age_group`),
- - derived task ID variables (e.g. `horizon`, `reference_date`, `origin_date`), and
+ - independent task ID variables (e.g. `location`, `target_date`, and
+   `age_group`),
+ - derived (dependent on other variables) task ID variables (e.g. `horizon`,
+   `reference_date`, `origin_date`), and
  - scenario-specific task ID variables (e.g. `scenario_id`).
 
-The oracle output will contain the **independent task ID variables** that are
+**The oracle output will contain the independent task ID variables** that are
 necessary to match the `oracle_value` column with `value` column of the model
 output.
 
