@@ -56,7 +56,7 @@ file](https://hubverse.io/en/latest/user-guide/model-output.html#example-model-s
 with three main differences:
 
 - Predictions correspond to a distribution that places probability 1 on
-  the observed target outcome.
+  the observed target outcome (see figure below).
 - Predictions (e.g., means, quantile values, or pmf category
   probabilities, etc.) are stored in a column named `oracle_value`
   rather than `value`.
@@ -65,6 +65,32 @@ with three main differences:
   be a subset of the columns of valid model output for the hub, with
   just those columns that are needed to correctly align `oracle_value`s
   with the corresponding predicted `value`s produced by modelers.
+
+<!--
+library("ggplot2")
+ggplot(data.frame(value = rnorm(1e3, 1), output = "model"), aes(x = value)) +
+  geom_density(aes(fill = output)) +
+  geom_segment(aes(y = 0, yend = 1, color = output), data = data.frame(value = 2, output = "or
+acle"), size = 2) +
+  scale_color_manual(values = 'blue') +
+  guides(fill = guide_legend(theme = theme(legend.title = element_blank()))) +
+  theme_classic(base_size = 16) +
+  labs(y = "probability", x = "model value / oracle value") +
+  theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8), legend.spacing = uni
+t(0, "npc"))
+  ggsave(here::here("docs/source/images/oracle-model-output.png"), width = 7, height = 4, dpi = 150)
+--->
+
+```{figure} ../images/oracle-model-output.png
+:figclass: margin-caption
+:alt: Simplified graph showing two distrbutions called "oracle" and "model". The model distribution spans from below -2 to above 4 with a mean of 1, with probabilities below 0.5. The oracle distribution appears as a single line at 2 that has a probability of 1.
+
+Model and Oracle distributions
+
+Just like model outputs are derived from a model distribtuion, oracle output
+values are derived from distributions with a probability of 1 on the observed
+target.
+```
 
 Here is an example of this form of data, based on the forecasting
 example in `hubExamples`:
