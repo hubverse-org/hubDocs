@@ -60,11 +60,12 @@ with three main differences:
 - Predictions (e.g., means, quantile values, or pmf category
   probabilities, etc.) are stored in a column named `oracle_value`
   rather than `value`.
-- We introduce some conventions to avoid duplication of data, described
-  in more detail below. Generally, the columns of the oracle output will
+- Generally, the columns of the oracle output will
   be a subset of the columns of valid model output for the hub, with
   just those columns that are needed to correctly align `oracle_value`s
-  with the corresponding predicted `value`s produced by modelers.
+  with the corresponding predicted `value`s produced by modelers. 
+  We introduce some conventions to avoid duplication of data, described
+  in more detail below. 
 
 <!--
 library("ggplot2")
