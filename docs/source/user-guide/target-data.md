@@ -165,6 +165,20 @@ for compactness):
 | 1 | 25 | 2022-11-26 | wk inc flu hosp | quantile | 0.9 | 81 |
 | 1 | 25 | 2022-11-26 | wk inc flu hosp | quantile | 0.95 | 97 |
 
+### Generating oracle output data
+
+A hub will typically have access to data in time series format, and will
+need to convert it to the **oracle output** format for use with any tools
+that require it in that format (see the next section). In hubs that
+collect mean, median, quantile, or sample predictions for the reported
+signal values in the raw time series data, the two formats may be
+essentially the same, perhaps with some renaming of columns. However, in
+hubs that form predictions for quantities that are derived from the the
+raw time series data, such as the peak time or peak incidence, and in
+hubs that collect pmf or cdf predictions, the formats require the presence of
+model output representation columns.
+
+
 ### Task ID columns
 
 The model output can contain any number of task ID columns that are used to
@@ -215,19 +229,6 @@ was known with certainty. The implications of this vary depending on the
       observed value, corresponding to the step function cdf of a
       probability distribution that places all of its probability at the
       observed value.
-
-### Generating oracle output data
-
-A hub will typically have access to data in time series format, and will
-need to convert it to the **oracle output** format for use with any tools
-that require it in that format (see the next section). In hubs that
-collect mean, median, quantile, or sample predictions for the reported
-signal values in the raw time series data, the two formats may be
-essentially the same, perhaps with some renaming of columns. However, in
-hubs that form predictions for quantities that are derived from the the
-raw time series data, such as the peak time or peak incidence, and in
-hubs that collect pmf or cdf predictions, the formats will differ more
-substantively.
 
 
 ## Examples of the oracle output format
