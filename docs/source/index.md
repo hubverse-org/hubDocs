@@ -96,7 +96,6 @@ user-guide/model-metadata.md
 user-guide/model-output.md
 user-guide/sample-output-type.md
 user-guide/target-data.md
-user-guide/target-data-details.md
 user-guide/model-abstracts.md
 user-guide/software.md
 user-guide/presentations.md
