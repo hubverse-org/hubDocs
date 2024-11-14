@@ -24,7 +24,26 @@ document.
 [^truth]: Time series data is sometimes referred to as "ground truth" data, but
     we no longer use this term in the hubverse.
 
-### Time series
+## Uses of target time series data and oracle output
+
+Each data format is useful for different purposes (see table below).
+Modelers will most often estimate model parameters by fitting to the raw
+data in time series format. Both data formats may be useful for
+different kinds of data visualizations; for example, a plot of time
+series predictions in quantile format may use the raw time series data,
+while a plot of pmf predictions for a categorical target may use the
+oracle output. The primary use case of oracle output is for evaluation.
+
+| Data Format   | Model Estimation | Plotting | Evaluation |
+|:--------------|:-----------------|:---------|:-----------|
+| Time series   | ✅               | ✅       |            |
+| Oracle output |                  | ✅       | ✅         |
+
+Common uses for target time series and oracle output data. A ✅
+indicates which data formats are most commonly used for each purpose.
+
+
+## Time series
 
 The first format is *time series* data. This is often the native or
 “raw” format for data. Each row of the data set contains one observed
@@ -48,7 +67,7 @@ restrictions that hubverse tools impose on data in this format is that
 it should have a column named `observation` and a column with a time
 index, such as `date` or `time`.
 
-### Oracle output
+## Oracle output
 
 Oracle output follows a format that is similar to a [hubverse model
 output
@@ -95,6 +114,16 @@ values are derived from distributions with a probability of 1 on the observed
 target.
 ```
 
+The oracle output is designed to align with [model
+output](#formats-of-model-output) task ID and model output representation
+columns. This allows the two to be merged so that `value` can be compared
+and evaluated against the corresponding `oracle_value`. The important
+difference between the outputs is that the oracle output is necessarily going
+to have a subset of the task ID columns as the model output data and, depending
+on the hub, may not have either of the model output representation columns.
+
+### Example
+
 Here is an example of this form of data, based on the forecasting
 example in `hubExamples`:
 
@@ -136,62 +165,31 @@ for compactness):
 | 1 | 25 | 2022-11-26 | wk inc flu hosp | quantile | 0.9 | 81 |
 | 1 | 25 | 2022-11-26 | wk inc flu hosp | quantile | 0.95 | 97 |
 
-A hub will typically have access to data in time series format, and will
-need to convert it to the **oracle output** format for use with any tools
-that require it in that format (see the next section). In hubs that
-collect mean, median, quantile, or sample predictions for the reported
-signal values in the raw time series data, the two formats may be
-essentially the same, perhaps with some renaming of columns. However, in
-hubs that form predictions for quantities that are derived from the the
-raw time series data, such as the peak time or peak incidence, and in
-hubs that collect pmf or cdf predictions, the formats will differ more
-substantively.
+### Task ID columns
 
-## Uses of target time series data and oracle output
+The model output can contain any number of task ID columns that are used to
+provide details about what is being predicted based on
 
-Each data format is useful for different purposes (see table below).
-Modelers will most often estimate model parameters by fitting to the raw
-data in time series format. Both data formats may be useful for
-different kinds of data visualizations; for example, a plot of time
-series predictions in quantile format may use the raw time series data,
-while a plot of pmf predictions for a categorical target may use the
-oracle output. The primary use case of oracle output is for evaluation.
+ - independent task ID variables (e.g. `location`, `target_date`, and
+   `age_group`),
+ - derived (dependent on other variables) task ID variables (e.g. `horizon`,
+   `reference_date`, `origin_date`), and
+ - scenario-specific task ID variables (e.g. `scenario_id`).
 
-| Data Format   | Model Estimation | Plotting | Evaluation |
-|:--------------|:-----------------|:---------|:-----------|
-| Time series   | ✅               | ✅       |            |
-| Oracle output |                  | ✅       | ✅         |
+### Model output representation columns
 
-Common uses for target time series and oracle output data. A ✅
-indicates which data formats are most commonly used for each purpose.
+**The `output_type` and `output_type_id` columns only need to be included if
+the hub collects `pmf` or `cdf` outputs.** As was described above, for those
+two output types the `oracle_value` depends on the `output_type_id`. On the
+other hand, the `oracle_value` is not specific to the quantile level for
+quantile forecasts or the sample index for sample forecasts, and so for these
+output types (as well as mean and median), the `output_type_id` is not needed
+to align observations with predictions.
 
-## How hubs should provide access to target time series data and oracle output
 
-Hubs should ensure that standardized procedures for accessing target
-data are available. The data formats that a hub provides may depend on
-the needs of the specific hub, and which hubverse tools the hub wants to
-use. For example, a hub that will not be conducting evaluations by
-comparing predictions to observed target values may not need to provide
-data in the oracle output format.
-
-Access to target time series data and oracle output can be provided in
-either of two ways:
-
-1.  by providing example code for accessing target time series data
-    and/or oracle output programmatically
-2.  by storing snapshots of the target time series data and/or oracle
-    output in the hub repository
-
-Following general conventions for storage of code related to modeling
-hubs, we recommend that any code for data access be provided in a
-separate repository following standard language-specific packaging
-guidelines, or if the code is small in scope it can be placed within the
-`src` folder of the hub’s repository.
-
-## More about the **oracle output** format
-
-Here, we describe the format of the oracle output in more detail. We
-begin with an abstract overview before providing some specific examples.
+**The oracle output will contain the independent task ID variables** that are
+necessary to match the `oracle_value` column with `value` column of the model
+output.
 
 ### The `oracle_value` column
 
@@ -219,42 +217,21 @@ was known with certainty. The implications of this vary depending on the
       probability distribution that places all of its probability at the
       observed value.
 
-### Oracle output vs model output
+### Generating oracle output data
 
-The oracle output is designed to align with [model
-output](#formats-of-model-output) task ID and model output representation
-columns. This allows the two to be merged so that `value` can be compared
-and evaluated against the corresponding `oracle_value`. The important
-difference between the outputs is that the oracle output is necessarily going
-to have a subset of the task ID columns as the model output data and, depending
-on the hub, may not have either of the model output representation columns.
+A hub will typically have access to data in time series format, and will
+need to convert it to the **oracle output** format for use with any tools
+that require it in that format (see the next section). In hubs that
+collect mean, median, quantile, or sample predictions for the reported
+signal values in the raw time series data, the two formats may be
+essentially the same, perhaps with some renaming of columns. However, in
+hubs that form predictions for quantities that are derived from the the
+raw time series data, such as the peak time or peak incidence, and in
+hubs that collect pmf or cdf predictions, the formats will differ more
+substantively.
 
-#### Model output representation columns
 
-**The `output_type` and `output_type_id` columns only need to be included if
-the hub collects `pmf` or `cdf` outputs.** As was described above, for those
-two output types the `oracle_value` depends on the `output_type_id`. On the
-other hand, the `oracle_value` is not specific to the quantile level for
-quantile forecasts or the sample index for sample forecasts, and so for these
-output types (as well as mean and median), the `output_type_id` is not needed
-to align observations with predictions.
-
-#### Task ID columns
-
-The model output can contain any number of task ID columns that are used to
-provide details about what is being predicted based on
-
- - independent task ID variables (e.g. `location`, `target_date`, and
-   `age_group`),
- - derived (dependent on other variables) task ID variables (e.g. `horizon`,
-   `reference_date`, `origin_date`), and
- - scenario-specific task ID variables (e.g. `scenario_id`).
-
-**The oracle output will contain the independent task ID variables** that are
-necessary to match the `oracle_value` column with `value` column of the model
-output.
-
-### Oracle output format: examples
+## Examples of the oracle output format
 
 We will illustrate the above concepts using the example forecast data
 from `hubExamples` that was discussed briefly in the overview section;
@@ -315,7 +292,7 @@ In addition, for the model output data, we are only showing the
 
 :::
 
-#### Output type `mean`
+### Output type `mean`
 
 :::{table} A subset of **model output** showing `mean` predictions across four horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -343,7 +320,7 @@ week ending on 2022-11-19. This can be viewed as the mean of a
 value. The use of `<NA>` for the `output_type_id` matches the convention
 for model output with the mean output type.
 
-#### Output type `median`
+### Output type `median`
 
 :::{table} A subset of **model output** showing `median` predictions across four horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -369,7 +346,7 @@ the median of a distribution that is entirely concentrated on that
 observed value. Again, the use of `<NA>` for the `output_type_id`
 matches the convention for model output with the median output type.
 
-#### Output type `quantile`
+### Output type `quantile`
 
 :::{table} A subset of **model output** showing `quantile` predictions across two horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -408,7 +385,7 @@ level reported in the `output_type_id` column. As a space-saving
 convention, we use `output_type_id = <NA>` to indicate that this
 `oracle_value` applies to all quantile levels.
 
-#### Output type `sample`
+### Output type `sample`
 
 :::{table} A subset of **model output** showing 6 `sample` predictions across one horizon
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -438,7 +415,7 @@ have a separate row for each sample, with the sample index recorded in
 the `output_type_id` column. We use `output_type_id = <NA>` to indicate
 that this `oracle_value` applies to all predictive samples.
 
-#### Output type `pmf`
+### Output type `pmf`
 
 :::{table} A subset of **model output** showing `pmf` predictions across three horizons
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -479,7 +456,7 @@ subsequent three rows indicates that the observed rate category in
 Massachusettes on the week of 2022-11-19 was `"low"` while the week of
 2022-11-26 was `"moderate"`.
 
-#### Output type `cdf`
+### Output type `cdf`
 
 :::{table} A subset of **model output** showing `cdf` predictions in a single horizon
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
@@ -509,3 +486,27 @@ observed hospitalization rate in the US in the week of 2022-11-19 was
 greater than 1 but less than or equal to 1.25. These `oracle_value`s
 encode a step function CDF that is equal to 0 when the `output_type_id`
 is less than the observed rate and jumps to 1 at the observed rate.
+
+## How hubs should provide access to target time series data and oracle output
+
+Hubs should ensure that standardized procedures for accessing target
+data are available. The data formats that a hub provides may depend on
+the needs of the specific hub, and which hubverse tools the hub wants to
+use. For example, a hub that will not be conducting evaluations by
+comparing predictions to observed target values may not need to provide
+data in the oracle output format.
+
+Access to target time series data and oracle output can be provided in
+either of two ways:
+
+1.  by providing example code for accessing target time series data
+    and/or oracle output programmatically
+2.  by storing snapshots of the target time series data and/or oracle
+    output in the hub repository in the `target-data` folder.
+
+Following general conventions for storage of code related to modeling
+hubs, we recommend that any code for data access be provided in a
+separate repository following standard language-specific packaging
+guidelines, or if the code is small in scope it can be placed within the
+`src` folder of the hub’s repository.
+
