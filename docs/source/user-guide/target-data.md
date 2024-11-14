@@ -176,6 +176,10 @@ provide details about what is being predicted based on
    `reference_date`, `origin_date`), and
  - scenario-specific task ID variables (e.g. `scenario_id`).
 
+**The oracle output will contain the independent task ID variables** that are
+necessary to match the `oracle_value` column with `value` column of the model
+output.
+
 ### Model output representation columns
 
 **The `output_type` and `output_type_id` columns only need to be included if
@@ -185,11 +189,6 @@ other hand, the `oracle_value` is not specific to the quantile level for
 quantile forecasts or the sample index for sample forecasts, and so for these
 output types (as well as mean and median), the `output_type_id` is not needed
 to align observations with predictions.
-
-
-**The oracle output will contain the independent task ID variables** that are
-necessary to match the `oracle_value` column with `value` column of the model
-output.
 
 ### The `oracle_value` column
 
