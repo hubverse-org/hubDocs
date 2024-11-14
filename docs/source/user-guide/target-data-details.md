@@ -21,8 +21,8 @@ oracle output data for model evaluations. We describe these formats briefly
 here, and give more detail about the oracle outputs in the remainder of this
 document.
 
-[^truth]: this is sometimes referred to as “ground truth” data, but we no longer
-use this term in the hubverse.
+[^truth]: Time series data is sometimes referred to as "ground truth" data, but
+    we no longer use this term in the hubverse.
 
 ### Time series
 
@@ -68,17 +68,19 @@ with three main differences:
 
 <!--
 library("ggplot2")
-ggplot(data.frame(value = rnorm(1e3, 1), output = "model"), aes(x = value)) +
-  geom_density(aes(fill = output)) +
-  geom_segment(aes(y = 0, yend = 1, color = output), data = data.frame(value = 2, output = "or
-acle"), size = 2) +
-  scale_color_manual(values = 'blue') +
-  guides(fill = guide_legend(theme = theme(legend.title = element_blank()))) +
-  theme_classic(base_size = 16) +
-  labs(y = "probability", x = "model value / oracle value") +
-  theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8), legend.spacing = uni
-t(0, "npc"))
-  ggsave(here::here("docs/source/images/oracle-model-output.png"), width = 7, height = 4, dpi = 150)
+withr::with_seed(5, {
+  ggplot(data.frame(value = rnorm(1e3, 1), output = "model"), aes(x = value)) +
+    geom_density(aes(fill = output)) +
+    geom_segment(aes(y = 0, yend = 1, color = output), data = data.frame(value = 2, output = "or
+  acle"), size = 2) +
+    scale_color_manual(values = 'blue') +
+    guides(fill = guide_legend(theme = theme(legend.title = element_blank()))) +
+    theme_classic(base_size = 16) +
+    labs(y = "probability", x = "model value / oracle value") +
+    theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8), legend.spacing = uni
+  t(0, "npc"))
+    ggsave(here::here("docs/source/images/oracle-model-output.png"), width = 7, height = 4, dpi = 150)
+})
 --->
 
 ```{figure} ../images/oracle-model-output.png
@@ -106,7 +108,7 @@ In this example, the observed weekly influenza hospitalization count in
 MA on the week ending 2022-11-19 was 79. A probability distribution that
 places probability 1 on that outcome will have all quantiles equal to
 that observed value, so 79 appears as the `oracle_value` for quantile
-outputs for that `location` and `target_end_date`. The use of ``<NA>`` for
+outputs for that `location` and `target_end_date`. The use of `<NA>` for
 the `output_type_id` represents the fact that this `oracle_value` is
 relevant for all quantile levels; this convention will be described in
 more detail below.
@@ -294,7 +296,7 @@ each `output_type`. We highlight two points about these objects:
   outputs, but they are not included in the oracle output.
 - In this example, the **oracle output** for the `mean`, `median`,
   `quantile`, and `sample` output types are all the same, and they
-  contain `NA` values for the `output_type_id`. In a hub without `pmf`
+  contain `<NA>` values for the `output_type_id`. In a hub without `pmf`
   or `cdf` output types, the `output_type` and `output_type_id` columns
   could be omitted and this duplication could be eliminated.
 
@@ -337,7 +339,7 @@ the prediction target. Here, the first row of the oracle output
 indicates that 79 flu hospitalizations were reported in Massachusettes for the
 week ending on 2022-11-19. This can be viewed as the mean of a
 “predictive distribution” that is entirely concentrated on that observed
-value. The use of ``<NA>`` for the `output_type_id` matches the convention
+value. The use of `<NA>` for the `output_type_id` matches the convention
 for model output with the mean output type.
 
 #### Output type `median`
@@ -352,7 +354,7 @@ for model output with the mean output type.
 :::
 
 :::{table} The `median` **oracle output** from 19 November to 10 December 2022
-| location | target_end_date | target | output_type | output_type_id | observation |
+| location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
 | 25 | 2022-11-19 | wk inc flu hosp | median | `<NA>` | 79 |
 | 25 | 2022-11-26 | wk inc flu hosp | median | `<NA>` | 221 |
@@ -363,7 +365,7 @@ for model output with the mean output type.
 The `oracle_value` for the `median` output type is the same as for the
 `mean` output type: the numeric value of the prediction target. This is
 the median of a distribution that is entirely concentrated on that
-observed value. Again, the use of ``<NA>`` for the `output_type_id`
+observed value. Again, the use of `<NA>` for the `output_type_id`
 matches the convention for model output with the median output type.
 
 #### Output type `quantile`
@@ -388,7 +390,7 @@ matches the convention for model output with the median output type.
 :::
 
 :::{table} The `quantile` **oracle output** from 19 November to 10 December 2022
-| location | target_end_date | target | output_type | output_type_id | observation |
+| location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
 | 25 | 2022-11-19 | wk inc flu hosp | quantile | `<NA>` | 79 |
 | 25 | 2022-11-26 | wk inc flu hosp | quantile | `<NA>` | 221 |
@@ -419,7 +421,7 @@ convention, we use `output_type_id = <NA>` to indicate that this
 :::
 
 :::{table} The `sample` **oracle output** from 19 November to 10 December 2022
-| location | target_end_date | target | output_type | output_type_id | observation |
+| location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
 | 25 | 2022-11-19 | wk inc flu hosp | sample | `<NA>` | 79 |
 | 25 | 2022-11-26 | wk inc flu hosp | sample | `<NA>` | 221 |
@@ -455,7 +457,7 @@ that this `oracle_value` applies to all predictive samples.
 :::
 
 :::{table} The `pmf` **oracle output** from 19 November to 03 December 2022
-| location | target_end_date | target | output_type | output_type_id | observation |
+| location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
 | 25 | 2022-11-19 | wk flu hosp rate category | pmf | low | 1 |
 | 25 | 2022-11-19 | wk flu hosp rate category | pmf | moderate | 0 |
@@ -490,7 +492,7 @@ Massachusettes on the week of 2022-11-19 was `"low"` while the week of
 :::
 
 :::{table} A subset of the `cdf` **oracle output** for 19 November 2022
-| location | target_end_date | target | output_type | output_type_id | observation |
+| location | target_end_date | target | output_type | output_type_id | oracle_value |
 |:---|:---|:---|:---|:---|---:|
 | 25 | 2022-11-19 | wk flu hosp rate | cdf | 0.25 | 0 |
 | 25 | 2022-11-19 | wk flu hosp rate | cdf | 0.5 | 0 |
