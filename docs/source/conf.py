@@ -61,6 +61,7 @@ html_logo = 'images/LOGO-hubverse-withtext.png'
 html_favicon = 'images/hubverse-favicon.png'
 html_title = 'Hubverse'
 html_theme_options = {
+    "show_navbar_depth": 0,
     "home_page_in_toc": False,
     #"github_url": "https://github.com/hubverse-org/hubDocs",
     "repository_url": "https://github.com/hubverse-org/hubDocs",
