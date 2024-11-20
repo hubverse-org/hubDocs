@@ -18,4 +18,4 @@ if response.status_code == 200:
                 f"- [{contributor['login']}]({contributor['html_url']})\n"
             )
 else:
-    print(f"Failed to fetch contributors: {response.status_code}")
+    print(f"Failed to fetch contributors: {response.status_code} - {response.json()}")
