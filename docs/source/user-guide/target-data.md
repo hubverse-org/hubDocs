@@ -82,9 +82,9 @@ with three main differences:
 - Generally, the columns of the oracle output will
   be a subset of the columns of valid model output for the hub, with
   just those columns that are needed to correctly align `oracle_value`s
-  with the corresponding predicted `value`s produced by modelers. 
+  with the corresponding predicted `value`s produced by modelers.
   We introduce some conventions to avoid duplication of data, described
-  in more detail below. 
+  in more detail below.
 
 <!--
 library("ggplot2")
@@ -122,6 +122,7 @@ difference between the outputs is that the oracle output is necessarily going
 to have a subset of the task ID columns as the model output data and, depending
 on the hub, may not have either of the model output representation columns.
 
+(oracle-intro-example)=
 ### Example
 
 Here is an example of this form of data, based on the forecasting
@@ -181,18 +182,24 @@ model output representation columns.
 
 ### Task ID columns
 
-The model output can contain any number of task ID columns that are used to
-provide details about what is being predicted based on
+**The oracle output should include enough of the task ID variables to uniquely
+identify which `oracle_values` correspond to which predicted values.** In the
+[above oracle output example](#oracle-intro-example), the `location`,
+`target_end_date`, and `target` columns are included because they are necessary
+to identify _where_ and _when_ a given _target_ was measured as the
+`oracle_value`.
 
- - independent task ID variables (e.g. `location`, `target_date`, and
-   `age_group`),
- - derived (dependent on other variables) task ID variables (e.g. `horizon`,
-   `reference_date`, `origin_date`), and
- - scenario-specific task ID variables (e.g. `scenario_id`).
+Similarly, **any task ID variables that are not necessary to match observations
+with predictions can be omitted from the oracle output.** In the [above oracle
+output example](#oracle-intro-example), the `horizon`, `model_id`, and
+`reference_date` columns are not included. Both `horizon` and `reference_date`
+are related to the `target_end_date` and thus would be redundant. Importantly,
+_these task ID variables are not applicable for observed data_---they are used
+for describing model-specific parameters about unknown events. Likewise, in a
+scenario projection setting, the `scenario_id` can be omitted as there is only
+one scenario for an observed event[^quanta].
 
-**The oracle output will contain the independent task ID variables** that are
-necessary to match the `oracle_value` column with `value` column of the model
-output.
+[^quanta]: just don't tell the quantum physicists.
 
 ### Model output representation columns
 
