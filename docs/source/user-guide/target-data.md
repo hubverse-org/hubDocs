@@ -204,8 +204,9 @@ one scenario for an observed event[^quanta].
 ### Model output representation columns
 
 **The `output_type` and `output_type_id` columns only need to be included if
-the hub collects `pmf` or `cdf` outputs.** As was described above, for those
-two output types the `oracle_value` depends on the `output_type_id`. On the
+the hub collects `pmf` or `cdf` outputs.** For those two output types the
+`oracle_value` depends on the `output_type_id` (see the next section for more
+detail). On the
 other hand, the `oracle_value` is not specific to the quantile level for
 quantile forecasts or the sample index for sample forecasts, and so for these
 output types (as well as mean and median), the `output_type_id` is not needed
@@ -291,7 +292,7 @@ These examples are all collected and filtered from [the `hubExamples` package](h
 10,000 rows and the oracle output data has over 200,000 rows.
 
 To make comparisons easier, we have subset the data to Massachusettes (FIPS code
-25) with four target end dates between 2022-11-19 and 2022-12-10.
+25) with one `reference_date` of 2022-11-19 and four target end dates between 2022-11-19 and 2022-12-10.
 
 In addition, for the model output data, we are only showing the
 `Flusight-baseline` model for the 2022-11-19 reference date and removing the
@@ -394,7 +395,7 @@ convention, we use `output_type_id = <NA>` to indicate that this
 
 ### Output type `sample`
 
-:::{table} A subset of **model output** showing 6 `sample` predictions across one horizon
+:::{table} A subset of **model output** showing 6 `sample` predictions at one horizon
 | horizon | location | target_end_date | target | output_type | output_type_id | value |
 |---:|:---|:---|:---|:---|:---|---:|
 | 0 | 25 | 2022-11-19 | wk inc flu hosp | sample | 2101 | -2 |
@@ -460,7 +461,7 @@ that this `oracle_value` applies to all predictive samples.
 
 The presence of a `1` for the `oracle_value` in the first row and `0` in the
 subsequent three rows indicates that the observed rate category in
-Massachusettes on the week of 2022-11-19 was `"low"` while the week of
+Massachusettes on the week of 2022-11-19 was `"low"`. Similarly, the observed rate category for the week of
 2022-11-26 was `"moderate"`.
 
 ### Output type `cdf`
