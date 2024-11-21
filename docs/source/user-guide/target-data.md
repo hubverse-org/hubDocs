@@ -173,11 +173,10 @@ need to convert it to the **oracle output** format for use with any tools
 that require it in that format (see the next section). In hubs that
 collect mean, median, quantile, or sample predictions for the reported
 signal values in the raw time series data, the two formats may be
-essentially the same, perhaps with some renaming of columns. However, in
-hubs that form predictions for quantities that are derived from the the
-raw time series data, such as the peak time or peak incidence, and in
-hubs that collect pmf or cdf predictions, the formats require the presence of
-model output representation columns.
+essentially the same, perhaps with some renaming of columns. However,
+these data formats will differ more in hubs that form predictions for quantities
+that are derived from the the raw time series data, such as the peak time or
+peak incidence, and in hubs that collect pmf or cdf predictions.
 
 
 ### Task ID columns
