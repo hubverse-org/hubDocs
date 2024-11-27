@@ -51,7 +51,7 @@ Moreover, these tables are presented in a [long/narrow representation](https://e
 
 #### Special task ID variables
 
-Task ID variables are used to parameterize modeling efforts. 
+Task ID variables are used to parameterize modeling efforts.
 However, some task ID variables serve specific purposes in defining submission rounds and targets.
 Every hub must have **a single task ID variable that uniquely defines a submission round.**
 It has become a convention to use a task ID formatted in the `YYYY-MM-DD` format (e.g., `origin_date` or `forecast_date`). 
@@ -61,6 +61,30 @@ There can be **one or more task ID variables to define a modeling "target"** (th
 For example, in our [Running Example 1](#running-example-1), the task ID variables are `target`, `location`, and `origin_date`.
 In this example, `target` is the target key and can only take on one value, "inc covid hosp".
 
+#### Derived Task ID variables
+
+Each model output is defined on the unique combinations across the task ID
+variables. For example, across 10 `origin_date`s and 50 `location`s, there are
+500 unique combinations of tasks because both of these variables are
+independent from one another. Some task ID variables have a more direct
+relationship. One example is `target_date`, which is the date of occurrence of
+the outcome of interest. This task ID is specific for modelling efforts in that
+it is _derived_ from the `origin_date` and `horizon` task ID.
+
+If we had 4 `horizon` values, along with the 10 `origin_dates`, we would have a total of 40 `target_date`s. There are 20,000 _unique_ combinations across 10
+`origin_date`s, 50 `locations` and the 40 `target_dates`, but there are only
+2,000 _valid and unique_ combinations. While this task ID is useful for modeling
+and visualizations, it must be ignored during validation.
+
+In schemas version 4.0.0, we introduced `derived_task_ids` properties to enable
+hub administrators to define derived task IDs (i.e. task IDs whose values
+depend on the values of other task IDs). The higher level `derived_task_ids
+property` sets the property globally at the hub level but can be overriden by
+the round level `derived_task_ids` property. The property allows for primarily
+validation functionality to ignore such task IDs when appropriate which can
+significantly improve validation efficency. For more information see the
+[hubValidations documentation on ignoring derived task
+IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
 
 #### Proposed standard of task ID variables
 
