@@ -60,6 +60,16 @@ th, td {
   text-align: center;
 }
 
+.highlight .hll {
+  border-style: solid;
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+
+.highlight .hll .linenos {
+    font-style: italic
+}
+
 html[data-theme="light"] {
     code.literal {
       color: #1B579D !important;
@@ -68,6 +78,10 @@ html[data-theme="light"] {
     code.codeitem {
         font-weight: bold;
         background-color: #FDFD9B !important;
+    }
+    /* the default highlight in light mode gives contrast problems with numerals*/
+    .highlight .hll {
+      background-color: azure
     }
 }
 
