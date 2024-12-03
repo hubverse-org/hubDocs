@@ -108,12 +108,12 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required, but at least one of the `optional` values is expected**.  
 - There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below; on lines 8--14, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. 
-  However, shown on lines 43--50, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value (`NA`) is expected in the `horizon` column in model output files.
+  However, shown on lines 30--36, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value (`NA`) is expected in the `horizon` column in model output files.
 
 ```{code-block} json
 :force: true
 :lineno-start: 1
-:emphasize-lines: 8-14,43-50
+:emphasize-lines: 8-14,30-36
 "model_tasks": [
     {
         "task_ids": {
@@ -135,20 +135,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
             }
         },
         "output_type": {...},
-        "target_metadata": [
-            {
-                "target_id": "inc covid hosp",
-                "target_name": "Daily incident COVID hospitalizations",
-                "target_units": "count",
-                "target_keys": {
-                    "target": "inc covid hosp"
-                },
-                "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
-                "target_type": "discrete",
-                "is_step_ahead": true,
-                "time_unit": "day"
-            }
-        ]
+        "target_metadata": [...]
     },
     {
         "task_ids": {
@@ -170,19 +157,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
             }
         },
         "output_type": {...},
-        "target_metadata": [
-            {
-                "target_id": "peak size hosp",
-                "target_name": "COVID-19 peak size hospitalizations",
-                "target_units": "count",
-                "target_keys": {
-                    "target": "peak size hosp"
-                },
-                "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
-                "target_type": "discrete",
-                "is_step_ahead": false
-            }
-        ]
+        "target_metadata": [...]
     }
 ]
 ```
@@ -218,9 +193,9 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 
 ### 6.2. Setting up `"quantile"`:  
 - Here, `quantile`{.codeitem} specifies what quantiles of the predictive distribution are valid values for a submission file.  
-- In this case, `"output_type_id"`{.codeitem} establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
-- As before, `"value"`{.codeitem} sets the characteristics of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
-- `"is_required"`{.codeitem} defines if a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
+- In this case, `"output_type_id"`{.codeitem} (line 2) establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
+- As before, `"value"`{.codeitem} (line 29) sets the characteristics of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+- `"is_required"`{.codeitem} (line 33) defines if a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
 
 [^quant-fail]: During validation, the quantil output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
 
@@ -264,19 +239,34 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ```
 
 ## Step 7: Defining `"target_metadata"`:  
-- `"target_metadata"` defines the characteristics of each unique `target`.  
-- <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
-- <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
-- <mark style="background-color: #38C7ED">`"target_units"` indicates</mark> the unit of observation used for this target.  In this instance, the unit is count.  
-- <mark style="background-color: #F50088">`"target_keys"` must match</mark> a target set in `task_ids`, to appropriately identify it.  In this instance, the target is `"inc covid hosp"`.  
-- The `"description"` is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
-- <mark style="background-color: #FF4D18">The `"target_type"` defines</mark> the target's statistical data type. In this instance, the target uses discrete data.  
-- <mark style="background-color: #FFE331">`"is_step_ahead"` indicates</mark> whether the target is part of a sequence of values.  In this instance, it is.  
-- <mark style="background-color: #32E331">`"time_unit"` defines</mark> the units of the time steps. In this case, it is days.  
+- `"target_metadata"`{.codeitem} defines the characteristics of each unique `target`.  
+- To begin with, `"target_id"`{.codeitem} is a short description that uniquely identifies the target.  
+- Similarly, `"target_name"`{.codeitem} provides a longer, human readable description of the target.  
+- `"target_units"`{.codeitem} indicates the unit of observation used for this target.  In this instance, the unit is count.  
+- `"target_keys"`{.codeitem} must match a target set in `task_ids`, to appropriately identify it.  In this instance, the target is `"inc covid hosp"`.  
+- The `"description"`{.codeitem} is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
+- The `"target_type"`{.codeitem} defines the target's statistical data type. In this instance, the target uses discrete data.  
+- `"is_step_ahead"`{.codeitem} indicates whether the target is part of a sequence of values.  In this instance, it is.  
+- `"time_unit"`{.codeitem} defines the units of the time steps. In this case, it is days.  
 
-```{image} ../images/tasks-schema-7.png
-:alt: Target metadata lines of code in the tasks.json file
-:class: bordered
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"target_metadata": [
+    {
+        "target_id": "inc covid hosp",
+        "target_name": "Daily incident COVID hospitalizations",
+        "target_units": "count",
+        "target_keys": {
+            "target": "inc covid hosp"
+        },
+        "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+        "target_type": "discrete",
+        "is_step_ahead": true,
+        "time_unit": "day"
+    }
+]
 ```
 
 ## Step 8: Set up `"submissions_due"`:  
@@ -311,7 +301,8 @@ Once all modeling tasks and rounds have been configured, you may also choose to 
 
 This property should be provided at the top level of `tasks.json` (i.e., sibling to `rounds` and `schema_version`) and can take any of the following values: `"auto"`, `"character"`, `"double"`, `"integer"`, `"logical"`, `"Date"`.
 
-```json
+```{code-block} json
+:force: true
 {
   "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
   "rounds": [...],
