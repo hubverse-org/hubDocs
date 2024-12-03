@@ -51,7 +51,8 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
     "colon_fence",
-    "attrs_inline"
+    "attrs_inline",
+    "attrs_block"
 ]
 
 # -- Options for HTML output

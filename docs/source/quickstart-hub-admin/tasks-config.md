@@ -107,28 +107,32 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required, but at least one of the `optional` values is expected**.  
-- There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. However, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and `NA` is expected in the `horizon` column in model output files.  
+- There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below; on lines 8--14, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. 
+  However, shown on lines 43--50, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value (`NA`) is expected in the `horizon` column in model output files.
 
-```
+```{code-block} json
+:force: true
+:lineno-start: 1
+:emphasize-lines: 8-14,43-50
 "model_tasks": [
     {
         "task_ids": {
             "origin_date": {
                 "required": null,
-                    "optional": ["2022-11-28"]
+                "optional": ["2022-11-28"]
             },
-                "target": {
-                    "required": ["inc covid hosp"],
-                    "optional": null
-                },
-                "horizon": {
-                    "required": null,
-                    "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                },
-                "location": {
-                    "required": ["US"],
-                    "optional": null
-                }
+            "target": {
+                "required": ["inc covid hosp"],
+                "optional": null
+            },
+            "horizon": {
+                "required": null,
+                "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            },
+            "location": {
+                "required": ["US"],
+                "optional": null
+            }
         },
         "output_type": {...},
         "target_metadata": [
@@ -187,15 +191,29 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 - The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, which establish the valid values that can be entered for this output type.  
 
 ### 6.1. Setting the `"mean"`:  
-- <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`[^missy], whereas the one that is not selected should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
-- <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
-[^missy]: `NA` (without quotes) is how missingness is represented in R. This notation may seem a bit strange, but it allows us to indicate what we expect to see from modeler submissions.
+- Here, the `"mean"`{.codeitem} of the predictive distribution is set as a valid value for a submission file.  
+- `"output_type_id"`{.codeitem} must be `null` for all point estimates (mean,
+  median, etc). No output type IDs for these estimates are applicable, so in a
+  model submission file, they are represented as missing data[^missy].
+- `"value"`{.codeitem} sets the characteristics of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
+- `"is_required"`{.codeitem} defines if a mean prediction is required (`true`) or if it is optional (`false`). The code below shows that the mean output type is optional. 
 
-```{image} ../images/tasks-schema-6-1.png
-:alt: Some more lines of code in the tasks.json file
-:class: bordered
+[^missy]: In a CSV file, this is represented as `NA` (without quotes) and it is how missingness is represented in R. This was chosen explicitly over a blank cell because the difference between a blank cell and a single-space cell is not always visible. 
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"mean": {
+    "output_type_id": {
+        "required": null
+    },
+    "value": {
+        "type": "integer",
+        "minimum": 0
+    },
+    "is_required": false
+}
 ```
 
 ### 6.2. Setting up `"quantile"`:  
