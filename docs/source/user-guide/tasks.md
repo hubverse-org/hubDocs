@@ -76,7 +76,7 @@ If we had 4 `horizon` values, along with the 10 `origin_dates`, we would have a 
 2,000 _valid and unique_ combinations. While this task ID is useful for modeling
 and visualizations, it must be ignored during validation.
 
-In schemas version 4.0.0, we introduced `derived_task_ids` properties to enable
+In schema version 4.0.0, we introduced `derived_task_ids` properties to enable
 hub administrators to define derived task IDs (i.e. task IDs whose values
 depend on the values of other task IDs). The higher level `derived_task_ids
 property` sets the property globally at the hub level but can be overriden by
