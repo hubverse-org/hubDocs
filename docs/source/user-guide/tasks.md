@@ -99,7 +99,7 @@ check failure. The table below shows an expanded grid of `horizon`, `origin_date
 ```{table} validation will provide false errors if there are unspecified derived task IDs
 
 | `origin_date` | `horizon` | `target_date` | valid | `derived_task_ids:` `null` | `derived_task_ids:` `["target_date"]` |
-| ----------    | --------- | ------------- | ----------------- | ------------------------ | ----------------------------------- |
+| ------------- | --------- | ------------- | ----- | ------------------------ | ----------------------------------- |
 | 2024-11-07 | 1 | 2024-11-14 | 🆗 | ✅ | ✅ |
 | 2024-11-07 | 2 | 2024-11-21 | 🆗 | ✅ | ✅ |
 | 2024-11-07 | 1 | 2024-11-21 | 🚫 | ❌ | NA |
