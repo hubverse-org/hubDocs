@@ -217,14 +217,50 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ```
 
 ### 6.2. Setting up `"quantile"`:  
-- <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
-- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.  
-- <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+- Here, `quantile`{.codeitem} specifies what quantiles of the predictive distribution are valid values for a submission file.  
+- In this case, `"output_type_id"`{.codeitem} establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
+- As before, `"value"`{.codeitem} sets the characteristics of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+- `"is_required"`{.codeitem} defines if a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
 
-```{image} ../images/tasks-schema-6-2.png
-:alt: And more lines of code in the tasks.json file
-:class: bordered
-:width: 300px
+[^quant-fail]: During validation, the quantil output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"quantile": {
+    "output_type_id": {
+        "required": [
+            0.01,
+            0.025,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.95,
+            0.975,
+            0.99,
+        ]
+    },
+    "value": {
+        "type": "integer",
+        "minimum": 0
+    },
+    "is_required": true
+}
 ```
 
 ## Step 7: Defining `"target_metadata"`:  
