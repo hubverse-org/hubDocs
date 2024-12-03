@@ -64,17 +64,21 @@ In this example, `target` is the target key and can only take on one value, "inc
 #### Derived Task ID variables
 
 Each model output is defined on the unique combinations across the task ID
-variables. For example, across 10 `origin_date`s and 50 `location`s, there are
-500 unique combinations of tasks because both of these variables are
-independent from one another. Some task ID variables have a more direct
-relationship. One example is `target_date`, which is the date of occurrence of
-the outcome of interest. This task ID is specific for modelling efforts in that
-it is _derived_ from the `origin_date` and `horizon` task ID.
+variables. For example, across 2 `origin_date`s and 3 `location`s, there are 6
+unique combinations of tasks because both of these variables are orthogonal to
+one another. **Derived task ID variables have a direct one to one relationship
+with other variables**. One example is `target_date`, which is the date of
+occurrence of the outcome of interest. This task ID is specific for modelling
+efforts in that it is _derived_ from the `origin_date` and `horizon` task ID.
+For example, a weekly forecast with a given `origin_date` of "2024-11-07" and
+horizon of 1 has _a single valid_ `target_date` value of "2024-11-14".
 
-If we had 4 `horizon` values, along with the 10 `origin_dates`, we would have a total of 40 `target_date`s. There are 20,000 _unique_ combinations across 10
-`origin_date`s, 50 `locations` and the 40 `target_dates`, but there are only
-2,000 _valid and unique_ combinations. While this task ID is useful for modeling
-and visualizations, it must be ignored during validation.
+If we had 4 `horizon` values, along with the 2 `origin_dates`, we would have a
+total of 8 `target_date`s. There are 192 _unique_ combinations across 4
+`horizon`s, 2 `origin_date`s, 3 `locations` and the 8 `target_dates`, but there
+are only 192/8=24 _valid and unique_ combinations because the 8 `target_date`s
+are _derived_. While this task ID is useful for modeling and visualizations, it
+must be ignored during validation.
 
 In schema version 4.0.0, we introduced `derived_task_ids` properties to enable
 hub administrators to define derived task IDs (i.e. task IDs whose values
@@ -85,6 +89,28 @@ validation functionality to ignore such task IDs when appropriate which can
 significantly improve validation efficency. For more information see the
 [hubValidations documentation on ignoring derived task
 IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
+
+:::{note}
+If any of the task IDs a derived task ID depends on have `required` values, **it is essential for `derived_task_ids` to be specified**, otherwise, this will result in false validation errors. For example, if you have two required `horizon` values of 1 and 2, then you _must_ include `target_date` in `derived_task_ids`.
+Without specifying this, you will end up with a
+[`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
+check failure. The table below shows an expanded grid of `horizon`, `origin_date`, and `target_date` for a single `origin_date` and two `horizons` with the results of the `req_vals` check if `derived_task_ids` is unspecified (null) or set to `target_date`:
+
+```{table} validation will provide false errors if there are unspecified derived task IDs
+
+| `origin_date` | `horizon` | `target_date` | valid | `derived_task_ids:` `null` | `derived_task_ids:` `["target_date"]` |
+| ----------    | --------- | ------------- | ----------------- | ------------------------ | ----------------------------------- |
+| 2024-11-07 | 1 | 2024-11-14 | 🆗 | ✅ | ✅ |
+| 2024-11-07 | 2 | 2024-11-21 | 🆗 | ✅ | ✅ |
+| 2024-11-07 | 1 | 2024-11-21 | 🚫 | ❌ | NA |
+| 2024-11-07 | 2 | 2024-11-14 | 🚫 | ❌ | NA |
+
+```
+
+As shown in the last column of the above table, the `req_vals` validation passes when `derived_task_ids` is set to `["target_date"]`.
+
+
+:::
 
 #### Proposed standard of task ID variables
 
