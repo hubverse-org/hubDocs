@@ -110,75 +110,77 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 - There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. However, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and `NA` is expected in the `horizon` column in model output files.  
 
 ```
-"model_tasks": [{
-                "task_ids": {
-                    "origin_date": {
-                        "required": null,
-                        "optional": ["2022-11-28"]
-                    },
-                    "target": {
-                        "required": ["inc covid hosp"],
-                        "optional": null
-                    },
-                    "horizon": {
-                        "required": null,
-                        "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                    },
-                    "location": {
-                        "required": ["US"],
-                        "optional": null
-                    }
+"model_tasks": [
+    {
+        "task_ids": {
+            "origin_date": {
+                "required": null,
+                    "optional": ["2022-11-28"]
+            },
+                "target": {
+                    "required": ["inc covid hosp"],
+                    "optional": null
                 },
-                "output_type": {...},
-                "target_metadata": [
-                    {
-                       "target_id": "inc covid hosp",
-                       "target_name": "Daily incident COVID hospitalizations",
-                       "target_units": "count",
-                       "target_keys": {
-                           "target": "inc covid hosp"
-                       },
-                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
-                       "target_type": "discrete",
-                       "is_step_ahead": true,
-                       "time_unit": "day"
-                    }
-                ],
-            "task_ids": {
-                    "origin_date": {
-                        "required": null,
-                        "optional": ["2022-11-28"]
-                    },
-                    "target": {
-                        "required": ["peak size hosp"],
-                        "optional": null
-                    },
-                    "horizon": {
-                        "required": null,
-                        "optional": null
-                    },
-                    "location": {
-                        "required": ["US"],
-                        "optional": null
-                    }
+                "horizon": {
+                    "required": null,
+                    "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 },
-                "output_type": {...},
-                "target_metadata": [
-                    {
-                       "target_id": "peak size hosp",
-                       "target_name": "COVID-19 peak size hospitalizations",
-                       "target_units": "count",
-                       "target_keys": {
-                           "target": "peak size hosp"
-                       },
-                       "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
-                       "target_type": "discrete",
-                       "is_step_ahead": false
-                    }
-                ]
-            }]
-
-
+                "location": {
+                    "required": ["US"],
+                    "optional": null
+                }
+        },
+        "output_type": {...},
+        "target_metadata": [
+            {
+                "target_id": "inc covid hosp",
+                "target_name": "Daily incident COVID hospitalizations",
+                "target_units": "count",
+                "target_keys": {
+                    "target": "inc covid hosp"
+                },
+                "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+                "target_type": "discrete",
+                "is_step_ahead": true,
+                "time_unit": "day"
+            }
+        ]
+    },
+    {
+        "task_ids": {
+            "origin_date": {
+                "required": null,
+                "optional": ["2022-11-28"]
+            },
+            "target": {
+                "required": ["peak size hosp"],
+                "optional": null
+            },
+            "horizon": {
+                "required": null,
+                "optional": null
+            },
+            "location": {
+                "required": ["US"],
+                "optional": null
+            }
+        },
+        "output_type": {...},
+        "target_metadata": [
+            {
+                "target_id": "peak size hosp",
+                "target_name": "COVID-19 peak size hospitalizations",
+                "target_units": "count",
+                "target_keys": {
+                    "target": "peak size hosp"
+                },
+                "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
+                "target_type": "discrete",
+                "is_step_ahead": false
+            }
+        ]
+    }
+]
 ```
 
 ## Step 6: Define `"output_type"`:  
