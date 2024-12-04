@@ -63,9 +63,9 @@ In this example, `target` is the target key and can only take on one value, "inc
 
 #### Derived Task ID variables
 
-Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID (let's say "2024-11-07"), 2 `locations`, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `locations` × 2 `horizon`s). 
+Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID (let's say "2024-11-07"), 2 `location`s, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `location`s × 2 `horizon`s). 
 
-**However, some task variables are derived directly from others.** For instance, `target_date` represents when the outcome of interest occurs and is calculated based on the `origin_date` and `horizon`. If the `origin_date` is "2024-11-07" and the `horizon` is 1 week, the `target_date` will be "2024-11-14." For a `horizon` of 2 weeks, the `target_date` will be "2024-11-21." Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from.
+**However, some task ID variables are derived directly from others.** For instance, `target_date` represents when the outcome of interest occurs and is calculated based on the `origin_date` and `horizon`. If the `origin_date` is `"2024-11-07"` and the `horizon` is 1 week, the `target_date` will be `"2024-11-14"`. For a `horizon` of 2 weeks, the `target_date` will be `"2024-11-21"`. Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from.
 
 By adding a `target_date` task ID to the above example we would still have a total of 4 unique tasks since `target_date` is derived from the `origin_date` and `horizon` task IDs and each `horizon` produces a unique valid `target_date` per location. 
 
