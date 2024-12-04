@@ -63,26 +63,17 @@ In this example, `target` is the target key and can only take on one value, "inc
 
 #### Derived Task ID variables
 
-Each model output is defined on the unique combinations across the task ID
-variables. For example, across 2 `origin_date`s and 3 `location`s, there are 6
-unique combinations of tasks because both of these variables are orthogonal to
-one another. **Derived task ID variables have a direct one to one relationship
-with other variables**. One example is `target_date`, which is the date of
-occurrence of the outcome of interest. This task ID is specific for modelling
-efforts in that it is _derived_ from the `origin_date` and `horizon` task ID.
-For example, a weekly forecast with a given `origin_date` of "2024-11-07" and
-horizon of 1 has _a single valid_ `target_date` value of "2024-11-14".
+Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID (let's say "2024-11-07"), 2 `locations`, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `locations` × 2 `horizon`s). 
 
-If we had 4 `horizon` values, along with the 2 `origin_dates`, we would have a
-total of 8 `target_date`s. There are 192 _unique_ combinations across 4
-`horizon`s, 2 `origin_date`s, 3 `locations` and the 8 `target_dates`, but there
-are only 192/8=24 _valid and unique_ combinations because the 8 `target_date`s
-are _derived_. While this task ID is useful for modeling and visualizations, it
-must be ignored during validation.
+**However, some task variables are derived directly from others.** For instance, `target_date` represents when the outcome of interest occurs and is calculated based on the `origin_date` and `horizon`. If the `origin_date` is "2024-11-07" and the `horizon` is 1 week, the `target_date` will be "2024-11-14." For a `horizon` of 2 weeks, the `target_date` will be "2024-11-21." Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from.
+
+By adding a `target_date` task ID to the above example we would still have a total of 4 unique tasks since `target_date` is derived from the `origin_date` and `horizon` task IDs and each `horizon` produces a unique valid `target_date` per location. 
+
+While derived task IDs like `target_date` are helpful for modeling and visualization, they break assumptions made during some validation tests and can also put significant strain on validation performance. As such they should generally be ignored during standard validation and custom or optional checks added to the validation workflow to check their relationship to the task IDs they are derived from (see for example documentation on the [`opt_check_tbl_horizon_timediff()`](https://hubverse-org.github.io/hubValidations/reference/opt_check_tbl_horizon_timediff.html) used to check the time difference between values in two date columns equals a defined time period defined by values in a horizon column).
 
 In schema version 4.0.0, we introduced `derived_task_ids` properties to enable
 hub administrators to define derived task IDs (i.e. task IDs whose values
-depend on the values of other task IDs). The higher level `derived_task_ids
+depend on the values of other task IDs) in their hub config files. The higher level `derived_task_ids
 property` sets the property globally at the hub level but can be overriden by
 the round level `derived_task_ids` property. The property allows for primarily
 validation functionality to ignore such task IDs when appropriate which can
