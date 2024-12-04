@@ -437,7 +437,7 @@ This property should be provided at the top level of `tasks.json` (i.e., sibling
 
 ```json
 {
-  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v*/tasks-schema.json",
   "rounds": [...],
   "output_type_id_datatype": "character"
 }
