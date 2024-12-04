@@ -200,7 +200,7 @@ Each output type contains the following properties:
 ### 6.2. Setting up `"quantile"`:  
 - Here, the `quantile`{.codeitem} object configures what values are accepted in the `output_type_id` and `value` columns when the value in the `output_type` column in a submission file is `"quantile"`.  
 - `"output_type_id"`{.codeitem} (line 2) establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
-- As before, `"value"`{.codeitem} (line 29) sets the characteristics of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+- As before, `"value"`{.codeitem} (line 29) sets the characteristics of valid `quantile` `value` values. In this instance, the values must be integers greater than or equal to `0`.  
 - `"is_required"`{.codeitem} (line 33) defines whether a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
 
 [^quant-fail]: During validation, the quantile output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
