@@ -163,18 +163,24 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ```
 
 ## Step 6: Define `"output_type"`:  
-- The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, which establish the valid values that can be entered for this output type.  
+- The [`output_type`](#model-output-format) specifies the types of outputs accepted for a given model task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. 
+
+Each output type contains the following properties:
+
+- **`output_type_id`** (or `output_type_id_params` in the case of `sample`):   specifies/configures valid output type ID values.
+- **`value`**: specifies the format and rules for the output's values, such as the data type and any limits (e.g., minimum or maximum values). 
+- **`is_required`**: A true/false property to indicate whether an output type is required.
 
 ### 6.1. Setting the `"mean"`:  
 
-- Here, the `"mean"`{.codeitem} of the predictive distribution is set as a valid value for a submission file.  
+- Here, the `"mean"`{.codeitem} of the predictive distribution is set as a valid `output_type` value for a submission file.  
 - `"output_type_id"`{.codeitem} must be `null` for all point estimates (mean,
   median, etc). No output type IDs for these estimates are applicable, so in a
   model submission file, they are represented as missing data[^missy].
 - `"value"`{.codeitem} sets the characteristics of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 - `"is_required"`{.codeitem} defines if a mean prediction is required (`true`) or if it is optional (`false`). The code below shows that the mean output type is optional. 
 
-[^missy]: In a CSV file, this is represented as `NA` (without quotes) and it is how missingness is represented in R. This was chosen explicitly over a blank cell because the difference between a blank cell and a single-space cell is not always visible. 
+[^missy]: In a CSV file, this is represented as either a blank cell (default for Python) or `NA` (default for R). 
 
 ```{code-block} json
 :force: true
@@ -192,12 +198,12 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ```
 
 ### 6.2. Setting up `"quantile"`:  
-- Here, `quantile`{.codeitem} specifies what quantiles of the predictive distribution are valid values for a submission file.  
-- In this case, `"output_type_id"`{.codeitem} (line 2) establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
+- Here, the `quantile`{.codeitem} object configures what values are accepted in the `output_type_id` and `value` columns when the value in the `output_type` column in a submission file is `"quantile"`.  
+- `"output_type_id"`{.codeitem} (line 2) establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
 - As before, `"value"`{.codeitem} (line 29) sets the characteristics of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
-- `"is_required"`{.codeitem} (line 33) defines if a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
+- `"is_required"`{.codeitem} (line 33) defines whether a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
 
-[^quant-fail]: During validation, the quantil output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+[^quant-fail]: During validation, the quantile output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
 
 ```{code-block} json
 :force: true
@@ -242,8 +248,8 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 - `"target_metadata"`{.codeitem} defines the characteristics of each unique `target`.  
 - To begin with, `"target_id"`{.codeitem} is a short description that uniquely identifies the target.  
 - Similarly, `"target_name"`{.codeitem} provides a longer, human readable description of the target.  
-- `"target_units"`{.codeitem} indicates the unit of observation used for this target.  In this instance, the unit is count.  
-- `"target_keys"`{.codeitem} must match a target set in `task_ids`, to appropriately identify it.  In this instance, the target is `"inc covid hosp"`.  
+- `"target_units"`{.codeitem} indicates the unit of observation used for this target.  In this instance, the unit is `"count"`.  
+- `"target_keys"`{.codeitem} expect an object containing key/value pairs that appropriately identify the target. The keys must match the name of a task ID and the values must match a valid task ID value of the task ID.  In this instance, the target is identified by a single task ID (`"target"`), the key is the task ID name `"target"` and the value is `"inc covid hosp"`.  
 - The `"description"`{.codeitem} is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
 - The `"target_type"`{.codeitem} defines the target's statistical data type. In this instance, the target uses discrete data.  
 - `"is_step_ahead"`{.codeitem} indicates whether the target is part of a sequence of values.  In this instance, it is.  
