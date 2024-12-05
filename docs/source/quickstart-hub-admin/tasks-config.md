@@ -107,120 +107,172 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.  
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required, but at least one of the `optional` values is expected**.  
-- There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. However, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and `NA` is expected in the `horizon` column in model output files.  
+- There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below; on lines 8--14, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file. 
+  However, shown on lines 30--36, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value is expected in the `horizon` column in model output files.
 
-```
-"model_tasks": [{
-                "task_ids": {
-                    "origin_date": {
-                        "required": null,
-                        "optional": ["2022-11-28"]
-                    },
-                    "target": {
-                        "required": ["inc covid hosp"],
-                        "optional": null
-                    },
-                    "horizon": {
-                        "required": null,
-                        "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                    },
-                    "location": {
-                        "required": ["US"],
-                        "optional": null
-                    }
-                },
-                "output_type": {...},
-                "target_metadata": [
-                    {
-                       "target_id": "inc covid hosp",
-                       "target_name": "Daily incident COVID hospitalizations",
-                       "target_units": "count",
-                       "target_keys": {
-                           "target": "inc covid hosp"
-                       },
-                       "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
-                       "target_type": "discrete",
-                       "is_step_ahead": true,
-                       "time_unit": "day"
-                    }
-                ],
-            "task_ids": {
-                    "origin_date": {
-                        "required": null,
-                        "optional": ["2022-11-28"]
-                    },
-                    "target": {
-                        "required": ["peak size hosp"],
-                        "optional": null
-                    },
-                    "horizon": {
-                        "required": null,
-                        "optional": null
-                    },
-                    "location": {
-                        "required": ["US"],
-                        "optional": null
-                    }
-                },
-                "output_type": {...},
-                "target_metadata": [
-                    {
-                       "target_id": "peak size hosp",
-                       "target_name": "COVID-19 peak size hospitalizations",
-                       "target_units": "count",
-                       "target_keys": {
-                           "target": "peak size hosp"
-                       },
-                       "description": "Magnitude of the peak of hospitalizations where the patient has COVID",
-                       "target_type": "discrete",
-                       "is_step_ahead": false
-                    }
-                ]
-            }]
-
-
+```{code-block} json
+:force: true
+:lineno-start: 1
+:emphasize-lines: 8-14,30-36
+"model_tasks": [
+    {
+        "task_ids": {
+            "origin_date": {
+                "required": null,
+                "optional": ["2022-11-28"]
+            },
+            "target": {
+                "required": ["inc covid hosp"],
+                "optional": null
+            },
+            "horizon": {
+                "required": null,
+                "optional": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+            },
+            "location": {
+                "required": ["US"],
+                "optional": null
+            }
+        },
+        "output_type": {...},
+        "target_metadata": [...]
+    },
+    {
+        "task_ids": {
+            "origin_date": {
+                "required": null,
+                "optional": ["2022-11-28"]
+            },
+            "target": {
+                "required": ["peak size hosp"],
+                "optional": null
+            },
+            "horizon": {
+                "required": null,
+                "optional": null
+            },
+            "location": {
+                "required": ["US"],
+                "optional": null
+            }
+        },
+        "output_type": {...},
+        "target_metadata": [...]
+    }
+]
 ```
 
 ## Step 6: Define `"output_type"`:  
-- The [`output_type`](#model-output-format) is used to establish the valid model output types for a given modeling task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. Output types have two additional properties, an `output_type_id` and  a `value` property, which establish the valid values that can be entered for this output type.  
+The [`output_type`](#model-output-format) specifies the types of outputs accepted for a given model task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types. 
+
+Each output type contains the following properties:
+
+- **`output_type_id`** (or `output_type_id_params` in the case of `sample`):   specifies/configures valid output type ID values.
+- **`value`**: specifies the format and rules for the output's values, such as the data type and any limits (e.g., minimum or maximum values). 
+- **`is_required`**: A true/false property to indicate whether an output type is required.
 
 ### 6.1. Setting the `"mean"`:  
-- <mark style="background-color: #FFE331">Here, the `"mean"` of the predictive distribution</mark> is set as a valid value for a submission file.  
-- <mark style="background-color: #32E331">`"output_type_id"` is used</mark> to determine whether the `mean` is a required or an optional `output_type`. Both `"required"` and `"optional"` should be declared, and the option that is chosen (required or optional) should be set to `["NA"]`[^missy], whereas the one that is not selected should be set to `null`. In this example, the mean is optional, not required. If the mean is required, `"required"` should be set to `["NA"]`, and `"optional"` should be set to `null`.  
-- <mark style="background-color: #38C7ED">`"value"` sets the characteristics</mark> of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
 
-[^missy]: `NA` (without quotes) is how missingness is represented in R. This notation may seem a bit strange, but it allows us to indicate what we expect to see from modeler submissions.
+- Here, the `"mean"`{.codeitem} of the predictive distribution is set as a valid `output_type` value for a submission file.  
+- `"output_type_id"`{.codeitem} must be `null` for all point estimates (mean,
+  median, etc). No output type IDs for these estimates are applicable, so in a
+  model submission file, they are represented as missing data[^missy].
+- `"value"`{.codeitem} sets the characteristics of this valid `output_type` (i.e., the mean). In this instance, the value must be an `integer` greater than or equal to `0`.  
+- `"is_required"`{.codeitem} defines if a mean prediction is required (`true`) or if it is optional (`false`). The code below shows that the mean output type is optional. 
 
-```{image} ../images/tasks-schema-6-1.png
-:alt: Some more lines of code in the tasks.json file
-:class: bordered
+[^missy]: In a CSV file, this is represented as either a blank cell (default for Python) or `NA` (default for R). 
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"mean": {
+    "output_type_id": {
+        "required": null
+    },
+    "value": {
+        "type": "integer",
+        "minimum": 0
+    },
+    "is_required": false
+}
 ```
 
 ### 6.2. Setting up `"quantile"`:  
-- <mark style="background-color: #FFE331">Here, `quantile` specifies</mark> what quantiles of the predictive distribution are valid values for a submission file.  
-- <mark style="background-color: #32E331">In this case, `"output_type_id"` establishes</mark> that this is a required `output_type`, and it sets the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`.  **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail.  
-- <mark style="background-color: #38C7ED">As before, `"value"` sets the characteristics</mark> of valid `quantile` values. In this instance, the values must be integers greater than or equal to `0`.  
+- Here, the `quantile`{.codeitem} object configures what values are accepted in the `output_type_id` and `value` columns when the value in the `output_type` column in a submission file is `"quantile"`.  
+- `"output_type_id"`{.codeitem} (line 2) establishes the accepted probability levels at which quantiles of the predictive distribution will be recorded. In this case, quantiles are required at discrete levels that range from `0.01` to `0.99`. **Quantile `output_type_id` values must NOT contain trailing zeros** as this will cause submission validation checks to fail[^quant-fail].  
+- As before, `"value"`{.codeitem} (line 29) sets the characteristics of valid `quantile` `value` values. In this instance, the values must be integers greater than or equal to `0`.  
+- `"is_required"`{.codeitem} (line 33) defines whether a quantile prediction is required (`true`) or if it is optional (`false`). The code below shows that the quantile output type is required.
 
-```{image} ../images/tasks-schema-6-2.png
-:alt: And more lines of code in the tasks.json file
-:class: bordered
-:width: 300px
+[^quant-fail]: During validation, the quantile output type IDs are compared as character strings instead of as numeric (floating point) values. There is a good reason for this: [floating point numbers have precision problems](https://en.wikipedia.org/wiki/Floating-point_arithmetic#Accuracy_problems).
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"quantile": {
+    "output_type_id": {
+        "required": [
+            0.01,
+            0.025,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.95,
+            0.975,
+            0.99,
+        ]
+    },
+    "value": {
+        "type": "integer",
+        "minimum": 0
+    },
+    "is_required": true
+}
 ```
 
 ## Step 7: Defining `"target_metadata"`:  
-- `"target_metadata"` defines the characteristics of each unique `target`.  
-- <mark style="background-color: #FFE331">To begin with, `"target_id"` is</mark> a short description that uniquely identifies the target.  
-- <mark style="background-color: #32E331">Similarly, `"target_name"` provides</mark> a longer, human readable description of the target.  
-- <mark style="background-color: #38C7ED">`"target_units"` indicates</mark> the unit of observation used for this target.  In this instance, the unit is count.  
-- <mark style="background-color: #F50088">`"target_keys"` must match</mark> a target set in `task_ids`, to appropriately identify it.  In this instance, the target is `"inc covid hosp"`.  
-- The `"description"` is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
-- <mark style="background-color: #FF4D18">The `"target_type"` defines</mark> the target's statistical data type. In this instance, the target uses discrete data.  
-- <mark style="background-color: #FFE331">`"is_step_ahead"` indicates</mark> whether the target is part of a sequence of values.  In this instance, it is.  
-- <mark style="background-color: #32E331">`"time_unit"` defines</mark> the units of the time steps. In this case, it is days.  
+- `"target_metadata"`{.codeitem} defines the characteristics of each unique `target`.  
+- To begin with, `"target_id"`{.codeitem} is a short description that uniquely identifies the target.  
+- Similarly, `"target_name"`{.codeitem} provides a longer, human readable description of the target.  
+- `"target_units"`{.codeitem} indicates the unit of observation used for this target.  In this instance, the unit is `"count"`.  
+- `"target_keys"`{.codeitem} expect an object containing key/value pairs that appropriately identify the target. The keys must match the name of a task ID and the values must match a valid task ID value of the task ID.  In this instance, the target is identified by a single task ID (`"target"`), the key is the task ID name `"target"` and the value is `"inc covid hosp"`.  
+- The `"description"`{.codeitem} is a verbose explanation of the target, which might include details on the measure used for the target, as shown in the example below.  
+- The `"target_type"`{.codeitem} defines the target's statistical data type. In this instance, the target uses discrete data.  
+- `"is_step_ahead"`{.codeitem} indicates whether the target is part of a sequence of values.  In this instance, it is.  
+- `"time_unit"`{.codeitem} defines the units of the time steps. In this case, it is days.  
 
-```{image} ../images/tasks-schema-7.png
-:alt: Target metadata lines of code in the tasks.json file
-:class: bordered
+
+```{code-block} json
+:force: true
+:lineno-start: 1
+"target_metadata": [
+    {
+        "target_id": "inc covid hosp",
+        "target_name": "Daily incident COVID hospitalizations",
+        "target_units": "count",
+        "target_keys": {
+            "target": "inc covid hosp"
+        },
+        "description": "Daily newly reported hospitalizations where the patient has COVID, as reported by hospital facilities and aggregated in the HHS Protect data collection system.",
+        "target_type": "discrete",
+        "is_step_ahead": true,
+        "time_unit": "day"
+    }
+]
 ```
 
 ## Step 8: Set up `"submissions_due"`:  
@@ -255,7 +307,8 @@ Once all modeling tasks and rounds have been configured, you may also choose to 
 
 This property should be provided at the top level of `tasks.json` (i.e., sibling to `rounds` and `schema_version`) and can take any of the following values: `"auto"`, `"character"`, `"double"`, `"integer"`, `"logical"`, `"Date"`.
 
-```json
+```{code-block} json
+:force: true
 {
   "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v3.0.1/tasks-schema.json",
   "rounds": [...],
