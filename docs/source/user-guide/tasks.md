@@ -49,6 +49,41 @@ Moreover, these tables are presented in a [long/narrow representation](https://e
 
 [^tidy]: This type of data is also known as "tidy data," a term coined by Hadley Wickham that's heavily used in the R community. You can read more about the concept in the [Data tidying chapter of the R4DS book](https://r4ds.hadley.nz/data-tidy#sec-tidy-data) and the [Tidy Data paper by Wickham (2014)](https://www.jstatsoft.org/article/view/v059i10).
 
+In the `tasks.json` file, task ID variables are a collection of JSON objects
+that define required and optional values for these variables. In the example below from [the COVID-19 variant nowcast hub](https://github.com/reichlab/variant-nowcast-hub/blob/main/hub-config/tasks.json), there are four task ID variables defined: `"nowcast_date"`, `"target_date"`, `"location"`, and `"clade"`. 
+
+```json
+"task_ids": {
+    "nowcast_date": {
+        "required": [
+            "2024-09-11"
+        ],
+        "optional": null
+    },
+    "target_date": {
+        "required": null,
+        "optional": ["2024-08-11", "2024-08-12", "2024-08-13", "2024-08-14", "2024-08-15", "2024-08-16", "2024-08-17", "2024-08-18", "2024-08-19", "2024-08-20", "2024-08-21", "2024-08-22", "2024-08-23", "2024-08-24", "2024-08-25", "2024-08-26", "2024-08-27", "2024-08-28", "2024-08-29", "2024-08-30", "2024-08-31", "2024-09-01", "2024-09-02", "2024-09-03", "2024-09-04", "2024-09-05", "2024-09-06", "2024-09-07", "2024-09-08", "2024-09-09", "2024-09-10", "2024-09-11", "2024-09-12", "2024-09-13", "2024-09-14", "2024-09-15", "2024-09-16", "2024-09-17", "2024-09-18", "2024-09-19", "2024-09-20", "2024-09-21"]
+    },
+    "location": {
+        "required": null,
+        "optional": ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY", "PR"]
+    },
+    "clade": {
+        "required": ["24A", "24B", "24C", "recombinant", "other"],
+        "optional": null
+    }
+}
+```
+
+In this particular round, modelers MUST submit predictions with the
+`"nowcast_date"` of 2024-09-11 with all of the `"clade"`s (24A, 24B, 24C,
+recombinant, and other). Any submissions that contain anything other than those
+exact values will result in an error. In contrast, modellers MAY submit
+predictions for ANY of the `"target_date"`s between 2024-08-11 and 2024-09-21
+and ANY of the states listed in `"location"`. By allowing modelers to submit a
+subset of optional values, it means poor-performing models can be omitted so
+they do not negatively influence model ensembles.
+
 #### Special task ID variables
 
 Task ID variables are used to parameterize modeling efforts. 
@@ -89,8 +124,71 @@ In those cases, the new variables should be added to this list to ensure that th
 (output-types)=
 ## Output types
 
-The `output_type` object defines accepted representations for each task.
+The `output_type` object defines accepted model output representations for each task. These define what kind of model output is expected, what range of values
+we expect, if multiple values are expected, what identifies that value, and
+whether or not the output type is required for submission.
+
+To illustrate how output types are represented in `tasks.json`, here is an
+example of a quantile output type:
+
+```{code-block} json
+:lineno-start: 1
+:force: true
+:lineno-start: 1
+"quantile": {
+    "output_type_id": {
+        "required": [
+            0.01,
+            0.5,
+            0.99,
+        ]
+    },
+    "value": {
+        "type": "integer",
+        "minimum": 0
+    },
+    "is_required": true
+}
+```
+
+From the code block above, you can see that an output type has four components:
+
+1. (line 1) `"quantile"`{.codeitem} the name of the output type representation
+   (e.g. `"mean"`, `"quantile"`, `"pmf"`) 
+2. (line 2) `"output_type_id"`{.codeitem} In the case of quantiles, the output
+   type ID is an indcation of the quantile bins. **Unlike task IDs, all
+   `output_type_id`s are required** (see note below).
+3. (line 9) `"value"`{.codeitem} the expected value type and range. In this
+   case, the values from this model should be non-negative integers.
+4. (line 13) `"is_required"`{.codeitem} an indication if this output type is
+   required or not. In this example, submissions without this output type would
+   fail. 
+
 The [formats of model output section](#output-type-table) from the model output chapter provides more information on the different output types.
+
+:::{note}
+
+In version 4 of the schemas, we have officially disallowed optional output type
+IDs. The reason behind this logic is that, unlike task IDs, missing output type
+IDs have consequences for downstream model scoring and ensembling.
+
+Specifically, these two scenarios are possible if a complete set of quantile
+bins are not included:
+
+1. When teams submit different subsets of quantiles and we use a score like WIS
+   to evaluate the model, the scores are different and not comparable when
+   computed on different quantiles. So any end-user would have to take some
+   care to ensure that they are making a comparison on just a subset of
+   required quantiles.
+2. When building ensembles, if you just collected all quantile forecasts
+   without ensuring that you had a complete set of all quantiles from all
+   forecasters, you might combine quantiles from one subset of forecasters for
+   some quantiles and have a different combination of forecasters for other
+   quantiles.
+
+:::
+
+
 
 (target-metadata)=
 ## Target metadata
@@ -120,9 +218,10 @@ flowchart LR
 ```
 
 ### Example
+
 Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident COVID-19 hospitalizations. 
 
-```
+```json
 "target_metadata": [
     {
         "target_id": "inc covid hosp",
