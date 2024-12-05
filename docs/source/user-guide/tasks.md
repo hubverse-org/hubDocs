@@ -82,24 +82,41 @@ significantly improve validation efficency. For more information see the
 IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
 
 :::{note}
-If any task IDs with `required` values have an associated derived task ID, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. For example, if you have two required `horizon` values of 1 and 2, then you _must_ include `target_date` in `derived_task_ids`.
-Without specifying this, you will end up with a
+If any `required` task IDs have an associated derived task ID, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. 
+
+Take for example a scenario where  `target_date` is derived from `origin_date`
+and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
+you _must_ include `target_date` in `derived_task_ids`. Without specifying
+this, you will end up with a
 [`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
-check failure. The table below shows an expanded grid of `horizon`, `origin_date`, and `target_date` for a single `origin_date` and two `horizons` with the results of the `req_vals` check if `derived_task_ids` is unspecified (null) or set to `target_date`:
+check failure. 
 
-```{table} validation will provide false errors if there are unspecified derived task IDs
+The tables below show the validation grid of `horizon`, `origin_date`, and `target_date` for a single required `origin_date` and two `horizons` in the scenarios where `derived_task_ids` is unspecified (null) or set to `"target_date"`.
 
-| `origin_date` | `horizon` | `target_date` | valid | `derived_task_ids:` `null` | `derived_task_ids:` `["target_date"]` |
-| ------------- | --------- | ------------- | ----- | -------------------------- | ------------------------------------- |
-| 2024-11-07 | 1 | 2024-11-14 | 🆗 | ✅ | ✅ |
-| 2024-11-07 | 2 | 2024-11-21 | 🆗 | ✅ | ✅ |
-| 2024-11-07 | 1 | 2024-11-21 | 🚫 | ❌ | NA |
-| 2024-11-07 | 2 | 2024-11-14 | 🚫 | ❌ | NA |
+This validation grid causes a validation failure because 2024-11-21 is NOT 1 week ahead of 2024-11-07 and 2024-11-14 is NOT 2 weeks ahead of 2024-11-07.
 
+```{table} With <code>"derived_task_ids": null</code>, validation will provide false errors.
+:width: 95%
+
+| `origin_date` | `horizon` | `target_date` | validation result |
+| ------------- | --------- | ------------- | ----------------- |
+| 2024-11-07 | 1 | 2024-11-14 | ✅ |
+| 2024-11-07 | 2 | 2024-11-21 | ✅ |
+| 2024-11-07 | 1 | 2024-11-21 | ❌ |
+| 2024-11-07 | 2 | 2024-11-14 | ❌ |
 ```
 
-As shown in the last column of the above table, the `req_vals` validation passes when `derived_task_ids` is set to `["target_date"]`.
+This expanded grid will validate correctly because `"target_date"` has been identified as a derived task ID and is appropriately masked before the validation grid is greated. 
 
+```{table} By setting <code>"derived_task_ids": ["target_date"]</code>, validation succeeds
+:width: 95%
+
+| `origin_date` | `horizon` | `target_date` | validation result |
+| ------------- | --------- | ------------- | ----------------- |
+| 2024-11-07 | 1 | `<NA>` | ✅ |
+| 2024-11-07 | 2 | `<NA>` | ✅ |
+
+```
 
 :::
 
