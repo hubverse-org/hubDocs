@@ -51,7 +51,7 @@ Moreover, these tables are presented in a [long/narrow representation](https://e
 
 #### Special task ID variables
 
-Task ID variables are used to parameterize modeling efforts. 
+Task ID variables are used to parameterize modeling efforts.
 However, some task ID variables serve specific purposes in defining submission rounds and targets.
 Every hub must have **a single task ID variable that uniquely defines a submission round.**
 It has become a convention to use a task ID formatted in the `YYYY-MM-DD` format (e.g., `origin_date` or `forecast_date`). 
@@ -61,6 +61,69 @@ There can be **one or more task ID variables to define a modeling "target"** (th
 For example, in our [Running Example 1](#running-example-1), the task ID variables are `target`, `location`, and `origin_date`.
 In this example, `target` is the target key and can only take on one value, "inc covid hosp".
 
+#### Derived Task ID variables
+
+Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID and as the starting projection date (week 0; let's say "2024-11-07"), 2 `location`s, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `location`s × 2 `horizon`s). 
+
+**However, it is possible to have task ID variables that are derived directly from others.** For example, `target_date` (which represents when the outcome of interest occurs) can be calculated based on the `origin_date` and `horizon` (e.g. `origin_date + horizon * 7` to calculate weekly predictions). If the `origin_date` is `"2024-11-07"` and the `horizon` is 1 week, the `target_date` will be `"2024-11-14"`. For a `horizon` of 2 weeks, the `target_date` will be `"2024-11-21"`. Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from. We strongly advise hub administrators to add the derived information and calculation in their documentation. 
+
+By adding a `target_date` task ID to the above example we would still have a total of 4 unique tasks since `target_date` is derived from the `origin_date` and `horizon` task IDs and each `horizon` produces a unique valid `target_date` per location. 
+
+While derived task IDs like `target_date` are helpful for modeling and visualization, they break assumptions made during some validation tests and can also put significant strain on validation performance. As such they should generally be ignored during standard validation and custom or optional checks added to the validation workflow to check their relationship to the task IDs they are derived from (see for example documentation on the [`opt_check_tbl_horizon_timediff()`](https://hubverse-org.github.io/hubValidations/reference/opt_check_tbl_horizon_timediff.html) used to check the time difference between values in two date columns equals a defined time period defined by values in a horizon column).
+
+In schema version 4.0.0, we introduced `derived_task_ids` properties to enable
+hub administrators to define derived task IDs (i.e. task IDs whose values
+depend on the values of other task IDs) in their hub config files. The higher level `derived_task_ids
+property` sets the property globally at the hub level but can be overriden by
+the round level `derived_task_ids` property. The property allows for primarily
+validation functionality to ignore such task IDs when appropriate which can
+significantly improve validation efficency. For more information see the
+[hubValidations documentation on ignoring derived task
+IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
+
+:::{note}
+If any `required` task IDs have an associated derived task ID, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. 
+
+Take for example a scenario where  `target_date` is derived from `origin_date`
+and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
+your `tasks.config` _must_ include `target_date` in `derived_task_ids`. Without
+specifying this, modelers will end up with a
+[`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
+check failure _even if their submission file is valid_.
+
+If a model submission file looks like this: 
+
+```{table} submission file
+:width: 95%
+| `origin_date` | `horizon` | `target_date` |        ...        |
+| ------------- | --------- | ------------- | ----------------- |
+| 2024-11-07 | 1 | 2024-11-14 | ... |
+| 2024-11-07 | 2 | 2024-11-21 | ... |
+```
+
+**When the `tasks.json` has `"derived_task_ids": ["target_date"]`, then the
+submission will pass the validation checks ✅.**
+
+However, **without setting `derived_task_ids` in `tasks.json`, the submission
+will result in an ❌ `<error/check_failure>` whether the `target_date` content is valid or not**. This will include table indicating the "missing" required task ID combinations as shown in the table below.
+
+```{table} **<code><error/check_failure></code>** With <code>"derived_task_ids": null</code>, validation will provide false errors.
+:width: 95%
+| `origin_date` | `horizon` | `target_date` | validation result |
+| ------------- | --------- | ------------- | ----------------- |
+| 2024-11-07 | 1 | 2024-11-14 | ✅ |
+| 2024-11-07 | 2 | 2024-11-21 | ✅ |
+| 2024-11-07 | 1 | 2024-11-21 | ❌ |
+| 2024-11-07 | 2 | 2024-11-14 | ❌ |
+```
+
+If you inspect the table, you will notice that _these combinations are invalid_
+because the values in `target_date` are not correctly aligned with the 
+`origin_date` and `horizon` (i.e. 2024-11-21 is _two weeks_ ahead of
+2024-11-07, not 1 week, as indicated by the `horizon`).
+
+
+:::
 
 #### Proposed standard of task ID variables
 
