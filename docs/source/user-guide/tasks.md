@@ -86,35 +86,33 @@ If any `required` task IDs have an associated derived task ID, **it is essential
 
 Take for example a scenario where  `target_date` is derived from `origin_date`
 and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
-you _must_ include `target_date` in `derived_task_ids`. Without specifying
-this, you will end up with a
+your `tasks.config` _must_ include `target_date` in `derived_task_ids`. Without
+specifying this, modelers will end up with a
 [`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
-check failure _even if your submission file is valid_.
+check failure _even if their submission file is valid_.
 
-If your submission file looks like this: 
+If a model submission file looks like this: 
 
 ```{table} submission file
 :width: 95%
-:widths: grid
 | `origin_date` | `horizon` | `target_date` |        ...        |
 | ------------- | --------- | ------------- | ----------------- |
 | 2024-11-07 | 1 | 2024-11-14 | ... |
 | 2024-11-07 | 2 | 2024-11-21 | ... |
 ```
 
-**When you set `"derived_task_ids": ["target_date"]`, then your submission will
-pass the validation checks ✅.**
+**When the `tasks.json` has `"derived_task_ids": ["target_date"]`, then the
+submission will pass the validation checks ✅.**
 
-However, **without setting `derived_task_ids`, you will get an ❌
-`<error/check_failure>`** with a message indicating that required task ID
-combinations are missing. The "missing" combintaions are shown in the table
-below.
+However, **without setting `derived_task_ids` in `tasks.json`, the submission
+will result in an ❌ `<error/check_failure>` whether the `target_date` content is valid or not**. This will include table indicating the "missing" required task ID combinations as shown in the table below.
 
 ```{table} **<code><error/check_failure></code>** With <code>"derived_task_ids": null</code>, validation will provide false errors.
 :width: 95%
-:widths: 2, 2, 1, 2
 | `origin_date` | `horizon` | `target_date` | validation result |
 | ------------- | --------- | ------------- | ----------------- |
+| 2024-11-07 | 1 | 2024-11-14 | ✅ |
+| 2024-11-07 | 2 | 2024-11-21 | ✅ |
 | 2024-11-07 | 1 | 2024-11-21 | ❌ |
 | 2024-11-07 | 2 | 2024-11-14 | ❌ |
 ```
