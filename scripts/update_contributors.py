@@ -21,8 +21,16 @@ if response.status_code == 200:
     with open("docs/source/overview/contributors.md", "w") as file:
         file.write("# Contributors\n\n")
         for contributor in contributors:
+            # Fetch detailed user info for the contributor
+            user_response = requests.get(contributor['url'], headers=headers)
+            if user_response.status_code == 200:
+                user_data = user_response.json()
+                name = user_data.get('name', contributor['login'])  # Use name if available, else login
+            else:
+                name = contributor['login']  # Fallback if user details fail
+            
             file.write(
-                f"- [{contributor['login']}]({contributor['html_url']})\n"
+                f"- [{name} ({contributor['login']})]({contributor['html_url']})\n"
             )
     print("Contributors list updated successfully.")
 else:
