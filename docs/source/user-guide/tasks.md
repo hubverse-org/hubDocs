@@ -55,9 +55,7 @@ that define required and optional values for these variables. In the example bel
 ```json
 "task_ids": {
     "nowcast_date": {
-        "required": [
-            "2024-09-11"
-        ],
+        "required": ["2024-09-11"],
         "optional": null
     },
     "target_date": {
@@ -82,7 +80,9 @@ exact values will result in an error. In contrast, modellers MAY submit
 predictions for ANY of the `"target_date"`s between 2024-08-11 and 2024-09-21
 and ANY of the states listed in `"location"`. By allowing modelers to submit a
 subset of optional values, it means poor-performing models can be omitted so
-they do not negatively influence model ensembles.
+they do not negatively influence model ensembles. It also allows models that 
+have only have the capacity for a subset of the optional options can still
+participate. 
 
 #### Special task ID variables
 
@@ -125,7 +125,7 @@ In those cases, the new variables should be added to this list to ensure that th
 ## Output types
 
 The `output_type` object defines accepted model output representations for each task. These define what kind of model output is expected, what range of values
-we expect, if multiple values are expected, what identifies that value, and
+we expect, if multiple values are expected, what identifies those values (e.g. a bin, category, or ID), and
 whether or not the output type is required for submission.
 
 To illustrate how output types are represented in `tasks.json`, here is an
@@ -154,9 +154,9 @@ example of a quantile output type:
 From the code block above, you can see that an output type has four components:
 
 1. (line 1) `"quantile"`{.codeitem} the name of the output type representation
-   (e.g. `"mean"`, `"quantile"`, `"pmf"`) 
+   (e.g. "cdf"`, `"mean"`, "median"`, `"quantile"`, `"pmf"`, `"sample"`) 
 2. (line 2) `"output_type_id"`{.codeitem} In the case of quantiles, the output
-   type ID is an indcation of the quantile bins. **Unlike task IDs, all
+   type ID is an indication of the quantile bins. **Unlike task IDs, all
    `output_type_id`s are required** (see note below).
 3. (line 9) `"value"`{.codeitem} the expected value type and range. In this
    case, the values from this model should be non-negative integers.
