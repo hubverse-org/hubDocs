@@ -81,7 +81,7 @@ predictions for ANY of the `"target_date"`s between 2024-08-11 and 2024-09-21
 and ANY of the states listed in `"location"`. By allowing modelers to submit a
 subset of optional values, it means poor-performing models can be omitted so
 they do not negatively influence model ensembles. It also allows models that 
-have only have the capacity for a subset of the optional options can still
+only have the capacity for a subset of the optional options to still
 participate. 
 
 #### Special task ID variables
@@ -154,7 +154,7 @@ example of a quantile output type:
 From the code block above, you can see that an output type has four components:
 
 1. (line 1) `"quantile"`{.codeitem} the name of the output type representation
-   (e.g. "cdf"`, `"mean"`, "median"`, `"quantile"`, `"pmf"`, `"sample"`) 
+   (e.g. `"cdf"`, `"mean"`,  `"median"`, `"quantile"`, `"pmf"`, `"sample"`) 
 2. (line 2) `"output_type_id"`{.codeitem} In the case of quantiles, the output
    type ID is an indication of the quantile bins. **Unlike task IDs, all
    `output_type_id`s are required** (see note below).
