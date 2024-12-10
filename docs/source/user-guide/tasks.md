@@ -82,7 +82,8 @@ significantly improve validation efficency. For more information see the
 IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
 
 :::{note}
-If any `required` task IDs have an associated derived task ID, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. 
+
+If any task IDs with `required` values have dependent derived task IDs, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. 
 
 Take for example a scenario where  `target_date` is derived from `origin_date`
 and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
@@ -125,9 +126,10 @@ because the values in `target_date` are not correctly aligned with the
 
 :::
 
-#### Proposed standard of task ID variables
+#### Standard task ID variables
 
-We strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
+While there are no general restrictions on task ID column names or definitions, **using the standard task ID names described below ensures that they are strongly validated against the hubverse schema.**
+We therefore strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
 
 * `origin_date`{.codeitem}: the starting point that can be used for calculating a `target_date` via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
   Another reasonable choice for `origin_date` is `reference_date`.
@@ -143,8 +145,6 @@ We strongly suggest that Hubs adopt the following standard task ID or column nam
   For instance, if models are requested to forecast the number of hospitalizations on 2022-07-15, the `target_date` is 2022-07-15.
 * `horizon`{.codeitem}: The difference between the `target_date` and the `origin_date` in time units specified by the hub (e.g., days, weeks, or months)
 * `age_group`{.codeitem}: a unique identifier for an age group
-
-While there are no general restrictions on task ID column names or definitions, using the above standards ensures that these task IDs are strongly validated against the schema.
 
 [^new-vars]: As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
 In those cases, the new variables should be added to this list to ensure that the concepts are documented centrally and can be reused in future efforts.
