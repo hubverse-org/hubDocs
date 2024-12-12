@@ -1,9 +1,9 @@
 # Sample output type  
 
 ## Introduction  
-The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values (“samples”) that come out of a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
+The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that come out of a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a “modeling task” is the element that is being predicted and that can be represented by a univariate (e.g., scalar or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task ID columns that uniquely define a single prediction. We note that this concept is similar to that of a [“forecast unit” in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
+In the hubverse, a "modeling task" is the element that is being predicted and that can be represented by a univariate (e.g., scalar or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task ID columns that uniquely define a single prediction. We note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
 
 Take the following `model_output` data for the mean `output_type` as an example:
 | origin_date | horizon | location | output_type| output_type_id | value |
@@ -14,10 +14,11 @@ Take the following `model_output` data for the mean `output_type` as an example:
 
 
 In the above table, the three task-id columns `origin_date`, `horizon`, and `location` uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples <br>
+
 ```
-{origin_date: “2024-03-15”, horizon: “-1”, location: “MA”}
-{origin_date: “2024-03-15”, horizon: “0”, location: “MA”}
-{origin_date: “2024-03-15”, horizon: “1”, location: “MA”}
+{origin_date: "2024-03-15", horizon: "-1", location: "MA"}
+{origin_date: "2024-03-15", horizon: "0", location: "MA"}
+{origin_date: "2024-03-15", horizon: "1", location: "MA"}
 ```
 
 In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) before the origin date of 2024-03-15 in Massachusetts. 
@@ -39,35 +40,35 @@ In many settings, forecasts will be made for individual modeling tasks, with no 
 
 In this setting, a hub will specify a minimum and maximum number of required samples in the metadata for the prediction task. The associated configuration might look like:
 
-```
-"output_type":{
-	"sample":{
-		"output_type_id_params":{
-			“is_required”: true,
-			“type”: “integer”,
-                        "min_samples_per_task": 100,
-			"max_samples_per_task": 100
-		},
-		"value":{
-			"type":"double",
-			"minimum":0
-		}
-	}
+```{code-block} json
+"output_type": {
+    "sample": {
+        "output_type_id_params": {
+            "type": "integer",
+            "min_samples_per_task": 100,
+            "max_samples_per_task": 100
+        },
+        "value": {
+            "type":"double",
+            "minimum": 0
+        },
+        "is_required": true
+    }
 }
 ```
 
 In words, the above configuration specifies that  `"output_type_id_params"` samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 100 samples per modeling task. The "value" specifications correspond to the values contained in the "value" column (e..g they must be storable as numeric "double" format and be no less than zero).
 
-Note that the `output_type_id` parameters are specified in an `“output_type_id_params”` block because they are parameters defining the allowable values. For other output types, the `“output_type_id”` block is used to list required and optional values explicitly.
+Note that the `output_type_id` parameters are specified in an `"output_type_id_params"` block because they are parameters defining the allowable values. For other output types, the `"output_type_id"` block is used to list required and optional values explicitly.
 
 (compound-modeling-tasks)=
 ## Compound modeling tasks
 
-In some settings, modeling hubs may wish to identify sets of modeling tasks that the hub will treat as related, for example, when multiple distinct values can be seen as representations of a single multivariate outcome of interest. In these settings, a subset of the task-id columns (a `“compound_taskid_set”`) will be used to identify what values are shared for the modeling tasks related to each other.
+In some settings, modeling hubs may wish to identify sets of modeling tasks that the hub will treat as related, for example, when multiple distinct values can be seen as representations of a single multivariate outcome of interest. In these settings, a subset of the task-id columns (a `"compound_taskid_set"`) will be used to identify what values are shared for the modeling tasks related to each other.
 
 As a running example of how compound modeling tasks could be specified differently, we will look at a hub reporting on variant proportions observed at a given location and time. In the table below, a single modeling task is a unique combination of values from the task-id variables `origin_date`, `horizon`, `variant`, and `location`.  In the table below, one set of four rows with the same values in the `origin_date`, `horizon`, and `location` columns, but different variant values below represent four predicted variant proportions. 
 
-Base data: mean `output_type`. In the table below, an entry of “-” stands in for specific values to be provided by the submitter.
+Base data: mean `output_type`. In the table below, an entry of "-" stands in for specific values to be provided by the submitter.
 
 | origin_date | horizon | variant |location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -83,15 +84,17 @@ Base data: mean `output_type`. In the table below, an entry of “-” stands in
 ### Four submissions, differing by compound modeling task
 **Submission A**: sample `output_type` where **a single modeling task corresponds to a unique combination of `origin_date`, `location`, `horizon`, and `variant`**. There are eight unique modeling tasks in this example.
 
-```
-"output_type_id_params":{
-			“is_required”: true,
-			“type”: “character”,
-			“max_length”: 6,
-                        "min_samples_per_task": 90,
-			"max_samples_per_task": 100,
-			"compound_taskid_set": ["origin_date", "location", "horizon", "variant"]
-		}
+
+```{code-block} json
+:lineno-start: 1
+:emphasize-lines: 6
+"output_type_id_params": {
+    "type": "character",
+    "max_length": 6,
+    "min_samples_per_task": 90,
+    "max_samples_per_task": 100,
+    "compound_taskid_set": ["origin_date", "location", "horizon", "variant"]
+}
 ```
 
 ```{attention}
@@ -122,15 +125,16 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 
 **Submission B**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `horizon`, and `location`. In this example, **the proportions of all four variants at a given date, location, and horizon make up the compound modeling task**. The example data below shows two unique compound modeling tasks (shown with the grayed-out column) and four samples. 
 
-```
-"output_type_id_params":{
-			“is_required”: true,
-			“type”: “character”,
-			“max_length”: 6,
-                        "min_samples_per_task": 90,
-			"max_samples_per_task": 100,
-			"compound_taskid_set": ["origin_date", "location", "horizon"]
-		}
+```{code-block} json
+:lineno-start: 1
+:emphasize-lines: 6
+"output_type_id_params": {
+    "type": "character",
+    "max_length": 6,
+    "min_samples_per_task": 90,
+    "max_samples_per_task": 100,
+    "compound_taskid_set": ["origin_date", "location", "horizon"]
+}
 ```
 
 ```{attention}
@@ -160,17 +164,18 @@ Once again, rows are grouped so each unique sample for each modeling task is tog
 
 </div>
 
-**Submission C**: sample `output_type` where each compound modeling task corresponds to a combination of `origin_date` and `location`. In this example, there is a single compound modeling task, which we can describe as **“Massachusetts with the `origin_date` of `2024-03-15`”**. In the example data shown below, there is one unique compound modeling task (shown with the latent grayed-out column) and two unique samples. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
+**Submission C**: sample `output_type` where each compound modeling task corresponds to a combination of `origin_date` and `location`. In this example, there is a single compound modeling task, which we can describe as **"Massachusetts with the `origin_date` of `2024-03-15`"**. In the example data shown below, there is one unique compound modeling task (shown with the latent grayed-out column) and two unique samples. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
 
-```
-"output_type_id_params":{
-			“is_required”: true,
-			“type”: “character”,
-			“max_length”: 6,
-                        "min_samples_per_task": 90,
-			"max_samples_per_task": 100,
-			"compound_taskid_set": ["origin_date", "location"]
-               }
+```{code-block} json
+:lineno-start: 1
+:emphasize-lines: 6
+"output_type_id_params": {
+    "type": "character",
+    "max_length": 6,
+    "min_samples_per_task": 90,
+    "max_samples_per_task": 100,
+    "compound_taskid_set": ["origin_date", "location"]
+}
 ```
 
 <div class="heatMap3">
@@ -196,17 +201,18 @@ Once again, rows are grouped so each unique sample for each modeling task is tog
 
 </div>
 
-**Submission D**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `location`, and `variant`. In plain language, this could be described as **“trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other.”**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed-out column) and two samples for each. 
+**Submission D**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `location`, and `variant`. In plain language, this could be described as **"trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other."**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed-out column) and two samples for each. 
 
-```
-"output_type_id_params":{
-			“is_required”: true,
-			“type”: “character”,
-			“max_length”: 6,
-                        "min_samples_per_task": 90,
-			"max_samples_per_task": 100,
-			"compound_taskid_set": ["origin_date", "location", "variant"]
-		}
+```{code-block} json
+:lineno-start: 1
+:emphasize-lines: 6
+"output_type_id_params": {
+    "type": "character",
+    "max_length": 6,
+    "min_samples_per_task": 90,
+    "max_samples_per_task": 100,
+    "compound_taskid_set": ["origin_date", "location", "variant"]
+}
 ```
 
 <div class="heatMap4">
@@ -247,35 +253,35 @@ A hub can specify a `"compound_taskid_set"` field in the metadata for the sample
     <td colspan="4"><strong>Submission passing validation</strong></td>
   </tr>
   <tr>
-    <td><strong>“compound_taskid_set” in schema"</strong></td>
+    <td><strong>"compound_taskid_set" in schema"</strong></td>
     <td><strong>A  (o_d,l,h,v)</strong></td>
     <td><strong>B (o_d,l,h)</strong></td>
     <td><strong>C (o_d,l)</strong></td>
     <td><strong>D (o_d,l,v)</strong></td>
   </tr>
   <tr>
-    <td>[“origin_date”, “location”, “horizon”, “variant”]</td>
+    <td>["origin_date", "location", "horizon", "variant"]</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅</td>
   </tr>
   <tr>
-    <td>[“origin_date”, “location”, “horizon”]</td>
+    <td>["origin_date", "location", "horizon"]</td>
     <td>❌</td>
     <td>✅</td>
     <td>✅</td>
     <td>❌</td>
   </tr>
   <tr>
-    <td>[“origin_date”, “location”]</td>
+    <td>["origin_date", "location"]</td>
     <td>❌</td>
     <td>❌</td>
     <td>✅</td>
     <td>❌</td>
   </tr>
   <tr>
-    <td>[“origin_date”, “location”, “variant”]</td>
+    <td>["origin_date", "location", "variant"]</td>
     <td>❌</td>
     <td>❌</td>
     <td>✅</td>
@@ -283,14 +289,14 @@ A hub can specify a `"compound_taskid_set"` field in the metadata for the sample
   </tr>
 </table>
 
-In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `“compound_taskid_set”`. To talk through the example of [`“origin_date”`, `“horizon”`, `“location”`]:
-- Both Submissions B and C would pass validation since when the data are grouped by the `“compound_taskid_set”` variables you can always find a group of rows that have the same `output_type_id`.
-- Submissions A and D would fail validation since when the data are grouped by the `“compound_taskid_set”` variables, there would be no rows that share an `output_type_id`.
-- A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of `“origin_date”`, `“horizon”` and `“location”`. It is acceptable if samples describe “coarser” compound modeling tasks such as units identified by a combination of `“origin_date”` and `“location”`. However, it is not acceptable if samples describe “finer” compound modeling tasks corresponding to combinations of `“origin_date”`, `“horizon”`, `“location”`, and `“variant”`. To achieve this, the hub specifies: <br>
-`“compound_taskid_set”` : [`“origin_date”`, `“horizon”`, `“location”`]
+In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. To talk through the example of [`"origin_date"`, `"horizon"`, `"location"`]:
+- Both Submissions B and C would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
+- Submissions A and D would fail validation since when the data are grouped by the `"compound_taskid_set"` variables, there would be no rows that share an `output_type_id`.
+- A hub wants to ensure that samples describe compound modeling tasks corresponding to unique combinations of `"origin_date"`, `"horizon"` and `"location"`. It is acceptable if samples describe "coarser" compound modeling tasks such as units identified by a combination of `"origin_date"` and `"location"`. However, it is not acceptable if samples describe "finer" compound modeling tasks corresponding to combinations of `"origin_date"`, `"horizon"`, `"location"`, and `"variant"`. To achieve this, the hub specifies: <br>
+`"compound_taskid_set"` : [`"origin_date"`, `"horizon"`, `"location"`]
 
 ```{caution}
-#### `“compound_taskid_set”` and derived task-id variables
+#### `"compound_taskid_set"` and derived task-id variables
 
 There is a class of task-ids that can cause problems for validation of compound modeling tasks if not properly configured, that of **derived task-ids** i.e. task-ids whose values depend on the values of other task-id variables. An example is the `target_end_date` task-id which is most commonly derived from the combination of the `reference_date` or `origin_date` and `horizon` task-ids.
 
@@ -305,8 +311,8 @@ Compound modeling tasks are a general conceptual property of the way targets for
 
 At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
 
- - validation that all of the proportions in a set of “mean” `output_types` sum to 1.
- - be used to evaluate the proportions in a set of “mean” `output_types`, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.
+ - validation that all of the proportions in a set of "mean" `output_types` sum to 1.
+ - be used to evaluate the proportions in a set of "mean" `output_types`, since evaluating each modeling task independently would result in inappropriate duplication of scores for what should be viewed as a single multivariate outcome.
 
 <br>
 
