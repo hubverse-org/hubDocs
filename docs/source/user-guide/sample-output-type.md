@@ -247,47 +247,52 @@ Some models might not have this capability and just be able to simulate draws fr
 
 A hub can specify a `"compound_taskid_set"` field in the metadata for the sample `output_type` to specify the task-id columns that must be used to define separate sample index values (as present in the `output_type_id` column). The following table shows how different specifications of this field would impact the validity of each example submission A, B, C, and D. 
 
+<!-- accessible table derived from 
+https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
+-->
 <table>
+  <colgroup span="4"></colgroup>
   <tr>
-    <td>  </td>
-    <td colspan="4"><strong>Submission passing validation</strong></td>
+    <td rowspan="1"></td>
+    <th colspan="4" scope="colgroup"><strong>Submission passing validation</strong></tj>
   </tr>
   <tr>
-    <td><strong>"compound_taskid_set" in schema"</strong></td>
-    <td><strong>A  (o_d,l,h,v)</strong></td>
-    <td><strong>B (o_d,l,h)</strong></td>
-    <td><strong>C (o_d,l)</strong></td>
-    <td><strong>D (o_d,l,v)</strong></td>
+    <th scope="col"><strong><code>"compound_taskid_set"</code> in schema</strong></tj>
+    <th scope="col"><strong>A  (o_d,l,h,v)</strong></th>
+    <th scope="col"><strong>B (o_d,l,h)</strong></th>
+    <th scope="col"><strong>C (o_d,l)</strong></th>
+    <th scope="col"><strong>D (o_d,l,v)</strong></th>
   </tr>
   <tr>
-    <td>["origin_date", "location", "horizon", "variant"]</td>
+    <th scope="row"><code>["origin_date", "location", "horizon", "variant"]</code></th>
     <td>✅</td>
     <td>✅</td>
     <td>✅</td>
     <td>✅</td>
   </tr>
   <tr>
-    <td>["origin_date", "location", "horizon"]</td>
+    <th scope="row"><code>["origin_date", "location", "horizon"]</code></th>
     <td>❌</td>
     <td>✅</td>
     <td>✅</td>
     <td>❌</td>
   </tr>
   <tr>
-    <td>["origin_date", "location"]</td>
+    <th scope="row"><code>["origin_date", "location"]</code></th>
     <td>❌</td>
     <td>❌</td>
     <td>✅</td>
     <td>❌</td>
   </tr>
   <tr>
-    <td>["origin_date", "location", "variant"]</td>
+    <th scope="row"><code>["origin_date", "location", "variant"]</code></th>
     <td>❌</td>
     <td>❌</td>
     <td>✅</td>
     <td>✅</td>
   </tr>
 </table>
+
 
 In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. To talk through the example of [`"origin_date"`, `"horizon"`, `"location"`]:
 - Both Submissions B and C would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
