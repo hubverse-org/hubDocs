@@ -4,15 +4,23 @@
 
 The `model-output`[^model-output] directory in a modeling hub is required to have the following subdirectory and file structure:
 
-* `team1-modelA`
-   * `<round-id1>-<model_id>.csv` (or parquet, etc)
-   * `<round-id2>-<model_id>.csv` (or parquet, etc)
-* `team1-modelB`
-   * `<round-id1>-<model_id>.csv` (or parquet, etc)
-* `team2-modelA`
-   * `<round-id1>-<model_id>.csv` (or parquet, etc)
+* `model_id1`
+   * `<round_id1>-<model_id1>.csv` (or parquet, etc)
+   * `<round_id2>-<model_id1>.csv` (or parquet, etc)
+* `model_id2`
+   * `<round_id1>-<model_id2>.csv` (or parquet, etc)
+* `model_id3`
+   * `<round_id1>-<model_id3>.csv` (or parquet, etc)
 
 where `model_id` = `team_abbr-model_abbr`
+
+### Expected patterns
+
+The elements making up model output directory and file names must match the following patterns:
+
+- `round_id`s must be either ISO fomatted dates (YYYY-MM-DD) or any combinations of alphanumerics separated by underscores (`_`).
+- `team_abbr` and `model_abbr` must contain any combinations of alphanumerics separated by underscores (`_`).
+- `model_id`s are composed of `team_abbr` and `model_abbr` separated by a hyphen (i.e. `team_abbr-model_abbr`).
 
 Note that file names are also allowed to contain the following compression extension prefixes: .snappy, .gzip, .gz, .brotli, .zstd, .lz4, .lzo, .bz2, e.g. `<round-id1>-<model_id>.gz.parquet`.
 
@@ -20,6 +28,28 @@ Note that file names are also allowed to contain the following compression exten
     use a custom directory path by setting the `"model_output_dir"` property in the
     `admin.json` file. More details can be found in the `admin.json` schema
     definition.
+
+### Example model output directory structure
+
+#### With ISO date `round_id`s
+
+* `hub-baseline`
+   * `2022-10-12-hub-baseline.csv`
+   * `2022-10-19-hub-baseline.csv`
+* `team_1-ensemble`
+   * `2022-10-12-team_1-ensemble.parquet`
+   * `2022-10-19-team_1-ensemble.gz.parquet` 
+
+#### With alphanumeric `round_id`s
+
+* `hub-baseline`
+   * `2024_2025_1_covid-hub-baseline.csv`
+   * `2024_2025_1_flu-hub-baseline.csv`
+* `team_1-ensemble`
+   * `2024_2025_1_covid-team_1-ensemble.parquet`
+   * `2024_2025_1_flu-team_1-ensemble.gz.parquet` 
+
+### Example directory structure and file names
 
 (model-output-example-table)=
 ### Example model submission file
