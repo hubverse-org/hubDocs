@@ -19,8 +19,8 @@ where `model_id` = `team_abbr-model_abbr`
 The elements making up model output directory and file names must match the following patterns:
 
 - `round_id`s must be either ISO fomatted dates (YYYY-MM-DD) or any combination of alphanumerics separated by underscores (`_`).
-- `team_abbr` and `model_abbr` must contain any combination of alphanumerics separated by underscores (`_`).
 - `model_id`s are composed of `team_abbr` and `model_abbr` separated by a hyphen (i.e. `team_abbr-model_abbr`).
+- `team_abbr` and `model_abbr` must contain any combination of alphanumerics separated by underscores (`_`).
 
 Note that file names are also allowed to contain the following compression extension prefixes: .snappy, .gzip, .gz, .brotli, .zstd, .lz4, .lzo, .bz2, e.g. `<round-id1>-<model_id>.gz.parquet`.
 
