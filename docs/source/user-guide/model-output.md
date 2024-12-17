@@ -18,7 +18,7 @@ where `model_id` = `team_abbr-model_abbr`
 
 The elements making up model output directory and file names must match the following patterns:
 
-- `round_id`s must be either ISO fomatted dates (YYYY-MM-DD) or any combinations of alphanumerics separated by underscores (`_`).
+- `round_id`s must be either ISO fomatted dates (YYYY-MM-DD) or any combination of alphanumerics separated by underscores (`_`).
 - `team_abbr` and `model_abbr` must contain any combinations of alphanumerics separated by underscores (`_`).
 - `model_id`s are composed of `team_abbr` and `model_abbr` separated by a hyphen (i.e. `team_abbr-model_abbr`).
 
