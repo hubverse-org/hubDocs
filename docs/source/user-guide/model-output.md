@@ -49,8 +49,6 @@ Note that file names are also allowed to contain the following compression exten
    * `2024_2025_1_covid-team_1-ensemble.parquet`
    * `2024_2025_1_flu-team_1-ensemble.gz.parquet` 
 
-### Example directory structure and file names
-
 (model-output-example-table)=
 ### Example model submission file
 
