@@ -59,19 +59,6 @@ This hub collects forecasts at 1 through 4 weeks ahead of cases, hospitalization
 The US COVID-19 Forecast Hub did not specify what type of point forecast should be submitted, but here we are being more specific to illustrate what we think would be a best practice.
 ```
 
-(running-example-3)=
-```{admonition} Example 3: Multiple target keys
-Projections are requested for each combination of the following variables.
-
-#### Task ID variables
-
-* `outcome_variable`{.codeitem} (**target key** variable): “hospitalizations”, “cases”, “deaths”
-* `outcome_measure`{.codeitem} (**target key** variable): “incident count”, “cumulative count”
-* `scenario_id`{.codeitem}: “low vaccination”
-* `location`{.codeitem}: “US”
-* `origin_date`{.codeitem}: 2021-07-11
-* `horizon`{.codeitem}: 1
-```
 
 (submission-rounds)=
 ## Submission rounds

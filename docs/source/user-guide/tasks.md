@@ -173,9 +173,6 @@ We therefore strongly suggest that Hubs adopt the following standard task ID or 
 * `location`{.codeitem}: a unique identifier for a location
 * `target`{.codeitem}: a unique identifier for the target.
   It is recommended, although not required, that hubs set up a single variable to define the target (i.e., as a target key), with additional detail specified in the [`target_metadata` array](#target-metadata).
-* `target_variable`{.codeitem}/`target_outcome`: task IDs making up unique identifiers of a two-part target.
-  These tasks can be used in hubs that want to divide the definition of a target across two variables.
-  Both task IDs will be specified as target keys in the [`target_metadata` array](#tasks-metadata).
 * `target_date`{.codeitem}/`target_end_date`: for short-term forecasts, one of the synonymous task IDs `target_date`/`target_end_date` specifies the date of occurrence of the outcome of interest.
   For instance, if models are requested to forecast the number of hospitalizations on 2022-07-15, the `target_date` is 2022-07-15.
 * `horizon`{.codeitem}: The difference between the `target_date` and the `origin_date` in time units specified by the hub (e.g., days, weeks, or months)
