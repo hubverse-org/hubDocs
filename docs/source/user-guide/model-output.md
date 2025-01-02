@@ -463,7 +463,8 @@ During submission validation, two checks are performed on the `output_type_id` c
 To enable hub administrators to configure and communicate the data type of the `output_type_id` column at a hub level, the hubverse schema allows for using an optional `output_type_id_datatype` property.
 This property should be provided at the top level of `tasks.json` (i.e., sibling to `rounds` and `schema_version`) and can take any of the following values: `"auto"`, `"character"`, `"double"`, `"integer"`, `"logical"`, `"Date"` and can be used to fix the `output_type_id` column data type.
 
-```json
+```{code-block} json
+:force: true
 {
   "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v*/tasks-schema.json",
   "rounds": [...],
