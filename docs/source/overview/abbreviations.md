@@ -14,6 +14,7 @@ The hubverse code often has abbreviations which may not be familiar to users. Th
 | `fn`         | function |
 | `gt`         | greater than |
 | `gte`        | greater than or equal |
+| `id`         | identity |
 | `idx`        | index (of an array) |
 | `lt`         | less than |
 | `lte`        | less than or equal |
