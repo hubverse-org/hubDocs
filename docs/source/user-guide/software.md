@@ -2,43 +2,73 @@
 
 To assist users in building a hub, we have developed a software suite with specific functions and uses outlined below. These tools are designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and, in some cases, evaluating the predictions made by different models.  
 
-## [`hubverse`](https://github.com/hubverse-org/hubverse)  
+## hubverse
 
-`hubverse` is a collection of packages that enables collaborative modeling exercises through a unified framework for aggregating, visualizing, and evaluating forecasts. **Installing `hubverse` also installs all the other packages listed below**. It is designed to make it easy to install and load multiple `hubverse` packages in a single step. You can view the [complete package and instructions](https://github.com/hubverse-org/hubverse).  
+`hubverse` is a collection of packages that enables collaborative modeling exercises through a unified framework for aggregating, visualizing, and evaluating forecasts. **Installing `hubverse` also installs all the other packages listed below**. It is designed to make it easy to install and load multiple `hubverse` packages in a single step. 
 
-## [`hubAdmin`](https://github.com/hubverse-org/hubAdmin)  
+- [package documentation](https://hubverse-org.github.io/hubverse).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubverse).  
 
-`hubAdmin` is an R package that provides utility functions for administering hubs, specifically for creating and validating hub configuration files. You can view the [complete package and instructions](https://github.com/hubverse-org/hubAdmin).  
+## hubAdmin
 
-## [`hubCI`](https://github.com/hubverse-org/hubCI)  
+`hubAdmin` is an R package that provides utility functions for administering hubs, specifically for creating and validating hub configuration files. 
 
-`hubCI` is an R package that provides functionality for setting up hubverse continuous integration workflows. You can view the [complete package and instructions](https://github.com/hubverse-org/hubCI).  
+- [package documentation](https://hubverse-org.github.io/hubAdmin).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubAdmin).  
 
-## [`hubData`](https://github.com/hubverse-org/hubData)  
+## hubCI
 
-`hubData` is an R package that provides tools for connecting to, interacting with, and manipulating hub data. You can view the [complete package and instructions](https://github.com/hubverse-org/hubData).  
+`hubCI` is an R package that provides functionality for setting up hubverse continuous integration workflows. 
 
-## [`hubEnsembles`](https://github.com/hubverse-org/hubEnsembles)  
+- [package documentation](https://hubverse-org.github.io/hubCI).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubCI).  
 
-`hubEnsembles` is an R package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using the mean, median, and mode. You can view the [complete package and instructions](https://github.com/hubverse-org/hubEnsembles).  
+## hubData
 
-## [`hubEvals`](https://github.com/hubverse-org/hubEvals)  
+`hubData` is an R package that provides tools for connecting to, interacting with, and manipulating hub data. 
 
-`hubEvals` is an R package that provides tools for evaluating infectious disease model outputs. You can view the [complete package and instructions](https://github.com/hubverse-org/hubEvals).  
+- [package documentation](https://hubverse-org.github.io/hubData).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubData).  
 
-## [`hubExamples`](https://github.com/hubverse-org/hubExamples)  
+## hubEnsembles
 
-`hubExamples` is an R package that provides example data for forecasting and scenario modeling hubs in the hubverse format. You can view the [complete package and instructions](https://github.com/hubverse-org/hubExamples).  
+`hubEnsembles` is an R package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using the mean, median, and mode. 
 
-## [`hubUtils`](https://hubverse-org.github.io/hubUtils/)  
+- [package documentation](https://hubverse-org.github.io/hubEnsembles).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubEnsembles).  
 
-`hubUtils` is a lightweight R package containing general utilities imported by other hubverse packages. Previously, `hubUtils` was a larger package with more functions, but most were moved and split across `hubData` and `hubAdmin`. You can view the [complete package and instructions](https://github.com/hubverse-org/hubUtils).  
+## hubEvals
 
-## [`hubValidations`](https://github.com/hubverse-org/hubValidations)  
+`hubEvals` is an R package that provides tools for evaluating infectious disease model outputs. 
 
-`hubValidations` is an R package that facilitates the implementation of general validation rules enforced on submissions in the form of pull requests to hub repositories. You can view the [complete package and instructions](https://github.com/hubverse-org/hubValidations).  
+- [package documentation](https://hubverse-org.github.io/hubEvals).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubEvals).  
 
-## [`hubVis`](https://github.com/hubverse-org/hubVis)  
+## hubExamples
 
-`hubVis` is an R package that provides plotting methods for hub model outputs to synthesize and visualize model submissions. You can view the [complete package and instructions](https://github.com/hubverse-org/hubVis).  
+`hubExamples` is an R package that provides example data for forecasting and scenario modeling hubs in the hubverse format. 
+
+- [package documentation](https://hubverse-org.github.io/hubExamples).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubExamples).  
+
+## hubUtils
+
+`hubUtils` is a lightweight R package containing general utilities imported by other hubverse packages. Previously, `hubUtils` was a larger package with more functions, but most were moved and split across `hubData` and `hubAdmin`. 
+
+- [package documentation](https://hubverse-org.github.io/hubUtils).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubUtils).  
+
+## hubValidations
+
+`hubValidations` is an R package that facilitates the implementation of general validation rules enforced on submissions in the form of pull requests to hub repositories. 
+
+- [package documentation](https://hubverse-org.github.io/hubValidations).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubValidations).  
+
+## hubVis
+
+`hubVis` is an R package that provides plotting methods for hub model outputs to synthesize and visualize model submissions. 
+
+- [package documentation](https://hubverse-org.github.io/hubVis).  
+- [package documentation (development)](https://hubverse-org.github.io/dev/hubVis).  
 
