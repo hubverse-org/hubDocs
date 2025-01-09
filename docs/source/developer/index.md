@@ -60,6 +60,10 @@ contact Zhian Kamvar (zkamvar@umass.edu) if you would like to be invited.
 
 As of 2025, decisions are recorded in <https://github.com/reichlab/decisions>.
 
+### Project Board
+
+This GitHub project board contains an overview of Hubverse tickets and work in progress:
+<https://github.com/orgs/hubverse-org/projects/3/views/2>.
 
 ### R Package Contributing and Maintenance
 
