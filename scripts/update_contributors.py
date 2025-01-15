@@ -4,7 +4,7 @@ import requests
 # Fetch the token from the environment variable
 token = os.getenv("GITHUB_TOKEN")
 
-if token is None:
+if not token:
     raise ValueError("GITHUB_TOKEN is not set. Please ensure the environment variable is configured.")
 
 # GitHub API URL for contributors
@@ -18,23 +18,23 @@ response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
     contributors = response.json()
-    with open("docs/source/overview/contributors.md", "w") as file:
+    output_dir = "docs/source/overview"
+    output_file = f"{output_dir}/contributors.md"
+    
+    # Ensure the directory exists
+    os.makedirs(output_dir, exist_ok=True)
+    
+    with open(output_file, "w") as file:
         file.write("# Contributors\n\n")
         for contributor in contributors:
-            # Fetch detailed user info for the contributor
             user_response = requests.get(contributor['url'], headers=headers)
             if user_response.status_code == 200:
                 user_data = user_response.json()
-                name = user_data.get('name', contributor['login'])  # Use name if available, else login
-                blog = user_data.get('blog', '') or "No blog provided"
-                bio = user_data.get('bio', '') or "No bio available"
-                location = user_data.get('location', '') or "Location not specified"
+                name = (user_data.get('name', contributor['login']) or "").strip()
+                blog = (user_data.get('blog') or "").strip()
+                bio = (user_data.get('bio') or "").strip()
+                location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
-                
-                # Ensure the blog, bio, and location are stripped of extra whitespace
-                blog = blog.strip() if isinstance(blog, str) else blog
-                bio = bio.strip() if isinstance(bio, str) else bio
-                location = location.strip() if isinstance(location, str) else location
                 
                 file.write(
                     f"- [{name}]({blog}) ([{contributor['login']}]({contributor['html_url']})) - "
@@ -43,7 +43,7 @@ if response.status_code == 200:
             else:
                 file.write(
                     f"- [{contributor['login']}]({contributor['html_url']}) - "
-                    f"Failed to fetch additional details.\n"
+                    f"Failed to fetch additional details. (Error {user_response.status_code})\n"
                 )
     print("Contributors list updated successfully.")
 else:
