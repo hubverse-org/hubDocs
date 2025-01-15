@@ -33,6 +33,7 @@ if response.status_code == 200:
                 name = (user_data.get('name', contributor['login']) or "").strip()
                 blog = (user_data.get('blog') or "").strip()
                 bio = (user_data.get('bio') or "").strip()
+                bio = " ".join(bio.split())  # Remove extra spaces inside bio
                 location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
                 
