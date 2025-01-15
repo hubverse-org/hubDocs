@@ -48,6 +48,9 @@ if response.status_code == 200:
 
                 # Only include the blog link if it's not empty
                 if blog:
+                    # If blog doesn't start with http:// or https://, prepend https://
+                    if not blog.startswith(('http://', 'https://')):
+                        blog = f"https://{blog}"
                     blog_output = f"({blog})"
                 else:
                     blog_output = ""  # Don't include parentheses if `blog` is empty
