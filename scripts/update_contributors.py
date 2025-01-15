@@ -36,9 +36,26 @@ if response.status_code == 200:
                 location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
                 
+                # Only include square brackets if `name` is not empty
+                if name:
+                    name_output = f"[{name}]"
+                else:
+                    name_output = name  # Leave it as empty if `name` is blank
+
+                # Only include the blog link if it's not empty
+                if blog:
+                    blog_output = f"({blog})"
+                else:
+                    blog_output = ""  # Don't include parentheses if `blog` is empty
+
+                # Avoid adding period if `bio` or `location` is empty
+                bio_output = f"{bio}." if bio else ""
+                location_output = f" {location}." if location else ""
+                
+                # Write to the file with conditional formatting
                 file.write(
-                    f"- [{name}]({blog}) ([{contributor['login']}]({contributor['html_url']})) - "
-                    f"{bio}. {location}. {commit_count} commits.\n"
+                    f"- {name_output}{blog_output} ([{contributor['login']}]({contributor['html_url']})) - "
+                    f"{bio_output}{location_output} {commit_count} commits.\n"
                 )
             else:
                 file.write(
