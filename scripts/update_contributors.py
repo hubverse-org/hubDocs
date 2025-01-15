@@ -36,9 +36,12 @@ if response.status_code == 200:
                 location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
                 
-                # Only include square brackets if `name` is not empty
+                # Only include square brackets around name if `blog` is not empty
                 if name:
-                    name_output = f"[{name}]"
+                    if blog:
+                        name_output = f"[{name}]"
+                    else:
+                        name_output = name  # No square brackets if `blog` is empty
                 else:
                     name_output = name  # Leave it as empty if `name` is blank
 
