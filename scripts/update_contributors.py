@@ -37,7 +37,7 @@ if response.status_code == 200:
                 location = location.strip() if isinstance(location, str) else location
                 
                 file.write(
-                    f"- [{name}] ({blog}) ([{contributor['login']}]({contributor['html_url']})) - "
+                    f"- [{name}]({blog}) ([{contributor['login']}]({contributor['html_url']})) - "
                     f"{bio}. {location}. {commit_count} commits.\n"
                 )
             else:
