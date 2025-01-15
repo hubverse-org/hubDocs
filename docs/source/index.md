@@ -104,6 +104,13 @@ user-guide/presentations.md
 
 ```{toctree}
 :maxdepth: 2
+:caption: Developer Guide
+:hidden:
+developer/index.md
+```
+
+```{toctree}
+:maxdepth: 2
 :caption: Code of Conduct
 :hidden:
 coc/covenant.md
