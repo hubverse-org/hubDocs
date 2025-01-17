@@ -1,4 +1,4 @@
-# Documentation for Infectious Disease Modeling Hubs  
+# Documentation for Infectious Disease Modeling Hubs
 
 This repository includes the content needed to generate the Hubverse static
 documentation site. Included is documentation about how to build, manage, and
@@ -158,7 +158,7 @@ To override pre-commit warnings:
 git commit --no-verify
 ```
 
-## Documentation versioning  
+## Documentation versioning
 
 Documentation is [versioned by using releases](https://docs.readthedocs.io/en/stable/versions.html). Releases should track releases of Hub schema versions in [`schemas` repository](https://github.com/hubverse-org/schemas). While changes to documentation text can be committed without creating a new release and will appear in the `latest` version of the documentation, **changes to documentation related to a new schema release must be accompanied by a new release in this repository**. New releases on `hubDocs` should use the same version number as the `schemas` release but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
@@ -173,15 +173,15 @@ When creating a new release version:
 7. Create pull request and merge after review.
 8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
 
-## Contribution guidelines  
+## Contribution guidelines
 
 In general, contributions should be made via pull requests to the `main` branch. Note that PRs should trigger preview builds of the site, so you should be able to double-check that your changes look as expected.
 
-## Style notes  
+## Style notes
 
-- New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).  
-- File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).  
+- New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).
+- File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
-- Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.  
-- Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.  
-- Additional stylistic suggestions can be found in [this style guide for Sphinx-based documentations](https://documentation-style-guide-sphinx.readthedocs.io/en/latest/).  
+- Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.
+- Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.
+- Additional stylistic suggestions can be found in [this style guide for Sphinx-based documentations](https://documentation-style-guide-sphinx.readthedocs.io/en/latest/).

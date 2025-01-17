@@ -1,8 +1,8 @@
 # Defining modeling tasks
 
-Every hub is organized around a set of "modeling tasks". These modeling tasks define how the target data should be modeled in terms of 
+Every hub is organized around a set of "modeling tasks". These modeling tasks define how the target data should be modeled in terms of
 
-1. what variables to use for modeling (e.g., date, location, variant, etc) and 
+1. what variables to use for modeling (e.g., date, location, variant, etc) and
 2. the specific format of the model output.
 
 The [`tasks.json` configuration file](#tasks-metadata)[^json] for a hub is used to structure the modeling tasks so that model submissions can be rapidly validated.
@@ -10,7 +10,7 @@ Modeling tasks are defined for single or multiple rounds[^multiround].
 The three components of modeling tasks are:
 
  - The [`task_ids`{.codeitem} object](#task-id-vars) defines both labels for columns in submission files and the set of valid values for each column.
-   Any unique value combination defines a single modeling task or target. 
+   Any unique value combination defines a single modeling task or target.
  - The [`output_type`{.codeitem} object](#output-types) defines accepted representations _for each task_.
    The [model output section](#formats-of-model-output) provides more information on the different output types.
  - The [`target_metadata`{.codeitem} array](#target-metadata) provides additional information about each target.
@@ -27,7 +27,7 @@ Because they are central to Hubs, task ID variables serve several purposes:
 
 * **Define modeling tasks** of the hub in the hub metadata
 * **Identify modelling tasks corresponding to forecasts** in the model outputs
-* **Allow alignment of model outputs with [target data](#target-data)** that are derived from "ground truth" data sources. 
+* **Allow alignment of model outputs with [target data](#target-data)** that are derived from "ground truth" data sources.
 
 The following diagram illustrates the relationships between these items at a high level, and the following sections provide more detail.
 
@@ -45,12 +45,12 @@ A modeling hub works as an ecosystem of resources from the hub administrators, m
 
 **Task ID variables represent columns in model output files.**
 It's important to understand that model output files are in **tabular format (e.g., csv or parquet).**
-Moreover, these tables are presented in a [long/narrow representation](https://en.wikipedia.org/wiki/Wide_and_narrow_data) where each row of data represents a unique combination of task ID variables and a single value from the model output[^tidy]. 
+Moreover, these tables are presented in a [long/narrow representation](https://en.wikipedia.org/wiki/Wide_and_narrow_data) where each row of data represents a unique combination of task ID variables and a single value from the model output[^tidy].
 
 [^tidy]: This type of data is also known as "tidy data," a term coined by Hadley Wickham that's heavily used in the R community. You can read more about the concept in the [Data tidying chapter of the R4DS book](https://r4ds.hadley.nz/data-tidy#sec-tidy-data) and the [Tidy Data paper by Wickham (2014)](https://www.jstatsoft.org/article/view/v059i10).
 
 In the `tasks.json` file, task ID variables are a collection of JSON objects
-that define required and optional values for these variables. In the example below from [the COVID-19 variant nowcast hub](https://github.com/reichlab/variant-nowcast-hub/blob/main/hub-config/tasks.json), there are four task ID variables defined: `"nowcast_date"`, `"target_date"`, `"location"`, and `"clade"`. 
+that define required and optional values for these variables. In the example below from [the COVID-19 variant nowcast hub](https://github.com/reichlab/variant-nowcast-hub/blob/main/hub-config/tasks.json), there are four task ID variables defined: `"nowcast_date"`, `"target_date"`, `"location"`, and `"clade"`.
 
 ```json
 "task_ids": {
@@ -80,16 +80,16 @@ exact values will result in an error. In contrast, modellers MAY submit
 predictions for ANY of the `"target_date"`s between 2024-08-11 and 2024-09-21
 and ANY of the states listed in `"location"`. By allowing modelers to submit a
 subset of optional values, it means poor-performing models can be omitted so
-they do not negatively influence model ensembles. It also allows models that 
+they do not negatively influence model ensembles. It also allows models that
 only have the capacity for a subset of the optional options to still
-participate. 
+participate.
 
 #### Special task ID variables
 
 Task ID variables are used to parameterize modeling efforts.
 However, some task ID variables serve specific purposes in defining submission rounds and targets.
 Every hub must have **a single task ID variable that uniquely defines a submission round.**
-It has become a convention to use a task ID formatted in the `YYYY-MM-DD` format (e.g., `origin_date` or `forecast_date`). 
+It has become a convention to use a task ID formatted in the `YYYY-MM-DD` format (e.g., `origin_date` or `forecast_date`).
 For example, in [Running Example 1](#running-examples), this task ID is `origin_date`.
 
 There can be **one or more task ID variables to define a modeling "target"** (these are referred to in the [tasks metadata](#tasks-metadata) as a `target_key`).
@@ -98,11 +98,11 @@ In this example, `target` is the target key and can only take on one value, "inc
 
 #### Derived Task ID variables
 
-Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID and as the starting projection date (week 0; let's say "2024-11-07"), 2 `location`s, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `location`s × 2 `horizon`s). 
+Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID and as the starting projection date (week 0; let's say "2024-11-07"), 2 `location`s, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `location`s × 2 `horizon`s).
 
-**However, it is possible to have task ID variables that are derived directly from others.** For example, `target_date` (which represents when the outcome of interest occurs) can be calculated based on the `origin_date` and `horizon` (e.g. `origin_date + horizon * 7` to calculate weekly predictions). If the `origin_date` is `"2024-11-07"` and the `horizon` is 1 week, the `target_date` will be `"2024-11-14"`. For a `horizon` of 2 weeks, the `target_date` will be `"2024-11-21"`. Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from. We strongly advise hub administrators to add the derived information and calculation in their documentation. 
+**However, it is possible to have task ID variables that are derived directly from others.** For example, `target_date` (which represents when the outcome of interest occurs) can be calculated based on the `origin_date` and `horizon` (e.g. `origin_date + horizon * 7` to calculate weekly predictions). If the `origin_date` is `"2024-11-07"` and the `horizon` is 1 week, the `target_date` will be `"2024-11-14"`. For a `horizon` of 2 weeks, the `target_date` will be `"2024-11-21"`. Such task IDs therefore have **a one-to-one relationship** to values of the task IDs they are derived from. We strongly advise hub administrators to add the derived information and calculation in their documentation.
 
-By adding a `target_date` task ID to the above example we would still have a total of 4 unique tasks since `target_date` is derived from the `origin_date` and `horizon` task IDs and each `horizon` produces a unique valid `target_date` per location. 
+By adding a `target_date` task ID to the above example we would still have a total of 4 unique tasks since `target_date` is derived from the `origin_date` and `horizon` task IDs and each `horizon` produces a unique valid `target_date` per location.
 
 While derived task IDs like `target_date` are helpful for modeling and visualization, they break assumptions made during some validation tests and can also put significant strain on validation performance. As such they should generally be ignored during standard validation and custom or optional checks added to the validation workflow to check their relationship to the task IDs they are derived from (see for example documentation on the [`opt_check_tbl_horizon_timediff()`](https://hubverse-org.github.io/hubValidations/reference/opt_check_tbl_horizon_timediff.html) used to check the time difference between values in two date columns equals a defined time period defined by values in a horizon column).
 
@@ -118,7 +118,7 @@ IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ign
 
 :::{note}
 
-If any task IDs with `required` values have dependent derived task IDs, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors. 
+If any task IDs with `required` values have dependent derived task IDs, **it is essential for `derived_task_ids` to be specified**. Otherwise, this will result in false validation errors.
 
 Take for example a scenario where  `target_date` is derived from `origin_date`
 and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
@@ -127,7 +127,7 @@ specifying this, modelers will end up with a
 [`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
 check failure _even if their submission file is valid_.
 
-If a model submission file looks like this: 
+If a model submission file looks like this:
 
 ```{table} submission file
 :width: 95%
@@ -154,7 +154,7 @@ will result in an ❌ `<error/check_failure>` whether the `target_date` content 
 ```
 
 If you inspect the table, you will notice that _these combinations are invalid_
-because the values in `target_date` are not correctly aligned with the 
+because the values in `target_date` are not correctly aligned with the
 `origin_date` and `horizon` (i.e. 2024-11-21 is _two weeks_ ahead of
 2024-11-07, not 1 week, as indicated by the `horizon`).
 
@@ -164,7 +164,7 @@ because the values in `target_date` are not correctly aligned with the
 #### Standard task ID variables
 
 While there are no general restrictions on task ID column names or definitions, **using the standard task ID names described below ensures that they are strongly validated against the hubverse schema.**
-We therefore strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:  
+We therefore strongly suggest that Hubs adopt the following standard task ID or column names and definitions[^new-vars]:
 
 * `origin_date`{.codeitem}: the starting point that can be used for calculating a `target_date` via the formula `target_date = origin_date + horizon * time_units_per_horizon` (e.g., with weekly data, `target_date` is calculated as `origin_date + horizon * 7` days).
   Another reasonable choice for `origin_date` is `reference_date`.
@@ -214,7 +214,7 @@ example of a quantile output type:
 From the code block above, you can see that an output type has four components:
 
 1. (line 1) `"quantile"`{.codeitem} the name of the output type representation
-   (e.g. `"cdf"`, `"mean"`,  `"median"`, `"quantile"`, `"pmf"`, `"sample"`) 
+   (e.g. `"cdf"`, `"mean"`,  `"median"`, `"quantile"`, `"pmf"`, `"sample"`)
 2. (line 2) `"output_type_id"`{.codeitem} In the case of quantiles, the output
    type ID is an indication of the quantile bins. **Unlike task IDs, all
    `output_type_id`s are required** (see note below).
@@ -222,7 +222,7 @@ From the code block above, you can see that an output type has four components:
    case, the values from this model should be non-negative integers.
 4. (line 13) `"is_required"`{.codeitem} an indication if this output type is
    required or not. In this example, submissions without this output type would
-   fail. 
+   fail.
 
 The [formats of model output section](#output-type-table) from the model output chapter provides more information on the different output types.
 
@@ -253,7 +253,7 @@ bins are not included:
 (target-metadata)=
 ## Target metadata
 
-Target metadata is an array in the [`tasks.json` schema file](#tasks-metadata) that defines each target's characteristics. 
+Target metadata is an array in the [`tasks.json` schema file](#tasks-metadata) that defines each target's characteristics.
 It serves as a logical connection between `task_ids` and corresponding `output_types`:
 
 ```{mermaid}
@@ -261,7 +261,7 @@ flowchart LR
     subgraph task-id["task_ids"]
     target
     end
-    
+
     subgraph output-type["output_type"]
     vars["[output type objects]"]
     end
@@ -279,7 +279,7 @@ flowchart LR
 
 ### Example
 
-Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident COVID-19 hospitalizations. 
+Here is an example of how the target metadata fields might appear in the `tasks.json` schema for a Hub whose target is incident COVID-19 hospitalizations.
 
 ```json
 "target_metadata": [
@@ -303,17 +303,17 @@ Here is an example of how the target metadata fields might appear in the `tasks.
 Target metadata comprises the following fields:
 * `target_id`{.codeitem}: a short description uniquely identifying the target.
 * `target_name`{.codeitem}: a longer, human-readable description of the target, which could be used as a visualization axis label.
-* `target_units`{.codeitem}: the unit of observation used for this target. 
+* `target_units`{.codeitem}: the unit of observation used for this target.
 * `target_keys`{.codeitem}: a set of one or more name/value pairs that **must match a target defined in the `task_ids`** section of the schema.
 Each value, or the combination of values if multiple keys are specified, defines a single target value.
-* `description`{.codeitem}: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example. 
+* `description`{.codeitem}: a verbose explanation of the target, which might include details on the measure used for the target or a definition of 'rate', for example.
 * `target_type`{.codeitem}: the target’s statistical data type that **must correspond to the `output_type`** section of the schema.
-   
+
    The following table lists the possible values for `target_type` (rows) and the corresponding `output_type` (columns).
-   An `X` indicates that the output type can be used with the target type, and a `-` means that it can not be used. 
+   An `X` indicates that the output type can be used with the target type, and a `-` means that it can not be used.
    We note that for the binary data type row, mean and median `output_type` are X'ed for definitional consistency, but in practice, the hubverse recommends using pmf or sample `output_type` as a more natural way to represent these values.
 
-   | `target_type` | mean | median | quantile | cdf   | pmf   | sample 
+   | `target_type` | mean | median | quantile | cdf   | pmf   | sample
    |--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
    | continuous | X | X | X | X | - | X |
    | discrete | X | X | X | X | X | X |

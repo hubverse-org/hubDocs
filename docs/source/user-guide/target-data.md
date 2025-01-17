@@ -9,8 +9,8 @@ These data come in two forms:
 
 1. **time series** data[^truth], which are the _observed_ counts or rates partitioned
    for each unique combination of [task id values](#task-id-vars).
-2. **oracle output** data are _derived from the time series data_ and represent 
-   model output that would have been generated if the target data values had 
+2. **oracle output** data are _derived from the time series data_ and represent
+   model output that would have been generated if the target data values had
    been known ahead of time.
 
 Hubverse tools like [hubVis](https://hubverse-org.github.io/hubVis) make use of

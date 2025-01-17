@@ -77,7 +77,7 @@ If you want to contribute to an existing Hubverse package, please consult the
 ### R Package Release Process
 
 R packages are published to The Hubverse R Universe upon minting a new GitHub
-release. This process is detailed in the 
+release. This process is detailed in the
 [Introduction to the release process article](https://hubverse-org.github.io/hubDevs/dev/articles/release-process.html) in hubDevs.
 
 
