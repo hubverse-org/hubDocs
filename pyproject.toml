@@ -1,8 +1,46 @@
-[build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
-
 [project]
-name = "lumache"
-authors = [{name = "Graziella", email = "graziella@lumache"}]
-dynamic = ["version", "description"]
+name = "hubdocs"
+description = "Documentation for the Hubverse collection of collaborative modeling tools"
+authors = [
+    {name = "Consortium of Infectious Disease Modeling Hubs"},
+    {name = "Graziella", email = "graziella@lumache.com"}
+]
+maintainers = [
+    {name = "Alvaro J. Castro", email="acastrorivad@umass.edu"},
+    {name = "Zhian N. Kamvar", email="zkamvar@umass.edu"},
+    {name = "Anna Krystalli", email="r.rse.eu@gmail.com"},
+]
+license = {text = "MIT License"}
+dynamic = ["version"]
+
+requires-python = ">=3.9"
+readme = "README.md"
+
+dependencies = [
+    "myst-parser",
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-book-theme",
+    "sphinx-design",
+    "sphinxcontrib-mermaid",
+]
+
+[project.urls]
+Repository = "https://github.com/hubverse-org/hubDocs"
+Issues = "https://github.com/hubverse-org/hubDocs/issues"
+
+#[build-system]
+#requires = ["flit_core >=3.2,<4"]
+#build-backend = "flit_core.buildapi"
+
+[build-system]
+requires = ['setuptools>=45', 'wheel', "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+
+[tool.uv]
+# ensure setuptools_scm generates a version number that reflects latest tags
+# https://docs.astral.sh/uv/concepts/cache/#dynamic-metadata
+cache-keys = [{ git = { commit = true, tags = true } }]
