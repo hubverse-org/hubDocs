@@ -2,8 +2,7 @@
 name = "hubdocs"
 description = "Documentation for the Hubverse collection of collaborative modeling tools"
 authors = [
-    {name = "Consortium of Infectious Disease Modeling Hubs"},
-    {name = "Graziella", email = "graziella@lumache.com"}
+    {name = "Consortium of Infectious Disease Modeling Hubs"}
 ]
 maintainers = [
     {name = "Alvaro J. Castro", email="acastrorivad@umass.edu"},
