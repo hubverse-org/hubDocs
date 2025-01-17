@@ -6,14 +6,14 @@ maintain collaborative modeling hubs.
 
 ## Sections
 
-1. [How the site works](#how-the-site-works)  
-2. [Installation and building](#installation-and-building)  
-3. [View local site](#view-local-site)  
-4. [Documentation versioning](#documentation-versioning)  
-5. [Contribution guidelines](#contribution-guidelines)  
-6. [Style notes](#style-notes)  
+1. [How the site works](#how-the-site-works)
+2. [Updating Hubverse documentation](#updating-hubverse-documentation)
+3. [Updating Read the Docs and Sphinx](#updating-read-the-docs-and-sphinx)
+4. [Documentation versioning](#documentation-versioning)
+5. [Contribution guidelines](#contribution-guidelines)
+6. [Style notes](#style-notes)
 
-## How the site works  
+## How the site works
 
 This site uses [ReadTheDocs](https://readthedocs.org/) and
 [Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and
@@ -37,7 +37,7 @@ dependencies from `pyproject.toml` and re-generating an annotated
 `requirements/requirements.txt` file. In other words, don't add update
 the requirements.txt file directly.
 
-### Updating documentation
+### Updating Hubverse documentation
 
 The main content of the Hubverse documentation lives in
 [`docs/source`](docs/source/). That is where you will add/edit Markdown files
