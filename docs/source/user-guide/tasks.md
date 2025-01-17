@@ -109,10 +109,10 @@ While derived task IDs like `target_date` are helpful for modeling and visualiza
 In schema version 4.0.0, we introduced `derived_task_ids` properties to enable
 hub administrators to define derived task IDs (i.e. task IDs whose values
 depend on the values of other task IDs) in their hub config files. The higher level `derived_task_ids
-property` sets the property globally at the hub level but can be overriden by
+property` sets the property globally at the hub level but can be overridden by
 the round level `derived_task_ids` property. The property allows for primarily
 validation functionality to ignore such task IDs when appropriate which can
-significantly improve validation efficency. For more information see the
+significantly improve validation efficiency. For more information see the
 [hubValidations documentation on ignoring derived task
 IDs](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#ignoring-derived-task-ids-to-improve-performance).
 
@@ -315,7 +315,7 @@ Each value, or the combination of values if multiple keys are specified, defines
 
    | `target_type` | mean | median | quantile | cdf   | pmf   | sample 
    |--------- | ----------- |----------- | ----------- |----------- |----------- |----------- |
-   | continous | X | X | X | X | - | X |
+   | continuous | X | X | X | X | - | X |
    | discrete | X | X | X | X | X | X |
    | nominal | - | - | - | - | X | X |
    | binary | X | X | - | - | X | X |

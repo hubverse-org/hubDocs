@@ -105,11 +105,11 @@ withr::with_seed(5, {
 
 ```{figure} ../images/oracle-model-output.png
 :figclass: margin-caption
-:alt: Simplified graph showing two distrbutions called "oracle" and "model". The model distribution spans from below -2 to above 4 with a mean of 1, with probabilities below 0.5. The oracle distribution appears as a single line at 2 that has a probability of 1.
+:alt: Simplified graph showing two distributions called "oracle" and "model". The model distribution spans from below -2 to above 4 with a mean of 1, with probabilities below 0.5. The oracle distribution appears as a single line at 2 that has a probability of 1.
 
 Model and Oracle distributions
 
-Just like model outputs are derived from a model distribtuion, oracle output
+Just like model outputs are derived from a model distribution, oracle output
 values are derived from distributions with a probability of 1 on the observed
 target.
 ```
@@ -290,7 +290,7 @@ each `output_type`. We highlight two points about these objects:
 These examples are all collected and filtered from [the `hubExamples` package](https://hubverse.github.io/hubExamples). The model output data set contains over
 10,000 rows and the oracle output data has over 200,000 rows.
 
-To make comparisons easier, we have subset the data to Massachusettes (FIPS code
+To make comparisons easier, we have subset the data to Massachusetts (FIPS code
 25) with one `reference_date` of 2022-11-19 and four target end dates between 2022-11-19 and 2022-12-10.
 
 In addition, for the model output data, we are only showing the
@@ -321,7 +321,7 @@ In addition, for the model output data, we are only showing the
 
 For the `mean` output type, the `oracle_value` is the numeric value of
 the prediction target. Here, the first row of the oracle output
-indicates that 79 flu hospitalizations were reported in Massachusettes for the
+indicates that 79 flu hospitalizations were reported in Massachusetts for the
 week ending on 2022-11-19. This can be viewed as the mean of a
 “predictive distribution” that is entirely concentrated on that observed
 value. The use of `<NA>` for the `output_type_id` matches the convention
@@ -386,7 +386,7 @@ matches the convention for model output with the median output type.
 As with the `mean` and `median` output types, the `oracle_value` for a
 quantile type is the observed numeric value of the prediction target,
 which is the quantile of a predictive distribution that assigns
-probablity 1 to that observed value at any quantile probability level. A
+probability 1 to that observed value at any quantile probability level. A
 model output file would need to have a separate row for each quantile
 level reported in the `output_type_id` column. As a space-saving
 convention, we use `output_type_id = <NA>` to indicate that this
@@ -416,7 +416,7 @@ convention, we use `output_type_id = <NA>` to indicate that this
 
 As with the above output types, the `oracle_value` for a sample type is
 the observed numeric value of the prediction target since all samples
-from a predictive distribution that assigns probablity 1 to the observed
+from a predictive distribution that assigns probability 1 to the observed
 value will be equal to that value. A model output file would need to
 have a separate row for each sample, with the sample index recorded in
 the `output_type_id` column. We use `output_type_id = <NA>` to indicate
@@ -460,7 +460,7 @@ that this `oracle_value` applies to all predictive samples.
 
 The presence of a `1` for the `oracle_value` in the first row and `0` in the
 subsequent three rows indicates that the observed rate category in
-Massachusettes on the week of 2022-11-19 was `"low"`. Similarly, the observed rate category for the week of
+Massachusetts on the week of 2022-11-19 was `"low"`. Similarly, the observed rate category for the week of
 2022-11-26 was `"moderate"`.
 
 ### Output type `cdf`
