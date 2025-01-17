@@ -9,9 +9,10 @@ maintain collaborative modeling hubs.
 1. [How the site works](#how-the-site-works)
 2. [Updating Hubverse documentation](#updating-hubverse-documentation)
 3. [Updating Read the Docs and Sphinx](#updating-read-the-docs-and-sphinx)
-4. [Documentation versioning](#documentation-versioning)
-5. [Contribution guidelines](#contribution-guidelines)
-6. [Style notes](#style-notes)
+4. [Automated linting](#optional-automated-linting)
+5. [Documentation versioning](#documentation-versioning)
+6. [Contribution guidelines](#contribution-guidelines)
+7. [Style notes](#style-notes)
 
 ## How the site works
 
@@ -126,6 +127,36 @@ extension):
 
 To remove a dependency, the process is similar. Replace the first step above
 with `uv remove` and follow the remaining steps.
+
+### Optional automated linting
+
+The hubDocs repository includes [pre-commit](https://pre-commit.com/), which
+automtatically runs a series of checks against files before they're committed
+to the repo. The [`pre-commit-config.yaml`](.pre-commit-config.yaml) config
+file defines which kind of checks will run (for example, linting markdown files,
+flagging invalid yaml, and running a spell checker).
+
+In most cases, the pre-commit hooks will try to fix the issues it detects. To
+accept the changes, simply re-add the files altered by pre-commit, and try the
+commit again.
+
+To install the `pre-commit` hooks and automatically run checks as you commit
+changes to `hubDocs`:
+
+```script
+uv run pre-commit install
+```
+
+Going forward, pre-commit will run through all checks listed in
+`pre-commig-config.yaml` whenever you commit to the repository. If any file
+in your commit fails a check, pre-commit flags the issue and prevents the
+commit.
+
+To override pre-commit warnings:
+
+```script
+git commit --no-verify
+```
 
 ## Documentation versioning  
 
