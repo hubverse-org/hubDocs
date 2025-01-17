@@ -1,4 +1,7 @@
-# Configuration file for the Sphinx documentation builder.
+"""Configuration file for the Sphinx documentation builder."""
+
+import os
+
 
 # -- Project information
 
@@ -91,7 +94,6 @@ schema_branch = "br-"+schema_version
 # (in contrast to being run in a pull request or locally). This ensures that any production versions of the docs published on the hubDocs `main` branch always 
 # point to schema on the `main` branch of the `schemas` repository. It also allows for previewing docson widgets and links to schema in branches other than the
 # main branch in the schemas repos when developing locally or in pull requests
-import os
 build_type = os.environ.get("READTHEDOCS_VERSION_TYPE")
 if build_type is None:
     build_type = "unknown"
