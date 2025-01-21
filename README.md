@@ -37,6 +37,13 @@ dependencies from `pyproject.toml` and re-generating an annotated
 `requirements/requirements.txt` file. In other words, don't add update
 the requirements.txt file directly.
 
+> [!IMPORTANT]
+> If you have an active Python virtual environment (for example, conda's
+> base environment), you'll need to deactivate it before following the
+> instructions below.
+> See the wiki for further
+> [troubleshooting information](https://github.com/hubverse-org/hubDocs/wiki/Troubleshooting).
+
 ### Updating Hubverse documentation
 
 The main content of the Hubverse documentation lives in
