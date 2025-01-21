@@ -62,6 +62,11 @@ the repo's root directory.
     uv venv --seed
     ```
 
+    > [!NOTE]
+    > The output of this command provides an instruction for activating the new
+    > virtual environment. Doing so is optional, as subsequent `uv` commands
+    > will detect and use the environment automatically.
+
 4. Install dependencies:
 
     ```script
