@@ -80,7 +80,8 @@ the repo's root directory.
     ```
 
     The output of this command provides the url to use for viewing the
-    documentation. For example:
+    documentation. In the example below, you can see the built page by
+    going to http://127.0.0.1:8000. Use CTRL+C to stop serving the local build.
 
     ```script
     build succeeded, 4 warnings.
