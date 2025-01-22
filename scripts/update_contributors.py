@@ -36,6 +36,8 @@ if response.status_code == 200:
                 bio = " ".join(bio.split())  # Remove extra spaces inside bio
                 location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
+                avatar_url = contributor.get('avatar_url', '')
+                avatar_url = f"{avatar_url}?s=50"
                 
                 # Only include square brackets around name if `blog` is not empty
                 if name:
@@ -61,11 +63,13 @@ if response.status_code == 200:
                 
                 # Write to the file with conditional formatting
                 file.write(
+                    f"![{name or contributor['login']}]({avatar_url}) "
                     f"- {name_output}{blog_output} ([{contributor['login']}]({contributor['html_url']})) - "
                     f"{bio_output}{location_output} {commit_count} commits.\n"
                 )
             else:
                 file.write(
+                    f"- ![Avatar](https://dummyimage.com/50x50/3c88be/3c88be) "
                     f"- [{contributor['login']}]({contributor['html_url']}) - "
                     f"Failed to fetch additional details. (Error {user_response.status_code})\n"
                 )
