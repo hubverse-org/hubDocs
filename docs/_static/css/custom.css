@@ -15,6 +15,12 @@ img {
   border: 3px solid  #3C88BE;
 }
 
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px; /* Optional: Makes the image circular */
+}
+
 figure {
   /*float: right;
   width: 30%;*/

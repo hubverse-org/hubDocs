@@ -37,7 +37,6 @@ if response.status_code == 200:
                 location = (user_data.get('location', '') or "").strip()
                 commit_count = contributor.get('contributions', 0)
                 avatar_url = contributor.get('avatar_url', '')
-                avatar_url = f"{avatar_url}?s=50"
                 
                 # Only include square brackets around name if `blog` is not empty
                 if name:
@@ -63,7 +62,7 @@ if response.status_code == 200:
                 
                 # Write to the file with conditional formatting
                 file.write(
-                    f"![{name or contributor['login']}]({avatar_url}) "
+                    f'<img src="{avatar_url}" alt="{name or contributor["login"]}" class="avatar"> '
                     f"- {name_output}{blog_output} ([{contributor['login']}]({contributor['html_url']})) - "
                     f"{bio_output}{location_output} {commit_count} commits.\n"
                 )
