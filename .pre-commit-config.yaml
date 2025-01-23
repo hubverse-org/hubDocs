@@ -2,7 +2,7 @@ exclude: >
     (?x)(
         ^docs/build/|
         ^docs/_static/|
-        ^docs/build/
+        ^docs/_build/
     )
 repos:
 - repo: https://github.com/astral-sh/ruff-pre-commit
