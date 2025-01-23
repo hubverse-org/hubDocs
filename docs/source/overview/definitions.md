@@ -1,4 +1,4 @@
-# Key definitions  
+# Key definitions
 
 ```{admonition} Modeling hub
 a consortium of research groups working together on a common set of modeling tasks to develop ensemble models to provide stakeholders with a single model output representing uncertainty across different modeling assumptions and frameworks.
@@ -36,24 +36,24 @@ a statistical or mathematical formulation of a model.
 code that implements a team's mathematical model formulation/structure to generate model outputs. Each team may have multiple instances of software.
 ```
 
-```{admonition} Model output 
+```{admonition} Model output
 a set of target results generated in response to some modeling task for a specific round. A model might result from a single team’s response to the task or from an ensemble of results representing the outcomes of multiple efforts.
 ```
 
 ```{admonition} Nowcast
-model output that provides estimates/predictions of partially observed or unobserved values at the current date from a data stream before the current date. Nowcasts should be set up to be evaluated for accuracy based on comparisons with the eventually observed complete data. See the [horizons nomenclature image below](#horizons_nomenclature).  
+model output that provides estimates/predictions of partially observed or unobserved values at the current date from a data stream before the current date. Nowcasts should be set up to be evaluated for accuracy based on comparisons with the eventually observed complete data. See the [horizons nomenclature image below](#horizons_nomenclature).
 ```
 
 ```{admonition} Forecast
-a specific quantified prediction of an observable event or trend that has yet to be observed, conditional on data that has been observed up to a specified time. Forecasts should be set up to be evaluated for accuracy based on comparisons with the observed data. See the [horizons nomenclature image below](#horizons_nomenclature).  
+a specific quantified prediction of an observable event or trend that has yet to be observed, conditional on data that has been observed up to a specified time. Forecasts should be set up to be evaluated for accuracy based on comparisons with the observed data. See the [horizons nomenclature image below](#horizons_nomenclature).
 ```
 
 ```{admonition} Scenario
-a description of a possible future to be modeled, described in terms of model parameters that might be varied, such as transmissibility, vaccine adoption, vaccine efficacy, the emergence of a new variant, etc.  
+a description of a possible future to be modeled, described in terms of model parameters that might be varied, such as transmissibility, vaccine adoption, vaccine efficacy, the emergence of a new variant, etc.
 ```
 
 ```{admonition} Scenario projection
-model output that provides estimates of future observations of future trends conditional on specific assumptions about a given scenario. Scenario projects are challenging to evaluate against future observed data since the assumptions under which scenarios were generated likely will never have been exactly met. See the [horizons nomenclature image below](#horizons_nomenclature).  
+model output that provides estimates of future observations of future trends conditional on specific assumptions about a given scenario. Scenario projects are challenging to evaluate against future observed data since the assumptions under which scenarios were generated likely will never have been exactly met. See the [horizons nomenclature image below](#horizons_nomenclature).
 ```
 
 ```{admonition} Zoltar
@@ -61,7 +61,7 @@ a research data repository that stores forecasts made by external models in stan
 ```
 
 (horizons_nomenclature)=
-## Modeling horizons nomenclature  
+## Modeling horizons nomenclature
 ```{figure} ../images/horizon-nomenclature.png
 ---
 figclass: margin-caption
@@ -71,8 +71,8 @@ alt: |
     The "Nowcast" range covers three weeks of preliminary surveillance and projected data with confidence intervals.
     The "Forecast" range has no observed data and covers the next four weeks with four slightly diverging model estimates and confidence intervals.
     The "Projections" range covers the period between May 2021 and September 2021 and shows the models' confidence intervals.
-    
+
 name: horizon-nomenclature
 ---
-Figure credits: Alex Vespignani and Nicole Samay. 
+Figure credits: Alex Vespignani and Nicole Samay.
 ```

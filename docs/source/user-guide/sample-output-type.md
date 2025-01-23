@@ -1,6 +1,6 @@
-# Sample output type  
+# Sample output type
 
-## Introduction  
+## Introduction
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that come out of a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
 In the hubverse, a "modeling task" is the element that is being predicted and that can be represented by a univariate (e.g., scalar or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task ID columns that uniquely define a single prediction. We note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
@@ -21,7 +21,7 @@ In the above table, the three task-id columns `origin_date`, `horizon`, and `loc
 {origin_date: "2024-03-15", horizon: "1", location: "MA"}
 ```
 
-In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) before the origin date of 2024-03-15 in Massachusetts. 
+In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) before the origin date of 2024-03-15 in Massachusetts.
 
 ## Individual modeling tasks
 In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the `compound_idx` column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the `output_type_id` column indexes the samples that exist for each modeling task.
@@ -66,7 +66,7 @@ Note that the `output_type_id` parameters are specified in an `"output_type_id_p
 
 In some settings, modeling hubs may wish to identify sets of modeling tasks that the hub will treat as related, for example, when multiple distinct values can be seen as representations of a single multivariate outcome of interest. In these settings, a subset of the task-id columns (a `"compound_taskid_set"`) will be used to identify what values are shared for the modeling tasks related to each other.
 
-As a running example of how compound modeling tasks could be specified differently, we will look at a hub reporting on variant proportions observed at a given location and time. In the table below, a single modeling task is a unique combination of values from the task-id variables `origin_date`, `horizon`, `variant`, and `location`.  In the table below, one set of four rows with the same values in the `origin_date`, `horizon`, and `location` columns, but different variant values below represent four predicted variant proportions. 
+As a running example of how compound modeling tasks could be specified differently, we will look at a hub reporting on variant proportions observed at a given location and time. In the table below, a single modeling task is a unique combination of values from the task-id variables `origin_date`, `horizon`, `variant`, and `location`.  In the table below, one set of four rows with the same values in the `origin_date`, `horizon`, and `location` columns, but different variant values below represent four predicted variant proportions.
 
 Base data: mean `output_type`. In the table below, an entry of "-" stands in for specific values to be provided by the submitter.
 
@@ -123,7 +123,7 @@ Rows are shaded to indicate different samples for the same compound forecast tas
 
 </div>
 
-**Submission B**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `horizon`, and `location`. In this example, **the proportions of all four variants at a given date, location, and horizon make up the compound modeling task**. The example data below shows two unique compound modeling tasks (shown with the grayed-out column) and four samples. 
+**Submission B**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `horizon`, and `location`. In this example, **the proportions of all four variants at a given date, location, and horizon make up the compound modeling task**. The example data below shows two unique compound modeling tasks (shown with the grayed-out column) and four samples.
 
 ```{code-block} json
 :lineno-start: 1
@@ -201,7 +201,7 @@ Once again, rows are grouped so each unique sample for each modeling task is tog
 
 </div>
 
-**Submission D**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `location`, and `variant`. In plain language, this could be described as **"trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other."**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed-out column) and two samples for each. 
+**Submission D**: sample `output_type` where a compound modeling task corresponds to a combination of values for `origin_date`, `location`, and `variant`. In plain language, this could be described as **"trajectories of proportions over time for a given variant in a given location, with each variant treated independently from each other."**  In the example data shown below there are four unique compound modeling tasks (shown with the grayed-out column) and two samples for each.
 
 ```{code-block} json
 :lineno-start: 1
@@ -241,13 +241,13 @@ Once again, rows are grouped so each unique sample for each modeling task is tog
 ## Configuration of `output_type_id`
 **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
 
-Models may have different internal structures that allow them to naturally generate samples for different compound modeling tasks. 
-For example, some models might be able to simulate data from all horizons sequentially, considering what has happened at the prior horizons. Such a model would accurately represent their output data as in Submissions C and D. 
+Models may have different internal structures that allow them to naturally generate samples for different compound modeling tasks.
+For example, some models might be able to simulate data from all horizons sequentially, considering what has happened at the prior horizons. Such a model would accurately represent their output data as in Submissions C and D.
 Some models might not have this capability and just be able to simulate draws from each horizon entirely independently of other time points. This model would accurately represent their output data in Submission A or B.
 
-A hub can specify a `"compound_taskid_set"` field in the metadata for the sample `output_type` to specify the task-id columns that must be used to define separate sample index values (as present in the `output_type_id` column). The following table shows how different specifications of this field would impact the validity of each example submission A, B, C, and D. 
+A hub can specify a `"compound_taskid_set"` field in the metadata for the sample `output_type` to specify the task-id columns that must be used to define separate sample index values (as present in the `output_type_id` column). The following table shows how different specifications of this field would impact the validity of each example submission A, B, C, and D.
 
-<!-- accessible table derived from 
+<!-- accessible table derived from
 https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
 -->
 <table>
@@ -312,7 +312,7 @@ If such derived task-ids exist in a hub and all task-ids their values depend on 
 The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
 
 ## Relationship to `output_types`
-Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time, we choose to only implement the concept of compound modeling tasks for sample `output_types`, to facilitate data format validation for samples. 
+Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time, we choose to only implement the concept of compound modeling tasks for sample `output_types`, to facilitate data format validation for samples.
 
 At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
 
