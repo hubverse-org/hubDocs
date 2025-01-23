@@ -17,6 +17,7 @@ readme = "README.md"
 
 dependencies = [
     "myst-parser",
+    "pre-commit>=4.0.1",
     "sphinx",
     "sphinx-autobuild",
     "sphinx-book-theme",
@@ -38,6 +39,10 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools_scm]
 local_scheme = "no-local-version"
+
+[tool.codespell]
+# the spell checker does not like North Dakota!
+ignore-words-list = "ND"
 
 [tool.uv]
 # ensure setuptools_scm generates a version number that reflects latest tags

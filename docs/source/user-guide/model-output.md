@@ -18,7 +18,7 @@ where `model_id` = `team_abbr-model_abbr`
 
 The elements making up model output directory and file names must match the following patterns:
 
-- `round_id`s must be either ISO fomatted dates (YYYY-MM-DD) or any combination of alphanumerics separated by underscores (`_`).
+- `round_id`s must be either ISO formatted dates (YYYY-MM-DD) or any combination of alphanumerics separated by underscores (`_`).
 - `model_id`s are composed of `team_abbr` and `model_abbr` separated by a hyphen (i.e. `team_abbr-model_abbr`).
 - `team_abbr` and `model_abbr` must contain any combination of alphanumerics separated by underscores (`_`).
 
@@ -38,7 +38,7 @@ Note that file names are also allowed to contain the following compression exten
    * `2022-10-19-hub-baseline.csv`
 * `team_1-ensemble`
    * `2022-10-12-team_1-ensemble.parquet`
-   * `2022-10-19-team_1-ensemble.gz.parquet` 
+   * `2022-10-19-team_1-ensemble.gz.parquet`
 
 #### With alphanumeric `round_id`s
 
@@ -47,7 +47,7 @@ Note that file names are also allowed to contain the following compression exten
    * `2024_2025_1_flu-hub-baseline.csv`
 * `team_1-ensemble`
    * `2024_2025_1_covid-team_1-ensemble.parquet`
-   * `2024_2025_1_flu-team_1-ensemble.gz.parquet` 
+   * `2024_2025_1_flu-team_1-ensemble.gz.parquet`
 
 (model-output-example-table)=
 ### Example model submission file
@@ -58,7 +58,7 @@ one-week-ahead incidence, but probabilities for the timing of a season peak:
 
 :::{table} An example of a model output submission for modelA
 | `origin_epiweek` | `target` | `horizon` | `output_type` | `output_type_id` | `value` |
-| ------ | ------ | ------ | ------ | ------ | ------ | 
+| ------ | ------ | ------ | ------ | ------ | ------ |
 | EW202242 | weekly rate | 1 | mean     | NA[^batman] | 5 |
 | EW202242 | weekly rate | 1 | quantile | 0.25 | 2 |
 | EW202242 | weekly rate | 1 | quantile | 0.5 | 3 |
@@ -115,23 +115,23 @@ Much of the material in this section has been excerpted or adapted from the [hub
 [^Shandross-etal]: Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, Reich, N. G., Ray, E.L. (2024). [hubEnsembles: Ensembling Methods in R](https://www.medrxiv.org/content/10.1101/2024.06.24.24309416v1). *(under review for publication)* (Repo: https://github.com/hubverse-org/hubEnsemblesManuscript).
 
 _Model outputs are a specially formatted tabular representation of predictions._
-Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value. 
+Each row corresponds to a unique prediction, and each column provides information about what is being predicted, its scope, and its value.
 Per hubverse convention, **there are two groups of columns providing metadata about the prediction**[^model-id], followed by **a value column with the actual output**. Each group of columns serves a specific purpose: (1) the **"task ID"** columns provide details about what is being predicted, and (2) the two **"model output representation"** columns specify the type of prediction and identifying information about that prediction. Finally, (3) the **value** column provides the model output of the prediction. [Details about the column specifications](column-details) can be found below.
 
-[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename. 
+[^model-id]: When using models for downstream analysis with the [`collect_hub()` function](https://hubverse-org.github.io/hubData/reference/collect_hub.html) in the `hubData` package, one more column called `model_id` is prepended that identifies the model from its filename.
 
 
 (column-details)=
 ### Details about model output column specifications
 
-As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.  
-More detail about each of these column groups is given in the following points:  
+As shown in the [model output submission table](#model-output-example-table) above, there are three **"task ID"** columns: `origin_epiweek`, `target`, and `horizon`; and there are two **"model output representation"** columns: `output_type` and `output_type_id` followed by the `value` column.
+More detail about each of these column groups is given in the following points:
 
-1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.  
-2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:  
-    1. `output_type`{.codeitem} specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.  
-    2. `output_type_id`{.codeitem} specifies more identifying information specific to the output type, which varies depending on the `output_type`.  
-3. `value`{.codeitem} contains the model’s prediction.  
+1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.
+2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:
+    1. `output_type`{.codeitem} specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.
+    2. `output_type_id`{.codeitem} specifies more identifying information specific to the output type, which varies depending on the `output_type`.
+3. `value`{.codeitem} contains the model’s prediction.
 
 
 The following table provides more detail on how to configure the three "model output representation" columns based on each model output type.
@@ -139,7 +139,7 @@ The following table provides more detail on how to configure the three "model ou
 (output-type-table)=
 :::{table} Relationship between the three model output representation columns with respect to the type of prediction (`output_type`)
 | `output_type` | `output_type_id` | `value` |
-| ------ | ------ | ------ | 
+| ------ | ------ | ------ |
 | `mean` | `NA`/`None` (not used for mean predictions) | Numeric: the mean of the predictive distribution |
 | `median` | `NA`/`None` (not used for median predictions) | Numeric: the median of the predictive distribution |
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
@@ -148,7 +148,7 @@ The following table provides more detail on how to configure the three "model ou
 | `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
 :::
 
-:::{note} 
+:::{note}
 :name: output-type-caveats
 
 The model output type IDs have different caveats depending on the `output_type`:
@@ -190,7 +190,7 @@ The model output follows the specification of the `tasks.json` configuration
 file of the hub. If you are creating a model and would like to know what
 data type your columns should be in, the Hubverse has utilities to provide [an
 arrow schema](#arrow-schema) and even a [full submission
-template](#submission-template) from the `tasks.json` configuration file. 
+template](#submission-template) from the `tasks.json` configuration file.
 
 When submitting model output to a hub, it should be placed in a folder with the
 name of your `model_id` in the model outputs folder specified by the hub
@@ -230,14 +230,14 @@ tmpl <- hubValidations::submission_tmpl(config_tasks = config_tasks, round_id = 
 You can then either write this template to a csv file with the `readr` package:
 
 ```r
-# write the template to a csv file to use in your model code. 
+# write the template to a csv file to use in your model code.
 readr::write_csv(tmpl, "/path/to/template.csv")
 ```
 
 OR you can write it to a parquet file with the `arrow` package:
 
 ```r
-# write the template to a parquet file to use in your model code. 
+# write the template to a parquet file to use in your model code.
 arrow::write_parquet(tmpl, "/path/to/template.parquet")
 ```
 
@@ -245,7 +245,7 @@ arrow::write_parquet(tmpl, "/path/to/template.parquet")
 ### Example: model output as CSV
 
 The sections below provide examples for writing CSV model output files. A note
-that missing data in a CSV file should be either a blank cell (that is, two 
+that missing data in a CSV file should be either a blank cell (that is, two
 adjacent commas `,,`) or `NA` without quotes[^no-quotes] (e.g. `,NA,`).
 
 [^no-quotes]: You can quote me on this: No quotes.
@@ -290,7 +290,7 @@ In practice, you will need to know whether or not the expected data type is a
 #### Arrow Schema
 
 **The hubverse packages `hubData` and `hubUtils` have functionality that will generate an
-arrow schema so that you can ensure your output matches the expected type.** 
+arrow schema so that you can ensure your output matches the expected type.**
 
 Here is some example code that can help. In this example, `hub_path` is the
 path to the hub on your local machine.
@@ -357,18 +357,18 @@ model_out.to_parquet(outfile)
 (model-output-task-relationship)=
 ## Model output relationships to task ID variables
 
-We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representations all **summarize the marginal predictive distribution for a single combination of model task ID variables**. 
+We emphasize that the `mean`, `median`, `quantile`, `cdf`, and `pmf` representations all **summarize the marginal predictive distribution for a single combination of model task ID variables**.
 In contrast, we cannot assume the same for the `sample` representation.
 By recording samples from a joint predictive distribution, **the `sample` representation may capture dependence across combinations of multiple model task ID variables**.
 
-For example, suppose the model task ID variables are "forecast date", "location", and "horizon". 
+For example, suppose the model task ID variables are "forecast date", "location", and "horizon".
 A predictive mean will summarize the predictive distribution for a single combination of forecast date, location, and horizon. On the other hand, there are several options for the distribution from which a sample might be drawn, capturing dependence across different levels of the task ID variables, including:
 1. the joint predictive distribution across all locations and horizons within each forecast date
 2. the joint predictive distribution across all horizons within each forecast date and location
 3. the joint predictive distribution across all locations within each forecast date and horizon
 4. the marginal predictive distribution for each combination of forecast date, location, and horizon
 
-Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are "joint across" locations and horizons.  
+Hubs should specify the collection of task ID variables for which samples are expected to capture dependence; e.g., the first option listed above might specify that samples should be drawn from distributions that are "joint across" locations and horizons.
 
 More details about sample-output-type can be found in the [page describing sample output type data](../user-guide/sample-output-type.md).
 
@@ -390,14 +390,14 @@ Some other possible model output representations have been proposed but not incl
 
 ## Validating prediction values
 
-Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validation checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) from the `hubValidations` R package).  
+Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validation checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) from the `hubValidations` R package).
 
-Teams can also validate their submissions locally via the function 
+Teams can also validate their submissions locally via the function
 [`validate_submissions()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html)
 from the `hubValidations` R package, which performs two validation tasks:
 
 * Validation based on rules that can easily be encoded in the JSON schema, such as
-  ranges of expected values and `output_type_id`s. 
+  ranges of expected values and `output_type_id`s.
 
 * Validation of more involved rules that cannot be encoded in a json schema are
   implemented separately (such as specific relationships between outputs and
@@ -419,32 +419,32 @@ This section concerns parquet files, which encapsulate a schema within the file,
 Model output data are stored as separate files, but we use the `hubData` package to open them as a single [Arrow dataset](https://arrow.apache.org/docs/r/reference/Dataset.html).[^trouble]
 **It is necessary to ensure that all files conform to the same Arrow schema** (i.e., share the same column data types) across the hub's lifetime.
 When we know that all data types conform to the Arrow schema, we can be sure that a hub can be successfully accessed and is fully queryable across all columns as [an Arrow dataset](https://arrow.apache.org/docs/r/articles/dataset.html)
-Thus, **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e., after submissions have already started being collected). 
+Thus, **additions of new rounds _should not_ change the overall hub schema at a later date** (i.e., after submissions have already started being collected).
 
 [^trouble]: Even if you do not use `hubData` to read model outputs, uniform schemas are still important if you want to join model output files and do analyses across submissions.
 
 Many common task IDs should have consistent and stable data types because they are validated against the [task IDs in the hubverse schema](#model-tasks-schema) during model submission.
 However, there are several situations where a single consistent data type cannot be guaranteed, e.g.:
-- New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema. 
+- New rounds introducing changes in custom task ID value data types, which are not covered by the hubverse schema.
 - New rounds introducing changes in task IDs covered by the schema but which accept multiple data types (e.g., `scenario_id` where both `integer` and `character` are accepted or `age_group` where no data type is specified in the hubverse schema).
 - Adding new output types might introduce `output_type_id` values of a new data type.
 
 While config file validation will alert hub administrations to discrepancies in task ID value data types across modeling tasks and rounds, modifications that change the overall data type of model output columns _after submissions have been collected_ could cause downstream issues and _should be avoided_.
 Changing the overall data type of model output columns can cause a range of issues (in order of _increasing severity_):
- - data type casting being required in downstream analysis code that used to work, 
+ - data type casting being required in downstream analysis code that used to work,
  - not being able to filter on columns with data type discrepancies between files before collecting
  - errors when opening hub model output data with popular analytics tools like Arrow, Pandas, and Polars
 
 (output-type-id-datatype)=
 ### The `output_type_id` column data type
 
-Output types are configured and handled differently than task IDs in the hubverse. 
+Output types are configured and handled differently than task IDs in the hubverse.
 
 On the one hand, **different output types can have output type ID values of varying data type**, and adhering to these data types is imposed by downstream, output type-specific hubverse functionality like ensembling or visualization.
-For example, hubs expect `double` output type ID values for `quantile` output types but `character` output type IDs for a `pmf` output type. 
+For example, hubs expect `double` output type ID values for `quantile` output types but `character` output type IDs for a `pmf` output type.
 
  On the other hand, the **use of a long format for hubverse model output files requires that these multiple data types are accommodated in a single `output_type_id` column.**
-This characteristic makes the output type ID column unique within the model output file in terms of how its data type is determined, configured, and validated. 
+This characteristic makes the output type ID column unique within the model output file in terms of how its data type is determined, configured, and validated.
 
 During submission validation, two checks are performed on the `output_type_id` column:
 1. **Subsets of `output_type_id` column values** associated with a given output type are **checked for being able to be coerced to the correct data type defined in the config** for that output type. This check ensures that correct output type–specific downstream data handling is possible.
@@ -452,8 +452,8 @@ During submission validation, two checks are performed on the `output_type_id` c
 
 #### Determining the overall `output_type_id` column data type automatically
 
- To determine the overall `output_type_id` data type, the default behavior is to automatically **detect the simplest data type that can encode all output type ID values across all rounds and output types** from the config. 
- 
+ To determine the overall `output_type_id` data type, the default behavior is to automatically **detect the simplest data type that can encode all output type ID values across all rounds and output types** from the config.
+
  The benefit of this automatic detection is that it provides flexibility to the `output_type_id` column to adapt to the output types a hub is collecting. For example, a hub that only collects `mean` and `quantile` output types would, by default, have a `double` `output_type_id` column.
 
  However, the risk of this automatic detection arises if the hub also starts collecting a `pmf` output type after submissions have begun in subsequent rounds. If this happens, it would change the default `output_type_id` column data type from `double` to `character` and cause a conflict between the `output_type_id` column data type in older and newer files when trying to open the hub as an `arrow` dataset.

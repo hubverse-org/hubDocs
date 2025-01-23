@@ -16,19 +16,27 @@ beautifulsoup4==4.12.3
     # via pydata-sphinx-theme
 certifi==2024.12.14
     # via requests
+cfgv==3.4.0
+    # via pre-commit
 charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
+distlib==0.3.9
+    # via virtualenv
 docutils==0.21.2
     # via
     #   myst-parser
     #   pydata-sphinx-theme
     #   sphinx
+filelock==3.16.1
+    # via virtualenv
 h11==0.14.0
     # via uvicorn
+identify==2.6.5
+    # via pre-commit
 idna==3.10
     # via
     #   anyio
@@ -51,8 +59,14 @@ mdurl==0.1.2
     # via markdown-it-py
 myst-parser==4.0.0
     # via hubdocs (pyproject.toml)
+nodeenv==1.9.1
+    # via pre-commit
 packaging==24.2
     # via sphinx
+platformdirs==4.3.6
+    # via virtualenv
+pre-commit==4.0.1
+    # via hubdocs (pyproject.toml)
 pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
 pygments==2.19.1
@@ -63,6 +77,7 @@ pygments==2.19.1
 pyyaml==6.0.2
     # via
     #   myst-parser
+    #   pre-commit
     #   sphinxcontrib-mermaid
 requests==2.32.3
     # via sphinx
@@ -109,6 +124,8 @@ urllib3==2.3.0
     # via requests
 uvicorn==0.34.0
     # via sphinx-autobuild
+virtualenv==20.29.0
+    # via pre-commit
 watchfiles==1.0.4
     # via sphinx-autobuild
 websockets==14.1

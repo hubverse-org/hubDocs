@@ -1,4 +1,4 @@
-# Who we are  
+# Who we are
 
 The Consortium of Infectious Disease Modeling Hubs brings together groups working on developing and running modeling hubs in different outbreak prediction settings in collaboration with national and international health agencies, such as the US and European Centers for Disease Control and Prevention.
 

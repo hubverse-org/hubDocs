@@ -2,12 +2,12 @@
 
 A **modeling hub** consists of one or more **hub administrators** who are responsible for coordinating model submissions from **modelers** who submit **model outputs** in a standardized format defined by the hub.
 Model outputs are validated upon submission and at the end of every round. A summary of the individual and ensemble model outputs is presented to **stakeholders** who may be responsible for informing policy decisions.
-All of these roles are directly supported by **hubverse developers** 
+All of these roles are directly supported by **hubverse developers**
 You may fit one, several, or none of these roles.
 Below are details of what aspects of the hubverse each role will interact with.
 
 ```{image} ../images/hubverse_roles.png
-:alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysis, and finally stakeholders. 
+:alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysis, and finally stakeholders.
 :caption: A schematic illustration of the hubverse, showing different roles
 ```
 
@@ -64,7 +64,7 @@ Once you have access to the data, you can summarise it in the following ways:
  - ensembling forecasts (via the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles)
  - and more!
 
-## Stakeholders 
+## Stakeholders
 
 You will be presented with visualizations describing the models' trajectory and uncertainty.
 As the modeling effort continues, you will be presented with scores for each model that show how well it predicted trajectories.
