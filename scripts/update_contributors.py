@@ -64,7 +64,7 @@ if response.status_code == 200:
 
                 # Write to the file with conditional formatting
                 file.write(
-                    f'<img src="{avatar_url}" alt="{name or contributor["login"]}" class="avatar"> '
+                    f'<img src="{avatar_url}" alt="" class="avatar"> '
                     f"- {name_output}{blog_output} ([{contributor['login']}]({contributor['html_url']})) - "
                     f"{bio_output}{location_output} {commit_count} commits.\n\n---\n\n"
                 )
