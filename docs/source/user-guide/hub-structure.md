@@ -63,6 +63,8 @@ The following components are not required for a hub but may be useful:
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
 | Target data directory | `target-data/` | Folder storing actual observed (i.e., target) values of an outcome (or links to external open-access sources) and information on how  model targets can be calculated from target data | X | |
+| Time series data | `target-data/time-series.csv` or .parquet | File with observed counts or rates partitioned for each unique combination of `task id` values | X |  | 
+| Oracle output data | `target-data/oracle-output.csv` or .parquet | File containing data derived from the time series data; represents the model output that would have been generated if the target data values were known ahead of time. For parquet files, could data types in the `oracle-output` files shoudl be consistent with the schema defined in the cong file, with the `oracle-value` column having the same data type as the model output `value` column. | X |  |
 | Auxiliary data directory | `auxiliary-data/` | Folder storing any additional data related to modeling efforts | X |  |
 | Source code directory | `src/` | Folder storing code that is present in the hub repository | X |  |
 ```
