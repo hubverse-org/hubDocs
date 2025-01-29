@@ -1,8 +1,11 @@
-# Documentation for Infectious Disease Modeling Hubs
+# Documentation for Collaborative Modeling Hubs
 
-This repository includes the content needed to generate the Hubverse static
-documentation site. Included is documentation about how to build, manage, and
-maintain collaborative modeling hubs.
+This repository includes the content needed to generate the [Hubverse static
+documentation site](https://hubverse.io/en/latest/). The website includes documentation
+about how to build, manage, and maintain collaborative modeling hubs.
+
+Below you can find instructions on how to build and edit the Hubverse
+documentation site locally on your computer.
 
 ## Sections
 
@@ -19,23 +22,23 @@ maintain collaborative modeling hubs.
 This site uses [ReadTheDocs](https://readthedocs.org/) and
 [Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and
 maintaining the content. The
-[live version of the documentation can be found in this page](https://hubverse.io/en/latest/).
+[live version of the website can be found in this page](https://hubverse.io/en/latest/).
 
 Useful links:
 
-- Documentation for our current theme, [Jupyter Book](https://jupyterbook.org/en/stable/intro.html)
+- Documentation for our current theme, [Sphinx Book Theme](https://sphinx-book-theme.readthedocs.io/en/stable/)
 - Getting started guide for [Read the Docs and Sphinx](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html)
 
 ## Local development
 
-This project uses [`uv`](https://docs.astral.sh/uv/) to manage Python installs,
+This project uses [`uv`](https://docs.astral.sh/uv/) to manage **Python** installs,
 dependencies, and virtual environments. The result is less work to set up
 a development environment.
 
 However, contributors who prefer different Python tools can still use them as
 long as dependency updates follow the workflow of adding (or removing)
 dependencies from `pyproject.toml` and re-generating an annotated
-`requirements/requirements.txt` file. In other words, don't add update
+`requirements/requirements.txt` file. In other words, don't update
 the requirements.txt file directly.
 
 > [!IMPORTANT]
@@ -48,15 +51,21 @@ the requirements.txt file directly.
 ### Updating Hubverse documentation
 
 The main content of the Hubverse documentation lives in
-[`docs/source`](docs/source/). That is where you will add/edit Markdown files
-to change the site's content.
+[`docs/source`](docs/source/). To update and make changes to the
+Hubverse documentation site on your computer, it is best to first
+[clone this repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+
+Once you have cloned the repository on your computer, you can
+add/edit the
+[Markdown files](https://www.markdownguide.org/getting-started/)
+in [`docs/source`](docs/source/) to change the site's content.
 
 To preview the site locally after making updates:
 
 1. Install uv on your machine (you will only need to do this once):
 <https://docs.astral.sh/uv/getting-started/installation/>
-2. Clone this repository. The rest of the instructions should be executed from
-the repo's root directory.
+2. The rest of the instructions should be executed from the cloned repository's root directory
+(e.g., `/Users/hubUser/repositories/hubDocs`).
 3. Create a virtual environment for the project:
 
     ```script
@@ -82,7 +91,8 @@ the repo's root directory.
 
     The output of this command provides the url to use for viewing the
     documentation. In the example below, you can see the built page by
-    going to http://127.0.0.1:8000. Use CTRL+C to stop serving the local build.
+    going to http://127.0.0.1:8000. Once you are finished reviewing the
+    site, use CTRL+C to stop serving the local build.
 
     ```script
     build succeeded, 4 warnings.
@@ -184,4 +194,5 @@ In general, contributions should be made via pull requests to the `main` branch.
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
 - Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.
 - Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.
+- Scripts that are meant to be regularly run for updating content should be stored in `scripts/`.
 - Additional stylistic suggestions can be found in [this style guide for Sphinx-based documentations](https://documentation-style-guide-sphinx.readthedocs.io/en/latest/).
