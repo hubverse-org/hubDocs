@@ -29,6 +29,7 @@ To update a Hubverse Python package:
 
 - [ ] Create a branch from `main` in the format of
 `<initials>/<feature>/<issue>` (_e.g._, `kj/add-bucket-versioning/111` )
+- [ ] Solve the issue, update/add test if necessary, commit, push
 - [ ] Open a pull request (PR).
   - [ ] Pull requests should be as small as possible and should focus on
     independent features.
