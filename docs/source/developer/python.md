@@ -57,7 +57,7 @@ When it's time to release the package to PyPI:
 - [ ] Proofread `CHANGELOG.md` and change the `[unreleased]` heading at the top
 to the new release's version number. Make sure to acknowledge any contributors
 outside of the core dev team by linking to their GitHub handles.
-- [ ] Submit a PR and merge the `CHANGELOG.md` updates.
+- [ ] Submit a PR, get a review, and merge the `CHANGELOG.md` updates.
 - [ ] Create a new tag for the release as described in the
 [Hubverse Release Process](release-process.md#releases).
 - [ ] If you created the release tag locally, push it to the package's
