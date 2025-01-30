@@ -96,7 +96,7 @@ released version of the package.
 
 ## Releasing Python packages
 
-Unlike Cran, Python's official package index, [PyPI](https://pypi.org/), does
+Unlike CRAN, Python's official package index, [PyPI](https://pypi.org/), does
 not require manual review. Thus, the Hubverse can release Python packages
 right to PyPI without an intermediary like R-Universe. In addition,
 [TestPyPI](https://test.pypi.org/) allows us to test release processes and
