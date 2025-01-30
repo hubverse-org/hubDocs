@@ -321,8 +321,11 @@ Some tips for CRAN submissions:
 (you will restore this later with  `git restore DESCRIPTION`). [^uncommitted]
 
 - Commit the `CRAN_SUBMISSION` file when it changes
-- There is a missing stair that can make submissions unpleasant.
-If you get a nasty review from Ripley, contact one of the other hubverse maintainers for backup/strategy/comiseration.
+
+:::{tip}
+If you get an unhelpful or nasty review from a CRAN administrator, contact one of the other Hubverse maintainers who has experience submitting to CRAN (i.e. Zhian) for backup/strategy/comiseration. You can also see if you ran into a common issue by checking [The CRAN Cookbook](https://contributor.r-project.org/cran-cookbook/)
+:::
+
 
 [^uncommitted]: You will get a warning from devtools saying that all files should be tracked and committed before release.
   Double check that all that changed was removing the `Remotes:` field from the
