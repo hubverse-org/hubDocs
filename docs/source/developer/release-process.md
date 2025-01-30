@@ -45,7 +45,7 @@ request merged to the `main` branch of a repository effectively meant the
 release of a new version**. Ideally, this meant that our Git history would look
 like a series of adjacent belt loops:
 
-```mermaid
+```{mermaid}
 gitGraph
     commit id: "abcd"
     commit id: "efgh (0.14.0)"
