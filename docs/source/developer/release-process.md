@@ -147,7 +147,7 @@ a patch release. Everything that has [a `.9000` attached
 is considered in-development](#dev). Read below for details and examples of
 each of these semantic versions:
 
-```mermaid
+```{mermaid}
 gitGraph
     commit id: "abcd (0.13.2.9000)"
     commit id: "efgh (0.14.0)" tag: "0.14.0"
