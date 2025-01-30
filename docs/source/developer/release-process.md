@@ -108,7 +108,7 @@ to Releases on specific tags, resulting in a git graph that looks similar to
 on independent features, allowing users to intermittently test these features by
 installing from the default branch in GitHub.
 
-```mermaid
+```{mermaid}
 gitGraph
     commit id: "abcd"
     commit id: "efgh" tag: "0.14.0"
