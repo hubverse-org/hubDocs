@@ -358,7 +358,7 @@ contains either `/release/` or  `/hotfix/`, the remote declarations of hubverse
 packages are removed (before the dependencies are installed) with the command
 `sed -i "" -E -e '/[ ][ ]hubverse-org/d' DESCRIPTION`.
 
-[r-universe]: https://hubverse-org.r-universe.dev/'
+[r-universe]: https://hubverse-org.r-universe.dev/
 
 ### Python Testing
 
