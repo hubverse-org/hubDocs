@@ -68,7 +68,7 @@ However, a pattern often emerges where more than one feature in a particular
 release is desired and, because we release directly to `main`, the graph looks
 like a thundercloud:
 
-```mermaid
+```{mermaid}
 gitGraph
     commit id: "abcd"
     commit id: "efgh (0.14.0)"
