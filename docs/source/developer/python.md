@@ -15,7 +15,7 @@ development and release process.
 
 Hubverse Python packages that will be released to PyPI must go through a
 one-time setup process as described in the
-[Creating PyPI and TestPyPI workflows](#creating-pypi-and-testpypi-workflows)
+[Creating PyPI and TestPyPI workflows](#releasing-python-packages)
 section below.
 
 Once that setup is complete, use the checklists below for updating and releasing
@@ -43,12 +43,9 @@ To update a Hubverse Python package:
   and communicated with the community.
 - [ ] Once the PR has been approved and all checks have passed, merge it.
 
-> [!TIP]
-> Review often brings up potential non-blocking features/bug fixes that are
-> orthogonal to the original PR. In these cases, instead of creating a PR to
-> merge into the original PR, it’s best to create a new issue from the PR
-> review and, after merging, create a new PR to fix that issue. This helps keep
-> disparate bugfixes and features separate.
+:::{tip}
+Review often brings up potential non-blocking features/bug fixes that are orthogonal to the original PR. In these cases, instead of creating a PR to merge into the original PR, it’s best to create a new issue from the PR review and, after merging, create a new PR to fix that issue. This helps keep disparate bugfixes and features separate.
+:::
 
 ### Release checklist
 
@@ -138,9 +135,10 @@ package's `main` branch.
 [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi-test` to use for the
 TestPyPI deployment.
 
-    > [!NOTE]
-    > Because this environment is for test deployments, you don't need to add
-    > protection rules or fill out any other information when configuring it.
+    :::{note}
+    Because this environment is for test deployments, you don't need to add
+    protection rules or fill out any other information when configuring it.
+    :::
 
 2. Add the `publish-pypy-test.yaml` workflow the package's Github repo:
     - Copy the [`publish-pypi-test.yaml` workflow from hubverse-developer-actions](https://github.com/hubverse-org/hubverse-developer-actions/tree/main/publish-pypi-test/publish-pypi-test.yaml).
@@ -177,10 +175,11 @@ You will only need to do this once.
 [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi` to use for the
 PyPI deployment.
 
-    > [!IMPORTANT]
-    > Because this environment will be used for publishing to production,
-    > check the `Required reviewers` option and add a list of Hubverse devs who
-    > are authorized to approve releases.
+    :::{important}
+    Because this environment will be used for publishing to production,
+    check the `Required reviewers` option and add a list of Hubverse devs who
+    are authorized to approve releases.
+    :::
 
 2. Add the `publish-pypy.yaml` workflow the package's Github repo:
     - Copy the [`publish-pypi` workflow from hubverse-developer-actions](https://github.com/hubverse-org/hubverse-developer-actions/tree/main/publish-pypi/publish-pypi.yaml).
