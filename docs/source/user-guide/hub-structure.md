@@ -6,7 +6,7 @@ A hub repository should be structured according to the following guidelines:
 2. If code is included in the hub repository, it should live in a centrally located directory, which we recommend naming `src`.
 3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository.
-4. Large target data files may be partitioned, but they must be stored in parquet format and follow Apache Hive naming conventions (see Data and Code section below). 
+4. Large target data files may be partitioned, but they should be stored in parquet format in the `target-data` directory and follow Apache Hive naming conventions (see Data and Code section below). 
 
 [^model-output]: The directory is required, but the name is flexible. You can
   use a custom directory path by setting the `"model_output_dir"` property in the
@@ -69,8 +69,8 @@ The following components are not required for a hub but may be useful:
 | Auxiliary data directory | `auxiliary-data/` | Folder storing any additional data related to modeling efforts | X |  |
 | Source code directory | `src/` | Folder storing code that is present in the hub repository, including code to access target time series data and/or oracle output programmatically | X |  |
 ```
-* If partitioning target data files, the `target-data` directory should contain the partitioned target data files and follow Apache Hive naming conventions. 
-* In Apache Hive, the file name format of partitioned data depends on the partition column names and their values. The files corresponding to each partition are stored in subdirectories, and the directory names encode the partition column names and their values, e.g. <partition_column_1>=<value_1>/<partition_column_2>=<value_2>/.../<data_files>. This means Hive-style partitioned data subdirectories are self describing and can be easily read by partition-aware data readers.
+* Partitioned target data files should be stored in the `target-data` directory, in either a 'target-data/times-series` or 'target-data/oracle-output` subdirectory.  
+* Partitioned target data should follow Apache Hive naming conventions. In Apache Hive, the file name format of partitioned data depends on the partition column names and their values. The files corresponding to each partition are stored in subdirectories, and the directory names encode the partition column names and their values, e.g. <partition_column_1>=<value_1>/<partition_column_2>=<value_2>/.../<data_files>. This means Hive-style partitioned data subdirectories are self describing and can be easily read by partition-aware data readers.
 
 * Here's an example of oracle output data in the `target-data/oracle-output` directory partitioned by target_end_date:
 
