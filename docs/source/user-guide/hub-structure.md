@@ -70,7 +70,7 @@ The following components are not required for a hub but may be useful:
 | Source code directory | `src/` | Folder storing code that is present in the hub repository, including code to access target time series data and/or oracle output programmatically | X |  |
 ```
 * If partitioning target data files, the `target-data` directory should contained the partitioned target data files and follow Apache Hive naming conventions. 
-In Apache Hive, the file name format of partitioned data depends on the partition column names and their values. The files corresponding to each partition are stored in subdirectories, and the directory names encode the partition column names and their values, e.g. <partition_column_1>=<value_1>/<partition_column_2>=<value_2>/.../<data_files>. This means Hive-style partitioned data subdirectories are self describing and can be easily read by partition-aware data readers.
+* In Apache Hive, the file name format of partitioned data depends on the partition column names and their values. The files corresponding to each partition are stored in subdirectories, and the directory names encode the partition column names and their values, e.g. <partition_column_1>=<value_1>/<partition_column_2>=<value_2>/.../<data_files>. This means Hive-style partitioned data subdirectories are self describing and can be easily read by partition-aware data readers.
 
 Here's an example of oracle output data in the `target-data/oracle-output` directory partitioned by target_end_date:
 
