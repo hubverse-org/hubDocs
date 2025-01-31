@@ -107,6 +107,10 @@ user-guide/presentations.md
 :caption: Developer Guide
 :hidden:
 developer/index.md
+developer/release-process.md
+developer/hotfix.md
+developer/r.md
+developer/python.md
 ```
 
 ```{toctree}
