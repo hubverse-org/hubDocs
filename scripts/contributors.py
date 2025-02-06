@@ -68,7 +68,7 @@ os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
 output_file = f"{output_dir}/contributors.md"
 
 with open(output_file, "w") as file:
-    file.write("# Contributors to hubverse GitHub repositories\n\n")
+    file.write("# Contributors to hubverse repositories\n\n")
     for login, data in sorted_contributors:
         repo_commits = data["repos"]
         total_commits = sum(repo_commits.values())
@@ -118,7 +118,7 @@ with open(output_file, "w") as file:
                 f"- {name_output}{blog_output} ([{github_name}]({profile_url}))."
                 f"{bio_output}{location_output}"
                 f"\n\nTotal hubverse GitHub commits: {total_commits}."
-                f"\n\n Last commit: {last_commit}."
+                # f"\n\n Last commit: {last_commit}." # Include this line once the script is in regular workflow
                 f"\n\n{repo_commit_text}.\n\n---\n\n"
             )
 
