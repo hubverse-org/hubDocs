@@ -6,7 +6,7 @@ A hub repository should be structured according to the following guidelines:
 2. If code is included in the hub repository, it should live in a centrally located directory, which we recommend naming `src`.
 3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository.
-4. Target data files must be stored in the `target-data` directory. Large target data files may be partitioned, but they should be stored in parquet format and follow Apache Hive naming conventions (see Data and Code section below). 
+4. Target data files must be stored in the `target-data` directory. Large target data files may be partitioned, but they should be stored in parquet format and follow Apache Hive naming conventions (see Data and Code section below).
 
 [^model-output]: The directory is required, but the name is flexible. You can
   use a custom directory path by setting the `"model_output_dir"` property in the
@@ -64,7 +64,7 @@ The following components are not required for a hub but may be useful:
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
 | Target data directory | `target-data/` | Folder storing actual observed (i.e., target) values of an outcome (or links to external open-access sources) and information on how  model targets can be calculated from target data | X | |
-| Time series data | `target-data/time-series.csv` or `.parquet` | File with observed counts or rates partitioned for each unique combination of `task id` values | X |  | 
+| Time series data | `target-data/time-series.csv` or `.parquet` | File with observed counts or rates partitioned for each unique combination of `task id` values | X |  |
 | Oracle output data | `target-data/oracle-output.csv` or `.parquet` | File containing data derived from the time series data; represents the model output that would have been generated if the target data values were known ahead of time. For parquet files, column data types in the `oracle-output` file(s) should be consistent with the schema defined in the config file, with the `oracle-value` column having the same data type as the model output `value` column. | X |  |
 | Auxiliary data directory | `auxiliary-data/` | Folder storing any additional data related to modeling efforts | X |  |
 | Source code directory | `src/` | Folder storing code that is present in the hub repository, including code to access target time series data and/or oracle output programmatically | X |  |
