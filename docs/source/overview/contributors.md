@@ -1,4 +1,4 @@
-# Contributors
+# Contributors to hubverse GitHub repositories
 
 <img src="https://avatars.githubusercontent.com/u/5583057?v=4" alt="" class="avatar"> - [Anna Krystalli](https://www.r-rse.eu) ([annakrystalli](https://github.com/annakrystalli)). Research Software Engineering Service in #rstats at @r-rse. Ex @RSE-Sheffield. Editor @ropensci. Core team member @reprohack. Available for hire! 🚀😎. Syros, Greece.
 
