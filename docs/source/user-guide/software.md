@@ -36,7 +36,7 @@ To assist users in building a hub, we have developed a software suite with speci
 
 ## hubEnsembles
 
-`hubEnsembles` is an R package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using the mean, median, and mode.
+`hubEnsembles` is an R package that provides functionality for creating ensembles from model output data. Supported ensemble methods include weighted averages, quantile averages, and linear pools.
 
 - repository: <https://github.com/hubverse-org/hubEnsembles#readme>
 - [`hubEnsembles` package documentation](https://hubverse-org.github.io/hubEnsembles).

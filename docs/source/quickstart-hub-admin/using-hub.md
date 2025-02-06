@@ -34,4 +34,4 @@ Before you announce that you are accepting model submissions (such as forecasts)
 Once you have collected some models, you will want to explore the data. We have built a [software suite](../user-guide/software.md) to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and in some cases, evaluating the predictions made by different models.
 
 ## Building ensembles
-[`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles/) is an `R` package with functionality to build simple ensembles of data from modeling hubs. Different ensembles can be built using, for instance, the mean, median, or mode.
+[`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles/) is an `R` package that provides functionality for creating ensembles from model output data. Supported ensemble methods include weighted averages, quantile averages, and linear pools.
