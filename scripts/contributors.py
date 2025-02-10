@@ -52,7 +52,9 @@ os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
 output_file = f"{output_dir}/contributors.md"
 
 with open(output_file, "w") as file:
-    file.write("# Contributors to hubverse repositories\n\nThese are the contributors to hubverse repositories in random order.\n\n")
+    file.write(
+        "# Contributors to hubverse repositories\n\nThese are the contributors to hubverse repositories in random order.\n\n"
+    )
     for login, repo_set in contributor_list:
         user_response = requests.get(f"{base_url}/users/{login}", headers=headers)
         if user_response.status_code != 200:
