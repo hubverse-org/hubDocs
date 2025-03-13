@@ -6,9 +6,11 @@ All of these roles are directly supported by **hubverse developers**
 You may fit one, several, or none of these roles.
 Below are details of what aspects of the hubverse each role will interact with.
 
-```{image} ../images/hubverse_roles.png
+```{figure} ../images/hubverse_roles.png
 :alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysis, and finally stakeholders.
-:caption: A schematic illustration of the hubverse, showing different roles
+:name: fig-hubverse-roles
+
+A schematic illustration of the hubverse, showing different roles.
 ```
 
 ## Hub administrators
@@ -43,7 +45,7 @@ For that, you can use functions from the [`{hubValidations}` R package ](https:/
 
 As a modeler, you will need to
 
- - understand the definitions of and differences between [model output types](#model-output-format)
+ - understand the definitions of and differences between [model output types](#formats-of-model-output)
  - understand the [structure of model output datasets](https://hubverse-org.github.io/hubData/articles/connect_hub.html#structure-of-hubverse-datasets)
  - build ensembles using the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles).
 
