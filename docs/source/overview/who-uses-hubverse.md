@@ -43,7 +43,7 @@ For that, you can use functions from the [`{hubValidations}` R package ](https:/
 
 As a modeler, you will need to
 
- - understand the definitions of and differences between [model output types](#model-output-format)
+ - understand the definitions of and differences between [model output types](#formats-of-model-output)
  - understand the [structure of model output datasets](https://hubverse-org.github.io/hubData/articles/connect_hub.html#structure-of-hubverse-datasets)
  - build ensembles using the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles).
 

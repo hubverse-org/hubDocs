@@ -53,7 +53,7 @@ Open `tasks.json` and explore the content and structure. Simple explanations for
 * `origin_date`{.codeitem}: The date when a forecast was generated. More information on this and other dates, including using the `origin_date` to calculate the `target_date`, can be found in the [section on using task ID variables](#task-id-use).
 * `horizon`{.codeitem}: Sets the time range for which forecast predictions are to be made. For instance, these can be days into the future or even days into the past, as in nowcasts.
 * `location`{.codeitem}: The geographic identifier, such as country codes or FIPS state/county level codes.
-* `output_type`{.codeitem}: A model output type establishes the valid model output types, such as the mean or specific quantiles. A more detailed explanation of model outputs can be found in the [section on model output formats](#model-output-format).
+* `output_type`{.codeitem}: A model output type establishes the valid model output types, such as the mean or specific quantiles. A more detailed explanation of model outputs can be found in the [section on model output formats](#formats-of-model-output).
 
 Now, read below for details on some of the lines of code in this file:
 
@@ -163,7 +163,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 ```
 
 ## Step 6: Define `"output_type"`:
-The [`output_type`](#model-output-format) specifies the types of outputs accepted for a given model task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types.
+The [`output_type`](#formats-of-model-output) specifies the types of outputs accepted for a given model task. This example includes `mean` and `quantile`, but `median`, `cdf`, `pmf`, and `sample` are other supported output types.
 
 Each output type contains the following properties:
 
