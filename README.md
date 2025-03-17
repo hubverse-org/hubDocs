@@ -191,6 +191,7 @@ In general, contributions should be made via pull requests to the `main` branch.
 
 - New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).
 - File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).
+- Section and subsection titles should use sentence case, with only the first letter capitalized (e.g., "Additional notes).
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
 - Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.
 - Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.
