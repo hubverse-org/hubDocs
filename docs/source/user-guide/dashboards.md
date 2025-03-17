@@ -215,7 +215,7 @@ name: dashboard-eval-heatmap
 A screenshot of the COVID-19 Forecast Hub dashboard showing a heatmap of relative WIS values for models, broken down by the location of the prediction.
 ```
 
-### Configuring the PredTimeChart visualization module
+### Configuring the PredEvals module
 
 If you don't want to include an evaluation page using the PredEvals module in your dashboard, delete the `predevals-config.yml` file from your dashboard repository.
 
