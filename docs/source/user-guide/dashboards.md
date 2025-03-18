@@ -484,7 +484,7 @@ The PredEvals module has several important limitations:
 
 ## Using GitHub actions to build site contents and data
 
-The template dashboard repository comes with a two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder: 
+The template dashboard repository comes with two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder: 
 
 - `build-site.yml` is used to build the dashboard site contents every time a change happens on the `main` branch of the dashboard repository. 
 - `build-data.yml` runs weekly on Thursdays at 5:45PM UTC to update the underlying data for the dashboards. This schedule is configurable to work with your hub. Note that this does not run on every commit.
