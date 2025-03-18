@@ -144,7 +144,7 @@ In order to make use of the visualization your hub needs to satisfy these requir
 - have step-ahead predictions with columns defining the horizon, and reference and target dates.
 - target data must use the [Hubverse conventions for target time series data](../user-guide/target-data.md)
 
-For details, see the limitations and requirements section below.
+For details, see the [limitations and requirements section](#ptc-limitations) below.
 :::
 
 ### Configuring the PredTimeChart visualization module
@@ -176,24 +176,24 @@ task_id_text:
 
 This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML), and it contains the following fields:
 
- - `rounds_idx`: The 0-based index of the `rounds` entry in the hub's `tasks.json` configuration file to use for the visualization.
-    - As is described in more detail in the limitations section below, the visualization is currently only able to show predictions for defined within one block of the `rounds` section of the `tasks.json` configuration.
- - `model_tasks_idx`: The 0-based index of the `model_tasks` entry under `rounds_idx` to use for the visualization.
-    - As is described in more detail in the limitations section below, the visualization is currently only able to show predictions for tasks that are defined in a single "model tasks block".
+ - `rounds_idx`: The 0-based index of the `rounds` entry in the hub's `tasks.json` configuration file to use for the visualization (limited to a single [round block defined from a variable](#ptc-limitation-rounds)).
+ - `model_tasks_idx`: The 0-based index of [a single `model_tasks` entry](#ptc-limitation-mt) under `rounds_idx` to use for the visualization.
  - `reference_date_col_name`: The name of the column that represents the reference date (sometimes also referred to as the origin date) for step-ahead predictions.
  - `target_date_col_name`: The name of the column that represents the target date for a step-ahead prediction.
  - `horizon_col_name`: The name of the column that represents the forecast horizon for a step-ahead prediction.
  - `initial_checked_models`: An array of model ids that should be displayed when the visualization is first loaded.
  - `disclaimer` (**optional**): Text that is displayed immediately above the visualization to provide important information to dashboard users.
- - `task_id_text` (**optional**): A mapping of values for task id variables to text that is displayed in the visualization. In the example above, this is be used to replace numeric location codes with location names. Each task id variable with a value-to-text mapping should be listed as a property under `task_id_text`. Within that entry, keys (on the left hand side of the `:`) are values of the task id variable as specified in the `tasks.json` config file, and values (on the right hand side of the `:`) give the corresponding text to display in the visualization.
+ - `task_id_text` (**optional**): A mapping of values for task id variables to text that is displayed in the visualization. In the example above, this is be used to replace numeric location codes with location names. Each task id variable with a value-to-text mapping should be listed as a property under `task_id_text`.
+ In the example above, the `"location"` task ID lists the FIPS codes for US states and territories. The value-to-text mapping `"01": "Alabama"` shows that the variable `"01"` corresponds to `"Alabama"`.
 
+(ptc-limitations)=
 ### PredTimeChart limitations and requirements
 
 Here we summarize some important limitations of the visualization functionality that is currently available:
 
  - The visualization tool can only display step-ahead predictions that use the quantile output type.
- - It can only display predictions for tasks that are defined in a single entry in the `rounds` section of the hub's `tasks.json` configuration file. Note that it is possible to display predictions for multiple rounds, and a dashboard typically will do that. However, those rounds must be defined in a single `rounds` block.
- - It can only display predictions for modeling tasks that are defined in a single entry of the `model_tasks` section of the hub's `tasks.json` configuration file. Again, this allows for display of predictions across multiple modeling tasks as long as the values of the task id variables defining those modeling tasks are specified in the same `model_tasks` block.
+ - It can only display predictions for tasks that are defined in [a single entry in the `rounds` section of the hub's `tasks.json` configuration file]{#ptc-limitation-rounds}. Note that it is possible to display predictions for multiple rounds, and a dashboard typically will do that. However, those rounds must be defined in a single `rounds` block.
+ - It can only display predictions for modeling tasks that are defined in [a single entry of the `model_tasks` section of the hub's `tasks.json` configuration file.]{#ptc-limitation-mt} Again, this allows for display of predictions across multiple modeling tasks as long as the values of the task id variables defining those modeling tasks are specified in the same `model_tasks` block.
  - Currently, only a single prediction target is supported. Specifically, the `target_metadata` array in the specified `model_tasks` object within the specified `rounds` object must contain exactly one object, which must have a single key in the `target_keys` object.
  - The following quantile levels (`output_type_id`s) must be present: `0.025`, `0.25`, `0.5`, `0.75`, `0.975`. These quantiles define the predictive median and the bounds of 50% and 95% prediction intervals.
  - The hub must have task id variables defining:
@@ -230,6 +230,18 @@ name: dashboard-eval-heatmap
 ---
 A screenshot of the COVID-19 Forecast Hub dashboard showing a heatmap of relative WIS values for models, broken down by the location of the prediction.
 ```
+
+:::{important}
+
+In order to make use of the evaluations tool, your hub needs to satisfy these requirements:
+
+ - Your hub uses `mean`, `median`, `quantile`, and `pmf` output types.
+ - Your hub's `tasks.json` has a single `round` element with `round_id_from_variable: true`.
+ - Your hub has oracle output data available in the [Hubverse Oracle Output format](#oracle-intro-example)
+
+
+For details, see the [limitations and requirements section](#predevals-limitations) below.
+:::
 
 ### Configuring the PredEvals module
 
@@ -474,6 +486,7 @@ In principle, it would be possible to implement `round_filters` by specifying th
 
 :::
 
+(predevals-limitations)=
 ### PredEvals limitations and requirements
 
 The PredEvals module has several important limitations:
