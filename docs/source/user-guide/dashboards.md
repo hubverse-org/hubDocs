@@ -7,6 +7,10 @@ The hubverse provides a modular system for building a dashboard website for a mo
 3. An optional module for interactive exploration of scores for model predictions.
 
 The website contents, including the web pages as well the data backing interactive visualizations and evaluations, are built by GitHub actions that can be set to run on a regular schedule or manually as needed. By default, the website is hosted on a GitHub pages site, though it could also be hosted on another static website hosting platform if desired.
+This guide assumes three things about the reader:
+1. you know how to edit and write files with [pandoc-flavored Markdonw](https://pandoc.org/MANUAL#pandocs-markdown), 
+2. you know how to edit and write [YAML files](https://en.wikipedia.org/wiki/YAML)
+3. you are comfortable setting up a [GitHub workflow](https://docs.github.com/en/actions/writing-workflows/quickstart) with a scheduled job. 
 
 Below, we describe how to set up each of these three components of the dashboard system and the use of GitHub actions for building the site.
 
@@ -29,10 +33,10 @@ Then do the following to customize your dashboard (see the sections below for mo
 2. Update `site-config.yml`
     1. `hub` is the github slug for your active hub. This example defaults to the CDC FluSight hub
     2. `title` is the title of your dashboard
-    3. `pages` is a list of pages you want included in the top bar. These will be shown after the home page (index.html) and the visualizaton and evaluation pages if they are included (see the next points).
-3. To include a visualization page in the dashboard, update `predtimechart-config.yml` to specify configuration settings for your hub. If you don't want to include a visualization page in the dashboard, delete this configuration file.
-4. To include an evaluation page in the dashboard, update `predevals-config.yml` to specify configuration settings for your hub. If you don't want to include an evaluation page in the dashboard, delete this configuration file.
-5. If necessary, update the GitHub workflows to change the timing of scheduled builds of site contents and data.
+    3. `pages` is an optional list of pages you want included in the top bar. These will be shown after the home page (index.html) and the visualizaton and evaluation pages if they are included (see the next points). These pages can be used for details of methodology, team members, or anything that can be written in Markdown (see next section).
+3. Update `predtimechart-config.yml` to specify forecast visualization configuration settings for your hub. If you do not need a forecast visualization, delete this file.
+4. Update `predevals-config.yml` to specify evaluation page configuration settings for your hub. If you do not need an evaluation page, delete this file.
+5. If necessary, update the `.github/workflows/build-data.yml` to change the timing of scheduled data builds. All timing is in UTC. You can use https://crontab.guru to specify the schedule. 
 
 Once these steps are performed, the workflows will automatically generate the website on the `gh-pages` branch on your behalf. Once this branch is created, you can activate your website to deploy from this branch.
 
@@ -68,7 +72,7 @@ with three keys:
 Other than the `hub` field all remaining fields have the following mapping equivalents in the Quarto configuration file:
 
 | `site-config.yml`  | `_quarto.yml` |
-| ------------------ | ------------- |
+| :------------------ | :------------- |
 | `.title`           | `.website.title` |
 | `.pages`           | [`.website.navbar.left`](https://quarto.org/docs/websites/website-navigation.html#top-navigation) |
 | `.html` (optional) | [`.format.html`](https://quarto.org/docs/reference/formats/html.html#format-options) |
@@ -131,9 +135,23 @@ name: dashboard-viz-screenshot
 A screenshot of the visualization in the FluSight dashboard.
 ```
 
+:::{important}
+
+In order to make use of the visualization your hub needs to satisfy these requirements:
+
+- have a target with quantile outputs that define the predictive median and the bounds of 50% and 95% prediction intervals.
+- have rounds defined by a variable.
+- have step-ahead predictions with columns defining the horizon, and reference and target dates.
+- target data must use the [Hubverse conventions for target time series data](../user-guide/target-data.md)
+
+For details, see the limitations and requirements section below. 
+:::
+
 ### Configuring the PredTimeChart visualization module
 
-If you don't want to include a visualization using the PredTimeChart module in your dashboard, delete the `predtimechart-config.yml` file from your dashboard repository.
+:::{note}
+If you do not want to include a visualization using the PredTimeChart module in your dashboard, delete the `predtimechart-config.yml` file from your dashboard repository.
+:::
 
 To include the PredTimeChart visualization, edit the `predtimechart-config.yml` file to match your hub. You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hub-dashboard-predtimechart/main/src/hub_predtimechart/ptc_schema.py) for this file to see the detailed specification of its contents. Below, we give an example file based on the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub) and describe the fields to include:
 
@@ -162,12 +180,11 @@ This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML), a
  - `rounds_idx`: The 0-based index of the `rounds` entry in the hub's `tasks.json` configuration file to use for the visualization.
     - As is described in more detail in the limitations section below, the visualization is currently only able to show predictions for defined within one block of the `rounds` section of the `tasks.json` configuration.
  - `model_tasks_idx`: The 0-based index of the `model_tasks` entry under `rounds_idx` to use for the visualization.
-    - As is described in more detail in the limitations section below, the visualization is currently only able to show predictions that are defined in a single "model tasks block".
+    - As is described in more detail in the limitations section below, the visualization is currently only able to show predictions for tasks that are defined in a single "model tasks block".
  - `reference_date_col_name`: The name of the column that represents the reference date (sometimes also referred to as the origin date) for step-ahead predictions.
  - `target_date_col_name`: The name of the column that represents the target date for a step-ahead prediction.
  - `horizon_col_name`: The name of the column that represents the forecast horizon for a step-ahead prediction.
  - `initial_checked_models`: An array of model ids that should be displayed when the visualization is first loaded.
- - `target_data_file_name` (**deprecated**): This specifies the name of the file with observed target data stored within the hub. This parameter is deprecated, and should not be used for new hub dashboards. To use the PredTimeChart module, hubs must follow the [Hubverse conventions for target time series data](../user-guide/target-data.md).
  - `disclaimer` (**optional**): Text that is displayed immediately above the visualization to provide important information to dashboard users.
  - `task_id_text` (**optional**): A mapping of values for task id variables to text that is displayed in the visualization. In the example above, this is be used to replace numeric location codes with location names. Each task id variable with a value-to-text mapping should be listed as a property under `task_id_text`. Within that entry, keys (on the left hand side of the `:`) are values of the task id variable as specified in the `tasks.json` config file, and values (on the right hand side of the `:`) give the corresponding text to display in the visualization.
 
@@ -429,17 +446,6 @@ task_id_text:
 
 This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
 
-<!-- - `schema_version`: 
-    - URL to a version of the `hubPredEvalsData` `config_schema.json` file. Used to declare the schema version a `predevals-config.yml` file is compatible with. The URL provided should be the URL to the raw content of the schema file on GitHub.
-- `targets`: Targets for which to compute evaluation metrics, as well as a specification of how predictions for each target should be computed. This is a YAML array with one entry for each target. In the example above, only one target is included, `"wk inc flu hosp"`. For each target, the following properties should be specified:
-    - `target_id`: The target id, matching a value given in the `target_metadata.target_id` field in the hub's `tasks_config.json` file
-    - `metrics`: Names of metrics to compute for this target.  These should be names of metrics supported by `hubEvals::score_model_out`.
-    - `relative_metrics`: Optional names of metrics for which to compute pairwise relative skill for this target.  These should be a subset of the metrics for the target. These must be proper scores (e.g., interval coverage metrics are not allowed here).
-    - `baseline`: Name of the model to use as a baseline for relative skill metrics for this target. Required if `relative_metrics` is provided.
-    - `disaggregate_by`: Optional list of task id columns to disaggregate by. Overall scores for each model will always be computed.
-- `eval_sets`: A YAML array of specifications for sets of prediction tasks that are used for score computations. Separate scores will be calculated and available in the dashboard for each evaluation set. Evaluation sets may be specified using two types of filters, `round_filters` and `task_filters` (see the following points). If multiple filtering criteria are provided, they are combined with 'and' logic, i.e. the evaluation set will include the intersection of the sets of prediction tasks specified by those criteria. If no filtering criteria are provided, the evaluation set will include all scorable predictions.
-
-### Schema version: v1.0.0 -->
 
 <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json"></script>
 
@@ -479,6 +485,47 @@ The PredEvals module has several important limitations:
 
 ## Using GitHub actions to build site contents and data
 
-The template dashboard repository comes with a set of GitHub workflows that can be used to build the dashboard site contents either according to a recurring schedule or on an as-needed basis by hub administrators.
+The template dashboard repository comes with a two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder: 
 
-TODO: add information about how to do these things.
+- `build-site.yml` is used to build the dashboard site contents every time a change happens on the `main` branch of the dashboard repository. 
+- `build-data.yml` runs weekly on Thursdays at 5:45PM UTC to update the underlying data for the dashboards. This schedule is configurable to work with your hub. Note that this does not run on every commit.
+
+You can also [manually run](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow#running-a-workflow) either of these workflows if you need to rebuild your site or data.
+
+If the above defaults looks good to you, then as long as you've enabled GitHub Actions, then there's nothing you need to do!
+
+### Modifying the schedule of the data builds
+
+The default schedule for data builds is set for later in the day on Thursdays to account for a hub that takes submissions on Wednesdays:
+
+```{code-block} yaml
+:emphasize-lines: 4
+:lineno-start: 1
+:caption: The schedule is defined by a CRON schedule statement
+name: "Rebuild Data"
+on:
+  schedule:
+    - cron: "33 17 * * 4" # every Thursday at 17:33 UTC == 12:33 EST
+```
+
+:::{tip}
+You might notice that the schedule runs at an odd time and not at the hour or half hour. This is intentional to give your workflow a better chance at having an available compute node to work on. 
+
+This is because a lot of people have their workflows run at the top of the hour (especially midnight UTC). This creates a high load on GitHub's servers and that can cause your run to be dropped from the queue. From [GitHub's documentation on workflow schedules](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule):
+
+> The `schedule` event can be delayed during periods of high loads of GitHub Actions workflow runs. High load times include the start of every hour. If the load is sufficiently high enough, some queued jobs may be dropped. To decrease the chance of delay, schedule your workflow to run at a different time of the hour.
+
+:::
+
+If you want to change that schedule, you can use https://crontab.guru to find the code for a time that works for your hub. For example, if your hub has a weekly submission on Wednesday in US Pacific Time Zone, but ensembles take over a day to generate, then you might want the data to rebuild on [Friday mornings at 9:47 AM PDT](https://crontab.guru/#37_16_*_*_5), then you would modify line 4 of the workflow to read:
+
+
+```{code-block} yaml
+:lineno-start: 4
+    - cron: "37 16 * * 5" # every Friday at 16:37 UTC == 09:37 PDT
+```
+ 
+
+## Advanced usage of the GitHub actions
+
+To be documented
