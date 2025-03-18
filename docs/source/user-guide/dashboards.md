@@ -8,9 +8,9 @@ The hubverse provides a modular system for building a dashboard website for a mo
 
 The website contents, including the web pages as well the data backing interactive visualizations and evaluations, are built by GitHub actions that can be set to run on a regular schedule or manually as needed. By default, the website is hosted on a GitHub pages site, though it could also be hosted on another static website hosting platform if desired.
 This guide assumes three things about the reader:
-1. you know how to edit and write files with [pandoc-flavored Markdonw](https://pandoc.org/MANUAL#pandocs-markdown), 
+1. you know how to edit and write files with [pandoc-flavored Markdown](https://pandoc.org/MANUAL#pandocs-markdown),
 2. you know how to edit and write [YAML files](https://en.wikipedia.org/wiki/YAML)
-3. you are comfortable setting up a [GitHub workflow](https://docs.github.com/en/actions/writing-workflows/quickstart) with a scheduled job. 
+3. you are comfortable setting up a [GitHub workflow](https://docs.github.com/en/actions/writing-workflows/quickstart) with a scheduled job.
 
 Below, we describe how to set up each of these three components of the dashboard system and the use of GitHub actions for building the site.
 
@@ -33,10 +33,10 @@ Then do the following to customize your dashboard (see the sections below for mo
 2. Update `site-config.yml`
     1. `hub` is the github slug for your active hub. This example defaults to the CDC FluSight hub
     2. `title` is the title of your dashboard
-    3. `pages` is an optional list of pages you want included in the top bar. These will be shown after the home page (index.html) and the visualizaton and evaluation pages if they are included (see the next points). These pages can be used for details of methodology, team members, or anything that can be written in Markdown (see next section).
+    3. `pages` is an optional list of pages you want included in the top bar. These will be shown after the home page (index.html) and the visualization and evaluation pages if they are included (see the next points). These pages can be used for details of methodology, team members, or anything that can be written in Markdown (see next section).
 3. Update `predtimechart-config.yml` to specify forecast visualization configuration settings for your hub. If you do not need a forecast visualization, delete this file.
 4. Update `predevals-config.yml` to specify evaluation page configuration settings for your hub. If you do not need an evaluation page, delete this file.
-5. If necessary, update the `.github/workflows/build-data.yml` to change the timing of scheduled data builds. All timing is in UTC. You can use https://crontab.guru to specify the schedule. 
+5. If necessary, update the `.github/workflows/build-data.yml` to change the timing of scheduled data builds. All timing is in UTC. You can use https://crontab.guru to specify the schedule.
 
 Once these steps are performed, the workflows will automatically generate the website on the `gh-pages` branch on your behalf. Once this branch is created, you can activate your website to deploy from this branch.
 
@@ -60,14 +60,14 @@ Each individual page within the dashboard is defined by a corresponding markdown
 
 ### Configuration
 
-The [`site-config.yml`](site-config.yml) is a simplified form of [A Quarto Website](https://quarto.org/docs/websites/#config-file). This simplified form is intended to allow you to set up a dashboard website in a matter of minutes while allowing for flexibility of theme.
+The `site-config.yml` is a simplified form of [A Quarto Website](https://quarto.org/docs/websites/#config-file). This simplified form is intended to allow you to set up a dashboard website in a matter of minutes while allowing for flexibility of theme.
 
-A simple configuration is presented in [the template `site-config.yml`](https://github.com/hubverse-org/hub-dashboard-template/blob/main/site-config.yml) file
+A simple configuration is presented in [the template `site-config.yml`](https://github.com/hubverse-org/hub-dashboard-template/blob/HEAD/site-config.yml) file
 with three keys:
 
  - hub: the GitHub slug to your active hub that contains quantile forecast data
  - title: the title of your hub dashboard website
- - pages: a [YAML array](https://www.commonwl.org/user_guide/topics/yaml-guide.html#arrays) that lists files _relative to [the `pages` directory](pages/)_ that should be included in the dashboard site. The name of each page is encoded in the `title:` element of the file header (but this can be overridden with [site customization](#customization)).
+ - pages: a [YAML array](https://www.commonwl.org/user_guide/topics/yaml-guide.html#arrays) that lists files _relative to [the `pages` directory](https://github.com/hubverse-org/hub-dashboard-template/tree/HEAD/pages/)_ that should be included in the dashboard site. The name of each page is encoded in the `title:` element of the file header (but this can be overridden with [site customization](#customization)).
 
 Other than the `hub` field all remaining fields have the following mapping equivalents in the Quarto configuration file:
 
@@ -79,7 +79,7 @@ Other than the `hub` field all remaining fields have the following mapping equiv
 
 ### Customization
 
-When the page is built with [the hub dashboard site builder](https://github.com/hubverse-org/hub-dash-site-builder), this configuration file is merged with [the default quarto config file](https://github.com/hubverse-org/hub-dash-site-builder/blob/main/static/_quarto.yml). This allows for customization of the page. Below
+When the page is built with [the hub dashboard site builder](https://github.com/hubverse-org/hub-dash-site-builder), this configuration file is merged with [the default quarto config file](https://github.com/hubverse-org/hub-dash-site-builder/blob/HEAD/static/_quarto.yml). This allows for customization of the page. Below
 are examples of customization.
 
 #### Icons added to pages
@@ -98,7 +98,7 @@ The full list of available icons can be found on the [Bootstrap icons website](h
 
 #### Theme
 
-The default site is built on top of the [Bootstrap yeti theme](https://bootswatch.com/yeti/) with [custom CSS](https://github.com/hubverse-org/hub-dash-site-builder/blob/main/static/resources/css/styles.css).
+The default site is built on top of the [Bootstrap yeti theme](https://bootswatch.com/yeti/) with [custom CSS](https://github.com/hubverse-org/hub-dash-site-builder/blob/HEAD/static/resources/css/styles.css).
 
 If you wanted to use [a different theme](https://quarto.org/docs/output-formats/html-themes.html), you can change it by setting `.html.theme`. You can reset the css by setting `.html.css: null`
 
@@ -144,7 +144,7 @@ In order to make use of the visualization your hub needs to satisfy these requir
 - have step-ahead predictions with columns defining the horizon, and reference and target dates.
 - target data must use the [Hubverse conventions for target time series data](../user-guide/target-data.md)
 
-For details, see the limitations and requirements section below. 
+For details, see the limitations and requirements section below.
 :::
 
 ### Configuring the PredTimeChart visualization module
@@ -201,7 +201,7 @@ Here we summarize some important limitations of the visualization functionality 
     - The target date of a predicted event (e.g., `target_date`, `target_end_date`, or similar)
     - The forecast horizon, defined as the difference between the target date and the reference date (e.g. `horizon` or similar)
  - Model metadata must contain a boolean `designated_model` field. The visualization only includes models where this field has been set to `true`.
- - As was noted above, the target time series data must be stored in the hub using the [Hubverse conventions for target time series data](../user-guide/target-data.md). Additionally, at this time only a single `.csv` file with time series data is supported (i.e., this module corrently does not support the `parquet` format or hive partitioned data).
+ - As was noted above, the target time series data must be stored in the hub using the [Hubverse conventions for target time series data](../user-guide/target-data.md). Additionally, at this time only a single `.csv` file with time series data is supported (i.e., this module currently does not support the `parquet` format or hive partitioned data).
 
 ## PredEvals evaluation (optional)
 
@@ -484,9 +484,9 @@ The PredEvals module has several important limitations:
 
 ## Using GitHub actions to build site contents and data
 
-The template dashboard repository comes with two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder: 
+The template dashboard repository comes with two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder:
 
-- `build-site.yml` is used to build the dashboard site contents every time a change happens on the `main` branch of the dashboard repository. 
+- `build-site.yml` is used to build the dashboard site contents every time a change happens on the `main` branch of the dashboard repository.
 - `build-data.yml` runs weekly on Thursdays at 5:45PM UTC to update the underlying data for the dashboards. This schedule is configurable to work with your hub. Note that this does not run on every commit.
 
 You can also [manually run](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow#running-a-workflow) either of these workflows if you need to rebuild your site or data.
@@ -508,7 +508,7 @@ on:
 ```
 
 :::{tip}
-You might notice that the schedule runs at an odd time and not at the hour or half hour. This is intentional to give your workflow a better chance at having an available compute node to work on. 
+You might notice that the schedule runs at an odd time and not at the hour or half hour. This is intentional to give your workflow a better chance at having an available compute node to work on.
 
 This is because a lot of people have their workflows run at the top of the hour (especially midnight UTC). This creates a high load on GitHub's servers and that can cause your run to be dropped from the queue. From [GitHub's documentation on workflow schedules](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#schedule):
 
@@ -523,7 +523,7 @@ If you want to change that schedule, you can use https://crontab.guru to find th
 :lineno-start: 4
     - cron: "37 16 * * 5" # every Friday at 16:37 UTC == 09:37 PDT
 ```
- 
+
 
 ## Advanced usage of the GitHub actions
 
