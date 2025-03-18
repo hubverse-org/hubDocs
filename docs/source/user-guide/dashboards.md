@@ -163,7 +163,6 @@ reference_date_col_name: 'reference_date'
 target_date_col_name: 'target_end_date'
 horizon_col_name: 'horizon'
 initial_checked_models: ['FluSight-ensemble', 'FluSight-baseline']
-target_data_file_name: 'target-hospital-admissions.csv'
 disclaimer: 'Be careful when interpreting these forecasts.'
 task_id_text:
   location:
