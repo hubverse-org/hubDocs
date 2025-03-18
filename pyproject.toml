@@ -16,6 +16,7 @@ requires-python = ">=3.10"
 readme = "README.md"
 
 dependencies = [
+    "Jinja2>=3.1.6",
     "myst-parser",
     "pre-commit>=4.0.1",
     "sphinx",
