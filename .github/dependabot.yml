@@ -1,0 +1,8 @@
+# instruct GitHub dependabot to check for updates to Python dependencies
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    # variant-nowcast-hub data pipeline scripts are in `src`
+    directory: "/requirements/"
+    schedule:
+      interval: "weekly"
