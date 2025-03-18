@@ -35,7 +35,7 @@ filelock==3.16.1
     # via virtualenv
 h11==0.14.0
     # via uvicorn
-identify==2.6.5
+identify==2.6.9
     # via pre-commit
 idna==3.10
     # via
