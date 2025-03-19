@@ -47,3 +47,4 @@ To take advantage of the infrastructure designed by the Consortium, a hub must c
 ### Software for modeling hubs
 
 The main benefit of setting up a hub using the structure outlined in this documentation is that it enables you to use a wide array of [tools designed to support common modeling hub tasks](../user-guide/software.md), like loading model output data, plotting the model output data, building ensembles using the data, and in some cases evaluating the predictions made by different models.
+

@@ -39,3 +39,4 @@ On July 10, 2024, the following members of the steering committee were elected:
 - Evan Ray, US Forecast Hub
 - Lucie Contamin, University of Pittsburgh, MIDAS
 - Anna Krystalli, R-RSE
+

@@ -55,12 +55,15 @@ with open(output_file, "w") as file:
     file.write(
         "# Contributors to hubverse repositories\n\nThese are the contributors to hubverse repositories in random order.\n\n"
     )
-    for login, repo_set in contributor_list:
+
+    last_index = len(contributor_list) - 1  # Get last index to avoid trailing '---'
+
+    for i, (login, repo_set) in enumerate(contributor_list):
         user_response = requests.get(f"{base_url}/users/{login}", headers=headers)
         if user_response.status_code != 200:
             file.write(
                 f"- ![Avatar](https://dummyimage.com/50x50/3c88be/3c88be) "
-                f"- [{contributor['login']}]({contributor['html_url']}) - "
+                f"- [{login}](https://github.com/{login}) - "
                 f"Failed to fetch additional details. (Error {user_response.status_code})\n"
             )
             continue  # Skip if user data fetch fails
@@ -78,14 +81,15 @@ with open(output_file, "w") as file:
 
         # Only include square brackets around name if `blog` is not empty
         name_output = f"[{name}]" if name and blog else name
+
         # Only include the blog link if it's not empty
-        if blog:
+        if blog and not blog.startswith(("http://", "https://")):
             # If blog doesn't start with http:// or https://, prepend https://
-            if not blog.startswith(("http://", "https://")):
-                blog = f"https://{blog}"
-            blog_output = f"({blog})"
-        else:
-            blog_output = ""  # Don't include parentheses if `blog` is empty
+            blog = f"https://{blog}"
+        blog_output = (
+            f"({blog})" if blog else ""
+        )  # Don't include parentheses if `blog` is empty
+
         # Avoid adding period if `bio` or `location` is empty
         bio_output = f" {bio}." if bio else ""
         location_output = f" {location}." if location else ""
@@ -95,7 +99,11 @@ with open(output_file, "w") as file:
             f'<img src="{avatar_url}" alt="" class="avatar"> '
             f"- {name_output}{blog_output} ([{github_name}]({profile_url}))."
             f"{bio_output}{location_output}\n\n"
-            f"Repositories contributed to: {repo_text}.\n\n---\n\n"
+            f"Repositories contributed to: {repo_text}.\n\n"
         )
+
+        # Add '---' separator only if it's NOT the last contributor
+        if i != last_index:
+            file.write("---\n\n")
 
 print("Contributors list updated successfully.")

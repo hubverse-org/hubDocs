@@ -317,3 +317,4 @@ This property should be provided at the top level of `tasks.json` (i.e., sibling
 ```
 
 For more context and details on when and how to use this setting, please see the [`output_type_id` column data type section](output-type-id-datatype) on the **model output** page.
+

@@ -76,3 +76,4 @@ name: horizon-nomenclature
 ---
 Figure credits: Alex Vespignani and Nicole Samay.
 ```
+

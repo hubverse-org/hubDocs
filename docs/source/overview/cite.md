@@ -5,3 +5,4 @@ A citation for _the hubverse_ should look like the example below. Be sure to upd
 ```{admonition} Citation
 The Consortium of Infectious Disease Modeling Hubs. The hubverse: open tools for collaborative modeling. GitHub release v3.0.1, 5 Aug 2024. URL: https://github.com/hubverse-org
 ```
+

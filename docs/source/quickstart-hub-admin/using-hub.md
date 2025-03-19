@@ -35,3 +35,4 @@ Once you have collected some models, you will want to explore the data. We have 
 
 ## Building ensembles
 [`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles/) is an `R` package that provides functionality for creating ensembles from model output data. Supported ensemble methods include weighted averages, quantile averages, and linear pools.
+
