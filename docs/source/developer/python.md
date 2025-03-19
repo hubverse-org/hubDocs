@@ -207,3 +207,4 @@ for the Hubverse package:
 To ensure continuity, it's important that Hubverse packages on both PyPI and
 TestPYPI have multiple maintainers and collaborators. You can add other Hubverse
 devs to these roles from the project's _Collaborators_ page on PyPI/TestPyPI.
+
