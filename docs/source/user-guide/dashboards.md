@@ -197,11 +197,14 @@ Here we summarize some important limitations of the visualization functionality 
  - Currently, only a single prediction target is supported. Specifically, the `target_metadata` array in the specified `model_tasks` object within the specified `rounds` object must contain exactly one object, which must have a single key in the `target_keys` object.
  - The following quantile levels (`output_type_id`s) must be present: `0.025`, `0.25`, `0.5`, `0.75`, `0.975`. These quantiles define the predictive median and the bounds of 50% and 95% prediction intervals.
  - The hub must have task id variables defining:
-    - A reference date for when predictions were created (e.g., `reference_date`, `origin_date`, or similar)
+    - A reference date for predictions (e.g., `reference_date`, `origin_date`, or similar)
     - The target date of a predicted event (e.g., `target_date`, `target_end_date`, or similar)
     - The forecast horizon, defined as the difference between the target date and the reference date (e.g. `horizon` or similar)
  - Model metadata must contain a boolean `designated_model` field. The visualization only includes models where this field has been set to `true`.
  - As was noted above, the target time series data must be stored in the hub using the [Hubverse conventions for target time series data](../user-guide/target-data.md). Additionally, at this time only a single `.csv` file with time series data is supported (i.e., this module currently does not support the `parquet` format or hive partitioned data).
+ - When assembling versions of the time series target data, it is assumed that the reference date is the Saturday after the date when the data build action is running. Additionally, it is assumed that the `as_of` date to use for data versioning is the reference date (i.e., there are no intermediate data releases between the time of forecast submission and the reference date).
+
+If you are interested in using the PredTimeChart tool for a visualization but your use case doesn't satisfy these requirements, get in touch! We may be able to make updates to support your hub.
 
 ## PredEvals evaluation (optional)
 
@@ -461,6 +464,10 @@ This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). Y
 <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json"></script>
 
 In the example above, we specify that scores should be computed for a single target, `"wk inc flu hosp"`. We specify four metrics to compute: the weighted interval score (WIS), absolute error of the median, and prediction interval coverage at the 50% and 95% levels. Relative skill will be computed for two of those metrics: WIS and absolute error. In relative skill computations, scores will be normalized relative to the `FluSight-baseline` model. Finally, the evaluations will include overall scores for each model in the table, as well as the option to plot scores broken down by the `location`, `reference_date`, `horizon`, and `target_end_date` task id variables (breaking scores down by one variable at a time).
+
+:::{important}
+It is generally recommended that the baseline model used for relative skill scores has provided predictions for all modeling tasks that are predicted by any other models.
+:::
 
 Unlike the PredTimeChart module, PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
 
