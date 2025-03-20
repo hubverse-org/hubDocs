@@ -198,8 +198,8 @@ gitGraph
   `expand_model_out_grid()`. Users who change nothing in their workflows or
   scripts will not see any change for the better or worse.
 
-(patch)=
-<a id="patch">`Patch`</a>
+{#patch}
+`Patch`
 : **Patch version number**: this version number will change if something that
   was previously broken was fixed, but no new features have been added.
   **EXAMPLE**: the `{hubAdmin}` package needed an enhancement for schema version
