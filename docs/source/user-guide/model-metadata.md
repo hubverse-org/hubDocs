@@ -23,10 +23,11 @@ Many hubs will use a standard set of metadata fields, which we place in the foll
 (model-metadata-schema)=
 ## Template metadata schema file
 
-The following is a [template `model-metadata-schema.json` file from the **example complex forecast hub**](https://github.com/hubverse-org/example-complex-forecast-hub/blob/main/hub-config/model-metadata-schema.json), which is itself drawn from the [**FluSight Forecast Hub**](https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/README.md). Many Hubs will use the same fields listed in the *template metadata schema file*, but some may need fewer or more. A hub's *model metadata schema file* should include either the single combined field `model_id`, or both of the fields `team_abbr` and `model_abbr`. Administrators can remove other fields as needed and use [additional optional metadata fields from this list](#optional-additional-metadata-fields). We encourage administrators to use the same standard names and definitions to maintain consistency across hubs.
+The following is a [template `model-metadata-schema.json` file from the **example complex forecast hub**](https://github.com/hubverse-org/example-complex-forecast-hub/blob/main/hub-config/model-metadata-schema.json), which is itself drawn from the [**FluSight Forecast Hub**](https://github.com/cdcepi/FluSight-forecast-hub/blob/main/model-metadata/README.md). Many Hubs will use the same fields listed in the *template metadata schema file*, but some may need fewer or more. **A hub's *model metadata schema file* should include either the single combined field `model_id`, or both of the fields `team_abbr` and `model_abbr`**. Administrators can remove other fields as needed and use [additional optional metadata fields from this list](#optional-additional-metadata-fields). We encourage administrators to use the same standard names and definitions to maintain consistency across hubs.
 
    <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/example-complex-forecast-hub/main/hub-config/model-metadata-schema.json"></script>
 
+Further details on these fields (e.g. license information) can be found [in the README file for of the `model-metadata/` folder](https://github.com/hubverse-org/example-complex-forecast-hub/tree/main/model-metadata#readme) in the example complex forecast hub.
 
 (optional-additional-metadata-fields)=
 ## Optional additional metadata fields
