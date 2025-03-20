@@ -3,12 +3,12 @@
 This document describes Python-specific details about the Hubverse's
 development and release process.
 
-- [Checklists](#checklists)
+- [Checklists](#python-checklists)
     - [Development checklist](#development-checklist)
     - [Release checklist](#release-checklist)
     - [Hotfix checklist](#hotfix-checklist)
 - [Releasing Python packages](#releasing-python-packages)
-    - [Overview](#overview)
+    - [Overview](#releasing-python-pkg-overview)
     - [TestPYPI setup](#testpypi-setup)
     - [PyPI setup](#pypi-setup)
     - [Add package maintainers](#add-package-maintainers)
@@ -21,8 +21,10 @@ section below.
 Once that setup is complete, use the checklists below for updating and releasing
 the package.
 
+(python-checklists)=
 ## Checklists
 
+(development-checklist)=
 ### Development checklist
 
 To update a Hubverse Python package:
@@ -47,6 +49,7 @@ To update a Hubverse Python package:
 Review often brings up potential non-blocking features/bug fixes that are orthogonal to the original PR. In these cases, instead of creating a PR to merge into the original PR, it’s best to create a new issue from the PR review and, after merging, create a new PR to fix that issue. This helps keep disparate bugfixes and features separate.
 :::
 
+(release-checklist)=
 ### Release checklist
 
 When it's time to release the package to PyPI:
@@ -56,10 +59,11 @@ to the new release's version number. Make sure to acknowledge any contributors
 outside of the core dev team by linking to their GitHub handles.
 - [ ] Submit a PR, get a review, and merge the `CHANGELOG.md` updates.
 - [ ] Create a new tag for the release as described in the
-[Hubverse Release Process](release-process.md#releases).
+[Hubverse Release Process](#hubverse-release-process-releases).
 - [ ] If you created the release tag locally, push it to the package's
 repository (for example, `git push v0.2.4`).
 
+(hotfix-checklist)=
 ### Hotfix checklist
 
 A hotfix is a bug fix that is independent from in-development features and
@@ -78,7 +82,7 @@ To patch and release a hotfix:
     ```
 
 - [ ] Write a test, fix the bug, and update `CHANGELOG.md` with the
-[patch version](release-process.md#patch) and description. Push these changes
+[patch version](#patch) and description. Push these changes
 upstream:
 
     ```sh
@@ -91,6 +95,7 @@ released version of the package.
 - [ ] From the hotfix branch, create a tag for the release.
 - [ ] Resolve conflicts in the PR and merge into main.
 
+(releasing-python-packages)=
 ## Releasing Python packages
 
 Unlike CRAN, Python's official package index, [PyPI](https://pypi.org/), does
@@ -103,6 +108,7 @@ The documentation below assumes that Hubverse PyPI packages will be released
 to PyPI, allowing us to follow the "main = stable dev branch" release process
 as outlined in the [Hubverse release process](release-process.md).
 
+(releasing-python-pkg-overview)=
 ### Overview
 
 PyPI (and TestPyPI) allow
@@ -119,6 +125,7 @@ which protects against supply chain attacks and credential leaks.
 This article contains a clearly-written deep dive into
 [how trusted publishing works and the advantages of using it](https://blog.trailofbits.com/2023/05/23/trusted-publishing-a-new-benchmark-for-packaging-security/).
 
+(testpypi-setup)=
 ### TestPYPI setup
 
 Once you complete the GitHub and TestPYPI setup as outlined below, the new
@@ -161,6 +168,7 @@ for the Hubverse package.
     - Environment name: name of the GitHub environment created above
     (`pypi-test`)
 
+(pypi-setup)=
 ### PyPI setup
 
 Once you complete the GitHub and PyPI setup as outlined below, your package will
@@ -202,8 +210,10 @@ for the Hubverse package:
     - Environment name: name of the GitHub environment created above
     (`pypi`)
 
+(add-package-maintainers)=
 ### Add package maintainers
 
 To ensure continuity, it's important that Hubverse packages on both PyPI and
 TestPYPI have multiple maintainers and collaborators. You can add other Hubverse
 devs to these roles from the project's _Collaborators_ page on PyPI/TestPyPI.
+
