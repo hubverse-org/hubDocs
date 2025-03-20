@@ -209,8 +209,8 @@ gitGraph
   so [version 1.0.1](https://hubverse-org.github.io/hubAdmin/news/index.html#hubadmin-101)
   was a patch release.
 
-(dev)=
-<a id="dev">dev versioning</a>
+{#dev}
+dev versioning
 : **Development version indicator**: this version number indicates that the
   package is in a development state and has the potential to change. When it's on
   the `main` branch, it indicates that the features or patches introduced have
