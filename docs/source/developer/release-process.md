@@ -38,6 +38,7 @@ if they have been formally released on GitHub. This allows us to add new
 experimental, non-breaking features incrementally, without changing the stable
 deployments.
 
+(previous-state)=
 ### Previous state
 
 Prior to updating the Hubverse release process in August 2024, **each pull
@@ -96,6 +97,7 @@ Moreover, the exact changes that were needed in the original PR are mixed in
 with all the changes from the child branches, meaning that it is more difficult
 to retrospectively review that PR.
 
+(new-release-process)=
 ### New release process
 
 The release process adopted in August 2024 alleviates the "many features =
@@ -196,6 +198,7 @@ gitGraph
   `expand_model_out_grid()`. Users who change nothing in their workflows or
   scripts will not see any change for the better or worse.
 
+(patch)=
 <a id="patch">`Patch`</a>
 : **Patch version number**: this version number will change if something that
   was previously broken was fixed, but no new features have been added.
@@ -206,6 +209,7 @@ gitGraph
   so [version 1.0.1](https://hubverse-org.github.io/hubAdmin/news/index.html#hubadmin-101)
   was a patch release.
 
+(dev)=
 <a id="dev">dev versioning</a>
 : **Development version indicator**: this version number indicates that the
   package is in a development state and has the potential to change. When it's on
@@ -252,6 +256,7 @@ needs to be patched _immediately_ and you have new features in the main branch
 that are not yet ready to be released, then you should [create a
 hotfix](hotfix.md) instead.
 
+(hubverse-release-process-releases)=
 ### Releases
 
 Releases are a concept that is specific for GitHub. Under the hood, releases are

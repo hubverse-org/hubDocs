@@ -22,7 +22,7 @@ The Hubverse provides a [template dashboard repository](https://github.com/hubve
 ---
 figclass: margin-caption
 alt: A screenshot of the GitHub repository for the hub dashboard template. There is a red circle around the "Use this template" button.
-name: hub-data-relations
+name: hub-dashboard-template-use-template
 ---
 Creating a hub dashboard from the template.
 ```
