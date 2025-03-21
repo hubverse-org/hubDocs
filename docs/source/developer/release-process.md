@@ -173,7 +173,8 @@ gitGraph
     merge release id: "1u2n (1.14.1)" tag: "0.14.1"
 ```
 
-<a id="major">`X`</a>
+{#major}
+`X`
 : **Major version number**: this version number will change if there are
   significant breaking changes to any of the user-facing workflows. That is, if
   a change requires users to modify their scripts, then it is a breaking change.
@@ -187,7 +188,8 @@ gitGraph
   2024-05-13](https://github.com/orgs/hubverse-org/discussions/13) to the
   actual release on 2024-06-18.
 
-<a id="minor">`Y`</a>
+{#minor}
+`Y`
 : **Minor version number**: this version number will change if there are new
   features or enhanced behaviors available to the users in a way that _does not
   affect how users who do not need the new features use the package_. This
