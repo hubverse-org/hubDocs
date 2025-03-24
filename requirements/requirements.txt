@@ -128,5 +128,5 @@ virtualenv==20.29.0
     # via pre-commit
 watchfiles==1.0.4
     # via sphinx-autobuild
-websockets==14.1
+websockets==15.0.1
     # via sphinx-autobuild
