@@ -118,11 +118,10 @@ security vulnerabilities.
 (security-dependabot)=
 ### Dependabot Setup
 
-Dependabot is a GitHub app that responds to security alerts by opening pull
-requests that update dependencies in your github workflows. You can set this
+Dependabot's default behavior is to flag potential security vulnerabilities introduced by a project's dependencies. You can also be more proactive by configuring Dependabot to submit pull requests as new versions of project dependencies become available. Regular dependency updates reduces the likelihood of actual vulnerabilities.  You can set this
 up by adding a `.github/dependabot.yml` file to your repository.
 
-You should set up dependabot for any ecosystem you use (e.g. Python and JavaScript),
+You should set up dependabot for any [ecosystem](https://docs.github.com/en/enterprise-cloud@latest/code-security/dependabot/ecosystems-supported-by-dependabot/supported-ecosystems-and-repositories#supported-ecosystems-and-repositories) you use (e.g. Python and JavaScript),
 but the most important one to use is the github actions ecoystem. GitHub has a
 [detailed writeup of setting up dependabot to update github actions](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot) and this is a template YAML file that you can use:
 
