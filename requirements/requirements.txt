@@ -65,7 +65,7 @@ packaging==24.2
     # via sphinx
 platformdirs==4.3.6
     # via virtualenv
-pre-commit==4.0.1
+pre-commit==4.2.0
     # via hubdocs (pyproject.toml)
 pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
