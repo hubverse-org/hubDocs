@@ -31,7 +31,7 @@ docutils==0.21.2
     #   myst-parser
     #   pydata-sphinx-theme
     #   sphinx
-filelock==3.16.1
+filelock==3.18.0
     # via virtualenv
 h11==0.14.0
     # via uvicorn
