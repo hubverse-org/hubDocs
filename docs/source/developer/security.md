@@ -81,7 +81,7 @@ expandable menu and select "View CodeQL configuration".
 ---
 figclass: margin-caption
 alt: GitHub screenshot showing the code scanning section described above with a box that says "CodeQL analysis" and a expanded menu item showing the selected item as "View CodeQL configuration"
-name: code-scanning-fig
+name: codeql-config-view-fig
 ---
 CodeQL configuration settings can be edited by clicking on the three dots to the right of "CodeQL analysis" and selecting "View CodeQL configuration"
 ```
@@ -95,7 +95,7 @@ configuration.
 width: 50%
 figclass: margin-caption
 alt: GitHub screenshot showing the CodeQL configuration having the default setup
-name: code-scanning-fig
+name: codeql-config-edit-fig
 ---
 ```
 
@@ -106,7 +106,7 @@ When you click that button, you can select the recommended extended security sui
 ---
 figclass: margin-caption
 alt: GitHub screenshot showing the CodeQL configuration having the default setup
-name: code-scanning-fig
+name: codeql-config-extend-fig
 ---
 ```
 
