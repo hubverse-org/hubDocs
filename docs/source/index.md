@@ -1,6 +1,6 @@
 # The hubverse: open tools for collaborative modeling
 
-```{admonition} What is The Hubverse For?
+```{admonition} What is the hubverse for?
 :class: seealso
 
 **The goal of the hubverse** is to **ensure stakeholders have model summaries they can trust** by facilitating collaborative modeling efforts that are rapidly validated and summarized.
@@ -11,7 +11,7 @@ Read more about **[who uses the hubverse](overview/who-uses-hubverse.md)**
 
 The hubverse is a collection of open-source software and data tools that enable collaborative modeling exercises. It is developed by **the Consortium of Infectious Disease Modeling Hubs**, a collaboration of research teams and public health professionals that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed the hubverse for groups running collaborative modeling hub efforts. This website documents the requirements for using the hubverse.
 
-The [overview section](overview/who-we-are.md) introduces the project, and the [getting started section](quickstart-hub-admin/getting-started.md) outlines how to set up a working hub and the different resources created by this project.
+The [overview section](overview/who-we-are.md) introduces the project, the [quickstart section](quickstart-hub-admin/intro.md) outlines how to set up and administer a working hub and the [user guide](user-guide/intro-data-formats.md) provides a deeper look at the different standards and resources developed by this project.
 
 ## Active Hubs
 

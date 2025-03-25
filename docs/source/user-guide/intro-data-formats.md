@@ -1,17 +1,22 @@
 # Overview
 
-On this page, we provide an [outline on the contents of this data formats section](#data-formats-outline), define a few [running examples of Hubs](#running-examples), and describe in some detail the key concepts of [task ID variables](#task-id-vars) and [submission rounds](#submission-rounds).
+On this page, we provide an [outline on the contents of this section](#data-formats-outline), define a few [running examples of Hubs](#running-examples), and describe in some detail the key concepts of [task ID variables](#task-id-vars) and [submission rounds](#submission-rounds).
 
 (data-formats-outline)=
-## Data formats section outline
+## User Guide section outline
 This section of the documentation provides standards for:
 
 * [Structure of hub repositories](#hub-structure): standards for file and directory structures for Hubs
 * [Hub configuration files](#hub-config): the files needed to set up and run a modeling hub
+* [Modeling tasks](#tasks): tasks define the goals of the modeling effort in terms of variables and output format
 * [Model metadata](#model-metadata): metadata describing models
 * [Model output](#model-output): standard formats for model output, such as forecasts and projections that are saved in Hubs
+* [Sample output type](#sample-output-type): a deeper look at a specific model output type
 * [Target data](#target-data): standard formats for target data, the eventually observable quantities of interest to a hub
 * [Model abstracts](#model-abstracts): structure for round-specific detailed narrative descriptions of modeling methods and results
+* [Dashboards](#dashboards): tools to build a dashboard website for a modeling hub
+* [Software](#software): suite of packages to assist users in building a hub
+* [Model metadata](#model-metadata): presentations (slides and videos) about the hubverse
 
 (running-examples)=
 ## Running examples
