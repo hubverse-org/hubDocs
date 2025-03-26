@@ -36,6 +36,7 @@ a statistical or mathematical formulation of a model.
 code that implements a team's mathematical model formulation/structure to generate model outputs. Each team may have multiple instances of software.
 ```
 
+(def-model-output)=
 ```{admonition} Model output
 a set of target results generated in response to some modeling task for a specific round. A model might result from a single team’s response to the task or from an ensemble of results representing the outcomes of multiple efforts.
 ```
