@@ -29,7 +29,7 @@ This involves:
  - transforming truth (target) data into standardized modeling targets for downstream validation
  - validate submissions as they arrive
 
-The [quickstart section](/quickstart-hub-admin/intro.md) will get you up and running with a new hub. The [user guide](/user-guide/intro-data-formats.md) is a good resource for translating the modeling challenge language into a `tasks.json` configuration file.
+The [quickstart chapter](/quickstart-hub-admin/intro.md) will get you up and running with a new hub. The [user guide](/user-guide/intro-data-formats.md) is a good resource for translating the modeling challenge language into a `tasks.json` configuration file.
 You can use the [`{hubAdmin}` R package](https://hubverse-org.github.io/hubAdmin) to aid in the creation of this file.
 
 (modelers)=
