@@ -113,6 +113,7 @@ developer/hotfix.md
 developer/r.md
 developer/python.md
 developer/security.md
+developer/cloud-onboarding.md
 ```
 
 ```{toctree}

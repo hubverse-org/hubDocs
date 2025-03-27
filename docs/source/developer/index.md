@@ -32,7 +32,7 @@ maintained by the Reich lab so hubs can synchronize data with the cloud.
 
 - <https://github.com/hubverse-org/hubverse-infrastructure#readme>
   provides an **infrastructure-as-code (IaC)** solution
-   - Read more about [onboarding a hub](https://github.com/hubverse-org/hubverse-infrastructure?tab=readme-ov-file#onboarding-a-hub)
+   - Read more about [onboarding a hub](cloud-onboarding))
 - <https://github.com/hubverse-org/hubverse-transform#readme>
   performs data transformation of model output files and is deployed as an AWS
   Lambda function
