@@ -19,7 +19,7 @@ involved in cloud onboarding.
 If a hub admin wants to enable cloud hosting, these are the steps to follow:
 
 1. Decide on a name for the hub's S3 bucket. S3 bucket names must follow
-   [these rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) and be globally unique.
+   Amazon's [bucket naming rules](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html) and be globally unique.
 2. Create the hub's AWS resources by following instructions in the
    [`hubverse-infrastructure` README](https://github.com/hubverse-org/hubverse-infrastructure/blob/main/README.md#onboarding-a-hub-to-aws).\
     **Note:** Don't be intimidated by "creating AWS resources." The process is automated and requires a three line
