@@ -2,7 +2,7 @@
 All Hubverse tools, packages, and documentation on this website are available open source to anyone looking to use them. However, setting up and maintaining a hub can be complicated and time-consuming, and we therefore recognize the desire that some users may have for additional tailored support. For this reason, we also offer consulting services that can provide additional assistance with tooling and tool development, hub set-up, and ongoing hub maintenance. Hubverse software consulting services can be written into grant proposals or directly contracted through the Biostatistics Consulting Center at UMass-Amherst. An initial one-hour consultation or discussion about the Hubverse is free of charge, and we are always happy to discuss whether using the hubverse for your project would be a good fit!
 
 (Menu-of-services)=
-## Menu of services:
+## Menu of services
 
 (Menu-of-services-1)=
 ```{admonition} Hourly hub consulting 
@@ -20,8 +20,8 @@ Includes initial consultation meetings, repository set-up, creation of configura
 (Menu-of-services-3)=
 ```{admonition} Hub maintenance 
 May include all or any combination of the following: troubleshooting validations, communication with modeling teams, dashboard maintenance, merging in pull requests, running baseline/ensemble models  
-- Negotiable, $3000 to 6000 per month, ~ $150 per hour x 20-40 person hours a month      
-- Negotiable, $750 to 1500 per week, ~ $150 per hour x 5-10 person hours a week      
+- Negotiable, $3000 to $6000 per month, calculated as $150 per hour x 20-40 person hours a month      
+- Negotiable, $750 to $1500 per week, calculated as $150 per hour x 5-10 person hours a week      
 - Or hourly at $150 per hour
 ```
 
