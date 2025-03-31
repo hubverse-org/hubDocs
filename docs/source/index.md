@@ -64,7 +64,7 @@ overview/scope.md
 overview/definitions.md
 overview/abbreviations.md
 overview/data-storage.md
-overview/consulting-support.md
+overview/support-consulting.md
 overview/contribute.md
 overview/cite.md
 overview/contact.md
