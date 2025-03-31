@@ -26,5 +26,5 @@ Negotiable, $750-1500 per week (calculated as $150 per hour x 5-10 person hours 
 Or hourly at $150/hr
 ```
 
-If interested, please contact hubverse+help@groups.io. In your message, please provide a brief description of the hub, a link to the repository (if applicable), and what you hope to address with the consulting session. 
+If interested, please contact [hubverse+help@groups.io](hubverse+help@groups.io). In your message, please provide a brief description of the hub, a link to the repository (if applicable), and what you hope to address with the consulting session. 
 
