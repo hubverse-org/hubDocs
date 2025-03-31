@@ -7,7 +7,7 @@ All hubverse tools, packages, and documentation on this website are available op
 (Menu-of-services-1)=
 ```{admonition} Hourly hub consulting 
 One-off discussions about use of tooling or additional tool development    
-$150/hr
+$150 per hour
 ```
 
 
@@ -21,8 +21,8 @@ One-time $6000 fee
 ```{admonition} Hub maintenance 
 May include all or any combination of the following: troubleshooting validations, communication with modeling teams,    
 dashboard maintenance, merging in pull requests, running baseline/ensemble models      
-Negotiable, $3000-6000/month (calculated as $150/hr x 20-40 person hours a month)  
-Negotiable, $750-1500/week (calculated as $150/hr x 5-10 person hours a week)  
+Negotiable, $3000-6000 per month (calculated as $150 per hour x 20-40 person hours a month)  
+Negotiable, $750-1500 per week (calculated as $150 per hour x 5-10 person hours a week)  
 Or hourly at $150/hr
 ```
 
