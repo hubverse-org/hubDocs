@@ -21,7 +21,7 @@ Includes initial consultation meetings, repository set-up, creation of configura
 ```{admonition} Hub maintenance 
 May include all or any combination of the following: troubleshooting validations, communication with modeling teams, dashboard maintenance, merging in pull requests, running baseline/ensemble models  
 - Monthly \$3000-\$6000, calculated as \$150 per hour x 20-40 person hours a month, negotiable     
-- Weekly $750-$1500, calculated as $150 per hour x 5-10 person hours a week, negotiable      
+- Weekly \$750-\$1500, calculated as \$150 per hour x 5-10 person hours a week, negotiable      
 - Or hourly at $150 per hour
 ```
 
