@@ -6,6 +6,19 @@ The hubverse provides a modular system for building a dashboard website for a mo
 2. An optional module for interactive visualizations of model outputs (predictions) and target data.
 3. An optional module for interactive exploration of scores for model predictions.
 
+````{subfigure} AB|CD
+:gap: 1%
+:class: margin-caption
+:class-area: bordered
+
+![screenshot of FluSight forecast hub dashboard home page](../images/dashboard-home.png)
+![screenshot of Forecasts page showing predictions for incident influenza hospitalizations in the United States as of 2025-03-01 with the line going down](../images/dashboard-forecast.png)
+![Screenshot of evaluations page with a table of evaluations for the last four weeks, sorted by Relative WIS score](../images/dashboard-eval-table.png)
+![Screenshot of evaluations page with a heatmap for Relative WIS score disaggregated by location](../images/dashboard-eval-heat.png)
+
+A dashboard provides interactive visualizations for forecasts and evaluations derived from hub data. This provides information modelers can use to evaluate and compare their submissions.
+````
+
 The website contents, including the web pages as well the data backing interactive visualizations and evaluations, are built by GitHub actions that can be set to run on a regular schedule or manually as needed. By default, the website is hosted on a GitHub pages site, though it could also be hosted on another static website hosting platform if desired.
 This guide assumes three things about the reader:
 1. you know how to edit and write files with [pandoc-flavored Markdown](https://pandoc.org/MANUAL#pandocs-markdown),
