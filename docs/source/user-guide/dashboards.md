@@ -233,29 +233,18 @@ If you are interested in using the PredTimeChart tool for a visualization but yo
 
 The PredEvals module creates an interactive display of scores for predictions. Dashboard users can view overall scores in a table, or see line plots or heatmaps visualizing scores broken down by a task id variable.
 
-```{figure} ../images/dashboard-eval-table.png
----
-figclass: margin-caption
-name: dashboard-eval-table
----
-A screenshot of the evaluation table in the COVID-19 Forecast Hub dashboard. The table shows overall scores for each model.
-```
+````{subfigure} A|B|C
+:gap: 0.5%
+:class: margin-caption
+:class-area: bordered
 
-```{figure} ../images/dashboard-eval-lineplot.png
----
-figclass: margin-caption
-name: dashboard-eval-lineplot
----
-A screenshot of the COVID-19 Forecast Hub dashboard showing a line plot of relative WIS values for models, broken down by the target end date of the prediction.
-```
+![A screenshot of the evaluation table in the COVID-19 Forecast Hub dashboard. The table shows overall scores for each model.
+](../images/dashboard-eval-table-covid.png)
+![A screenshot of the COVID-19 Forecast Hub dashboard showing a heatmap of relative WIS values for models, broken down by the location of the prediction.](../images/dashboard-eval-heatmap.png)
+![A screenshot of the COVID-19 Forecast Hub dashboard showing a line plot of relative WIS values for models, broken down by the target end date of the prediction.](../images/dashboard-eval-lineplot.png)
 
-```{figure} ../images/dashboard-eval-heatmap.png
----
-figclass: margin-caption
-name: dashboard-eval-heatmap
----
-A screenshot of the COVID-19 Forecast Hub dashboard showing a heatmap of relative WIS values for models, broken down by the location of the prediction.
-```
+The evaluation dashboard has a sortable table and two visualizations, a line plot and heatmap, that are disaggregated by task ID
+````
 
 :::{important}
 
