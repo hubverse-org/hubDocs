@@ -1,8 +1,28 @@
-# instruct GitHub dependabot to check for updates to Python dependencies
+# instruct GitHub dependabot to scan github actions and Python code for dependency updates
+
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    # variant-nowcast-hub data pipeline scripts are in `src`
-    directory: "/requirements/"
+  - package-ecosystem: "github-actions"
+    # dependabot automatically checks .github/workflows/ and .github/actions/
+    directory: "/"
     schedule:
       interval: "weekly"
+    # group all run-of-the mill updates into a single pull request
+    groups:
+      gha-updates:
+        applies-to: version-updates
+        update-types:
+          - patch
+          - minor
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # group all run-of-the mill updates into a single pull request
+    groups:
+      py-updates:
+        applies-to: version-updates
+        update-types:
+          - patch
+          - minor
