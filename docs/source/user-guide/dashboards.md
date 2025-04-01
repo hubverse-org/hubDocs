@@ -233,7 +233,7 @@ If you are interested in using the PredTimeChart tool for a visualization but yo
 (dashboard-predevals)=
 ## PredEvals evaluation (optional)
 
-The PredEvals module creates an interactive display of scores for predictions. Dashboard users can view overall scores in a table, or see line plots or heatmaps visualizing scores broken down by a task id variable.
+The PredEvals module creates an interactive display of scores for predictions. Dashboard users can view overall scores in a table, or see heatmaps or line plots visualizing scores broken down by a task id variable.
 
 ````{subfigure} A|B|C
 :gap: 0.5%
@@ -262,9 +262,30 @@ For details, see the [limitations and requirements section](#predevals-limitatio
 
 ### Configuring the PredEvals module
 
-If you don't want to include an evaluation page using the PredEvals module in your dashboard, delete the `predevals-config.yml` file from your dashboard repository.
 
-To include the PredEvals component, edit the `predevals-config.yml` file to match your hub. Here, we give an example configuration file that is adapted from the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub):
+To include the PredEvals component[^predevals-nope], edit the `predevals-config.yml` file to match your hub. Broadly, you need to specify four things:
+
+1. schema version
+2. targets: one or more targets that includes
+   - target ID
+   - scoring metrics (see the [details for `hubEvals::score_model_out()`](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for a list of available metrics and [Scoring rules in `scoringutils`](https://epiforecasts.io/scoringutils/articles/scoring-rules.html) for a detailed breakdown of how these metrics are scored).
+   - what metrics should include relative scores compared to a baseline model
+   - task IDs required for the target
+3. evaluation sets that provide evaluations over a specific time period and broken down by different task ID variables.
+4. a dictionary that defines human-readable values for task ID variable values.
+
+
+Here, we give an example configuration file that is adapted from the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub)[^predevals-trim].
+In this example, we specify that scores should be computed for a single target, `"wk inc flu hosp"`. We specify four metrics to compute: the weighted interval score (WIS), absolute error of the median, and prediction interval coverage at the 50% and 95% levels. Relative skill will be computed for two of those metrics: WIS and absolute error. In relative skill computations, scores will be normalized relative to the `FluSight-baseline` model. Finally, the evaluations will include overall scores for each model in the table, as well as the option to plot scores broken down by the `location`, `reference_date`, `horizon`, and `target_end_date` task id variables (breaking scores down by one variable at a time).
+
+:::{important}
+It is generally recommended that the baseline model used for relative skill scores has provided predictions for all modeling tasks that are predicted by any other models.
+:::
+
+
+[^predevals-nope]: If you don't want to include an evaluation page using the PredEvals module in your dashboard, delete the `predevals-config.yml` file from your dashboard repository.
+[^predevals-trim]: In order to preserve space on this page, we only show 5 locations in this config file. You can find the [full configuration file](https://github.com/reichlab/flusight-dashboard/blob/34bb90f11aa42ac5c27216d733b05c40f6ab0ead/predevals-config.yml) in the reichlab/flusight-dashboard repository.
+
 
 ```yaml
 schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json
@@ -295,53 +316,7 @@ eval_sets:
     - "04"
     - "05"
     - "06"
-    - "08"
-    - "09"
-    - "10"
-    - "11"
-    - "12"
-    - "13"
-    - "15"
-    - "16"
-    - "17"
-    - "18"
-    - "19"
-    - "20"
-    - "21"
-    - "22"
-    - "23"
-    - "24"
-    - "25"
-    - "26"
-    - "27"
-    - "28"
-    - "29"
-    - "30"
-    - "31"
-    - "32"
-    - "33"
-    - "34"
-    - "35"
-    - "36"
-    - "37"
-    - "38"
-    - "39"
-    - "40"
-    - "41"
-    - "42"
-    - "44"
-    - "45"
-    - "46"
-    - "47"
-    - "48"
-    - "49"
-    - "50"
-    - "51"
-    - "53"
-    - "54"
-    - "55"
-    - "56"
-    - "72"
+    ...
     horizon:
     - 0
     - 1
@@ -358,53 +333,7 @@ eval_sets:
     - "04"
     - "05"
     - "06"
-    - "08"
-    - "09"
-    - "10"
-    - "11"
-    - "12"
-    - "13"
-    - "15"
-    - "16"
-    - "17"
-    - "18"
-    - "19"
-    - "20"
-    - "21"
-    - "22"
-    - "23"
-    - "24"
-    - "25"
-    - "26"
-    - "27"
-    - "28"
-    - "29"
-    - "30"
-    - "31"
-    - "32"
-    - "33"
-    - "34"
-    - "35"
-    - "36"
-    - "37"
-    - "38"
-    - "39"
-    - "40"
-    - "41"
-    - "42"
-    - "44"
-    - "45"
-    - "46"
-    - "47"
-    - "48"
-    - "49"
-    - "50"
-    - "51"
-    - "53"
-    - "54"
-    - "55"
-    - "56"
-    - "72"
+    ...
     horizon:
     - 0
     - 1
@@ -412,64 +341,12 @@ eval_sets:
     - 3
 task_id_text:
   location:
-    US: United States
     '01': Alabama
     '02': Alaska
     '04': Arizona
     '05': Arkansas
     '06': California
-    '08': Colorado
-    '09': Connecticut
-    '10': Delaware
-    '11': District of Columbia
-    '12': Florida
-    '13': Georgia
-    '15': Hawaii
-    '16': Idaho
-    '17': Illinois
-    '18': Indiana
-    '19': Iowa
-    '20': Kansas
-    '21': Kentucky
-    '22': Louisiana
-    '23': Maine
-    '24': Maryland
-    '25': Massachusetts
-    '26': Michigan
-    '27': Minnesota
-    '28': Mississippi
-    '29': Missouri
-    '30': Montana
-    '31': Nebraska
-    '32': Nevada
-    '33': New Hampshire
-    '34': New Jersey
-    '35': New Mexico
-    '36': New York
-    '37': North Carolina
-    '38': North Dakota
-    '39': Ohio
-    '40': Oklahoma
-    '41': Oregon
-    '42': Pennsylvania
-    '44': Rhode Island
-    '45': South Carolina
-    '46': South Dakota
-    '47': Tennessee
-    '48': Texas
-    '49': Utah
-    '50': Vermont
-    '51': Virginia
-    '53': Washington
-    '54': West Virginia
-    '55': Wisconsin
-    '56': Wyoming
-    '60': American Samoa
-    '66': Guam
-    '69': Northern Mariana Islands
-    '72': Puerto Rico
-    '74': U.S. Minor Outlying Islands
-    '78': Virgin Islands
+    ...
 ```
 
 This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
@@ -477,11 +354,6 @@ This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). Y
 
 <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json"></script>
 
-In the example above, we specify that scores should be computed for a single target, `"wk inc flu hosp"`. We specify four metrics to compute: the weighted interval score (WIS), absolute error of the median, and prediction interval coverage at the 50% and 95% levels. Relative skill will be computed for two of those metrics: WIS and absolute error. In relative skill computations, scores will be normalized relative to the `FluSight-baseline` model. Finally, the evaluations will include overall scores for each model in the table, as well as the option to plot scores broken down by the `location`, `reference_date`, `horizon`, and `target_end_date` task id variables (breaking scores down by one variable at a time).
-
-:::{important}
-It is generally recommended that the baseline model used for relative skill scores has provided predictions for all modeling tasks that are predicted by any other models.
-:::
 
 Unlike the PredTimeChart module, PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
 
