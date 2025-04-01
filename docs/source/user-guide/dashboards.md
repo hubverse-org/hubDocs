@@ -36,7 +36,7 @@ This is not yet intended for use by decision-makers as there is more information
 
 :::
 
-
+(dashboard-quickstart)=
 ## Quickstart -- building a dashboard
 
 The Hubverse provides a [template dashboard repository](https://github.com/hubverse-org/hub-dashboard-template) to facilitate the process of setting up a dashboard for a modeling hub. Use this template to create a dashboard repository for your hub by clicking the "Use this template" button near the top right of the GitHub page for the template:
@@ -75,6 +75,7 @@ to deploy from:
 
 :::
 
+(dashboard-customization)=
 ## Customizing the dashboard website
 
 ### Page organization and content
@@ -145,6 +146,7 @@ to include an HTML snippet at the end of every page you would:
      include-after-body: "resources/after-body.html"
    ```
 
+(dashboard-ptc)=
 ## PredTimeChart visualization (optional)
 
 The PredTimeChart visualization module creates an interactive display of step-ahead predictions, including scenario projections, hindcasts, nowcasts, and forecasts. Dashboard users can select different models to include, the reference date (also referred to as the origin date) when predictions were created, and the values of task id variables to show (such as location). The visualization shows predictions alongside the latest available target data and the version of the target that was available at the time the predictions were created.
@@ -229,6 +231,7 @@ Here we summarize some important limitations of the visualization functionality 
 
 If you are interested in using the PredTimeChart tool for a visualization but your use case doesn't satisfy these requirements, get in touch! We may be able to make updates to support your hub.
 
+(dashboard-predevals)=
 ## PredEvals evaluation (optional)
 
 The PredEvals module creates an interactive display of scores for predictions. Dashboard users can view overall scores in a table, or see line plots or heatmaps visualizing scores broken down by a task id variable.
@@ -514,6 +517,7 @@ The PredEvals module has several important limitations:
  - Only hubs with `round_id_from_variable` set to `true` in the `tasks.json` configuration file are supported.
  - Supported output types include `mean`, `median`, `quantile`, and `pmf`. However, support for ordinal pmf predictions is still experimental. The `sample` and `cdf` output types are not supported.
 
+(dashboard-workflows)=
 ## Using GitHub actions to build site contents and data
 
 The template dashboard repository comes with two GitHub workflows that are responsible for building the site contents and data. These are located in the `.github/workflows/` folder:
