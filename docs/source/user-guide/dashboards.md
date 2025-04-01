@@ -27,6 +27,16 @@ This guide assumes three things about the reader:
 
 Below, we describe how to set up each of these three components of the dashboard system and the use of GitHub actions for building the site.
 
+
+:::{note}
+
+The current iteration of the dashboard is intended for modelers and hub administrators, who are more likely to be familiar with modeling exercise and evaluation methods.
+
+This is not yet intended for use by decision-makers as there is more information here than they may want or need.
+
+:::
+
+
 ## Quickstart -- building a dashboard
 
 The Hubverse provides a [template dashboard repository](https://github.com/hubverse-org/hub-dashboard-template) to facilitate the process of setting up a dashboard for a modeling hub. Use this template to create a dashboard repository for your hub by clicking the "Use this template" button near the top right of the GitHub page for the template:
