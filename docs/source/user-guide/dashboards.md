@@ -174,11 +174,10 @@ For details, see the [limitations and requirements section](#ptc-limitations) be
 
 ### Configuring the PredTimeChart visualization module
 
-:::{note}
-If you do not want to include a visualization using the PredTimeChart module in your dashboard, delete the `predtimechart-config.yml` file from your dashboard repository.
-:::
 
-To include the PredTimeChart visualization, edit the `predtimechart-config.yml` file to match your hub. You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hub-dashboard-predtimechart/main/src/hub_predtimechart/ptc_schema.py) for this file to see the detailed specification of its contents. Below, we give an example file based on the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub) and describe the fields to include:
+To include the PredTimeChart visualization[^ptc-nope], edit the `predtimechart-config.yml` file to match your hub. You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hub-dashboard-predtimechart/main/src/hub_predtimechart/ptc_schema.py) for this file to see the detailed specification of its contents. Below, we give an example file based on the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub) and describe the fields to include:
+
+[^ptc-nope]: If you do not want to include a visualization using the PredTimeChart module in your dashboard, delete the `predtimechart-config.yml` file from your dashboard repository.
 
 ```yaml
 ---
