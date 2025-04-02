@@ -22,6 +22,7 @@ extensions = [
     "sphinx.ext.intersphinx",
     "myst_parser",  # markdown (NOTE: this is NOT mystmd)
     "sphinx_design",  # tab panels and boxes
+    "sphinx_subfigure",  # multi-panel images
     "sphinxcontrib.mermaid",  # compose diagrams in code
 ]
 
