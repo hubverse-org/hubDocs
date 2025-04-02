@@ -100,12 +100,15 @@ sphinx==8.2.3
     #   sphinx-autobuild
     #   sphinx-book-theme
     #   sphinx-design
+    #   sphinx-subfigure
     #   sphinxcontrib-mermaid
 sphinx-autobuild==2024.10.3
     # via hubdocs (pyproject.toml)
 sphinx-book-theme==1.1.4
     # via hubdocs (pyproject.toml)
 sphinx-design==0.6.1
+    # via hubdocs (pyproject.toml)
+sphinx-subfigure==0.2.4
     # via hubdocs (pyproject.toml)
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
@@ -125,6 +128,7 @@ starlette==0.46.1
     # via sphinx-autobuild
 typing-extensions==4.12.2
     # via
+    #   anyio
     #   beautifulsoup4
     #   pydata-sphinx-theme
 urllib3==2.3.0
