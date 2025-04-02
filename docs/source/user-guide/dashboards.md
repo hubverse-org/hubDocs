@@ -91,7 +91,7 @@ with three keys:
 
  - hub: the GitHub slug to your active hub that contains quantile forecast data
  - title: the title of your hub dashboard website
- - pages: a [YAML array](https://www.commonwl.org/user_guide/topics/yaml-guide.html#arrays) that lists files _relative to [the `pages` directory](https://github.com/hubverse-org/hub-dashboard-template/tree/HEAD/pages/)_ that should be included in the dashboard site. The name of each page is encoded in the `title:` element of the file header (but this can be overridden with [site customization](#customization)).
+ - pages: a [YAML array](https://www.commonwl.org/user_guide/topics/yaml-guide.html#arrays) that lists files _relative to [the `pages` directory](https://github.com/hubverse-org/hub-dashboard-template/tree/HEAD/pages/)_ that should be included in the dashboard site. The name of each page is encoded in the `title:` element of the file header (but this can be overridden with [site customization](#dashboard-customization)).
 
 Other than the `hub` field all remaining fields have the following mapping equivalents in the Quarto configuration file:
 
@@ -101,6 +101,7 @@ Other than the `hub` field all remaining fields have the following mapping equiv
 | `.pages`           | [`.website.navbar.left`](https://quarto.org/docs/websites/website-navigation.html#top-navigation) |
 | `.html` (optional) | [`.format.html`](https://quarto.org/docs/reference/formats/html.html#format-options) |
 
+(dashboard-customization)=
 ### Customization
 
 When the page is built with [the hub dashboard site builder](https://github.com/hubverse-org/hub-dash-site-builder), this configuration file is merged with [the default quarto config file](https://github.com/hubverse-org/hub-dash-site-builder/blob/HEAD/static/_quarto.yml). This allows for customization of the page. Below
