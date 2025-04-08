@@ -25,5 +25,5 @@ May include all or any combination of the following: troubleshooting validations
 - Or hourly at $150 per hour
 ```
 
-If interested, please contact [hubverse+help@groups.io](hubverse+help@groups.io). In your message, please provide a brief description of the hub, a link to the repository (if applicable), and what you hope to address with the consulting session. 
+If interested, please contact [hubverse+help@groups.io](mailto:hubverse+help@groups.io). In your message, please provide a brief description of the hub, a link to the repository (if applicable), and what you hope to address with the consulting session. 
 
