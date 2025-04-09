@@ -2,16 +2,11 @@
 
 A hub repository should be structured according to the following guidelines:
 
-1. Code and scripts must not be present in a hub repository's `model-output`[^model-output] directory.
+1. Code and scripts must not be present in a hub repository's `model-output` directory.
 2. If code is included in the hub repository, it should live in a centrally located directory, which we recommend naming `src`.
 3. If code has the potential to disrupt or break other continuous integration operations in the hub (e.g., validation of incoming submissions),
 it should be moved to another repository.
 4. Target data files must be stored in the `target-data` directory. Large target data files may be partitioned, but they should be stored in parquet format and follow Apache Hive naming conventions (see Data and Code section below).
-
-[^model-output]: The directory is required, but the name is flexible. You can
-  use a custom directory path by setting the `"model_output_dir"` property in the
-  `admin.json` file. More details can be found in the `admin.json` schema
-  definition.
 
 The directory and file structure of a modeling hub should contain only the following directories, subdirectories, and files:
 
