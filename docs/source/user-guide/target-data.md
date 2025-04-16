@@ -46,8 +46,11 @@ indicates which data formats are most commonly used for each purpose.
 ## Time series
 
 The first format is *time series* data. This is often the native or
-“raw” format for data. Each row of the data set contains one observed
-value of the time series, contained in a column named `observation`.
+"raw" format for data. Each row of the data set is a **unit of observation** and the columns consist of:
+
+1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date.
+2. an `observation` column that records the observed value
+
 Here is an example of this form of data, showing selected dates for
 Massachusetts (FIPS code 25), drawn from the forecasting example in
 `hubExamples`:
@@ -59,13 +62,64 @@ Massachusetts (FIPS code 25), drawn from the forecasting example in
 | 2022-12-03 | 25       |         446 |
 | 2022-12-10 | 25       |         578 |
 
-In settings where a hub is working with multiple observed signals at
+Here, the unit of observation is a date and location pair. That is, for each date and location there is a single observed value.
+In settings where a hub is working with multiple observed targets at
 each time point (e.g., cases, hospitalizations, and deaths), the values
-of those signals will be given in different rows, with a column such as
-`signal` indicating what quantity is reported in each row. The only
-restrictions that hubverse tools impose on data in this format is that
-it should have a column named `observation` and a column with a time
-index, such as `date` or `time`.
+of those targets will be part of the unit of observation, with a column such as
+`target` indicating what quantity is reported in each row.
+
+
+```{table} Time series data with target data included in the unit of observation
+
+| date       | target | location | observation |
+|:-----------|:-------|:---------|------------:|
+| 2022-11-19 | cases  | 25       |          79 |
+| 2022-11-26 | cases  | 25       |         221 |
+| 2022-12-03 | cases  | 25       |         446 |
+| 2022-12-10 | cases  | 25       |         578 |
+| 2022-11-19 | deaths | 25       |           9 |
+| 2022-11-26 | deaths | 25       |          21 |
+| 2022-12-03 | deaths | 25       |          46 |
+| 2022-12-10 | deaths | 25       |          78 |
+
+```
+
+### Optional `as_of` column to record data versions
+
+Time series data are expected to be compiled from an authoritative upstream
+data source after each target date.
+Because of reporting delays the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
+
+```{table} Data recorded on December 3 for December 3 shows an observation of 420
+| *as\_of*     | date       | location | observation |
+|:-------------|:-----------|:---------|------------:|
+| *2022-12-03* | 2022-11-19 | 25       |          79 |
+| *2022-12-03* | 2022-11-26 | 25       |         221 |
+| *2022-12-03* | 2022-12-03 | 25       |         [420]{.bordered} |
+```
+
+```{table} Data recorded on December 10 shows that the December 3 observation increased by 26 cases
+| *as\_of*     | date       | location | observation |
+|:-------------|:-----------|:---------|------------:|
+| *2022-12-10* | 2022-11-19 | 25       |          79 |
+| *2022-12-10* | 2022-11-26 | 25       |         221 |
+| *2022-12-10* | 2022-12-03 | 25       |        [446]{.bordered} |
+| *2022-12-10* | 2022-12-10 | 25       |         578 |
+```
+
+
+If the source data have this pattern of being subsequently updated, 
+the hubverse recommends recording the date target data were
+reported in a column called `as_of`. This will then accurately represent what data were available at a given point in time, and will allow tools like our
+[dashboards](dashboards.html) to automatically extract the data that were available for any given model round.
+
+
+### Additional columns
+
+Hubverse tools will only validate columns that make up the unit of observation
+that match model task IDs. You may also include additional columns that have
+a 1:1 correspondence with the data, for example a transformation of counts to
+rates or a human-readable translation of codes.
 
 ## Oracle output
 
