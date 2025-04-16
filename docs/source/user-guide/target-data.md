@@ -46,9 +46,9 @@ indicates which data formats are most commonly used for each purpose.
 ## Time series
 
 The first format is *time series* data. This is often the native or
-“raw” format for data. [Each row of the data set is a **unit of observation**](https://github.com/reichlab/decisions/blob/main/decisions/2025-02-27-rfc-time-series-target-data.md#summary-of-the-proposal) and the columns consist of:
+"raw" format for data. Each row of the data set is a **unit of observation** and the columns consist of:
 
-1. task ID variables that uniquely define each unit of observation This must include at least one column representing the date.
+1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date.
 2. an `observation` column that records the observed value
 
 Here is an example of this form of data, showing selected dates for
@@ -62,10 +62,10 @@ Massachusetts (FIPS code 25), drawn from the forecasting example in
 | 2022-12-03 | 25       |         446 |
 | 2022-12-10 | 25       |         578 |
 
-Here, the unit of observation are the dates and locations.
+Here, the unit of observation is a date and location pair. That is, for each date and location there is a single observed value.
 In settings where a hub is working with multiple observed targets at
 each time point (e.g., cases, hospitalizations, and deaths), the values
-of those targets will be given in different rows, with a column such as
+of those targets will be part of the unit of observation, with a column such as
 `target` indicating what quantity is reported in each row.
 
 
@@ -88,9 +88,9 @@ of those targets will be given in different rows, with a column such as
 
 Time series data are expected to be compiled from an authoritative upstream
 data source after each target date.
-Because of reporting delays the data may represent under-counts and are corrected in the following time periods.
+Because of reporting delays the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
 
-```{table} Data recorded on December 3 shows an observation of 420
+```{table} Data recorded on December 3 for December 3 shows an observation of 420
 | *as\_of*     | date       | location | observation |
 |:-------------|:-----------|:---------|------------:|
 | *2022-12-03* | 2022-11-19 | 25       |          79 |
@@ -108,9 +108,9 @@ Because of reporting delays the data may represent under-counts and are correcte
 ```
 
 
-To accurately represent what data were available at a given point in time,
-administrators are strongly recommended to record the date target data were
-reported in a column called `as_of`. This will allow tools like our
+If the source data have this pattern of being subsequently updated, 
+the hubverse recommends recording the date target data were
+reported in a column called `as_of`. This will then accurately represent what data were available at a given point in time, and will allow tools like our
 [dashboards](dashboards.html) to automatically extract the data that were available for any given model round.
 
 
