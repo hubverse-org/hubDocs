@@ -3,28 +3,20 @@
 This document describes Python-specific details about the Hubverse's
 development and release process.
 
-- [Checklists](#python-checklists)
-    - [Development checklist](#development-checklist)
-    - [Release checklist](#release-checklist)
-    - [Hotfix checklist](#hotfix-checklist)
-- [Releasing Python packages](#releasing-python-packages)
-    - [Overview](#releasing-python-pkg-overview)
-    - [TestPYPI setup](#testpypi-setup)
-    - [PyPI setup](#pypi-setup)
-    - [Add package maintainers](#add-package-maintainers)
+```{contents} Table of Contents
+:depth: 3
+```
 
 Hubverse Python packages that will be released to PyPI must go through a
 one-time setup process as described in the
-[Creating PyPI and TestPyPI workflows](#releasing-python-packages)
+[Creating PyPI and TestPyPI workflows](releasing-python-packages)
 section below.
 
 Once that setup is complete, use the checklists below for updating and releasing
 the package.
 
-(python-checklists)=
 ## Checklists
 
-(development-checklist)=
 ### Development checklist
 
 To update a Hubverse Python package:
@@ -46,10 +38,13 @@ To update a Hubverse Python package:
 - [ ] Once the PR has been approved and all checks have passed, merge it.
 
 :::{tip}
-Review often brings up potential non-blocking features/bug fixes that are orthogonal to the original PR. In these cases, instead of creating a PR to merge into the original PR, it’s best to create a new issue from the PR review and, after merging, create a new PR to fix that issue. This helps keep disparate bugfixes and features separate.
+Review often brings up potential non-blocking features/bug fixes that are
+orthogonal to the original PR. In these cases, instead of creating a PR to
+merge into the original PR, it’s best to create a new issue from the PR review
+and, after merging, create a new PR to fix that issue.
+This helps keep disparate bugfixes and features separate.
 :::
 
-(release-checklist)=
 ### Release checklist
 
 When it's time to release the package to PyPI:
@@ -63,7 +58,6 @@ outside of the core dev team by linking to their GitHub handles.
 - [ ] If you created the release tag locally, push it to the package's
 repository (for example, `git push v0.2.4`).
 
-(hotfix-checklist)=
 ### Hotfix checklist
 
 A hotfix is a bug fix that is independent from in-development features and
@@ -95,6 +89,96 @@ released version of the package.
 - [ ] From the hotfix branch, create a tag for the release.
 - [ ] Resolve conflicts in the PR and merge into main.
 
+## Creating a new Hubverse Python package
+
+Unlike R, the Python ecosystem doesn't have a single, agreed-upon
+best practice for package creation, structure, and development. In general,
+Hubverse Python packages:
+
+- Use [uv](https://docs.astral.sh/uv/) for managing Python versions,
+  virtual environments, and dependencies
+- Use a [`pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+  to describe the project (versus the older `setup.py`)
+- Use the src layout (the
+  [pyOpenSci website](https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-structure.html#what-is-the-python-package-source-layout)
+  has a good overview of this layout)
+- Type hint function arguments and return values (at a minimum—other code may
+  have type hints for clarity)
+- Use [numpy-style docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard)
+- Use [ruff](https://github.com/astral-sh/ruff) for linting and code formatting
+  (generally with the default settings)
+- Use [pytest](https://docs.pytest.org/en/stable/) for creating and running tests
+- Use [Sphinx](https://www.sphinx-doc.org/en/master/) for documentation
+  (the page you're reading now was created with Sphinx)
+- Prefer logging to stdout over print statements
+
+### Creating a new Python package (empty)
+
+The[`uv init`](https://docs.astral.sh/uv/reference/cli/#uv-init) command can
+create an new, empty Python package structure using the `src` layout. The
+following command creates a directory called `new-package`
+in the current working directory:
+
+```bash
+uv init --package new-package
+```
+
+The resulting directory structure looks like this:
+
+```bash
+new-package
+├── README.md
+├── pyproject.toml
+└── src
+    └── new_package
+        └── __init__.py
+```
+
+### Creating a new Python package (with logging setup, test harness, CI, and docs)
+
+The [pyprefab package](https://bsweger.github.io/pyprefab/index.html)
+is a simple, prompt-driven tool for creating new Python
+packages that has boilerplate code for logging, testing, GitHub actions,
+Sphinx documentation, and a Python-based `CONTRIBUTING.md` file.
+
+You don't need to install pyprefab to use it. The
+[tools feature of uv](https://docs.astral.sh/uv/guides/tools/) can invoke
+pyprefab directly:
+
+```bash
+uvx pyprefab
+```
+
+This command will then prompt for a package name, author name, and a few other
+pieces of information. The resulting package will have the following structure:
+
+```bash
+new-package
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── docs
+│   └── source
+│       ├── CHANGELOG.md
+│       ├── CONTRIBUTING.md
+│       ├── _static
+│       │   └── custom.css
+│       ├── conf.py
+│       ├── index.rst
+│       ├── readme.md
+│       └── usage.md
+├── pyproject.toml
+├── src
+│   └── new_package
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── app.py
+│       └── logging.py
+└── test
+    └── test_app.py
+```
+
 (releasing-python-packages)=
 ## Releasing Python packages
 
@@ -108,7 +192,6 @@ The documentation below assumes that Hubverse PyPI packages will be released
 to PyPI, allowing us to follow the "main = stable dev branch" release process
 as outlined in the [Hubverse release process](release-process.md).
 
-(releasing-python-pkg-overview)=
 ### Overview
 
 PyPI (and TestPyPI) allow
@@ -125,7 +208,6 @@ which protects against supply chain attacks and credential leaks.
 This article contains a clearly-written deep dive into
 [how trusted publishing works and the advantages of using it](https://blog.trailofbits.com/2023/05/23/trusted-publishing-a-new-benchmark-for-packaging-security/).
 
-(testpypi-setup)=
 ### TestPYPI setup
 
 Once you complete the GitHub and TestPYPI setup as outlined below, the new
@@ -139,8 +221,8 @@ package's `main` branch.
 #### GitHub
 
 1. In the package's GitHub repo,
-[create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi-test` to use for the
-TestPyPI deployment.
+   [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+   called `pypi-test` to use for the TestPyPI deployment.
 
     :::{note}
     Because this environment is for test deployments, you don't need to add
@@ -168,7 +250,6 @@ for the Hubverse package.
     - Environment name: name of the GitHub environment created above
     (`pypi-test`)
 
-(pypi-setup)=
 ### PyPI setup
 
 Once you complete the GitHub and PyPI setup as outlined below, your package will
@@ -180,8 +261,8 @@ You will only need to do this once.
 #### GitHub
 
 1. In the package's GitHub repo,
-[create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi` to use for the
-PyPI deployment.
+   [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+   called `pypi` to use for the PyPI deployment.
 
     :::{important}
     Because this environment will be used for publishing to production,
@@ -210,10 +291,8 @@ for the Hubverse package:
     - Environment name: name of the GitHub environment created above
     (`pypi`)
 
-(add-package-maintainers)=
 ### Add package maintainers
 
 To ensure continuity, it's important that Hubverse packages on both PyPI and
 TestPYPI have multiple maintainers and collaborators. You can add other Hubverse
 devs to these roles from the project's _Collaborators_ page on PyPI/TestPyPI.
-
