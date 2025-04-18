@@ -89,6 +89,96 @@ released version of the package.
 - [ ] From the hotfix branch, create a tag for the release.
 - [ ] Resolve conflicts in the PR and merge into main.
 
+## Creating a new Hubverse Python package
+
+Unlike R, the Python ecosystem doesn't have a single, agreed-upon
+best practice for package creation, structure, and development. In general,
+Hubverse Python packages:
+
+- Use [uv](https://docs.astral.sh/uv/) for managing Python versions,
+  virtual environments, and dependencies
+- Use a [`pyproject.toml` file](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
+  to describe the project (versus the older `setup.py`)
+- Use the src layout (the
+  [pyOpenSci website](https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-structure.html#what-is-the-python-package-source-layout)
+  has a good overview of this layout)
+- Type hint function arguments and return values (at a minimum—other code may
+  have type hints for clarity)
+- Use [numpy-style docstrings](https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard)
+- Use [ruff](https://github.com/astral-sh/ruff) for linting and code formatting
+  (generally with the default settings)
+- Use [pytest](https://docs.pytest.org/en/stable/) for creating and running tests
+- Use [Sphinx](https://www.sphinx-doc.org/en/master/) for documentation
+  (the page you're reading now was created with Sphinx)
+- Prefer logging to stdout over print statements
+
+### Creating a new Python package (empty)
+
+The[`uv init`](https://docs.astral.sh/uv/reference/cli/#uv-init) command can
+create an new, empty Python package structure using the `src` layout. The
+following command creates a directory called `new-package`
+in the current working directory:
+
+```bash
+uv init --package new-package
+```
+
+The resulting directory structure looks like this:
+
+```bash
+new-package
+├── README.md
+├── pyproject.toml
+└── src
+    └── new_package
+        └── __init__.py
+```
+
+### Creating a new Python package (with logging setup, test harness, CI, and docs)
+
+The [pyprefab package](https://bsweger.github.io/pyprefab/index.html)
+is a simple, prompt-driven tool for creating new Python
+packages that has boilerplate code for logging, testing, GitHub actions,
+Sphinx documentation, and a Python-based `CONTRIBUTING.md` file.
+
+You don't need to install pyprefab to use it. The
+[tools feature of uv](https://docs.astral.sh/uv/guides/tools/) can invoke
+pyprefab directly:
+
+```bash
+uvx pyprefab
+```
+
+This command will then prompt for a package name, author name, and a few other
+pieces of information. The resulting package will have the following structure:
+
+```bash
+new-package
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── LICENSE
+├── README.md
+├── docs
+│   └── source
+│       ├── CHANGELOG.md
+│       ├── CONTRIBUTING.md
+│       ├── _static
+│       │   └── custom.css
+│       ├── conf.py
+│       ├── index.rst
+│       ├── readme.md
+│       └── usage.md
+├── pyproject.toml
+├── src
+│   └── new_package
+│       ├── __init__.py
+│       ├── __main__.py
+│       ├── app.py
+│       └── logging.py
+└── test
+    └── test_app.py
+```
+
 (releasing-python-packages)=
 ## Releasing Python packages
 
