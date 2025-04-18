@@ -38,7 +38,11 @@ To update a Hubverse Python package:
 - [ ] Once the PR has been approved and all checks have passed, merge it.
 
 :::{tip}
-Review often brings up potential non-blocking features/bug fixes that are orthogonal to the original PR. In these cases, instead of creating a PR to merge into the original PR, it’s best to create a new issue from the PR review and, after merging, create a new PR to fix that issue. This helps keep disparate bugfixes and features separate.
+Review often brings up potential non-blocking features/bug fixes that are
+orthogonal to the original PR. In these cases, instead of creating a PR to
+merge into the original PR, it’s best to create a new issue from the PR review
+and, after merging, create a new PR to fix that issue.
+This helps keep disparate bugfixes and features separate.
 :::
 
 ### Release checklist
@@ -127,8 +131,8 @@ package's `main` branch.
 #### GitHub
 
 1. In the package's GitHub repo,
-[create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi-test` to use for the
-TestPyPI deployment.
+   [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+   called `pypi-test` to use for the TestPyPI deployment.
 
     :::{note}
     Because this environment is for test deployments, you don't need to add
@@ -167,8 +171,8 @@ You will only need to do this once.
 #### GitHub
 
 1. In the package's GitHub repo,
-[create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment) called `pypi` to use for the
-PyPI deployment.
+   [create an environment](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-deployments/managing-environments-for-deployment)
+   called `pypi` to use for the PyPI deployment.
 
     :::{important}
     Because this environment will be used for publishing to production,
@@ -202,4 +206,3 @@ for the Hubverse package:
 To ensure continuity, it's important that Hubverse packages on both PyPI and
 TestPYPI have multiple maintainers and collaborators. You can add other Hubverse
 devs to these roles from the project's _Collaborators_ page on PyPI/TestPyPI.
-
