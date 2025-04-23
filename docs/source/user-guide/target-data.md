@@ -108,10 +108,10 @@ Because of reporting delays the data may initially be represented by one value t
 ```
 
 
-If the source data have this pattern of being subsequently updated, 
+If the source data have this pattern of being subsequently updated,
 the hubverse recommends recording the date target data were
 reported in a column called `as_of`. This will then accurately represent what data were available at a given point in time, and will allow tools like our
-[dashboards](dashboards.html) to automatically extract the data that were available for any given model round.
+[dashboards](dashboards.md) to automatically extract the data that were available for any given model round.
 
 
 ### Additional columns
