@@ -7,8 +7,8 @@ _**Target data**_ are the _observed data being modeled_ as the prediction target
 in a collaborative modeling exercise.
 These data come in two forms:
 
-1. **time series** data[^truth], which are the _observed_ counts or rates partitioned
-   for each unique combination of [task id values](#task-id-vars).
+1. **time series** data[^truth], which are the _observed_ counts or rates
+   partitioned for each unique combination of [task id values](#task-id-vars).
 2. **oracle output** data are _derived from the time series data_ and represent
    model output that would have been generated if the target data values had
    been known ahead of time.
@@ -41,6 +41,42 @@ oracle output. The primary use case of oracle output is for evaluation.
 
 Common uses for target time series and oracle output data. A ✅
 indicates which data formats are most commonly used for each purpose.
+
+## File formats
+
+Both the *time series* and *oracle output* data are found in [the `target-data/`
+directory of a hub](#structure-code-and-data) with the following conventions:
+
+1. time series data MUST be named `time-series`
+2. oracle output data MUST is named `oracle-output`
+3. files MUST be _either_ `*.csv` or `*.parquet`
+4. CSV files MUST be a single continuous file named either `time-series.csv` or
+  `oracle-output.csv`
+5. parquet files MAY be partitioned (see [partitioning target data](#structure-partitioning-target-data) for details)
+
+For example, this represents a valid time series data set because it is (1)
+named "time-series", (3) file extensions end with `.parquet`, and is (5)
+partitioned.
+
+```
+target-data/
+└── time-series/
+    ├── as_of=2023-06-03
+    │   └── part-0.parquet
+    ├── as_of=2023-06-10
+    │   └── part-0.parquet
+    └── as_of=2023-06-17
+        └── part-0.parquet
+```
+
+However, if the files above were "csv" files, this would violate (4). For a CSV
+time series target file, this is valid:
+
+
+```
+target-data/
+└── time-series.csv
+```
 
 
 ## Time series
@@ -108,10 +144,10 @@ Because of reporting delays the data may initially be represented by one value t
 ```
 
 
-If the source data have this pattern of being subsequently updated, 
+If the source data have this pattern of being subsequently updated,
 the hubverse recommends recording the date target data were
 reported in a column called `as_of`. This will then accurately represent what data were available at a given point in time, and will allow tools like our
-[dashboards](dashboards.html) to automatically extract the data that were available for any given model round.
+[dashboards](dashboards.md) to automatically extract the data that were available for any given model round.
 
 
 ### Additional columns

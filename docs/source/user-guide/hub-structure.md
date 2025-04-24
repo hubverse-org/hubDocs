@@ -12,12 +12,14 @@ The directory and file structure of a modeling hub should contain only the follo
 
 ## Required Components
 
+(structure-readme)=
 ``` {table} Documentation (README.md)
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
 | Documentation file | e.g., `README.md` file, located in the top level of a hub and within each directory | File containing info about the hub structure and additional details about each of the directories| X |  |
 ```
 
+(structure-hub-config)=
 ``` {table} Configuration (hub-config/)
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
@@ -27,6 +29,7 @@ The directory and file structure of a modeling hub should contain only the follo
 | Model metadata configuration file | `hub-config/model-metadata-schema.json` | Structured text file that defines the expected format of model metadata files submitted by modeling teams | X |  |
 ```
 
+(structure-model-output)=
 ``` {table} Model Output Submissions (model-output/)
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
@@ -35,6 +38,7 @@ The directory and file structure of a modeling hub should contain only the follo
 | Model output file | `model-output/team1-modela/<round-id1>-<model_id>.csv` or .parquet| Round-specific model submission file |  | X |
 ```
 
+(structure-model-metadata)=
 ``` {table} Model Metadata (model-metadata/)
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
@@ -47,6 +51,7 @@ The directory and file structure of a modeling hub should contain only the follo
 
 The following components are not required for a hub but may be useful:
 
+(structure-model-abstracts)=
 ``` {table} Model Abstracts (model-abstracts/)
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
@@ -55,6 +60,7 @@ The following components are not required for a hub but may be useful:
 | Model abstract submission file | `model-abstracts/team1-modela/<round-id1>.md` | Round-specific model metadata submission |  | X |
 ```
 
+(structure-data-and-code)=
 ``` {table} Data and Code
 | Component | Location | Description | Hub provides | Modeler provides |
 | ------ | ------ | ------ | ------ | ------ |
@@ -65,6 +71,7 @@ The following components are not required for a hub but may be useful:
 | Source code directory | `src/` | Folder storing code that is present in the hub repository, including code to access target time series data and/or oracle output programmatically | X |  |
 ```
 
+(structure-partitioning-target-data)=
 :::{admonition} Partitioning Target Data
 :class: note
 
