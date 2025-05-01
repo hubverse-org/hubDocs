@@ -56,7 +56,18 @@ read and convert the data to JSON format.
 
 ## Evaluations Visualisation
 
-The evaluations visualization is built with the [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker) docker image.
+The evaluations visualization is built with [PredEvals](https://github.com/hubverse-org/predevals), a JavaScript module that displays the evaluation visualization. Its code is heavily based off of predtimechart.
+
+The evaluations visualization data are built with the [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker) docker image. This bundles the R package [hubPredEvalsData](#dashboard-tool-hubPredEvalsData), which uses [hubEvals](#dashboard-tool-hubEvals) and [scoringutils](#dashboard-tool-scoringutils) to evaluate model performance if the hub has oracle output available.
+
+[hubPredEvalsData]{#dashboard-tool-hubPredEvalsData}
+: generates nested folders of scores disaggregated by task ID
+
+[hubEvals]{#dashboard-tool-hubEvals}
+: scores model output
+
+[scoringutils]{#dashboard-tool-scoringutils}
+: does some other scoring, IDK
 
 
 
