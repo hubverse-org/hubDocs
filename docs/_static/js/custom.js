@@ -1,6 +1,6 @@
 // _static/custom.js
 
-// Default Statcounter code for hubverse https://hubverse.io/
+// Default Statcounter code for hubverse https://docs.hubverse.io/
 var sc_project = 13009474;
 var sc_invisible = 1;
 var sc_security = "3d034fb6";

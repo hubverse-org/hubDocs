@@ -161,7 +161,7 @@ rates or a human-readable translation of codes.
 
 Oracle output follows a format that is similar to a [hubverse model
 output
-file](https://hubverse.io/en/latest/user-guide/model-output.html#example-model-submission-file),
+file](#model-output-example-table),
 with three main differences:
 
 - Predictions correspond to a distribution that places probability 1 on
