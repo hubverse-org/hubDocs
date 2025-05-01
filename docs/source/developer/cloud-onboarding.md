@@ -91,3 +91,15 @@ process, with a few caveats.
   - Submit a PR to [`hubverse-infrastructure`](https://github.com/hubverse-org/hubverse-infrastructure)
     that removes the hub from the `hubs.yaml` file.
   - Once the PR is merged, the hub's AWS resources will be deleted.
+
+## Helpful links for Hubverse cloud
+
+- The [`hubverse-infrastructure` README](https://github.com/hubverse-org/hubverse-infrastructure/blob/main/README.md)
+  describes the AWS resources that power each cloud-enabled hub and provides an overview of the OIDC authentication
+  process that allows hubs' GitHub actions to write data to S3.
+- Logs emitted by the hubverse-transform-model-output Lambda (_i.e._, the function that transforms
+  incoming model-output files) are in the
+  `/aws/lambda/hubverse-transform-model-output` CloudWatch log group and can be
+  [viewed via the AWS console](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups).
+- Additionally, there is a [CloudWatch dashboard](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards/dashboard/hubverse-model-output-lambdas) that shows errors and warnings emitted by the hubverse-transform-model-output
+  Lambda function.
