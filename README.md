@@ -1,7 +1,7 @@
 # Documentation for Collaborative Modeling Hubs
 
 This repository includes the content needed to generate the [Hubverse static
-documentation site](https://hubverse.io/en/latest/). The website includes documentation
+documentation site](https://docs.hubverse.io/en/latest/). The website includes documentation
 about how to build, manage, and maintain collaborative modeling hubs.
 
 Below you can find instructions on how to build and edit the Hubverse
@@ -22,7 +22,7 @@ documentation site locally on your computer.
 This site uses [ReadTheDocs](https://readthedocs.org/) and
 [Sphinx](https://www.sphinx-doc.org/en/master/index.html) for building and
 maintaining the content. The
-[live version of the website can be found in this page](https://hubverse.io/en/latest/).
+[live version of the website can be found in this page](https://docs.hubverse.io/en/latest/).
 
 Useful links:
 
