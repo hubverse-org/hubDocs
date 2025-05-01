@@ -27,7 +27,7 @@ If a hub admin wants to enable cloud hosting, these are the steps to follow:
     config change.
 3. Once the AWS resources are in place, submit a PR to the hub:
     - Add a `cloud` section to the `admin.json` file. See the
-      [Hubverse schema documentation](https://docs.hubverse.io/en/latest/user-guide/hub-config.html#hub-administrative-configuration-admin-json-interactive-schema)
+      [Hubverse schema documentation](#hub-admin-config)
       for more details.
     - Add the [`hubverse-aws-upload.yaml` GitHub workflow file](https://github.com/hubverse-org/hubverse-actions/blob/main/hubverse-aws-upload/hubverse-aws-upload.yaml).
       This is a Hubverse-maintained workflow that runs after a PR is merged to the hub's `main` branch. You do not need
