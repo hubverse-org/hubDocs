@@ -103,3 +103,7 @@ process, with a few caveats.
   [viewed via the AWS console](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#logsV2:log-groups).
 - Additionally, there is a [CloudWatch dashboard](https://us-east-1.console.aws.amazon.com/cloudwatch/home?region=us-east-1#dashboards/dashboard/hubverse-model-output-lambdas) that shows errors and warnings emitted by the hubverse-transform-model-output
   Lambda function.
+- The Python package that powers the hubverse-transform-model-output Lambda is in the
+  [`hubverse-transform` repo](https://github.com/hubverse-org/hubverse-transform/).
+  The README contains instructions for making changes and deploying the updated code to AWS
+  (which is currently a manual, script-driven process).
