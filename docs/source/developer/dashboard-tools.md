@@ -14,6 +14,13 @@ This guide assumes that you are familiar and comfortable with the following
 
 :::
 
+On this page, you will find definitions of tools that are used to build the hub
+dashboard. They are organized by tools used generally across the dashboard,
+tools for specific dashboard elements, and finally tools for orchestration.
+This page is not meant to be a comprehensive description of the dashboard
+operation. Details for each of the dashboard elements and the overall workflow
+are provided in subsequent pages.
+
 (dashboard-general)=
 ## General tools
 
