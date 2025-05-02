@@ -23,6 +23,8 @@ need to build a dashboard are git, [python](#dashboard-tool-python), and
 [docker](#dashboard-tool-docker). Everything else is encapsulated within docker
 images.
 
+### Definitions of general tools
+
 [Python]{#dashboard-tool-python}
 : Python is the backbone of hub-dashboard-predtimechart and is used in the
   control room to get a list of repositories that have the app installed.
@@ -46,6 +48,7 @@ images.
 : Both of the visualizations are built as JavaScript modules. In turn, these
   modules are called from scripts that are loaded in a page of the dashboard,
   which replaces a specific `<div>` element of the webpage with the content.
+  This paradigm is described in [How state management works? Dead simple SM in vanilla JavaScript](https://dev.to/vijaypushkin/dead-simple-state-management-in-vanilla-javascript-24p0)
 
 (dashboard-website)=
 ## Website
@@ -55,6 +58,8 @@ The website is orchestrated with the docker image
 The image bundles [BASH](#dashboard-tool-bash) and [yq](#dashboard-tool-yq) to
 join the user data with the template and [quarto](#dashboard-tool-quarto) to
 render the markdown to HTML.
+
+### Definitions of website tools
 
 [[quarto](https://quarto.org)]{#dashboard-tool-quarto}
 : This is the website engine. It is responsible for converting markdown to HTML
@@ -78,6 +83,8 @@ The data for PredTimeChart is converted from hub format with
 a command-line Python app, which uses the [polars](#dashboard-tool-polars) to
 read and convert the data to JSON format.
 
+### Definitions of forecast tools
+
 [[polars](https://pola.rs)]{#dashboard-tool-polars}
 : A data manipulation library that provides lazy data frame utilities in Python.
   It gives our tool the ability to read and slice hub data. Eventually, this
@@ -99,14 +106,25 @@ docker image. This bundles the R package
 [scoringutils](#dashboard-tool-scoringutils) to evaluate model performance if
 the hub has oracle output available.
 
+:::{admonition} Why use Docker?
+
+We use docker to build this image because, while we use R heavily in this lab,
+maintaining workflows that use R can be challenging. A docker image is a
+portable way to take care of that.
+
+:::
+
+### Definitions of evaluations tools
+
 [hubPredEvalsData]{#dashboard-tool-hubPredEvalsData}
 : generates nested folders of scores disaggregated by task ID
 
 [hubEvals]{#dashboard-tool-hubEvals}
-: scores model output
+: does the heavy lifting to score model output against oracle output
 
 [scoringutils]{#dashboard-tool-scoringutils}
-: does some other scoring, IDK
+: used for determining what metrics are available for a given output type, also
+  provides the backend for hubEvals, so it's a "free" dependency.
 
 (dashboard-orchestration)=
 ## Orchestration
@@ -149,6 +167,9 @@ Broadly important references (e.g. you will be reaching back to these often):
 | [Forecast visualization](#dashboard-forecast) | [python](#dashboard-tool-python) | [actions/setup-python](https://github.com/actions/setup-python#readme) |
 | Passing data between Jobs | actions/upload-artifact | [actions/upload-artifact](https://github.com/actions/upload-artifact#readme) |
 | Pushing content to GitHub | actions/download-artifact, BASH, Git | [actions/download-artifact](https://github.com/actions/upload-artifact#readme) |
+
+
+### Definition of orchestration tools
 
 [[gh](https://cli.github.com)]{#dashboard-tool-gh}
 : GitHub's CLI interface is useful for performing operations that involve the
