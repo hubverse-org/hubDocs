@@ -149,3 +149,26 @@ Broadly important references (e.g. you will be reaching back to these often):
 | [Forecast visualization](#dashboard-forecast) | [python](#dashboard-tool-python) | [actions/setup-python](https://github.com/actions/setup-python#readme) |
 | Passing data between Jobs | actions/upload-artifact | [actions/upload-artifact](https://github.com/actions/upload-artifact#readme) |
 | Pushing content to GitHub | actions/download-artifact, BASH, Git | [actions/download-artifact](https://github.com/actions/upload-artifact#readme) |
+
+[[gh](https://cli.github.com)]{#dashboard-tool-gh}
+: GitHub's CLI interface is useful for performing operations that involve the
+  GitHub API as well as operations like creating pull requests. This comes
+  pre-installed on all GitHub Actions runners.
+
+[[curl](https://curl.se)]{#dashboard-tool-curl}
+: Command line tool for interacting with URLs. This comes standard with macOS
+  and on GitHub Actions runners. It is particularly useful to check if a URL is
+  valid (e.g. for checking if a resource is available):
+  ```
+  curl -o /dev/null --silent -Iw '%{http_code}' "https://hubverse.io"
+  # 200
+  ```
+
+[[jq](https://jqlang.org)]{#dashboard-tool-jq}
+: Command line tool that allows you to manipulate JSON from the command line.
+  This is _very_ useful for parsing queries to the GitHub API. It's also really
+  useful for parsing the `tasks.json` file of a hub. For example, here's a quick
+  way to get all of the known output types across rounds and model tasks:
+  ```
+  jq '[.rounds[].model_tasks[].output_type | keys] | flatten' < hub-config/tasks.json
+  ```
