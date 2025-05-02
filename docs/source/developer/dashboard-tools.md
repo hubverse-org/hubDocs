@@ -25,10 +25,10 @@ are provided in subsequent pages.
 ## General tools
 
 We use a wide range of tools to build the
-[dashboards](/user-guide/dashboards.md). Ultimately, the only tools you will
-need to build a dashboard are git, [python](#dashboard-tool-python), and
-[docker](#dashboard-tool-docker). Everything else is encapsulated within docker
-images.
+[dashboards](/user-guide/dashboards.md). Ultimately, **the only tools you will
+need to build a dashboard locally** are Git, [python](#dashboard-tool-python),
+and [docker](#dashboard-tool-docker). Everything else is encapsulated within
+docker images.
 
 ### Definitions of general tools
 
