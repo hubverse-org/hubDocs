@@ -4,9 +4,9 @@ One of the most daunting aspects of the dashboard workflows are the GitHub
 workflows in [hubverse-org/hub-dashboard-control-room](https://github.com/hubverse-org/hub-dashboard-control-room).
 However, the dashboard does not exclusively rely on the GitHub workflow and it
 can be built locally. The diagram below shows a how we get a dashboard website
-(`site`) by using the three tools along with the dashboard and hub repositories
-(note that `hub-dash-site-builder` is building the entire site, not just
-`index.html`).
+(`site`) by using the pre-compute tools along with the dashboard and hub
+repositories (note that `hub-dash-site-builder` is building the entire site,
+not just `index.html`).
 
 ```{mermaid}
 :name: local-workflow
@@ -15,12 +15,12 @@ can be built locally. The diagram below shows a how we get a dashboard website
 flowchart BT
     hub["hub repository"]
     dashboard["dashboard repository"]
-      ptc/data>ptc data]
-      predevals/data>evals data]
-    subgraph toolchain
-    hub-dashboard-predtimechart[\hub-dashboard-predtimechart/]
-    hubPredEvalsData[\hubPredEvalsData/]
-    hub-dash-site-builder[\hub-dash-site-builder/]
+    ptc/data>ptc data]
+    predevals/data>evals data]
+    subgraph pre-compute toolchain
+      hub-dashboard-predtimechart[\hub-dashboard-predtimechart/]
+      hubPredEvalsData[\hubPredEvalsData/]
+      hub-dash-site-builder[\hub-dash-site-builder/]
     end
     subgraph site
         index.html([index.html])
@@ -29,10 +29,10 @@ flowchart BT
     end
     dashboard -->|site-config.yml| hub-dash-site-builder
     hub-dash-site-builder --> site
-    hub -->|time-series|hub-dashboard-predtimechart
+    hub -->|time-series data|hub-dashboard-predtimechart
     dashboard -->|predtimechart-config.yml|hub-dashboard-predtimechart
     hub-dashboard-predtimechart --> ptc/data
-    hub -->|oracle|hubPredEvalsData
+    hub -->|oracle data|hubPredEvalsData
     dashboard -->|predevals-config.yml|hubPredEvalsData
     hubPredEvalsData --> predevals/data
     predevals/data -.-> eval.html
