@@ -16,7 +16,7 @@ This guide assumes that you are familiar and comfortable with the following
 
 On this page, you will find definitions of tools that are used to build the hub
 dashboard. They are organized by tools used generally across the dashboard,
-tools for specific dashboard elements, and finally tools for orchestration.
+tools for specific dashboard elements, and finally tools for operations.
 This page is not meant to be a comprehensive description of the dashboard
 operation. Details for each of the dashboard elements and the overall workflow
 are provided in subsequent pages.
@@ -133,15 +133,27 @@ portable way to take care of that.
 : used for determining what metrics are available for a given output type, also
   provides the backend for hubEvals, so it's a "free" dependency.
 
-(dashboard-orchestration)=
-## Orchestration
+(dashboard-operations)=
+## Operations
 
-The orchestration of all the tools above is performed with GitHub Actions though
+:::{admonition} This is platform-specific
+
+It is important that the operations bit of the dashboard is explicitly
+designed to work with GitHub. If GitHub were to disappear or become unusable,
+then the above tools _will still work_ for local operations.
+
+The takeaway: operations implement a workflow on a specific platform. **If you
+understand the overall workflow (next chapter), then you can configure operations on _any_
+platform.**
+
+:::
+
+The operations of all the tools above is performed with GitHub Actions though
 a series of workflows in the
 [hub-dashboard-control-room](https://github.com/hubverse-org/hub-dashboard-control-room)
 repository.
 
-The entirety of the orchestration happens on the `ubuntu-latest` runner of
+The entirety of the operations happens on the `ubuntu-latest` runner of
 GitHub Actions. This is a virtual machine that has a bunch of useful software
 installed (you can find [**a list of the available tools for the Ubuntu
 Runner**](https://github.com/actions/runner-images/blob/main/images/ubuntu/Ubuntu2404-Readme.md)
@@ -176,7 +188,7 @@ Broadly important references (e.g. you will be reaching back to these often):
 | Pushing content to GitHub | actions/download-artifact, BASH, Git | [actions/download-artifact](https://github.com/actions/upload-artifact#readme) |
 
 
-### Definition of orchestration tools
+### Definition of operations tools
 
 [[gh](https://cli.github.com)]{#dashboard-tool-gh}
 : GitHub's CLI interface is useful for performing operations that involve the
