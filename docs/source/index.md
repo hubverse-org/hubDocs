@@ -116,6 +116,7 @@ developer/python.md
 developer/security.md
 developer/cloud-onboarding.md
 developer/dashboard-tools.md
+developer/dashboard-local.md
 ```
 
 ```{toctree}
