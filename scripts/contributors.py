@@ -47,7 +47,7 @@ contributor_list = list(contributors.items())
 random.shuffle(contributor_list)
 
 # Fetch user details and generate output
-output_dir = "docs/source/overview"
+output_dir = "docs/source/about"
 os.makedirs(output_dir, exist_ok=True)  # Ensure the directory exists
 output_file = f"{output_dir}/contributors.md"
 

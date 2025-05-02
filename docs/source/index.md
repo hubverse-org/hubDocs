@@ -1,17 +1,25 @@
 # The hubverse: open tools for collaborative modeling
 
+```{caution}
+:class: warning
+
+🚧 This site is being restructured
+
+The main hubverse landing page has migrated to [https://hubverse.io/](https://hubverse.io/). This site is being restructured to contain more detailed information on setting up a modeling hub.
+```
+
 ```{admonition} What is the hubverse for?
 :class: seealso
 
 **The goal of the hubverse** is to **ensure stakeholders have model summaries they can trust** by facilitating collaborative modeling efforts that are rapidly validated and summarized.
 While this effort has been developed by scientists focusing on modeling outbreaks, **hubverse concepts and tooling are general enough to have a broader range of applications**.
 
-Read more about **[who uses the hubverse](overview/who-uses-hubverse.md)**
+Read more about **[who uses the hubverse](background/who-uses-hubverse.md)**
 ```
 
 The hubverse is a collection of open-source software and data tools that enable collaborative modeling exercises. It is developed by **the Consortium of Infectious Disease Modeling Hubs**, a collaboration of research teams and public health professionals that have built and maintained predictive modeling hubs for infectious disease applications. Working together, we have developed the hubverse for groups running collaborative modeling hub efforts. This website documents the requirements for using the hubverse.
 
-The [overview section](overview/who-we-are.md) introduces the project, the [quickstart section](quickstart-hub-admin/intro.md) outlines how to set up and administer a working hub and the [user guide](user-guide/intro-data-formats.md) provides a deeper look at the different standards and resources developed by this project.
+The [overview section](about/who-we-are.md) introduces the project, the [quickstart section](quickstart-hub-admin/intro.md) outlines how to set up and administer a working hub and the [user guide](user-guide/intro-data-formats.md) provides a deeper look at the different standards and resources developed by this project.
 
 ## Active Hubs
 
@@ -55,29 +63,23 @@ The following are some of the active and public hubs using the hubverse
 
 ```{toctree}
 :maxdepth: 2
-:caption: Overview
+:caption: Background
 :hidden:
-overview/who-uses-hubverse.md
-overview/who-we-are.md
-overview/history.md
-overview/scope.md
-overview/definitions.md
-overview/abbreviations.md
-overview/data-storage.md
-overview/support-consulting.md
-overview/contribute.md
-overview/cite.md
-overview/contact.md
-overview/contributors.md
+background/who-uses-hubverse.md
+background/scope.md
+background/definitions.md
+background/abbreviations.md
+background/cite.md
 ```
 
 ```{toctree}
 :maxdepth: 2
-:caption: Quickstart - hub administration
+:caption: Quickstart - Hub Administration
 :hidden:
 quickstart-hub-admin/intro.md
 quickstart-hub-admin/getting-started.md
 quickstart-hub-admin/setting-up.md
+quickstart-hub-admin/data-storage.md
 quickstart-hub-admin/tasks-config.md
 quickstart-hub-admin/scripting-task-config.md
 quickstart-hub-admin/model-metadata-schema.md
@@ -124,5 +126,17 @@ developer/cloud-onboarding.md
 coc/covenant.md
 coc/enforcement-manual.md
 coc/committee.md
+```
+
+```{toctree}
+:maxdepth: 2
+:caption: About us
+:hidden:
+about/who-we-are.md
+about/history.md
+about/support-consulting.md
+about/contribute.md
+about/contact.md
+about/contributors.md
 ```
 

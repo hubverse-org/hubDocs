@@ -1,6 +1,6 @@
 # Getting started
 
-To host a modeling hub, you must decide where to host, store, and archive the data. We support [three data storage options](../overview/data-storage.md), but for this quickstart guide, we will focus on GitHub.
+To host a modeling hub, you must decide where to host, store, and archive the data. We support [three data storage options](data-storage.md), but for this quickstart guide, we will focus on GitHub.
 
 ## Step 1: Create or open your GitHub account
 

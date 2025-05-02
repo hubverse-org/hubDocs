@@ -14,7 +14,7 @@ It will provide step-by-step directions to
 
 Before proceeding step by step, we'd like to present a brief overview and some pointers to resources developed by the Consortium to facilitate the design, launch, and maintenance of hubs.
 
-**Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../overview/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".
+**Key concepts:** Some of the concepts and terms used here may not be familiar to new users, and so we suggest that if you are unclear about a term, look at the [key definitions page](../background/definitions.md) where we define terms such as "round", "target", "task", and "Zoltar".
 
 ## Overview
 

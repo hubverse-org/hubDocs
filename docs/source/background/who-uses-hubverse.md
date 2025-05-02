@@ -82,6 +82,6 @@ Make good decisions.
 
 If you want to contribute to the hubverse, you should adhere to our [Code Of Conduct](/coc/covenant.md).
 
-We have a [contributing guide](contribute.md) that describes the process for contributing minor fixes.
+We have a [contributing guide](../about/contribute.md) that describes the process for contributing minor fixes.
 If you want to know more about our packaging process and other valuable details, you can find more in the [`{hubDevs}` R package](https://hubverse-org.github.io/hubDevs/index.html).
 
