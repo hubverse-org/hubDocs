@@ -71,7 +71,7 @@ addressed once you understand the underlying build process.
 * BASH --- This is how we will be running everything.
 * [gh](#dashboard-tool-gh)     --- needed for interacting with the GitHub API
 * [yq](#dashboard-tool-yq)     --- needed to get the hub information from the site config
-* [uv](#dashboard-tool-uv)     --- python client, runs hub-dashboard-predtimechart
+* [uv](https://docs.astral.sh/uv/)     --- python client, runs hub-dashboard-predtimechart
 * git    --- needed for cloning repositories
 * tree   --- displays a graphical structure of the folders
 * [docker](#dashboard-tool-docker) --- runs [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder) and [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker).
@@ -115,8 +115,12 @@ has the following structure
 
 ## Steps
 
-The following steps will walk you through the process to generate a standalone
+The following steps[^1] will walk you through the process to generate a standalone
 website using the tools described above.
+
+[^1]: This was initially developed as a stand-alone BASH script to demonstrate
+  this workflow. You can find a copy of the script at [zkamvar's gist,
+  `2025-04-24-dashboard-demo.sh`](https://gist.github.com/zkamvar/94ee15b486821fa8ef99b81a4098a39c).
 
 (dashboard-local-setup)=
 ### Setup (source material)
@@ -178,7 +182,7 @@ it should be feasible to fetch the hub as a sparse clone (see the tip in
 The next two steps generate the data used by the dashboards and can be done in
 any order.
 
-(dashboard-local-forecats)=
+(dashboard-local-forecasts)=
 ### Generate forecasts (python)
 
 [The forecasts
@@ -270,7 +274,7 @@ step](#dashboard-local-setup), you can generate the data with these steps.
    ```bash
    mkdir -p $dash/data/evals
    ```
-2. download the docker image (note that the image name needs to be in all lower case
+2. download the docker image (note that the image name needs to be in all lower case)
    ```bash
    docker pull --platform=linux/amd64 ghcr.io/hubverse-org/hubpredevalsdata-docker:main
    ```
@@ -291,12 +295,13 @@ step](#dashboard-local-setup), you can generate the data with these steps.
       automatically remove the image when it's done, `-it` means that it's an
       interactive TTY, and `--platform=linux/amd64` allows it to run on newer
       macOS machines
-   2. `-v` means "volume". By default, a docker image will run completely
-      independent of your computer, but there are times when you want the
-      container to have access to your data. In these cases, you can link your
-      local folders with folders inside the container. This particular
-      container runs from the `/project` directory by default, so that's where
-      we link our dashboard folder.
+   2. `-v` means "volume". It's pattern is `-v "/path/on/your/computer":"/path/in/image"`.
+      By default, a docker image will run completely independent of your
+      computer, but there are times when you want the container to have access
+      to your data. In these cases, you can link your local folders with
+      folders inside the container. This particular container runs from the
+      `/project` directory by default, so that's where we link our dashboard
+      folder.
    3. the last 4 lines are arguments to the `create-predevals-data.R` script
       that lives inside the docker image. The arguments are:
       - `-h`: path to the hub (in the container)
@@ -309,6 +314,7 @@ Once you have run this, you should see a folder similar to [the metrocast
 dashboard predevals/data
 branch](https://github.com/reichlab/metrocast-dashboard/tree/predevals/data).
 
+(dashboard-local-site)=
 ### Generate site (docker)
 
 The website is generated with [quarto](https://quarto.org), but instead of
@@ -345,3 +351,65 @@ There are two steps:
      -p "data/ptc" -e "data/evals" \
      -o "_site"
    ```
+
+:::{admonition} Building with remote data
+
+There are two modes for the site to ingest data
+
+1. local _(good for private or non-github hubs)_
+2. remote via <https://raw.githubusercontent.com> _(good for public hubs)_
+
+The local version is shown above, but the dashboards on GitHub actually use the
+remote version, which allows the data and the website to be built independently,
+which avoids needing to wait for the data to build for the website to render.
+
+Instead of taking in folders for the data ingestion, the remote version takes
+a user and repo name:
+
+```bash
+docker run --rm -it \
+ --platform=linux/amd64 \
+ -v "$dash":"/site" \
+ ghcr.io/hubverse-org/hub-dash-site-builder:latest \
+ render.sh \
+ -u "cdcepi" -r "FluSight-forecast-hub"
+ -o "_site"
+```
+
+This will produce the same site that you can view locally, but it will no
+longer contain the data. Instead, it will pull data from
+`https://raw.githubusercontent.com/{user}/{repo}/refs/heads/{branch}`, where
+`{branch}` is one of `ptc/data` for PredTimeChart data or `predevals/data` for
+PredEvals data. This allows data to be updated independently from the site, but
+restricts usage to public repositories.
+
+:::
+
+
+(dashboard-local-preview)=
+## Previewing the site
+
+When everything is built, you can preview the website locally with the `http.server`
+module from python:
+
+```
+python -m http.server 8080 -d $dash/_site
+```
+
+And then you can open your browser to `localhost:8080` to preview the site
+where you will see pages that look something like this (note: pictured is the
+FluSight forecast hub)
+
+
+````{subfigure} AB|CD
+:gap: 1%
+:class: margin-caption
+:class-area: bordered
+
+![screenshot of FluSight forecast hub dashboard home page](../images/dashboard-home.png)
+![screenshot of Forecasts page showing predictions for incident influenza hospitalizations in the United States as of 2025-03-01 with the line going down](../images/dashboard-forecast.png)
+![Screenshot of evaluations page with a table of evaluations for the last four weeks, sorted by Relative WIS score](../images/dashboard-eval-table.png)
+![Screenshot of evaluations page with a heatmap for Relative WIS score disaggregated by location](../images/dashboard-eval-heat.png)
+
+A dashboard provides interactive visualizations for forecasts and evaluations derived from hub data. This provides information modelers can use to evaluate and compare their submissions.
+````
