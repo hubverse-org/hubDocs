@@ -53,7 +53,7 @@ A summary of the approach and tools can be found in [The Hub Dashboard project p
 
 Discussions of new features and prioritizing bug fixes happens every Wednesday
 (except first Wednesday of the month) at the hubverse developer's meeting. Please
-contact Zhian Kamvar (zkamvar@umass.edu) if you would like to be invited.
+contact Anna Krystalli (r.rse.eu@gmail.com) if you would like to be invited.
 
 As of 2025, decisions are recorded in <https://github.com/reichlab/decisions>.
 
