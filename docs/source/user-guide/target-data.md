@@ -45,7 +45,7 @@ indicates which data formats are most commonly used for each purpose.
 ## File formats
 
 Both the *time series* and *oracle output* data are found in [the `target-data/`
-directory of a hub](#structure-code-and-data) with the following conventions:
+directory of a hub](#structure-data-and-code) with the following conventions:
 
 1. time series data MUST be named `time-series`
 2. oracle output data MUST is named `oracle-output`
