@@ -47,18 +47,18 @@ is the result of a combination of two sources:
 
 For example, the [source for the hub-dashboard-template website](https://github.com/hubverse-org/hub-dashboard-template/tree/gh-pages), shows the following files and folders.
 
-| site component | from site builder | from user |
-| :-------- | :---------------- | :-------- |
-| Menu Items | `static/_quarto.yml` | `site-config.yml` |
-| Theme      | `static/_quarto.yml` | `site-config.yml` |
-| `index.html` | --- | `pages/index.qmd` |
-| `about.html` | --- | `pages/about.md` |
-| `data.html` | --- | `pages/data.qmd` |
-| `img/` | --- | `pages/img` |
-| `eval.html` | `static/eval.qmd` | --- |
-| `forecast.html` | `static/eval.qmd` | --- |
-| `resources/` | `static/resources/` | --- |
-| `site_libs` | `static/_quarto.yml` | --- |
+| site component | from site builder | from user | optional |
+| :-------- | :---------------- | :-------- | ------- |
+| Menu Items | `static/_quarto.yml` | `site-config.yml` | no  |
+| Theme      | `static/_quarto.yml` | `site-config.yml` | yes |
+| `index.html` | --- | `pages/index.qmd` | no |
+| `about.html` | --- | `pages/about.md` | yes |
+| `data.html` | --- | `pages/data.qmd` | yes |
+| `img/` | --- | `pages/img` | yes |
+| `eval.html` | `static/eval.qmd` | --- | yes |
+| `forecast.html` | `static/eval.qmd` | --- | yes |
+| `resources/` | `static/resources/` | --- | no |
+| `site_libs` | `static/_quarto.yml` | --- | no |
 
 On its own, the `static/` directory of the dashboard website contains an
 incomplete quarto website. The incomplete parts are:
@@ -114,6 +114,17 @@ flowchart TD
 The entirety of these steps are performed by [the `render.sh` script](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/render.sh), which exists
 in the docker container as an executable.
 
+### Optional Components
+
+Hubs do not have to have data that are compatible with the forecast
+visualization or evaluations to build a website. Case in point:
+<https://reichlab.io/variant-nowcast-hub-dashboard/>. This dashboard does not
+have the Forecast or Evals page. Instead, it has self-generated reports.
+
+If a hub does not want to build either the forecast or evaluations pages, they
+can omit the predevals or predtimechart config files. When this happens, the
+site builder will remove these pages and the associated resources before
+building the quarto site.
 
 ## How the image is built
 
