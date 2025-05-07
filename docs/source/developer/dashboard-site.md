@@ -76,8 +76,8 @@ The site builder image effectively performs four steps to complete and render
 the site:
 
 1. Combine the contents of `pages/` and `/static/` into a temporary directory, `/tmp/`.
-2. Update the JavaScript files to point to the correct resources.
-3. Use `yq` to merge `site-config.yml` into `/tmp/_quarto.yml`.
+2. Use `yq` to merge `site-config.yml` into `/tmp/_quarto.yml`.
+3. Update the JavaScript files to point to the correct resources or discard unused files.
 4. Run `quarto render /tmp/` and copy the output to the output directory (`out/`).
 
 ```{mermaid}
@@ -102,14 +102,86 @@ flowchart TD
     end
   end
   pages/contents --> contents
-  /static/contents --> contents
   site-config.yml --- yq
+  /static/contents --> contents
   /static/_quarto.yml --- yq
   yq -->|yq -i '...' _quarto.yml | _quarto.yml
   _quarto.yml --> quarto
   contents --> quarto
   quarto -->|quarto render /tmp/| _site/ --> out/
-
 ```
+
+The entirety of these steps are performed by [the `render.sh` script](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/render.sh), which exists
+in the docker container as an executable.
+
+
+## How the image is built
+
+The images is built using GitHub actions and [deployed to GitHub's container registry](https://github.com/hubverse-org/hub-dash-site-builder/pkgs/container/hub-dash-site-builder/406574245?tag=latest).
+
+We initially cribbed the build workflow from [GitHub's Publishing Docker images
+guide](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages),
+but we also wanted to be able to test the image and only publish when we
+created a tag or release AND we wanted to be mindful of good security practices
+with GitHub workflows (especially with respect to the principle of least
+permission).
+
+The workflow that we came up with is called [build-container.yaml](https://github.com/hubverse-org/hub-dash-site-builder/blob/main/.github/workflows/build-container.yaml) and it contains three jobs:
+
+### Build image
+
+- **purpose**: build and test the docker image and then save it as an artifact
+- **permissions**: read-all
+- **runs on**: pull request, push to main, tags that start with `v`, and manual
+  trigger.
+
+There is a bit of a dance that's required for this job to run, which is
+described in GitHub's Publishing Docker images guide (see above for link).
+The reason for this dance is so we can extract metadata for the image.
+
+The important bit is the "Build and export" step, which builds the docker image
+on the GitHub runner and saves it as a tar file. The image is then loaded and
+tested against the reichlab/flusight-dashboard. At the end, assuming all tests
+pass, the image is uploaded as an artifact.
+
+### Test
+
+- **purpose**: test the built docker image against the tests from the main branch.
+- **permissions**: read-all
+- **runs on**: pull request, and manual trigger not on main branch.
+
+This job is needed to ensure the tests from the main branch continue to work and
+are there to prevent potentially malicious pull requests from forcing tests to
+pass. It has two steps:
+
+1. fetch the image artifact
+2. load and test the artifact against the tests as they exist on the main branch.
+
+This is not run from the main branch or on a tag because by this time, the tests
+from the build image job will be redundant.
+
+### Publish
+
+- **purpose**: publish the built docker image
+- **permissions**: read-all
+- **runs on**: push of a tag that starts with "v" and a workflow dispatch from
+  main where "publish" is selected
+
+This is similar to the build image except that instead of building the image,
+we are loading it from an artifact and pushing it to the registry.
+
+The final step of this job is to generate an artifact attestation, which is a
+way to provide a build provenance for downstream validation.
+
+
+## Testing
+
+The running container can be tested with [the `tests/run.sh`
+script](https://github.com/hubverse-org/hub-dash-site-builder/blob/main/tests/run.sh).
+
+These tests are not written with any specific framework in mind, but they record
+the number of tests and count the number that fail. If the number that fail is
+zero, then the script returns with status code 0, otherwise, it returns with
+status code 1, which is an error.
 
 
