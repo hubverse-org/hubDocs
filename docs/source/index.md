@@ -3,15 +3,9 @@
 ```{caution}
 :class: warning
 
-<<<<<<< HEAD
-🚧 This site is being restructured
-
-The main hubverse landing page has migrated to [https://hubverse.io/](https://hubverse.io/). This site is being restructured to contain more detailed information on setting up a modeling hub.
-=======
 📣 We have a new landing page!
 
 We have a new landing page at <https://hubverse.io/> that provides a general overview of The Hubverse. Over the next few weeks, we will be removing duplicated content from this site.
->>>>>>> 3a2e535f13f819569d6be4836df93a634e6e6e8e
 ```
 
 ```{admonition} What is the hubverse for?
