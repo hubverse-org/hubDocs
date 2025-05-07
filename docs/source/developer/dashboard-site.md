@@ -75,9 +75,41 @@ incomplete quarto website. The incomplete parts are:
 The site builder image effectively performs four steps to complete and render
 the site:
 
-1. Combine the contents of `pages/` and `static/` into a temporary directory, `/tmp/`.
+1. Combine the contents of `pages/` and `/static/` into a temporary directory, `/tmp/`.
 2. Update the JavaScript files to point to the correct resources.
 3. Use `yq` to merge `site-config.yml` into `/tmp/_quarto.yml`.
-4. Run `quarto render /tmp/` and copy the output to the output directory.
+4. Run `quarto render /tmp/` and copy the output to the output directory (`out/`).
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+  subgraph dashboard
+    pages/contents["pages/[contents]"]
+    site-config.yml
+    out/
+  end
+  subgraph docker
+    subgraph /static/
+        /static/contents["/static/[contents]"]
+        /static/_quarto.yml["/static/_quarto.yml"]
+    end
+    yq{{"yq"}}
+    subgraph /tmp/
+        _quarto.yml["/tmp/_quarto.yml"]
+        contents["/tmp/[contents]"]
+        _site/["/tmp/_site/"]
+        quarto{{"quarto"}}
+    end
+  end
+  pages/contents --> contents
+  /static/contents --> contents
+  site-config.yml --- yq
+  /static/_quarto.yml --- yq
+  yq -->|yq -i '...' _quarto.yml | _quarto.yml
+  _quarto.yml --> quarto
+  contents --> quarto
+  quarto -->|quarto render /tmp/| _site/ --> out/
+
+```
 
 
