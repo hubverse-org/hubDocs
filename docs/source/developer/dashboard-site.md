@@ -60,7 +60,9 @@ For example, the [source for the hub-dashboard-template website](https://github.
 | `resources/` | `static/resources/` | --- | no |
 | `site_libs` | `static/_quarto.yml` | --- | no |
 
-On its own, the `static/` directory of the dashboard website contains an
+### An incomplete boilerplate
+
+On its own, the `static/` directory of the dashboard site builder contains an
 incomplete quarto website. The incomplete parts are:
 
 1. `index.qmd` is missing
@@ -125,6 +127,19 @@ If a hub does not want to build either the forecast or evaluations pages, they
 can omit the predevals or predtimechart config files. When this happens, the
 site builder will remove these pages and the associated resources before
 building the quarto site.
+
+## How the visualizations work
+
+If the dashboard is built independent from the data generation, how do the
+visualizations work? They work because the visualization pages each call a
+script that loads either predtimechart or predevals with a JavaScript function
+that is designed to fetch data for these modules. All of the work of fetching
+the data is done by the browser, but this does require data to exist.
+
+For public hubs, these data live on a separate branch that we can access via
+a `raw.githubusercontent.com` URL. For private hubs, data can be built locally
+and bundled with the site.
+
 
 ## How the image is built
 
