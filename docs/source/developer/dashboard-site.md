@@ -15,18 +15,6 @@ was designed under the following motivations:
    should not need to handle any templating that cannot be easily automated.
 4. We should not have to maintain a server to deploy these sites.
 
-## References
-
-Here are links to some concepts that are used in the website builder.
-
-- [Building a website using quarto](https://quarto.org/docs/websites/)
-- [BASH scripting cheat sheet](https://devhints.io/bash)
-- `yq` [tips and tricks](https://mikefarah.gitbook.io/yq/usage/tips-and-tricks)
-  and [recipes](https://mikefarah.gitbook.io/yq/recipes). Specific operators
-  can be found in the comments of the
-  [`modify-quarto-yml.sh`](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/modify-quarto-yml.sh)
-  file in the hub-dash-site-builder repository.
-- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
 
 ## Installation
 
@@ -45,7 +33,56 @@ is the result of a combination of two sources:
 1. [dashboard website builder `static/` directory](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/static) and,
 2. [the dashboard repository](https://github.com/hubverse-org/hub-dashboard-template/)
 
-For example, the [source for the hub-dashboard-template website](https://github.com/hubverse-org/hub-dashboard-template/tree/gh-pages), shows the following files and folders.
+### Configuring the site
+
+#### Minimal configuration
+
+At the bare minimum, a dashboard source repository should contain two files:
+
+ 1. `site-config.yml` that has two required fields:
+    - `hub`, the name of the hub
+    - `pages`, a list of files in `pages/` to include, which should have `index.qmd`.
+ 2. `pages/index.qmd`
+
+These two files will create a website that has a single page and is,
+admittedly, not very useful other than providing basic information about a hub
+with a link to it. However, the user has different options available to them.
+
+#### Options for the site
+
+ - **Forecasts**: if the user includes a [`predtimechart-config.yml`
+   file](#dashboard-ptc), then the dashboard will include a forecast
+   page.
+ - **Evaluations**: if the user includes a [`predevals-config.yml`
+   file](#dashboard-predevals-config), then the dashboard will include an
+   evaluations page.
+ - **Additional pages**: Any additional files included in `pages/` will be
+   included in the site, so long as they are also declared in the
+   `site-config.yml` file (described in detail in [Customizing the dashboard
+   website](#dashboard-customization)).
+
+For example, the [dashboard template](https://github.com/hubverse-org/hub-dashboard-template)
+contains the following files:
+
+- `site-config.yml`
+- `pages/index.qmd` --- home page
+- `pages/about.md` --- about the hub staff
+- `pages/data.qmd` --- how to access data from S3[^pages-data]
+- `pages/img/` --- images for the about page
+- `predtimechart-config.yml`
+- `predevals-config.yml`
+
+[^pages-data]: This is an optional page for cloud-enabled hubs. The user has to
+    manually add the S3 bucket name to the YAML header or delete this file if
+    it's not relevant. This would normally be a page similar to the forecast
+    and eval pages (i.e. generated optionally by the site builder). Since the
+    hub administrator may want to add additional information or rephrase some
+    elements, we left it as a boilerplate instead of attempting to try to code
+    a situation where we have a partial template and join pages together.
+
+When the site is rendered, you can see [source for the hub-dashboard-template
+website](https://github.com/hubverse-org/hub-dashboard-template/tree/gh-pages),
+shows the following files and folders.
 
 | site component | from site builder | from user | optional |
 | :-------- | :---------------- | :-------- | ------- |
@@ -55,8 +92,8 @@ For example, the [source for the hub-dashboard-template website](https://github.
 | `about.html` | --- | `pages/about.md` | yes |
 | `data.html` | --- | `pages/data.qmd` | yes |
 | `img/` | --- | `pages/img` | yes |
-| `eval.html` | `static/eval.qmd` | --- | yes |
-| `forecast.html` | `static/eval.qmd` | --- | yes |
+| `eval.html` | `static/eval.qmd` | `predevals-config.yml` | yes |
+| `forecast.html` | `static/eval.qmd` | `predtimechart-config.yml` | yes |
 | `resources/` | `static/resources/` | --- | no |
 | `site_libs` | `static/_quarto.yml` | --- | no |
 
@@ -211,3 +248,15 @@ zero, then the script returns with status code 0, otherwise, it returns with
 status code 1, which is an error.
 
 
+## References
+
+Here are links to some concepts that are used in the website builder.
+
+- [Building a website using quarto](https://quarto.org/docs/websites/)
+- [BASH scripting cheat sheet](https://devhints.io/bash)
+- `yq` [tips and tricks](https://mikefarah.gitbook.io/yq/usage/tips-and-tricks)
+  and [recipes](https://mikefarah.gitbook.io/yq/recipes). Specific operators
+  can be found in the comments of the
+  [`modify-quarto-yml.sh`](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/modify-quarto-yml.sh)
+  file in the hub-dash-site-builder repository.
+- [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)
