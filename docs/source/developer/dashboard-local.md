@@ -326,9 +326,10 @@ step](#dashboard-local-setup), you can generate the data with these steps.
    ```
    There is a lot going on in these lines, so let me break it down:
    1. `docker run --rm -it --platform=linux/amd64` tells docker to
-      automatically remove the image when it's done, `-it` means that it's an
-      interactive TTY, and `--platform=linux/amd64` allows it to run on newer
-      macOS machines
+      automatically remove the image when it's done, `-it` means that [it's an
+      interactive TTY](https://stackoverflow.com/a/40026942), and
+      `--platform=linux/amd64` allows it to run on newer macOS machines with
+      ARM chips.
    2. `-v` means "volume". It's pattern is `-v "/path/on/your/computer":"/path/in/image"`.
       By default, a docker image will run completely independent of your
       computer, but there are times when you want the container to have access
