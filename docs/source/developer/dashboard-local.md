@@ -347,7 +347,7 @@ step](#dashboard-local-setup), you can generate the data with these steps.
       interactive TTY](https://stackoverflow.com/a/40026942), and
       `--platform=linux/amd64` allows it to run on newer macOS machines with
       ARM chips.
-   2. `-v` means "volume". It's pattern is `-v "/path/on/your/computer":"/path/in/image"`.
+   2. `-v` means "volume". Its pattern is `-v "/path/on/your/computer":"/path/in/image"`.
       By default, a docker image will run completely independent of your
       computer, but there are times when you want the container to have access
       to your data. In these cases, you can link your local folders with
