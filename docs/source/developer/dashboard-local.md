@@ -66,8 +66,8 @@ and configuration files that power the visualizations.
 Building a dashboard website requires three tools:
 
 1. <https://github.com/hubverse-org/hub-dash-site-builder> builds the static website
-1. <https://github.com/hubverse-org/hub-dashboard-predtimechart> builds the predtimechart data and options
-1. <https://github.com/hubverse-org/hubPredEvalsData-docker> builds the predevals data and options
+1. <https://github.com/hubverse-org/hub-dashboard-predtimechart> builds the predtimechart data and options file
+1. <https://github.com/hubverse-org/hubPredEvalsData-docker> builds the predevals data and options file
 
 These take data from two sources:
 
@@ -226,12 +226,17 @@ any order.
 [The forecasts
 visualization](https://reichlab.io/metrocast-dashboard/forecast.html) is
 provided by [PredTimeChart](https://github.com/reichlab/predtimechart#readme).
-This reads in JSON files that subdivide the data in the format of
+This is configured with a `predtimechart-options.json`[^ptc-options] file and reads in JSON files that subdivide the data in the format of
 `[target]_[location]_[date].json`. For each combination of target, location,
 and date, two files are generated: one that records the X and Y values for the
 target data and one that records the predictions for each model.
 
-To generate these data, you need three things:
+[^ptc-options]: The contents of this file is out of scope for this tutorial,
+    but if you would like to know more, you can find a description on [the
+    PredTimeChart
+    README](https://github.com/reichlab/predtimechart?tab=readme-ov-file#options-object)
+
+To generate these files, you need three things:
 
 * From the dashboard repository: `predtimechart-config.yml`, the [PredTimeChart configuration file](#dashboard-ptc-config)
 * From the hub: [Target timeseries data](#target-time-series)
@@ -262,9 +267,9 @@ generation expects the data to be in the same folder.
    This will install a command line application with two functions
    `ptc_generate_target_json_files`---which generates JSON files from target
    data, and `ptc_generate_json_files` which generates both forecast data files
-   and the predtimechart options JSON file.
+   and the `predtimechart-options.json` file.
 4. generate the target data. This takes three arguments, the hub, the
-   configuration file, and finally the output folder.
+   `predtimechart-config.yml` file, and finally the output folder.
    ```bash
    ptc_generate_target_json_files \
      $hub \
@@ -272,7 +277,7 @@ generation expects the data to be in the same folder.
      $dash/data/ptc/targets
    ```
 5. generate the forecast data and `predtimechart-options.json` file. This takes four arguments,
-   the hub, the configuration file, the output options file and the output
+   the hub, the `predtimechart-config.yml` file, the output options file and the output
    folder for the forecasts.
    ```bash
    ptc_generate_json_files \
@@ -281,6 +286,7 @@ generation expects the data to be in the same folder.
      $dash/data/ptc/predtimechart-options.json \
      $dash/data/ptc/forecasts
    ```
+
 
 Once you are done, you will see a folder that looks similar to [the metrocast
 dashboard ptc/data
@@ -292,14 +298,21 @@ branch](https://github.com/reichlab/metrocast-dashboard/tree/ptc/data).
 
 [The evaluation
 visualization](https://reichlab.io/metrocast-dashboard/eval.html) is
-provided by [PredEvals](https://github.com/reichlab/predevals). This differs
-from [PredTimeChart](#dashboard-local-forecasts) in that it expects data in
-CSV format that are nested in folders which represents the scores based on
+provided by [PredEvals](https://github.com/hubverse-org/predevals). Similar to
+PredTimeChart, it requires a file to set up the visualization,
+`predevals-options.json`[^predevals-options]. It differs from
+[PredTimeChart](#dashboard-local-forecasts) in that it expects data in CSV
+format that are nested in folders which represents the scores based on
 different levels of disaggregation of task IDs. Inside each folder is a file
 called `scores.csv`, which contains models in rows and the scores and other
 data in columns.
 
-To generate these data, you need three things:
+[^predevals-options]: As with the `predtimechart-options.json` file, the
+    contents of this file are automatically generated and out of scoope for
+    this tutorial. It is generated directly from the `predevals-config.yml`
+    file, except in JSON format.
+
+To generate these files, you need three things:
 
 * From the dashboard repository: `predevals-config.yml`, the [PredEvals configuration file](#dashboard-predevals-config)
 * From the hub: [Target oracle output data](#target-oracle-output)
