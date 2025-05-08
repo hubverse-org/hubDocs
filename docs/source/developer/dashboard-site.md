@@ -182,7 +182,7 @@ and bundled with the site.
 
 The images is built using GitHub actions and [deployed to GitHub's container registry](https://github.com/hubverse-org/hub-dash-site-builder/pkgs/container/hub-dash-site-builder/406574245?tag=latest).
 
-We initially cribbed the build workflow from [GitHub's Publishing Docker images
+We initially created the build workflow by referencing [GitHub's Publishing Docker images
 guide](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages),
 but we also wanted to be able to test the image and only publish when we
 created a tag or release AND we wanted to be mindful of good security practices
