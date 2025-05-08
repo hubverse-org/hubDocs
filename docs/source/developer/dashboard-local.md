@@ -3,7 +3,7 @@
 One of the most daunting aspects of the dashboard workflows are the GitHub
 workflows in [hubverse-org/hub-dashboard-control-room](https://github.com/hubverse-org/hub-dashboard-control-room).
 However, the dashboard does not exclusively rely on the GitHub workflow and it
-can be built locally. The diagram below shows a how we get a dashboard website
+can be built locally. The diagram below shows how we get a dashboard website
 (`site`) by using the pre-compute tools along with the dashboard and hub
 repositories (note that `hub-dash-site-builder` is building the entire site,
 not just `index.html`).
@@ -170,7 +170,7 @@ tree -d -L 4 -I 'epi*|site_libs' $tmp
 
 :::{admonition} Forward Thinking
 
-The state of our directory is for us to have both the hub and the dashboard.
+We currently have both the hub and the dashboard sources in our temporary working folder.
 
 At the moment, both data generation tools assume that the source data can only
 be accessed via cloning a hub. However, since we have S3 data available to us,
@@ -200,7 +200,7 @@ To generate these data, you need three things:
 * From the hub: [Model output data](/user-guide/model-output)
 
 Using the hub and dashboard repositories you cloned in [the setup
-step](#dashboard-local-setup), you can generate the data with these steps. We
+step](#dashboard-local-setup), you can generate the data with the following steps. We
 need a place to generate the forecasts, so we place them in the `data/ptc`
 folder inside the dashboard. The reason why we place them inside the
 dashboard and not outside is because the docker container for the website
@@ -233,7 +233,7 @@ generation expects the data to be in the same folder.
      $dash/predtimechart-config.yml \
      $dash/data/ptc/targets
    ```
-5. generate the forecast data and configuration file. This takes four arguments,
+5. generate the forecast data and `predtimechart-options.json` file. This takes four arguments,
    the hub, the configuration file, the output options file and the output
    directory for the forecasts.
    ```bash
@@ -245,7 +245,7 @@ generation expects the data to be in the same folder.
    ```
 
 Once you are done, you will see a folder that looks similar to [the metrocast
-dashboard pdf/data
+dashboard ptc/data
 branch](https://github.com/reichlab/metrocast-dashboard/tree/ptc/data).
 
 
@@ -278,7 +278,7 @@ step](#dashboard-local-setup), you can generate the data with these steps.
    ```bash
    docker pull --platform=linux/amd64 ghcr.io/hubverse-org/hubpredevalsdata-docker:main
    ```
-3. build generate the evaluations.
+3. Generate the evaluations.
    ```bash
    docker run --rm -it --platform=linux/amd64 \
      -v "$dash":"/project" \
@@ -307,7 +307,7 @@ step](#dashboard-local-setup), you can generate the data with these steps.
       - `-h`: path to the hub (in the container)
       - `-c`: path to the config file (note that this is a relative path and it's
         coming from the dashboard folder)
-      - `-d`: the data file for the oracle output
+      - `-d`: the path to the oracle data file
       - `-o`: the output directory
 
 Once you have run this, you should see a folder similar to [the metrocast
@@ -325,7 +325,7 @@ bogged down in the intricacies of the quarto publishing system.
 
 To build the website, we need three things:
 
-1. The dashboard source markdown files and configuration file
+1. The dashboard source markdown files and `site-config.yml`
 2. The predtimechart data
 3. The predevals data
 
