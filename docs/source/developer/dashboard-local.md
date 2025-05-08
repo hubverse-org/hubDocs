@@ -187,7 +187,8 @@ repositories in order to work.
 
 After these steps, the structure of our temporary folder looks
 like this where it contains both the dashboard and the hub
-together:
+together (note, we are only showing directories here, ignoring model
+directories and generated directories):
 
 ```bash
 tree -d -L 4 -I 'epi*|site_libs' $tmp
