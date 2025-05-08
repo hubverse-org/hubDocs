@@ -82,10 +82,13 @@ addressed once you understand the underlying build process.
 
 ## Required Software
 
+The following software is required for _this tutorial_. In practice, the only
+tools that are absolutely required are Python, docker, and the command line.
+
 * BASH --- This is how we will be running everything.
-* [gh](#dashboard-tool-gh)     --- needed for interacting with the GitHub API
+* [gh](#dashboard-tool-gh)     --- (command line tool, not R package) needed for interacting with the GitHub API
 * [yq](#dashboard-tool-yq)     --- needed to get the hub information from the site config
-* [uv](https://docs.astral.sh/uv/)     --- python client, runs hub-dashboard-predtimechart
+* [uv](https://docs.astral.sh/uv/)     --- python dependency management, runs [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
 * git    --- needed for cloning repositories
 * tree   --- displays a graphical structure of the folders
 * [docker](#dashboard-tool-docker) --- runs [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder) and [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker).
