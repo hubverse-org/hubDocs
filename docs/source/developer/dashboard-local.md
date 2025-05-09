@@ -405,6 +405,7 @@ There are two steps:
    ```
 
 :::{admonition} Building with remote data
+(dashboard-local-remote)=
 
 There are two modes for the site to ingest data
 
@@ -420,12 +421,12 @@ a user and repo name:
 
 ```bash
 docker run --rm -it \
- --platform=linux/amd64 \
- -v "$dash":"/site" \
- ghcr.io/hubverse-org/hub-dash-site-builder:latest \
- render.sh \
- -u "reichlab" -r "flu-metrocast"
- -o "_site"
+  --platform=linux/amd64 \
+  -v "$dash":"/site" \
+  ghcr.io/hubverse-org/hub-dash-site-builder:latest \
+  render.sh \
+  -u "reichlab" -r "flu-metrocast"
+  -o "_site"
 ```
 
 This will produce the same site that you can view locally, but it will no
@@ -437,6 +438,7 @@ restricts usage to public repositories.
 
 :::
 
+For deeper dive into what is happening in this process, visit [How the website is built (a tale of two sources)](#dashboard-site-build).
 
 (dashboard-local-preview)=
 ## Previewing the site
