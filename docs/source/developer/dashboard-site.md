@@ -27,7 +27,7 @@ docker pull ghcr.io/hubverse-org/hub-dash-site-builder:latest
 (dashboard-site-source)=
 ## How the website is built (a tale of two sources)
 
-The website that is built is a fully static site that can be viewed locally. It
+The website that is built is a fully static site that [can be viewed locally](./dashboard-local.md). It
 is the result of a combination of two sources:
 
 1. [dashboard website builder `static/` directory](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/static) and,
@@ -199,7 +199,8 @@ The workflow that we came up with is called [build-container.yaml](https://githu
   trigger.
 
 There is a bit of a dance that's required for this job to run, which is
-described in GitHub's Publishing Docker images guide (see above for link).
+described in [GitHub's Publishing Docker images
+guide](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images#publishing-images-to-github-packages).
 The reason for this dance is so we can extract metadata for the image.
 
 The important bit is the "Build and export" step, which builds the docker image
@@ -233,7 +234,7 @@ from the build image job will be redundant.
 This is similar to the build image except that instead of building the image,
 we are loading it from an artifact and pushing it to the registry.
 
-The final step of this job is to generate an artifact attestation, which is a
+The final step of this job is to generate [an artifact attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds), which is a
 way to provide a build provenance for downstream validation.
 
 
