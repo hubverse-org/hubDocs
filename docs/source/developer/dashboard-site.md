@@ -15,6 +15,16 @@ was designed under the following motivations:
    should not need to handle any templating that cannot be easily automated.
 4. We should not have to maintain a server to deploy these sites.
 
+:::{admonition} Prior knowledge
+
+We strongly recommend to first read through the [Local dashboard
+workflow](./dashboard-local.md) to understand the overarching workflow.
+
+This page in particular goes into detail about the final step of the workflow,
+[Generating the site](#dashboard-local-site).
+
+:::
+
 
 ## Installation
 
