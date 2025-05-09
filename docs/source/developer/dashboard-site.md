@@ -64,8 +64,8 @@ with a link to it. However, the user has different options available to them.
 For example, the [dashboard template](https://github.com/hubverse-org/hub-dashboard-template)
 contains the following files:
 
-- `site-config.yml`
-- `pages/index.qmd` --- home page
+- `site-config.yml` --- (required) site configuration
+- `pages/index.qmd` --- (required) home page
 - `pages/about.md` --- about the hub staff
 - `pages/data.qmd` --- how to access data from S3[^pages-data]
 - `pages/img/` --- images for the about page
