@@ -79,6 +79,7 @@ target-data/
 ```
 
 
+(target-time-series)=
 ## Time series
 
 The first format is *time series* data. This is often the native or
@@ -157,6 +158,7 @@ that match model task IDs. You may also include additional columns that have
 a 1:1 correspondence with the data, for example a transformation of counts to
 rates or a human-readable translation of codes.
 
+(target-oracle-output)=
 ## Oracle output
 
 Oracle output follows a format that is similar to a [hubverse model

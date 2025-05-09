@@ -173,6 +173,7 @@ In order to make use of the visualization your hub needs to satisfy these requir
 For details, see the [limitations and requirements section](#ptc-limitations) below.
 :::
 
+(dashboard-ptc-config)=
 ### Configuring the PredTimeChart visualization module
 
 
@@ -261,6 +262,7 @@ In order to make use of the evaluations tool, your hub needs to satisfy these re
 For details, see the [limitations and requirements section](#predevals-limitations) below.
 :::
 
+(dashboard-predevals-config)=
 ### Configuring the PredEvals module
 
 
