@@ -34,14 +34,93 @@ You can install the latest version of this tool with docker:
 docker pull ghcr.io/hubverse-org/hub-dash-site-builder:latest
 ```
 
-(dashboard-site-source)=
+(dashboard-site-build)=
 ## How the website is built (a tale of two sources)
 
-The website that is built is a fully static site that [can be viewed locally](./dashboard-local.md). It
+The website that is built is a fully static site that can be viewed locally. It
 is the result of a combination of two sources:
 
 1. [dashboard website builder `static/` directory](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/static) and,
-2. [the dashboard repository](https://github.com/hubverse-org/hub-dashboard-template/)
+2. [the dashboard
+   repository](https://github.com/hubverse-org/hub-dashboard-template/)
+   containing a file called `site-config.yml` and a `pages/` folder with
+   [markdown](https://quarto.org/docs/authoring/markdown-basics.html) or
+   [quarto
+   markdown](https://quarto.org/docs/get-started/hello/rstudio.html#overview)
+   files and assets.
+
+### Rendering the site
+
+On its own, [dashboard website builder `static/`
+directory](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/static)
+contains an incomplete quarto website. The incomplete parts are:
+
+1. `index.qmd` is missing
+2. The JavaScript in `resources/` is incomplete. There is a single line that
+   defines the root folder for resource access, with a placeholder called
+   `{ROOT}`, which needs to be replaced by a **local folder or URL** for the
+   resource:
+   ```js
+   const root = "{ROOT}";
+   ```
+
+When you run the site builder container, it effectively performs four steps to
+complete and render the site:
+
+```{code-block} bash
+:emphasize-lines: 4-6
+docker run --rm -it --platform=linux/amd64 \
+  -v "$(pwd)":"/site" \
+  ghcr.io/hubverse-org/hub-dash-site-builder:latest \
+  render.sh \
+  -u "cdcepi" -r "FluSight-forecast-hub"
+  -o "_site"
+```
+
+1. Combine the contents of `pages/` and `/static/` into a temporary directory, `/tmp/`.
+2. Use `yq` to merge `site-config.yml` into `/tmp/_quarto.yml`.
+3. Provision resources: update the JavaScript files to point to the correct
+   resources or discard unused files.
+4. Run `quarto render /tmp/` and copy the output to the output directory (`_site/`).
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+  subgraph dashboard
+    pages/contents["pages/[contents]"]
+    site-config.yml
+    _site/
+  end
+  subgraph docker
+    subgraph /static/
+        /static/contents["/static/[contents]"]
+        /static/_quarto.yml["/static/_quarto.yml"]
+    end
+    js{{"(provision resources)"}}
+    yq{{"yq"}}
+    subgraph /tmp/
+        _quarto.yml["/tmp/_quarto.yml"]
+        contents["/tmp/[contents]"]
+        /tmp/_site/
+        quarto{{"quarto"}}
+    end
+  end
+  pages/contents --> contents
+  site-config.yml --- yq
+  /static/contents --> js --> contents
+  /static/_quarto.yml --- yq
+  yq -->|yq -i '...' _quarto.yml | _quarto.yml
+  _quarto.yml --> quarto
+  contents --> quarto
+  quarto -->|quarto render /tmp/| /tmp/_site/ --> _site/
+```
+
+The entirety of these steps are performed by [the `render.sh`
+script](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/render.sh),
+which exists in the docker container as an executable. If you want to know how
+to use the script, you can run `render.sh --help` and it will show you
+[examples of how to use the
+script](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/examples.md).
 
 ### Configuring the site
 
@@ -58,7 +137,7 @@ These two files will create a website that has a single page and is,
 admittedly, not very useful other than providing basic information about a hub
 with a link to it. However, the user has different options available to them.
 
-#### Options for the site
+#### Options for the site (typical)
 
  - **Forecasts**: if the user includes a [`predtimechart-config.yml`
    file](#dashboard-ptc), then the dashboard will include a forecast
@@ -107,73 +186,21 @@ shows the following files and folders.
 | `resources/` | `static/resources/` | --- | no |
 | `site_libs` | `static/_quarto.yml` | --- | no |
 
-### An incomplete boilerplate
-
-On its own, the `static/` directory of the dashboard site builder contains an
-incomplete quarto website. The incomplete parts are:
-
-1. `index.qmd` is missing
-2. The JavaScript in `resources/` is incomplete. There is a single line that
-   defines the root folder for resource access, with a placeholder called
-   `{ROOT}`, which needs to be replaced by a local folder or URL for the
-   resource:
-   ```js
-   const root = "{ROOT}";
-   ```
-
-The site builder image effectively performs four steps to complete and render
-the site:
-
-1. Combine the contents of `pages/` and `/static/` into a temporary directory, `/tmp/`.
-2. Use `yq` to merge `site-config.yml` into `/tmp/_quarto.yml`.
-3. Update the JavaScript files to point to the correct resources or discard unused files.
-4. Run `quarto render /tmp/` and copy the output to the output directory (`out/`).
-
-```{mermaid}
-:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
-flowchart TD
-  subgraph dashboard
-    pages/contents["pages/[contents]"]
-    site-config.yml
-    out/
-  end
-  subgraph docker
-    subgraph /static/
-        /static/contents["/static/[contents]"]
-        /static/_quarto.yml["/static/_quarto.yml"]
-    end
-    yq{{"yq"}}
-    subgraph /tmp/
-        _quarto.yml["/tmp/_quarto.yml"]
-        contents["/tmp/[contents]"]
-        _site/["/tmp/_site/"]
-        quarto{{"quarto"}}
-    end
-  end
-  pages/contents --> contents
-  site-config.yml --- yq
-  /static/contents --> contents
-  /static/_quarto.yml --- yq
-  yq -->|yq -i '...' _quarto.yml | _quarto.yml
-  _quarto.yml --> quarto
-  contents --> quarto
-  quarto -->|quarto render /tmp/| _site/ --> out/
-```
-
-The entirety of these steps are performed by [the `render.sh` script](https://github.com/hubverse-org/hub-dash-site-builder/tree/main/render.sh), which exists
-in the docker container as an executable.
-
-### Optional Components
+#### Hubs without forecast or eval pages
 
 Hubs do not have to have data that are compatible with the forecast
 visualization or evaluations to build a website. Case in point:
-<https://reichlab.io/variant-nowcast-hub-dashboard/>. This dashboard does not
-have the Forecast or Evals page. Instead, it has self-generated reports.
+[the variant nowcast
+dashboard](https://reichlab.io/variant-nowcast-hub-dashboard/). This dashboard
+does not have the forecast or eval pages. Instead, it has self-generated
+reports.
 
 If a hub does not want to build either the forecast or evaluations pages, they
 can omit the predevals or predtimechart config files. When this happens, the
 site builder will remove these pages and the associated resources before
 building the quarto site.
+
+
 
 ## How the visualizations work
 
