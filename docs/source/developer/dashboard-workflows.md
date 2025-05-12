@@ -320,7 +320,9 @@ When discussing the workflows below **we will skip these steps.**
 
 #### `generate-site.yaml`
 
-This workflow has one sequence of two jobs, build-site and push-site:
+This workflow has one sequence of two jobs, build-site and push-site. The
+workflow only needs information about the hub dashboard and the contents within
+it:
 
 ```{mermaid}
 :name: generate-site-overview
@@ -375,7 +377,19 @@ flowchart TD
 
 #### `generate-data.yaml`
 
-Generating the data is a little bit more involved:
+Generating the data is a little bit more involved because now
+
+1. we are building two different data sets (one for the forecast page and one for the evals page)
+2. we need to be able to access the hub's `model-outputs/`, `model-metadata/`,
+   `hub-config/`, and `target-data/` folders.
+3. we need to fetch any data that was previously recorded in the output branch
+
+To handle this, we have one job called `check` that will get the common
+information from the dashboard repository and use that for inputs for the
+`build-evals` and `build-forecasts` jobs.
+
+From there, the process is similar to the `generate-site.yaml` workflow.
+
 
 ```{mermaid}
 :name: generate-data-overview
@@ -386,18 +400,18 @@ flowchart TD
     publish[/publish/]
     subgraph build-data.yaml
         check["check (Setup)"]
-        subgraph variables
+        subgraph outputs/artifacts
             hub[/hub: cdcepi/FluSight-forecast-hub/]
+            cfgf[/"predtimechart-config.yml"/]
+            cfge[/"predevals-config.yml"/]
         end
         subgraph artifacts
-            predtimechart-config.yml[\"predtimechart-config.yml"\]
-            predevals-config.yml[\"predevals-config.yml"\]
+            eval-data[\"reichlab-flusight-dashboard-eval-data"\]
+            forecast-data[\"reichlab-flusight-dashboard-forecast-data"\]
         end
-        check --> hub
-        hub --> build-evals
-        hub --> build-forecasts
-        check --> predevals-config.yml --> build-evals --> push-evals-data
-        check --> predtimechart-config.yml --> build-forecasts --> push-forecasts-data
+        check --> outputs/artifacts
+        outputs/artifacts --> build-evals --> eval-data --> push-evals-data
+        outputs/artifacts --> build-forecasts --> forecast-data --> push-forecasts-data
     end
     org --> check
     dashboard --> check
@@ -405,6 +419,68 @@ flowchart TD
     publish --> push-forecasts-data
 ```
 
+Both the `build-evals` and `build-forecasts` jobs have similar steps, with a few
+key differences:
+
+1. `build-forecasts` needs to provision python and install
+   `hub-dashboard-predtimechart` while `build-evals` runs in a docker container
+2. `build-forecasts` has two data generation steps (for forecast+config and for
+   target data) while `build-evals` only has one
+
+Taking those differences in mind, if we zoom into `build-evals`, we would find
+the following process:
+
+```{mermaid}
+:name: generate-data-evals
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    repo[/repo: reichlab/flusight-dashboard/]
+    hub[/hub: cdcepi/FluSight-forecast-hub/]
+    cfg[/key: reichlab-flusight-dashboard/]
+    subgraph artifacts
+        eval-data[\"reichlab-flusight-dashboard-eval-data"\]
+    end
+    subgraph build-evals
+        checkout-config["Fetch config file reichlab-flusight-dashboard-cfg"]
+        check-branch{{"check for predevals/data branch"}}
+        checkout-data["checkout predevals/data branch to out/"]
+        clone-repo["clone hub repository to hub/"]
+        build-targets["Generate scores data"]
+        upload-artifact["save scores data artifact"]
+    end
+    cfg --> checkout-config --> check-branch -->|fetch == true| checkout-data --> clone-repo
+    check-branch -->|fetch == false| clone-repo --> build-targets --> upload-artifact --> eval-data
+    repo --> check-branch
+    hub --> clone-repo
+```
 
 (dashboard-workflows-push-things)=
 #### `push-things.yaml`
+
+
+This workflow is used by the previous two workflows and is not directly called
+by the user. Its job is a three step process:
+
+1. enforce the existence of an orphan branch to store the payload
+2. checkout existing data branch
+3. download the artifact containing the payload
+4. push the artifact to that branch
+
+```{mermaid}
+:name: push-things
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    branch[reichlab/flusight-dashboard@ptc/data]
+    artifact[/artifact: reichlab-flusight-dashboard-ptc/]
+    subgraph push-data
+        checkout-repo-scripts["provision scripts from the dashboard control room"]
+        provision["enforce the existence of ptc/data"]
+        checkout-data["checkout ptc/data"]
+        fetch-artifact
+        publish["publish to ptc/data"]
+    end
+    checkout-repo-scripts --> provision --> checkout-data --> fetch-artifact --> publish --> branch
+    provision --> branch
+    branch --> checkout-data
+    artifact --> fetch-artifact
+```
