@@ -119,7 +119,13 @@ This table may help:
 | action | step | step | a pre-written building block | a reusable step that someone else wrote |
 
 
-## Overall workflow
+## Dashboard workflows
+
+Each dashboard has two workflows, one to build the website and one to build the
+data. These workflows are designed so to minimize the required knowledge for
+hub administrators to have to deploy the site. This section will discuss the
+**broad overview** of these workflows and segue into what's going on behind the
+scenes.
 
 While the [local dashboard workflow chapter](./dashboard-local.md) demonstrates
 saving the data in individual folders that all live in the site folder, the
