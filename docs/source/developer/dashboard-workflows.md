@@ -13,7 +13,6 @@ resources for understanding GitHub workflows.
 
 :::
 
-
 ## An analogy for operations
 
 The purpose of this chapter is concerned with **operational aspects** of
@@ -78,6 +77,46 @@ and the data:
    - when someone updates the data configuration files (deploy)
    - when someone manually triggers a build (deploy)
    - on a pull request
+
+## About GitHub Actions
+
+GitHub Actions is a framework for [CI/CD (continuous integration and continuous
+deployment)](https://en.wikipedia.org/wiki/CI/CD) that emerged in 2019. This
+framework supports us being able to test our R packages and allow hub
+administrators to validate model submissions as they come through.
+
+All GitHub actions are run via [a YAML workflow
+file](https://docs.github.com/en/actions/writing-workflows/about-workflows)
+that provides instructions about when, where (e.g. one or more virtual
+machines), and how to run a process like testing a package or validating a hub
+submission. These workflow files live in the `.github/workflows/` directory in
+a GitHub repository and they have two top-level keys that are important to know
+about:
+
+| key  | what it does | documentation |
+| :--- | :----------- | :------------ |
+| `on`| specifies _when_ a workflow should run | [Understanding GitHub Actions: Events](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#events) |
+| `jobs` | separates your workflow across a series of runners (virtual machines or docker containers). These can run in parallel or one after another. Many workflows you will see have a single job (e.g. check an R package or validate a submission), but the dashboard workflows use multiple jobs. This is useful for separating build and deploy steps for quality control over permissions. | [Understanding GitHub Actions: Jobs](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#jobs) and [Understanding GitHub Actions: Runners](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#runners) |
+
+Each **job** is made up of a series of **steps** that runs inside of the
+virtual machine or docker container that, together, perform the tasks of
+fetching resources, installing/caching tools, performing checks, or building
+artifacts. Each step can be a snippet of a language like BASH or Python or,
+more often, it can be an individual [**action---a pre-written building block**](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#actions) such
+as [actions/checkout](https://github.com/actions/checkout) or
+[actions/upload-artifact](https://github.com/actions/upload-artifact) that
+performs a complex task. Of course, now that GitHub Actions has the concept of
+an _action_ as a component of GitHub Actions, the terminology is a bit confusing.
+This table may help:
+
+| term | called by | acts like | what it means | think of it as |
+| :--- | :------------ | :----------- | :---- | :--------- |
+| workflow | N/A | workflow | a YAML file that describes how one or more tasks should be performed | instructions for CI/CD |
+| job | workflow | job | Performs a complex task that includes provisioning tools and data. It can take inputs and outputs | an individual docker container |
+| step | job | step | a single purpose operation | an single program |
+| action | step | step | a pre-written building block | a reusable step that someone else wrote |
+| reusable workflow | job | job | a pre-written workflow | a reusable job or series of of jobs |
+
 
 ## Overall workflow
 
@@ -204,6 +243,7 @@ uses: hubverse-org/hub-dashboard-control-room/.github/workflows/generate-data.ya
 
 These are known as reusable workflows.
 
+
 ### Reusable workflows
 
 The reason we can provide two workflow files with a combined total of fewer
@@ -219,30 +259,40 @@ There are three reusable workflows in the [control room](https://github.com/hubv
 1. `generate-data.yaml` builds both the forecast and eval data and pushes them to their respective branches in parallel.
 1. `push-things.yaml` pushes an to a specific branch. This is reusable workflow is only ever called by the previous two workflows.
 
-Peering into the jobs defined in each workflow, we can see what they are doing:
+Peering into the jobs defined in each workflow, we can see what they are doing.
+
+:::{tip}
+
+The [dashboard tools chapter, operations section](#dashboard-tools-operations)
+contains links to resources that are valuable reading for understanding concepts
+that are specific to GitHub workflows.
+
+:::
 
 #### `generate-site.yaml`
 
-Generating the site is fairly straightforward:
+The [`generate-site.yaml` workflow](https://github.com/hubverse-org/hub-dashboard-control-room/blob/main/.github/workflows/generate-site.yaml) defines the following outputs:
+
 
 
 ```{mermaid}
-:name: branch-diagram-2
+:name: generate-site-workflow
 :alt: A flowchart that demonstrates flow of data from the hub and dashboard to the final site with the tools that build each component labelling arrows.
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
 flowchart LR
   dashboard["org/dashboard"]
-  push["push-site"]
+  subgraph push-site
+  end
   subgraph build-site
     checkout
     bs["build-site"]
     upload["upload-artifact"]
   end
-  dashboard --> checkout --> bs --> upload --> push
+  dashboard --> checkout --> bs --> upload --> push-site
 ```
 
 #### `generate-data.yaml`
 
-Gen
+Generating
 
 #### `push-things.yaml`
