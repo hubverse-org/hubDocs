@@ -245,7 +245,7 @@ uses: hubverse-org/hub-dashboard-control-room/.github/workflows/generate-data.ya
 These are known as reusable workflows.
 
 
-### Reusable workflows
+## Reusable workflows
 
 The reason we can provide two workflow files with a combined total of fewer
 than 100 lines of code is because we are using [Reusable
@@ -283,14 +283,14 @@ orchestration](https://github.com/reichlab/decisions/blob/main/decisions/2024-12
 for details). I'll list them below with notes about what they do or why they
 were deprecated, but remember that this is not required reading.
 
-#### Inputs
+### Inputs
 
 There is one input that is **deprecated** and no longer used or relevant:
 **`repos`**. See
 [hub-dashboard-control-room#14](https://github.com/hubverse-org/hub-dashboard-control-room/issues/14)
 for details of the workflow that previously used this field.
 
-#### Outputs
+### Outputs
 
 The `is-bot` output is a flag that indicates if the workflow is being run by the
 GitHub App. In a workflow that's run from a dashboard repository, this will
@@ -302,7 +302,7 @@ steps. Otherwise, it is not necessary because the workflow would then be run in
 the same context as the calling repository and would automatically have a
 temporary token with the correct permissions.
 
-#### Steps
+### Steps
 
 A summary of these steps is:
 
@@ -318,7 +318,7 @@ When discussing the workflows below **we will skip these steps.**
 
 :::
 
-#### `generate-site.yaml`
+### `generate-site.yaml`
 
 This workflow has one sequence of two jobs, build-site and push-site. The
 workflow only needs information about the hub dashboard and the contents within
@@ -375,7 +375,7 @@ flowchart TD
 ```
 
 
-#### `generate-data.yaml`
+### `generate-data.yaml`
 
 Generating the data is a little bit more involved because now
 
@@ -455,7 +455,7 @@ flowchart TD
 ```
 
 (dashboard-workflows-push-things)=
-#### `push-things.yaml`
+### `push-things.yaml`
 
 
 This workflow is used by the previous two workflows and is not directly called
