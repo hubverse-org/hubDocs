@@ -20,7 +20,7 @@ cfgv==3.4.0
     # via pre-commit
 charset-normalizer==3.4.2
     # via requests
-click==8.1.8
+click==8.2.0
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
@@ -66,7 +66,7 @@ packaging==25.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
-platformdirs==4.3.7
+platformdirs==4.3.8
     # via virtualenv
 pre-commit==4.2.0
     # via hubdocs (pyproject.toml)
@@ -135,7 +135,7 @@ urllib3==2.4.0
     # via requests
 uvicorn==0.34.2
     # via sphinx-autobuild
-virtualenv==20.30.0
+virtualenv==20.31.2
     # via pre-commit
 watchfiles==1.0.5
     # via sphinx-autobuild
