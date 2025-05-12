@@ -8,7 +8,7 @@ inputs, and the outputs are. If you cannot yet identify these elements, please
 go and read the [local dashboard workflow chapter](./dashboard-local.md).
 
 We strongly recommend to look over the [Dashboard tools, operations
-section](#dashboard-tools-operations) as that section contains valuable
+section](#dashboard-tools-operations) as that it contains valuable
 resources for understanding GitHub workflows.
 
 :::
@@ -78,6 +78,8 @@ and the data:
    - when someone manually triggers a build (deploy)
    - on a pull request
 
+All of these timings are defined in GitHub Actions.
+
 ## About GitHub Actions
 
 GitHub Actions is a framework for [CI/CD (continuous integration and continuous
@@ -99,10 +101,10 @@ about:
 | `jobs` | separates your workflow across a series of runners (virtual machines or docker containers). These can run in parallel or one after another. Many workflows you will see have a single job (e.g. check an R package or validate a submission), but the dashboard workflows use multiple jobs. This is useful for separating build and deploy steps for quality control over permissions. | [Understanding GitHub Actions: Jobs](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#jobs) and [Understanding GitHub Actions: Runners](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#runners) |
 
 Each **job** is made up of a series of **steps** that runs inside of the
-virtual machine or docker container that, together, perform the tasks of
+**runner** (virtual machine or docker container) that, together, perform the tasks of
 fetching resources, installing/caching tools, performing checks, or building
 artifacts. Each step can be a snippet of a language like BASH or Python or,
-more often, it can be an individual [**action---a pre-written building block**](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#actions) such
+more often, it can be an individual [**action**---a pre-written building block](https://docs.github.com/en/actions/about-github-actions/understanding-github-actions?learn=getting_started&learnProduct=actions#actions) such
 as [actions/checkout](https://github.com/actions/checkout) or
 [actions/upload-artifact](https://github.com/actions/upload-artifact) that
 performs a complex task. Of course, now that GitHub Actions has the concept of
@@ -119,10 +121,11 @@ This table may help:
 
 ## Overall workflow
 
-While the local workflow saves the data in individual folders that all live in
-the site folder, the workflows that orchestrate the dashboard build the three
-components (forecast data, evaluations data, and website) separately to
-individual [orphan
+While the [local dashboard workflow chapter](./dashboard-local.md) demonstrates
+saving the data in individual folders that all live in the site folder, the
+operations in practice are slightly different. The workflows that orchestrate
+the dashboard build the three components (forecast data, evaluations data, and
+website) separately to individual [orphan
 branches](https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt---orphanltnew-branchgt)[^orphan]:
 
  - `gh-pages` contains the website source
@@ -139,7 +142,7 @@ If you were to diagram this process from source to site, it would look like
 this. In this diagram, thick arrows represent `git push` events, thin arrows
 represent direct data sources and dashbed arrows represent remote data sources.
 
-Notice that this is nearly identical to the [local-workflow](#local-workflow)
+Notice that this is nearly identical to the [local workflow](#local-workflow)
 with the exception that now the data live in separate branches of the
 repository instead of in separate folders.
 
@@ -174,13 +177,13 @@ flowchart BT
     predevals/data -.- site
 ```
 
-This is not the exact structure of the workflows, but it's a good starting
-point.
+Note that this is not the exact structure of the workflows, but it's a good
+starting point.
 
 ### Operations from the dashboard
 
-In practice, however, we realize that both the forecast and evals data are going
-to be built a the same time, so they actually exist in the same workflow, so we
+In practice, we realize that both the forecast and evals data are going
+to be built a the same time, so they actually exist in the same workflow and we
 can simplify the diagram a little bit more and introduce some workflow names:
 
 ```{mermaid}
@@ -252,7 +255,8 @@ than 100 lines of code is because we are using [Reusable
 workflows](https://docs.github.com/en/actions/sharing-automations/reusing-workflows).
 The reusable workflow is one that is able to chain several workflows and jobs
 into one single job that can be called from any repository as long as it's
-public.
+public. Just like an **action** can be a stand in for a **step** in a workflow,
+a **reusable workflow** can be a stand in for a **job** in a workflow.
 
 There are three reusable workflows in the [control room](https://github.com/hubverse-org/hub-dashboard-control-room):
 
@@ -402,8 +406,8 @@ flowchart TD
         check["check (Setup)"]
         subgraph outputs/artifacts
             hub[/hub: cdcepi/FluSight-forecast-hub/]
-            cfgf[/"predtimechart-config.yml"/]
-            cfge[/"predevals-config.yml"/]
+            repo[/repo: reichlab/flusight-dashboard/]
+            cfg[/key: reichlab-flusight-dashboard/]
         end
         subgraph artifacts
             eval-data[\"reichlab-flusight-dashboard-eval-data"\]
@@ -470,17 +474,19 @@ by the user. Its job is a three step process:
 :name: push-things
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
 flowchart TD
-    branch[reichlab/flusight-dashboard@ptc/data]
-    artifact[/artifact: reichlab-flusight-dashboard-ptc/]
+    branch[/"branch: predevals/data"/]
+    predevals/data>predevals/data]
+    artifact[/artifact: reichlab-flusight-dashboard-predevals/]
     subgraph push-data
         checkout-repo-scripts["provision scripts from the dashboard control room"]
-        provision["enforce the existence of ptc/data"]
-        checkout-data["checkout ptc/data"]
+        provision["enforce the existence of predevals/data"]
+        checkout-data["checkout predevals/data"]
         fetch-artifact
-        publish["publish to ptc/data"]
+        publish["publish to predevals/data"]
     end
-    checkout-repo-scripts --> provision --> checkout-data --> fetch-artifact --> publish --> branch
-    provision --> branch
-    branch --> checkout-data
+    checkout-repo-scripts --> provision --> checkout-data --> fetch-artifact --> publish --> predevals/data
+    branch --> provision
+    provision --> predevals/data
+    predevals/data --> checkout-data
     artifact --> fetch-artifact
 ```
