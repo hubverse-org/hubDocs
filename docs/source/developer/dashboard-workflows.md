@@ -115,7 +115,6 @@ This table may help:
 | job | workflow | job | Performs a complex task that includes provisioning tools and data. It can take inputs and outputs | an individual docker container |
 | step | job | step | a single purpose operation | an single program |
 | action | step | step | a pre-written building block | a reusable step that someone else wrote |
-| reusable workflow | job | job | a pre-written workflow | a reusable job or series of of jobs |
 
 
 ## Overall workflow
@@ -140,7 +139,9 @@ If you were to diagram this process from source to site, it would look like
 this. In this diagram, thick arrows represent `git push` events, thin arrows
 represent direct data sources and dashbed arrows represent remote data sources.
 
-Notice how similar it is to the [local-workflow](#local-workflow).
+Notice that this is nearly identical to the [local-workflow](#local-workflow)
+with the exception that now the data live in separate branches of the
+repository instead of in separate folders.
 
 ```{mermaid}
 :name: branch-diagram
@@ -269,30 +270,141 @@ that are specific to GitHub workflows.
 
 :::
 
+
+:::{admonition} GitHub App-related inputs, outputs, and steps
+:class: dropdown important
+
+**All GitHub App related inputs, outputs, and steps will can be ignored for this
+chapter.**
+
+There are a few parts in each of these workflows that are related to handling
+the credentials for a GitHub App (see [2024-12-13 RFC hub dashboard
+orchestration](https://github.com/reichlab/decisions/blob/main/decisions/2024-12-13-rfc-hub-dashboard-orchestration.md)
+for details). I'll list them below with notes about what they do or why they
+were deprecated, but remember that this is not required reading.
+
+#### Inputs
+
+There is one input that is **deprecated** and no longer used or relevant:
+**`repos`**. See
+[hub-dashboard-control-room#14](https://github.com/hubverse-org/hub-dashboard-control-room/issues/14)
+for details of the workflow that previously used this field.
+
+#### Outputs
+
+The `is-bot` output is a flag that indicates if the workflow is being run by the
+GitHub App. In a workflow that's run from a dashboard repository, this will
+be `false`.
+
+In the context of running a reusable workflow via an app, it is important for
+separating the concerns of the temporary app token between the build and push
+steps. Otherwise, it is not necessary because the workflow would then be run in
+the same context as the calling repository and would automatically have a
+temporary token with the correct permissions.
+
+#### Steps
+
+A summary of these steps is:
+
+1. **`is-bot`** checks the `secrets.id` input. If it is `'none'`, then the output
+   of this step (`steps.is-bot.outputs.bot`) is `false` indicating that the
+   `secrets.key` is a valid GitHub token. If the output is `true`, then the
+   `key` represents a PEM key that can be used to generate a token.
+2. **`token`** only runs if `steps.is-bot.outputs.bot` is `true`. It uses the
+   values from `secrets.id` and `secrets.key` to generate a temporary access
+   token for the particular repository.
+
+When discussing the workflows below **we will skip these steps.**
+
+:::
+
 #### `generate-site.yaml`
 
-The [`generate-site.yaml` workflow](https://github.com/hubverse-org/hub-dashboard-control-room/blob/main/.github/workflows/generate-site.yaml) defines the following outputs:
+This workflow has one sequence of two jobs, build-site and push-site:
 
+```{mermaid}
+:name: generate-site-overview
+:alt: A flowchart contains two nodes: build site going to push site with inputs from org, dashboard, and publish
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart LR
+    org[/reichlab/]
+    dashboard[/flusight-dashboard/]
+    publish[/publish/]
+    subgraph generate-site.yaml
+        build-site --> artifact[\artifact\] --> push-site
+    end
+    org --> build-site
+    dashboard --> build-site
+    publish --> push-site
+```
 
+ - `build-site` runs inside of [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder/pkgs/container/hub-dash-site-builder) to build the website and upload it as an artifact
+ - `push-site` runs after `build-site` and pushes the artifact to the `gh-pages` (see [`push-things.yml`](#dashboard-workflows-push-things))
+
+If we were to expand this, showing all the inputs and outputs for build-site, we
+can see the process:
 
 ```{mermaid}
 :name: generate-site-workflow
 :alt: A flowchart that demonstrates flow of data from the hub and dashboard to the final site with the tools that build each component labelling arrows.
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
-flowchart LR
-  dashboard["org/dashboard"]
+flowchart TD
+  org[/reichlab/]
+  dashboard[/flusight-dashboard/]
+  publish[/publish/]
   subgraph push-site
   end
   subgraph build-site
+    id{{"setup run variables"}}
     checkout
+    check{{"check if we need to build"}}
     bs["build-site"]
     upload["upload-artifact"]
   end
-  dashboard --> checkout --> bs --> upload --> push-site
+  subgraph artifacts
+    org-dashboard-site[\"reichlab-flusight-dashboard-site"\]
+  end
+  publish --> push-site
+  id --> checkout --> check --> bs --> upload --> org-dashboard-site --> push-site
+
+  org --> id
+  dashboard --> id
+
 ```
+
 
 #### `generate-data.yaml`
 
-Generating
+Generating the data is a little bit more involved:
 
+```{mermaid}
+:name: generate-data-overview
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    org[/reichlab/]
+    dashboard[/flusight-dashboard/]
+    publish[/publish/]
+    subgraph build-data.yaml
+        check["check (Setup)"]
+        subgraph variables
+            hub[/hub: cdcepi/FluSight-forecast-hub/]
+        end
+        subgraph artifacts
+            predtimechart-config.yml[\"predtimechart-config.yml"\]
+            predevals-config.yml[\"predevals-config.yml"\]
+        end
+        check --> hub
+        hub --> build-evals
+        hub --> build-forecasts
+        check --> predevals-config.yml --> build-evals --> push-evals-data
+        check --> predtimechart-config.yml --> build-forecasts --> push-forecasts-data
+    end
+    org --> check
+    dashboard --> check
+    publish --> push-evals-data
+    publish --> push-forecasts-data
+```
+
+
+(dashboard-workflows-push-things)=
 #### `push-things.yaml`

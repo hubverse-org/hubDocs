@@ -24,6 +24,7 @@ dependencies = [
     "sphinx-book-theme",
     "sphinx-design",
     "sphinx-subfigure>=0.2.4",
+    "sphinx-togglebutton>=0.3.2",
     "sphinxcontrib-mermaid",
 ]
 

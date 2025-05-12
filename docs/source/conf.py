@@ -24,6 +24,7 @@ extensions = [
     "sphinx_design",  # tab panels and boxes
     "sphinx_subfigure",  # multi-panel images
     "sphinxcontrib.mermaid",  # compose diagrams in code
+    "sphinx_togglebutton",  # toggle things
 ]
 
 # -- Options for mermaid
