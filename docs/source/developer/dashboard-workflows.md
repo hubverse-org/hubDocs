@@ -340,17 +340,17 @@ When discussing the workflows below **we will skip these steps.**
 From here on out, we are going to rely heavily on diagrams to illustrate the
 workflows and we will use a few conventions:
 
-1. ribbon nodes (asymmetric nodes) are branches
-1. parallelograms pointing to the right are inputs
-1. parallelograms pionting to the left are outputs or artifacts
+1. ribbon nodes (asymmetric nodes) are **branches**
+1. parallelograms pointing to the right are **inputs**
+1. parallelograms pionting to the left are **outputs or artifacts**
    1. artifacts and outputs are often surrounded by their own boxes to indicate
       that they persist beyond the job/workflow execution
    1. output values will have a `key: ` label with the name of the output
-1. surrounding boxes determine the context and are labelled as such. A box that
+1. **surrounding boxes determine the context** and are labelled as such. A box that
    is labelled with `workflow.yaml` is a workflow and nodes will be jobs and
    their outputs
-1. rectangles inide of the boxes represents individual jobs or steps (depending on context)
-1. hexagons are special steps represent decision points or setup
+1. rectangles inide of the boxes represents individual **jobs or steps** (depending on context)
+1. hexagons are special steps represent **decision points or setup**
 
 ```{mermaid}
 :name: dashboard-diagram-legend
@@ -367,7 +367,7 @@ flowchart TD
     end
     subgraph artifacts/outputs
         artifact[\"artifact-name"\]
-        output[\"key: output-value"\]
+        output[\"output-name: output-value"\]
     end
     external-repository ~~~ branches
     input --> job/step --> artifact
@@ -442,12 +442,23 @@ Generating the data is a little bit more involved because now
 2. we need to be able to access the hub's `model-outputs/`, `model-metadata/`,
    `hub-config/`, and `target-data/` folders.
 3. we need to fetch any data that was previously recorded in the output branch
+4. we only need the configuration files from the dashboard
 
-To handle this, we have one job called `check` that will get the common
-information from the dashboard repository and use that for inputs for the
-`build-evals` and `build-forecasts` jobs.
+To handle this, we have one job called `check` that will fetch the dashboard
+repository once, compile information from the dashboard repository as outputs[^check-outputs],
+and save the configuration files together in an artifact. These are used as
+inputs for both the `build-evals` and `build-forecasts` jobs.
 
-From there, the process is similar to the `generate-site.yaml` workflow.
+[^check-outputs]: There are [quite a few outputs for the `check`
+    job](https://github.com/hubverse-org/hub-dashboard-control-room/blob/01750c9411484b51d92b884e29b8e46584208934/.github/workflows/generate-data.yaml#L52-L62)
+    and we are not showing all of them here because that would overwhelm the
+    diagram. Instead, we are showing a representative set of inputs that
+    defines the hub and dashboard repositories and the configuration file
+    artifacts. all
+
+From there, the process is similar to the `generate-site.yaml` workflow, except
+that we have a setup phase to gather information about the hub and then the
+`build-evals` and `build-forecasts` jobs run in parallel.
 
 
 ```{mermaid}
@@ -462,15 +473,15 @@ flowchart TD
         subgraph outputs/artifacts
             hub[/hub: cdcepi/FluSight-forecast-hub/]
             repo[/repo: reichlab/flusight-dashboard/]
-            cfg[/key: reichlab-flusight-dashboard/]
+            artifact[/reichlab-flusight-dashboard-cfg/]
         end
         subgraph artifacts
             eval-data[\"reichlab-flusight-dashboard-eval-data"\]
             forecast-data[\"reichlab-flusight-dashboard-forecast-data"\]
         end
         check --> outputs/artifacts
-        outputs/artifacts --> build-evals --> eval-data --> push-evals-data
-        outputs/artifacts --> build-forecasts --> forecast-data --> push-forecasts-data
+        outputs/artifacts -->|eval-ok: true| build-evals --> eval-data --> push-evals-data
+        outputs/artifacts -->|forecast-ok: true| build-forecasts --> forecast-data --> push-forecasts-data
     end
     org --> check
     dashboard --> check
@@ -487,7 +498,11 @@ key differences:
    target data) while `build-evals` only has one
 
 Taking those differences in mind, if we zoom into `build-evals`, we would find
-the following process:
+the following process[^build-evals-process]:
+
+[^build-evals-process]: similar to above, we are not showing all of the inputs
+  because they are often redundant. Here we are highlighting the `key` variable
+  that allows us to fetch and create artifacts that are specific to the build.
 
 ```{mermaid}
 :name: generate-data-evals
@@ -495,7 +510,7 @@ the following process:
 flowchart TD
     repo[/repo: reichlab/flusight-dashboard/]
     hub[/hub: cdcepi/FluSight-forecast-hub/]
-    cfg[/key: reichlab-flusight-dashboard/]
+    key[/key: reichlab-flusight-dashboard/]
     subgraph artifacts
         eval-data[\"reichlab-flusight-dashboard-eval-data"\]
     end
@@ -507,7 +522,7 @@ flowchart TD
         build-targets["Generate scores data"]
         upload-artifact["save scores data artifact"]
     end
-    cfg --> checkout-config --> check-branch -->|fetch == true| checkout-data --> clone-repo
+    key --> checkout-config --> check-branch -->|fetch == true| checkout-data --> clone-repo
     check-branch -->|fetch == false| clone-repo --> build-targets --> upload-artifact --> eval-data
     repo --> check-branch
     hub --> clone-repo
