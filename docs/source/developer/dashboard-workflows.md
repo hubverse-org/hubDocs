@@ -334,6 +334,49 @@ When discussing the workflows below **we will skip these steps.**
 
 :::
 
+:::{admonition} A legend for diagrams
+:class: note
+
+From here on out, we are going to rely heavily on diagrams to illustrate the
+workflows and we will use a few conventions:
+
+1. ribbon nodes (asymmetric nodes) are branches
+1. parallelograms pointing to the right are inputs
+1. parallelograms pionting to the left are outputs or artifacts
+   1. artifacts and outputs are often surrounded by their own boxes to indicate
+      that they persist beyond the job/workflow execution
+   1. output values will have a `key: ` label with the name of the output
+1. surrounding boxes determine the context and are labelled as such. A box that
+   is labelled with `workflow.yaml` is a workflow and nodes will be jobs and
+   their outputs
+1. rectangles inide of the boxes represents individual jobs or steps (depending on context)
+1. hexagons are special steps represent decision points or setup
+
+```{mermaid}
+:name: dashboard-diagram-legend
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph branches
+        main>"main"]
+        gh-pages>"gh-pages"]
+    end
+    input[/input/]
+    subgraph workflow.yaml
+        job/step
+        decision{{decision/setup}}
+    end
+    subgraph artifacts/outputs
+        artifact[\"artifact-name"\]
+        output[\"key: output-value"\]
+    end
+    external-repository ~~~ branches
+    input --> job/step --> artifact
+    job/step --> output
+```
+
+:::
+
+
 ### `generate-site.yaml`
 
 This workflow has one sequence of two jobs, build-site and push-site. The
