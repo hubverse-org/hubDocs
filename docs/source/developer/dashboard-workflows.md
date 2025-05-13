@@ -63,6 +63,12 @@ wants to update their home page, they should not have to wait for data to be
 rebuilt in order to make that change. Similarly, if the data are updated, it
 should not depend on a website build in order to be available.
 
+Another situation one will often encounter are pull requests to update the
+configuration files for a hub. In this case, it is important to explicitly test
+that the contents can be built, but not to deploy to prevent unexpected things
+from happening.
+
+
 ### Timing
 
 Given the rationale above, we would want to define timings for building the site
