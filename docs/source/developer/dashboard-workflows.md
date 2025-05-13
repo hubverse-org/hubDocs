@@ -146,7 +146,7 @@ branches](https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt--
 
 If you were to diagram this process from source to site, it would look like
 this. In this diagram, thick arrows represent `git push` events, thin arrows
-represent direct data sources and dashbed arrows represent remote data sources.
+represent direct data sources and dashboard arrows represent remote data sources.
 
 Notice that this is nearly identical to the [local workflow](#local-workflow)
 with the exception that now the data live in separate branches of the
@@ -268,7 +268,7 @@ There are three reusable workflows in the [control room](https://github.com/hubv
 
 1. `generate-site.yaml` builds the website and pushes it to the `gh-pages` branch
 1. `generate-data.yaml` builds both the forecast and eval data and pushes them to their respective branches in parallel.
-1. `push-things.yaml` pushes an to a specific branch. This is reusable workflow is only ever called by the previous two workflows.
+1. `push-things.yaml` pushes an to a specific branch. This reusable workflow is only ever called by the previous two workflows.
 
 Peering into the jobs defined in each workflow, we can see what they are doing.
 
