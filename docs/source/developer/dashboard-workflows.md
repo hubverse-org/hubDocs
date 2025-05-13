@@ -151,7 +151,7 @@ branches](https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt--
     data for the website.
 
 If you were to diagram this process from source to site, it would look like
-this. In this diagram, thick arrows represent `git push` events, thin arrows
+the diagram below. Here, thick arrows represent `git push` events, thin arrows
 represent direct data sources and dashboard arrows represent remote data sources.
 
 Notice that this is nearly identical to the [local workflow](#local-workflow)
@@ -195,7 +195,7 @@ starting point.
 ### Operations from the dashboard
 
 In practice, we realize that both the forecast and evals data are going
-to be built a the same time, so they actually exist in the same workflow and we
+to be built at the same time, so they actually exist in the same workflow and we
 can simplify the diagram a little bit more and introduce some workflow names:
 
 ```{mermaid}
