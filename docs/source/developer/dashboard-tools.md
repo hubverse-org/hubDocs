@@ -133,7 +133,7 @@ portable way to take care of that.
 : used for determining what metrics are available for a given output type, also
   provides the backend for hubEvals, so it's a "free" dependency.
 
-(dashboard-operations)=
+(dashboard-tools-operations)=
 ## Operations
 
 :::{admonition} This is platform-specific
@@ -169,8 +169,9 @@ Broadly important references (e.g. you will be reaching back to these often):
 
 - [**Choosing how to run a workflow**](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs). For example, we use a few scenarios: `schedule`, `push`, `workflow_dispatch` (human triggered) and `workflow_call` (workflows triggered from a separate repository).
 - [**Workflow syntax**](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#about-yaml-syntax-for-workflows)
-- [**Workflow commands**](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions) allows you to use values between job steps
+- [**Workflow commands**](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions), (especially "setting an output parameter")  allows you to use values between job steps
 - [**Evaluating expressions**](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/evaluate-expressions-in-workflows-and-actions). You will see things like `${{ fromJSON(steps.status.outputs.forecast-ok) || fromJSON(steps.status.outputs.eval-ok) }}`. This guide tells you what they mean and how to evaluate them.
+- [**Reusing workflows**](https://docs.github.com/en/actions/sharing-automations/reusing-workflows). In order to get the workflows in the hands of hub administrators without requiring them to understand and maintain complex bits of machinery, we create reusable workflows that can be run as individual jobs.
 
 
 ### Broad table of tasks and tools used for each
