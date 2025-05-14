@@ -1,9 +1,7 @@
 # The hubverse: open tools for collaborative modeling
 
-```{caution}
+```{admonition} 📣 We have a new landing page! 
 :class: warning
-
-📣 We have a new landing page!
 
 We have a new landing page at <https://hubverse.io/> that provides a general overview of The Hubverse. Over the next few weeks, we will be removing duplicated content from this site.
 ```
