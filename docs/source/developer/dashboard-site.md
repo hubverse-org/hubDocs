@@ -215,6 +215,7 @@ a `raw.githubusercontent.com` URL. For private hubs, data can be built locally
 and bundled with the site.
 
 
+(dashboard-site-image-build)=
 ## How the image is built
 
 The images is built using GitHub actions and [deployed to GitHub's container registry](https://github.com/hubverse-org/hub-dash-site-builder/pkgs/container/hub-dash-site-builder/406574245?tag=latest).

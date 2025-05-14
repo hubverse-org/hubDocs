@@ -69,9 +69,26 @@ of four time periods over 70 models.
 
 ## How the image is built
 
+The image is currently built by a single github workflow that will build and
+push a new version to the github container registry every time a push happens on
+main.
+
+This will change to the same [build process for the hub-dash-site-builder](#dashboard-site-image-build).
 
 ### Updating the dependencies
 
+We package this as a docker image because the process for installing R packages
+on GitHub workflows involves several steps and we want this to just work. This
+locks our container to a point in time with a specific R version.
+
+This means that with every release of `hubPredEvalsData`, we need to update the
+lockfile for the docker image.
+
+To update this image, make sure you have {renv} installed on your machine and
+then run `Rscript ./scripts/update.R`. This will update the lockfile and you can
+create a pull request for these results.
+
 ## Testing
 
-## References
+There are unit tests in `hubPredEvalsData`, but no formal tests for the image.
+
