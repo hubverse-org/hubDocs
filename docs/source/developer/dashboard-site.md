@@ -264,7 +264,10 @@ from the build image job will be redundant.
 ### Publish
 
 - **purpose**: publish the built docker image
-- **permissions**: read-all
+- **permissions**:
+  - contents: read (cannot write to the repository contents)
+  - packages: write (can create a docker image on ghcr.io)
+  - attestations: write (see below)
 - **runs on**: push of a tag that starts with "v" and a workflow dispatch from
   main where "publish" is selected
 
