@@ -1,13 +1,16 @@
 # Evaluations Dashboard
 
 The [evaluations dashboard](#dashboard-predevals) provides model evaluation scores
-for predictions. The interactivity in the dashboard is provided by the [predevals](https://github.com/hubverse-org/predevals) JavaScript module, which reads in a series of static The docker image
+for predictions. The interactivity in the dashboard is provided by the [predevals](https://github.com/hubverse-org/predevals) JavaScript module, which reads in CSV files and produces a
+dashboard interface to view charts and tables summarizing these files.
+
+The docker image
 [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker)
 provides a thin wrapper around the R Package
-[hubPredEvalsData](https://hubverse-org.github.io/hubPredEvalsData), which takes
-a configuration file and produces a series of hierarchically structured folders
-with CSV files that represent **scores disaggregated by target, time period,
-and task ID.** The resulting folder structure looks like the one below
+[hubPredEvalsData](https://hubverse-org.github.io/hubPredEvalsData), which
+takes a configuration file and produces a series of hierarchically structured
+folders with CSV files that represent **scores disaggregated by target, time
+period, and task ID.** The resulting folder structure looks like the one below
 
 ```{code-block}
 :emphasize-lines: 6-10
