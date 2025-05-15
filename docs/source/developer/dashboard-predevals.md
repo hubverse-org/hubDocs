@@ -63,9 +63,10 @@ docker run --rm -it --platform=linux/amd64 \
    -o "data/evals"
 ```
 
-The more models that exist in the data, the more slowly this operation will run.
-For the flusight hub, it currently takes over 20 minutes to run disaggregation
-of four time periods over 70 models.
+**This tool scales poorly with the respect to the number of models.** The more
+models that exist in the data, the more slowly this operation will run. For the
+flusight hub, it currently takes over 20 minutes to run disaggregation of four
+time periods over 70 models.
 
 ## How the image is built
 
@@ -75,7 +76,68 @@ main.
 
 This will change to the same [build process for the hub-dash-site-builder](#dashboard-site-image-build).
 
-### Updating the dependencies
+
+### Base image
+
+The base image is <https://github.com/hubverse-org/test-docker-hubUtils-dev/>,
+which in turn is based on the
+[rocker/r-ver](https://rocker-project.org/images/versioned/r-ver.html) docker
+images (see
+[hubverse-org/hubPredEvalsData-docker#9](https://github.com/hubverse-org/hubPredEvalsData-docker/issues/9)
+for future plans).
+
+The version of R is determined by the version of rocker/r-ver, which follows R
+releases and _emphasizes reproducibility_. This is an important point because
+**the decision of what tag to use for the base image has downstream impacts on
+what R packages are available.** The R versions follow semantic versioning rules
+and new minor or major versions of R are released every year in April. The best
+strategy for choosing the version for the base image is to use `rocker/r-ver:4`,
+which specifies that you use the latest non-breaking version of R, which will
+always use the latest version of CRAN. If you use a specific version (e.g.
+`rocker/r-ver:4.5`), you will be locked in to a snapshot of CRAN when the next
+version hits, which can lead to unexpected consequences (see below). For a
+table of snapshot dates, you can visit [the Versions
+wiki](https://github.com/rocker-org/rocker-versioned2/wiki/Versions).
+
+
+
+:::{admonition} A case study for not pinning a specific version of R
+:class: info
+
+If you choose a specific minor or patch version of R, then once the next
+version is released, you are locked into a snapshot of CRAN when that R was the
+latest version. This can lead to a situation where a newer version of a package
+is required, but that version was released _after_ CRAN released a new version,
+which would cause a "package not found" error.
+
+This was the situation we found ourselves in when implementing this fix
+[reichlab/operational-models#29](https://github.com/reichlab/operational-models/pull/29).
+
+:::
+
+
+### R Packages
+
+The R packages used are dicated by the `renv.lock` file in the repository. This
+file was manually generated with a modified [renv workflow](https://docs.posit.co/ide/user/ide/guide/environments/r/renv.html#workflow): `renv::init()` followed by
+`renv::install("hubverse-org/hubPredEvalsData")` and `renv::snapshot()`. The
+reason for the `renv::install()` step is because renv cannot infer what GitHub
+repository `hubPredEvalsData` belongs to.
+
+Because hubPredEvalsData is in a development version, it also brings in the
+development versions of these packages:
+
+```
+# GitHub ---------------------------------------------------------------------
+- hubData            [* -> hubverse-org/hubData]
+- hubEvals           [* -> hubverse-org/hubEvals]
+- hubPredEvalsData   [* -> hubverse-org/hubPredEvalsData]
+- hubUtils           [* -> hubverse-org/hubUtils]
+- scoringutils       [* -> epiforecasts/scoringutils]
+```
+
+
+### Updating the R package dependencies
 
 We package this as a docker image because the process for installing R packages
 on GitHub workflows involves several steps and we want this to just work. This
@@ -86,9 +148,9 @@ lockfile for the docker image.
 
 To update this image, make sure you have {renv} installed on your machine and
 then run `Rscript ./scripts/update.R`. This will update the lockfile and you can
-create a pull request for these results.
+create a pull request for these results. An example of a pull request with
+these changes can be found in [hubverse-org/hubPredEvalsData-docker#3](https://github.com/hubverse-org/hubPredEvalsData-docker/pull/3).
 
 ## Testing
 
 There are unit tests in `hubPredEvalsData`, but no formal tests for the image.
-
