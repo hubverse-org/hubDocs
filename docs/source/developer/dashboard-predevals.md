@@ -36,7 +36,7 @@ period, and task ID.** The resulting folder structure looks like the one below
 You can install the latest version of this tool with docker:
 
 ```bash
-docker pull ghcr.io/hubverse-org/hub-predevalsdata-docker:main
+docker pull ghcr.io/hubverse-org/hub-predevalsdata-docker:latest
 ```
 
 ## How the evaluations are built
@@ -58,7 +58,7 @@ mkdir -p data/evals
 
 docker run --rm -it --platform=linux/amd64 \
  -v "$(pwd)":"/project" \
- ghcr.io/hubverse-org/hubpredevalsdata-docker:main \
+ ghcr.io/hubverse-org/hubpredevalsdata-docker:latest \
  create-predevals-data.R \
    -h "hub" \
    -c "predevals-config.yml" \
@@ -73,12 +73,9 @@ time periods over 70 models.
 
 ## How the image is built
 
-The image is currently built by a single github workflow that will build and
-push a new version to the github container registry every time a push happens on
-main.
-
-This will change to the same [build process for the hub-dash-site-builder](#dashboard-site-image-build).
-
+This image is built every time a tagged release is created. It process that is
+nearly identical to the [build process for the
+hub-dash-site-builder](#dashboard-site-image-build).
 
 ### Base image
 
