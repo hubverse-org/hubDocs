@@ -327,14 +327,14 @@ step](#dashboard-local-setup), you can generate the data with these steps.
    ```
 2. download the docker image (note that the image name needs to be in all lower case)
    ```bash
-   docker pull --platform=linux/amd64 ghcr.io/hubverse-org/hubpredevalsdata-docker:main
+   docker pull --platform=linux/amd64 ghcr.io/hubverse-org/hubpredevalsdata-docker:latest
    ```
 3. Generate the evaluations.
    ```bash
    docker run --rm -it --platform=linux/amd64 \
      -v "$dash":"/project" \
      -v "$hub":"/hub" \
-     ghcr.io/hubverse-org/hubpredevalsdata-docker:main \
+     ghcr.io/hubverse-org/hubpredevalsdata-docker:latest \
      create-predevals-data.R \
        -h "/hub" \
        -c "predevals-config.yml" \
