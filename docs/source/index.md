@@ -1,6 +1,6 @@
 # The hubverse: open tools for collaborative modeling
 
-```{admonition} 📣 We have a new landing page! 
+```{admonition} 📣 We have a new landing page!
 :class: warning
 
 We have a new landing page at <https://hubverse.io/> that provides a general overview of The Hubverse. Over the next few weeks, we will be removing duplicated content from this site.
@@ -126,6 +126,7 @@ developer/dashboard-local.md
 developer/dashboard-site.md
 developer/dashboard-predevals.md
 developer/dashboard-workflows.md
+developer/dashboard-staging.md
 ```
 
 ```{toctree}
