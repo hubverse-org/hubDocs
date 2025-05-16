@@ -1,6 +1,6 @@
 # Evaluations Dashboard
 
-The [evaluations dashboard](#dashboard-predevals) provides model evaluation scores
+The evaluations dashboard provides model evaluation scores
 for predictions. The interactivity in the dashboard is provided by the [predevals](https://github.com/hubverse-org/predevals) JavaScript module, which reads in CSV files and produces a
 dashboard interface to view charts and tables summarizing these files.
 
@@ -79,36 +79,63 @@ hub-dash-site-builder](#dashboard-site-image-build).
 
 ### Base image
 
-The base image is <https://github.com/hubverse-org/test-docker-hubUtils-dev/>,
-which in turn is based on the
-[rocker/r-ver](https://rocker-project.org/images/versioned/r-ver.html) docker
-images (see
-[hubverse-org/hubPredEvalsData-docker#9](https://github.com/hubverse-org/hubPredEvalsData-docker/issues/9)
-for future plans).
+The base image is the
+[rocker/r-ver:4](https://rocker-project.org/images/versioned/r-ver.html) docker
+image because it allows us to use binaries from the Posit Package Manager
+(P3M), which increases the build time from 30 minutes down to 2 minutes. If a
+new major version of R is released, we will switch to use R version 5 after
+careful testing.
 
-The version of R is determined by the version of rocker/r-ver, which follows R
-releases and _emphasizes reproducibility_. This is an important point because
-**the decision of what tag to use for the base image has downstream impacts on
-what R packages are available.** The R versions follow semantic versioning rules
-and new minor or major versions of R are released every year in April. The best
-strategy for choosing the version for the base image is to use `rocker/r-ver:4`,
-which specifies that you use the latest non-breaking version of R, which will
-always use the latest version of CRAN. If you use a specific version (e.g.
-`rocker/r-ver:4.5`), you will be locked in to a snapshot of CRAN when the next
-version hits, which can lead to unexpected consequences (see below). For a
+#### Reproducibility vs production code
+
+Note that we are using the latest major version of R[^versioning]. The version
+of R is determined by the version of rocker/r-ver, which follows R releases and
+_emphasizes reproducibility_. This is an important point because **the decision
+of what tag to use for the base image has downstream impacts on what R packages
+are available** (see note below).
+
+The best strategy for choosing the version for the base image is to use
+`rocker/r-ver:4`, which specifies that you use the latest non-breaking version
+of R, which will always use the latest version of CRAN. If you use a specific
+version (e.g. `rocker/r-ver:4.5`), you will be locked in to a snapshot of CRAN
+when the next version hits, which can lead to unexpected consequences. For a
 table of snapshot dates, you can visit [the Versions
 wiki](https://github.com/rocker-org/rocker-versioned2/wiki/Versions).
 
+The R package ecosystem is a bit different than others. Unlike Python where
+packages are free to declare any subset of package versions (leading to a
+minefield of incompatibilities for any project with more than a few
+dependencies), packages in R declare minimum package versions and are expected
+to be _forwards compatible_ with its dependencies and the language itself.
+However, this is a bit at odds with the concept of reproducibility because you
+want to be able to produce the same result with the same data with the same
+software.
 
+The problem is that we are not looking for reproducibility because _production
+software does not operate in a strict reproducibility context._ Data are
+changing all the time and while we expect the software to be internally
+correct, we do not expect the exact same result with the same software and
+different data. Moreover, we want to be sure to fix any bugs that are latent in
+the system, which requires updating the software or even the dependencies. By
+using the latest major version release, then we can ensure that we can safely
+include updates when needed.
 
-:::{admonition} A case study for not pinning a specific version of R
+[^versioning]: R itself does not undergo a lot of churn. New minor versions are
+    expected to be backwards-compatible and are released every year in April.
+    The last time the major version changed was in April 2020 and before that
+    was April 2013. Because the gap between changes is longer than an average
+    Ph.D. dissertation, it's safe to assume that we can pin a specific major
+    version.
+
+:::{admonition} A case study for only pinning the major version of R
 :class: info
 
-If you choose a specific minor or patch version of R, then once the next
-version is released, you are locked into a snapshot of CRAN when that R was the
-latest version. This can lead to a situation where a newer version of a package
-is required, but that version was released _after_ CRAN released a new version,
-which would cause a "package not found" error.
+If you choose a specific minor or patch version of R (e.g. 4.4.2), then once
+the next version (4.4.3) is released, you are locked into a snapshot of CRAN
+when that 4.4.2 was the latest version (2025-02-27). This can lead to a
+situation where a newer version of a package is required, but that version was
+released _after_ CRAN released a new version, which would cause a "package not
+found" error.
 
 This was the situation we found ourselves in when implementing this fix
 [reichlab/operational-models#29](https://github.com/reichlab/operational-models/pull/29).
@@ -136,7 +163,6 @@ development versions of these packages:
 - scoringutils       [* -> epiforecasts/scoringutils]
 ```
 
-
 ### Updating the R package dependencies
 
 We package this as a docker image because the process for installing R packages
@@ -151,6 +177,40 @@ then run `Rscript ./scripts/update.R`. This will update the lockfile and you can
 create a pull request for these results. An example of a pull request with
 these changes can be found in [hubverse-org/hubPredEvalsData-docker#3](https://github.com/hubverse-org/hubPredEvalsData-docker/pull/3).
 
+#### Updating dependencies after a minor R version update
+
+After a minor R version update, it is important to run `renv::update()` so that
+all of the packages and version of R are updated to the latest major version.
+
+
 ## Testing
 
-There are unit tests in `hubPredEvalsData`, but no formal tests for the image.
+There are unit tests in `hubPredEvalsData`. There is an integration test in the
+github workflow that is built into the build workflow with the following steps:
+
+1. fetch the [flu metrocast hub](https://github.com/reichlab/flu-metrocast)
+2. fetch the [predevals-config from the dashboard repo](https://github.com/reichlab/metrocast-dashboard/blob/main/predevals-config.yml)
+3. load the latest version of this image and generate data, output into a
+   folder called `latest/`
+4. load the PR version of this image and generate data, output into a folder
+   called `new/`
+5. use [`scripts/test.R`](https://github.com/hubverse-org/hubPredEvalsData-docker/blob/main/scripts/test.R) from the container to compare the two outputs. It will
+   error if they are not equal.
+
+This is done twice during a pull request and once from the main branch and on
+releases. The idea behind the two tests comes from [the dashboard site builder
+test strategy](#dashboard-site-image-build). It is a way to balance the need
+for security and the need to update tests.
+
+- The first test uses the tests embedded in the current PR
+  - allows for updated expectations and more tests to be added
+- the second uses the tests from the current release
+  - prevents malicious intent by confirming the test suite from the source
+    container works as expected.
+  - this is allowed to fail if the tests are updated for a valid reason (as in
+    this case where there are no tests in the release).
+
+Once the PR is merged, then the tests are considered valid and we no longer need
+to run the second iteration.
+
+
