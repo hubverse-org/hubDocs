@@ -10,10 +10,14 @@ When staging dashboard changes, it is helpful to think about how the data flow
 from the source to the branches, which is illustrated by the simplified diagram
 below[^hub-source].
 
-[^hub-source]: This graph is simplified in the following ways: 1. in reality,
-    the inputs flow directly into the generate workflows. 2. data from the hub
-    is explicitly used in the `generate-data.yaml` workflow from the control
-    room, the hub is defined in `site-config.yml`
+[^hub-source]: This graph is simplified in the following ways: 1. The local
+    dashboard workflows, which call the control-room workflows are excluded from
+    this diagram because they act as a messenger, passing data downstream. 2.
+    data from the hub is explicitly used in the `generate-data.yaml` workflow
+    from the control room, the hub is defined in `site-config.yml`. 3. The
+    artifacts and branches generated from the workflows are performed in
+    parallel; generate-site.yaml generates the `site` and `gh-pages` artifact
+    and branch while generate-data.yaml generates the rest.
 
 ```{mermaid}
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
@@ -23,8 +27,6 @@ flowchart TD
         site-config.yaml[/site-config.yml/]
         predtimechart-config.yaml[/predtimechart-config.yml/]
         predevals-config.yaml[/predevals-config.yml/]
-        build-data.yaml
-        build-site.yaml
     end
     subgraph control-room
         generate-site.yaml
@@ -40,13 +42,13 @@ flowchart TD
         predevals/data>predevals/data]
         ptc/data>ptc/data]
     end
-    contents --> build-site.yaml
-    site-config.yaml --> build-site.yaml
-    site-config.yaml --> build-data.yaml
-    predevals-config.yaml --> build-data.yaml
-    predtimechart-config.yaml --> build-data.yaml
-    build-site.yaml --> generate-site.yaml --> artifacts
-    build-data.yaml --> generate-data.yaml --> artifacts
+    contents --> generate-site.yaml
+    site-config.yaml --> generate-site.yaml
+    site-config.yaml --> generate-data.yaml
+    predevals-config.yaml --> generate-data.yaml
+    predtimechart-config.yaml --> generate-data.yaml
+    generate-site.yaml --> artifacts
+    generate-data.yaml --> artifacts
     artifacts --> push-things.yaml --> dashboard-branches
 ```
 
