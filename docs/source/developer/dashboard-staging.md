@@ -2,11 +2,29 @@
 
 ## Introduction
 
+Any change to a dashboard component that adds a new feature should be staged
+before release; that is, you should test the changes on a copy of a dashboard
+and confirm the results are what you expected AND that nothing adverse happens
+for dashboards that opt out of new features.
+
+This is not an exact science and you should use your best judgement when moving
+changes into production. The dashboards do have a lot of moving pieces, but
+they are not infinite and not insurmountable. This chapter should give you a few
+scenarios you can use to piece together the process for confidently adding new
+features or fixing critical bugs in the dashboard workflow.
+
+:::{important}
+
 This chapter deals with what to do when you are staging changes to the
 dashboard. This incorporates elements from the [local dashboard
 workflow](./dashboard-local.md) and the [operational
 workflows](./dashboard-workflows.md), so it is _very important_ to be familiar
 with these resources before reading on.
+
+Staging is only appropriate after you have thoroughly confirmed with unit tests
+that the changes are expected to work.
+
+:::
 
 When staging dashboard changes, it is helpful to think about how the data flow
 from the source to the branches, which is illustrated by the diagram
@@ -78,12 +96,52 @@ start with the config file** and follow the arrows.
 | `predevals-config.yml`  | hubPredEvalsData-docker | `generate-data.yaml` | eval-data | predevals/data |
 | `predtimechart-config.yml`  | hub-dashboard-predtimechart | `generate-data.yaml` | forecast-data | ptc/data |
 
+For example, if you add a new option to `predtimechart-config.yml`, this means
+that the following sequence will need to be followed:
+
+1. implement change in new branch of
+   [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
+2. create new branch in the control room and modify
+   [`generate-data.yaml`](https://github.com/hubverse-org/hub-dashboard-control-room/tree/main/.github/workflows/generate-data.yaml)
+   to call the correct branch from hub-dashboard-predtimechart
+3. fork a dashboard repository, point its workflows to the new control room
+   branch
+4. generate the data
+5. generate the site and preview (NOTE: If the JavaScript component also
+   changes, you will need to preview the site locally)
+6. add the new option and repeat steps 4 and 5
+
 ## Broad steps for staging changes
 
 The process for staging changes looks a bit different depending on where you are
 in the workflow. There are broad steps that should be followed, depending on
 what you are changing.
 
+(staging-javascript)=
+### In JavaScript tools
+
+The JavaScript tools [PredTimeChart](https://github.com/reichlab/predtimechart)
+and [PredEvals](https://github.com/hubverse-org/predevals) are both tools that
+can be staged locally. For either of the tools, the steps to perform local
+staging is:
+
+1. create a new branch to implement the change
+2. implement the change and get a passing review on your pull request
+3. download the `gh-pages` branch of [any dashboard
+   repository](https://hubverse.io/tools/dashboards.html#examples) to your
+   local machine
+4. edit the first line of `resources/predtimechart.js` or
+   `resources/predevals_interface.js` so that the app pulls from your branch or
+   commit:
+   ```{code-block} diff
+   -import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js';
+   +import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@<branch-name>/dist/predtimechart.bundle.js';
+   ```
+5. in the root of the folder, run `python -m http.server 8080` and open a
+   browser to <http://localhost:8080>
+6. inspect the page and make sure that the page behaves as you expect.
+
+(staging-control-room)=
 ### In the control room
 
 Unless you are staging a patch update to a frontend tool that runs in the browser,
@@ -162,8 +220,61 @@ If a script changes, it builds off of the [the control room `push-things.yaml` w
    ```
 5. inspect the resulting page and artifacts
 
+
+(staging-tools)=
 ### In the toolchain
 
+Unless you test this locally, this requires you to also stage [the control room
+workflows](#staging-control-room). The general workflow for this looks like the
+following:
+
+1. create a pull request implementing the change
+2. confirm that it works on test data and locally
+3. set up [the control room workflows](#staging-control-room)
+4. point the control room workflows to install the unreleased tool
+5. test the output
+
+(staging-tools-ptc)=
+#### Staging hub-dashboard-predtimechart
+
+To stage changes to the hub-dashboard-predtimechart:
+
+1. implement change in new branch of
+   [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
+2. create new branch in the control room and modify
+   [`generate-data.yaml`](https://github.com/hubverse-org/hub-dashboard-control-room/tree/main/.github/workflows/generate-data.yaml) so that it points to your branch instead of `$latest`:
+   ```diff
+   - pip install "git+https://github.com/hubverse-org/hub-dashboard-predtimechart@$latest"
+   + pip install "git+https://github.com/hubverse-org/hub-dashboard-predtimechart@<branch-name>"
+   ```
+3. fork a dashboard repository, point its workflows to the new control room
+   branch
+4. generate the data
+5. generate the site and preview (NOTE: If the JavaScript component also
+   changes, you will need to preview the site locally)
+6. add the new option and repeat steps 4 and 5
+
+If you do not need to change any options in the control room, then you can
+delete the control room branch and the dashboard fork. However, **if arguments change**,
+then there will be a period of time that the workflows will not work because you
+need to release the update AND you need to update the control room right after.
+To ensure things go smoothly, use the following steps:
+
+0. **plan a time for the release and optionally announce it**
+1. release the new version hub-dashboard-predtimechart
+2. reset the control room's branch reference to hub-dashboard-predtimechart to be `$latest` (yes, the dollar sign is important for the workflow)
+3. reset any the references to the reusable workflows back to `@main`
+4. merge the control room branch to main and it will be live
+
+(staging-tools-predevals)=
+#### Staging hubPredEvalsData-docker
+
+TBC
+
+(staging-tools-stie)=
+#### Staging hub-dash-site-builder
+
+TBC
 
 ## What does it mean to stage changes?
 
@@ -242,12 +353,4 @@ website locally.
 There are some situations where you want to preview the website on a fork of a
 dashboard. You might want to do this if you have a breaking change and you need
 to modify a config file. This is more involved.
-
-## Performing the staging
-
-In order to stage changes, you need to identify what needs to be modified.
-
-## Using the app to generate artifacts
-
-## Using a fork of a dashboard
 
