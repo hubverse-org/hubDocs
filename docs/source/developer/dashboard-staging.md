@@ -1,5 +1,7 @@
 # Staging dashboard changes
 
+## Introduction
+
 This chapter deals with what to do when you are staging changes to the
 dashboard. This incorporates elements from the [local dashboard
 workflow](./dashboard-local.md) and the [operational
@@ -7,14 +9,12 @@ workflows](./dashboard-workflows.md), so it is _very important_ to be familiar
 with these resources before reading on.
 
 When staging dashboard changes, it is helpful to think about how the data flow
-from the source to the branches, which is illustrated by the simplified diagram
+from the source to the branches, which is illustrated by the diagram
 below[^hub-source].
 
 [^hub-source]: This graph is simplified in the following ways: 1. The local
     dashboard workflows, which call the control-room workflows are excluded from
-    this diagram because they act as a messenger, passing data downstream. 2.
-    data from the hub is explicitly used in the `generate-data.yaml` workflow
-    from the control room, the hub is defined in `site-config.yml`. 3. The
+    this diagram because they act as a messenger, passing data downstream. 2. The
     artifacts and branches generated from the workflows are performed in
     parallel; generate-site.yaml generates the `site` and `gh-pages` artifact
     and branch while generate-data.yaml generates the rest.
@@ -28,10 +28,8 @@ flowchart TD
         predtimechart-config.yaml[/predtimechart-config.yml/]
         predevals-config.yaml[/predevals-config.yml/]
     end
-    subgraph control-room
-        generate-site.yaml
-        generate-data.yaml
-    end
+    generate-site.yaml
+    generate-data.yaml
     subgraph artifacts
         site[\site\]
         eval-data[\eval-data\]
@@ -42,25 +40,130 @@ flowchart TD
         predevals/data>predevals/data]
         ptc/data>ptc/data]
     end
-    contents --> generate-site.yaml
-    site-config.yaml --> generate-site.yaml
-    site-config.yaml --> generate-data.yaml
-    predevals-config.yaml --> generate-data.yaml
-    predtimechart-config.yaml --> generate-data.yaml
+    subgraph tools
+        hub-dash-site-builder
+        hub-dashboard-predtimechart
+        hubPredEvalsData-docker
+    end
+
+    dashboard ~~~ tools
+    site-config.yaml ~~~ tools
+    predevals-config.yaml ==> generate-data.yaml
+    predtimechart-config.yaml ==> generate-data.yaml
+
+    contents -.-> generate-site.yaml
+    site-config.yaml ==> generate-site.yaml
+    site-config.yaml -.-> hub -.-> generate-data.yaml
+    hub-dash-site-builder --> generate-site.yaml
+
+    hub-dashboard-predtimechart --> generate-data.yaml
+    hubPredEvalsData-docker --> generate-data.yaml
+
     generate-site.yaml --> artifacts
     generate-data.yaml --> artifacts
-    artifacts --> push-things.yaml --> dashboard-branches
+
+    generate-site.yaml ==> push-things.yaml
+    generate-data.yaml ==> push-things.yaml
+
+    artifacts -.-> push-things.yaml ==> dashboard-branches
 ```
 
-I've arrange the diagram starting with the configuration files because in order
+I've arrange the diagram starting with the configuration files because **in order
 to know what pieces are affected by modification of a given tool, you should
-start with the config file and follow the arrows.
+start with the config file** and follow the arrows.
 
-| tool | configuration file | workflow | artifact | branch |
-| :--- | :----------------- | :------- | :------- | :----- |
-| hub-dash-site-builder | `site-config.yml` | `generate-site.yaml` | site | gh-pages |
-| hubPredEvalsData-docker | `predevals-config.yml` | `generate-data.yaml` | eval-data | predevals/data |
-| hub-dashboard-predtimechart | `predtimechart-config.yml` | `generate-data.yaml` | forecast-data | ptc/data |
+| configuration file  | tool | workflow | artifact | branch |
+| :-----------------  | :--- | :------- | :------- | :----- |
+| `site-config.yml`  | hub-dash-site-builder | `generate-site.yaml` | site | gh-pages |
+| `predevals-config.yml`  | hubPredEvalsData-docker | `generate-data.yaml` | eval-data | predevals/data |
+| `predtimechart-config.yml`  | hub-dashboard-predtimechart | `generate-data.yaml` | forecast-data | ptc/data |
+
+## Broad steps for staging changes
+
+The process for staging changes looks a bit different depending on where you are
+in the workflow. There are broad steps that should be followed, depending on
+what you are changing.
+
+### In the control room
+
+Unless you are staging a patch update to a frontend tool that runs in the browser,
+part of the staging will take place in [the control room](https://github.com/hubverse-org/hub-dashboard-control-room). There are three situations that you will find yourself staging,
+
+1. updates affecting [the control room generate workflows](#staging-control-room-generate)
+2. updates affecting [the control room `push-things.yaml` workflow](#staging-control-room-push)
+3. updates affecting [the control room scripts](#staging-control-room-scripts)
+
+
+(staging-control-room-generate)=
+#### Control room `generate-` workflows
+
+If you are modifying one of the `generate-data.yaml` or `generate-site.yaml`
+workflows in the control room, then:
+1. create a branch in the control room
+2. make the changes you need to change
+3. (**in a fork of a dashboard repository**), change the
+   `@main` tag for the reusable workflow to `@<branch-name>`
+   ```diff
+   -uses: hubverse-org/[...]/workflows/generate-site.yaml@main
+   +uses: hubverse-org/[...]/workflows/generate-site.yaml@<branch-name>
+   ```
+4. inspect the resulting page and artifacts
+
+(staging-control-room-push)=
+#### Control room `push-things.yaml` workflow
+
+This builds off of the [the control room generate workflows](#staging-control-room-generate).
+1. create a branch in the control room
+2. make the changes you need to change
+4. (**in the control room**) In the `generate-*` workflows, change the `push-things.yaml` workflows to use `@<branch-name>`:
+   ```diff
+   -uses: hubverse-org/[...]/workflows/push-things.yaml@main
+   +uses: hubverse-org/[...]/workflows/push-things.yaml@<branch-name>
+   ```
+4. (**in a fork of a dashboard repository**), change the
+   `@main` tag for the reusable workflow to `@<branch-name>`
+   ```diff
+   -uses: hubverse-org/[...]/workflows/generate-site.yaml@main
+   +uses: hubverse-org/[...]/workflows/generate-site.yaml@<branch-name>
+   ```
+5. inspect the resulting page and artifacts
+
+(staging-control-room-scripts)=
+#### Control room scripts
+
+If a script changes, it builds off of the [the control room `push-things.yaml` workflow](#staging-control-room-push):
+1. create a branch in the control room
+2. make the changes you need to change
+4. (**in the control room**) In the `generate-*` workflows, change the `push-things.yaml` workflows to use `@<branch-name>`:
+   ```diff
+   -uses: hubverse-org/[...]/workflows/push-things.yaml@main
+   +uses: hubverse-org/[...]/workflows/push-things.yaml@<branch-name>
+   ```
+4. (**in the control room**) In the `push-things.yaml` workflow, modify the `ref` key of the `checkout-this-here-repo-scripts` step:
+   ```{code-block} yaml
+   :lineno-start: 60
+   :emphasize-lines: 6
+   :caption: the `ref` key should point to the new branch
+        steps:
+          - id: checkout-this-here-repo-scripts
+            uses: actions/checkout@v4
+            with:
+              repository: hubverse-org/hub-dashboard-control-room
+              ref: <branch-name>
+              persist-credentials: false
+              sparse-checkout: |
+                scripts
+   ```
+4. (**in a fork of a dashboard repository**), change the
+   `@main` tag for the reusable workflow to `@<branch-name>`
+   ```diff
+   -uses: hubverse-org/[...]/workflows/generate-site.yaml@main
+   +uses: hubverse-org/[...]/workflows/generate-site.yaml@<branch-name>
+   ```
+5. inspect the resulting page and artifacts
+
+### In the toolchain
+
 
 ## What does it mean to stage changes?
 
