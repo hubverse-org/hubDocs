@@ -5,7 +5,7 @@ Reich, N. G., Lessler, J., Funk, S., Viboud, C., Vespignani, A., Tibshirani, R. 
 ```
 
 ```{admonition} Reference
-This [short paper on collaborative hubs] (https://ajph.aphapublications.org/doi/full/10.2105/AJPH.2022.306831) provides a thorough discussion of forecasting hubs for infectious diseases, including the reasoning behind them.
+This [short paper on collaborative hubs](https://ajph.aphapublications.org/doi/full/10.2105/AJPH.2022.306831) provides a thorough discussion of forecasting hubs for infectious diseases, including the reasoning behind them.
 ```
 
 In the early 2010s, there were many infectious disease forecasting models, but most were published months to years after the forecasted event. These models often had very different targets they were forecasting, such as weekly incidence, epidemic duration, monthly visits, and time of peak incidence. Additionally, the accuracy of these models was evaluated using very different metrics, such as the mean absolute error, median absolute error, and correlation. These factors made comparing forecast models fairly, consistently, and accurately very challenging. In a scoping review of influenza forecasting in human populations published in 2014, Chretien et al. concluded that:
