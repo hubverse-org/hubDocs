@@ -1,18 +1,5 @@
 # Staging dashboard changes
 
-## Introduction
-
-Any change to a dashboard component that adds a new feature should be staged
-before release; that is, you should test the changes on a copy of a dashboard
-and confirm the results are what you expected AND that nothing adverse happens
-for dashboards that opt out of new features.
-
-This is not an exact science and you should use your best judgement when moving
-changes into production. The dashboards do have a lot of moving pieces, but
-they are not infinite and not insurmountable. This chapter should give you a few
-scenarios you can use to piece together the process for confidently adding new
-features or fixing critical bugs in the dashboard workflow.
-
 :::{important}
 
 This chapter deals with what to do when you are staging changes to the
@@ -26,9 +13,61 @@ that the changes are expected to work.
 
 :::
 
+## Introduction
+
+Any change to a dashboard component that adds a new feature should be staged
+before release; that is, you should test the changes on a copy of a dashboard
+and confirm the results are what you expected AND that nothing adverse happens
+for dashboards that opt out of new features.
+
+**This is not an exact science and you should use your best judgement when
+moving changes into production.** The dashboards do have a lot of moving
+pieces, but they are not infinite and not insurmountable. This chapter should
+give you a few scenarios you can use to piece together the process for
+confidently adding new features or fixing critical bugs in the dashboard
+workflow.
+
+### Generic steps of the workflow
+
+An important concept to understand is that [the control
+room](https://github.com/hubverse-org/hub-dashboard-control-room) workflows are
+just that: workflows. They implement the [local dashboard
+workflow](./dashboard-workflow.md) and **push the individual outputs to
+branches of the repository.** In order to do that, they use the following steps:
+
+1. install the tool that's required
+2. download the dashboard configuration file
+3. download the additional resources needed
+4. run a the command to generate output
+5. push that output to a branch
+
+:::{admonition} Examples
+
+For example in building the forecast data, the steps are:
+
+1. install [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
+2. download `predtimechart-config.yml` and `site-config.yml` from the dashboard repo
+3. download the hub (defined in `site-config.yml`)
+4. run `ptc_generate_target_json_files` and `ptc_generate_json_files`
+5. save the output in the `ptc/data` branch and push it
+
+similarly, for building the site, the steps are:
+
+1. enter the [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder)
+2. download `site-config.yml` from the dashboard repo
+3. download the dashboard repo contents
+4. run `render.sh`
+5. save the output in the `gh-pages` branch and push it
+
+:::
+
+
+### Data flow
+
 When staging dashboard changes, it is helpful to think about how the data flow
-from the source to the branches, which is illustrated by the diagram
-below[^hub-source].
+from the source to the branches in [the control
+room](https://github.com/hubverse-org/hub-dashboard-control-room), which is
+illustrated by the diagram below[^hub-source].
 
 [^hub-source]: This graph is simplified in the following ways: 1. The local
     dashboard workflows, which call the control-room workflows are excluded from
@@ -143,7 +182,8 @@ staging is:
 6. inspect the page and make sure that the page behaves as you expect.
 
 The reason why these JavaScript tools can be staged locally is because they are
-loaded when someone visits the site.
+loaded when someone visits the site. The site builder does not know anything
+about the underlying JavaScript.
 
 ```{mermaid}
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
