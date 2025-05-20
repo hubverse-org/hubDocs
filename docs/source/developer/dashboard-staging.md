@@ -120,9 +120,9 @@ what you are changing.
 (staging-javascript)=
 ### In JavaScript tools
 
-The JavaScript tools [PredTimeChart](https://github.com/reichlab/predtimechart)
+**The JavaScript tools [PredTimeChart](https://github.com/reichlab/predtimechart)
 and [PredEvals](https://github.com/hubverse-org/predevals) are both tools that
-can be staged locally. For either of the tools, the steps to perform local
+can be staged locally.** For either of the tools, the steps to perform local
 staging is:
 
 1. create a new branch to implement the change
