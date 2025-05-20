@@ -137,6 +137,37 @@ start with the config file** and follow the arrows.
 | `predevals-config.yml`  | hubPredEvalsData-docker | `generate-data.yaml` | eval-data | predevals/data |
 | `predtimechart-config.yml`  | hub-dashboard-predtimechart | `generate-data.yaml` | forecast-data | ptc/data |
 
+## When to stage changes
+
+You will need to stage changes when any of the tools produces results whose
+structures diverge significantly from the output of the latest versions of the
+dashboard tools. The judgement of what a significant divergence is can be
+subjective, but a pretty clear checklist to consult is:
+
+ 1. Is there a new option that is available from the configuration file?
+ 1. Does the tool generate new files?
+ 1. Is a previously required option becoming optional?
+ 1. Are the arguments for the reusable workflows changing?
+ 1. Is a previously optional option becoming required? _(breaking)_
+ 1. Is the structure of the generated files changing? _(breaking)_
+
+**If the answer to any of the above questions is yes, then you need to stage
+changes before pushing a release.**
+
+:::{admonition} Not all changes need to be staged
+:class: note
+
+You might be able to think of situations that were not mentioned above. For
+example, addressing a bug fix for something that can easily be verified with
+internal tests does not absolutely need to fully stage changes for deployment.
+
+Sometimes a fix is urgent enough that you need to deploy without running through
+the staging. It's okay to do this if the change is small enough, but for large
+changes, you must stage the changes and verify that it works.
+
+:::
+
+
 (dashboard-staging-where)=
 ## Where to stage changes
 
@@ -450,7 +481,7 @@ If a script changes, it builds off of the [the control room `push-things.yaml` w
 5. inspect the resulting page and artifacts
 
 (staging-tools-ptc)=
-### In hub-dashboard-predtimechart
+### hub-dashboard-predtimechart
 
 To stage changes to the hub-dashboard-predtimechart from the control room:
 
@@ -482,90 +513,83 @@ To ensure things go smoothly, use the following steps:
 4. merge the control room branch to main and it will be live
 
 (staging-tools-predevals)=
-### Staging hubPredEvalsData-docker
+### hubPredEvalsData-docker
 
-TBC
+To stage changes to hubPredEvalsData-docker from the control room:
+
+1. implement change in
+   [hubPredEvalsData-docker](https://github.com/hubverse-org/hubPredEvalsData-docker)
+   and push to the `main` branch after testing.
+2. publish a new image from the main branch (note that only tags will create an official release, so this is safe to do)
+2. create new branch in the control room and modify
+   [`generate-data.yaml`](https://github.com/hubverse-org/hub-dashboard-control-room/tree/main/.github/workflows/generate-data.yaml) so that it points to the `main` branch instead of `latest`:
+   ```diff
+    runs-on: ubuntu-latest
+    container:
+   -  image: ghcr.io/hubverse-org/hubpredevalsdata-docker:latest
+   +  image: ghcr.io/hubverse-org/hubpredevalsdata-docker:main
+      ports:
+        - 80
+      volumes:
+        - ${{ github.workspace }}:/project
+   ```
+3. fork a dashboard repository, point its workflows to the new control room
+   branch
+4. generate the data
+5. generate the site and preview (NOTE: If the JavaScript component also
+   changes, you will need to preview the site locally)
+6. add the new option and repeat steps 4 and 5
+
+If you do not need to change any options in the control room, then you can
+delete the control room branch and the dashboard fork. However, **if arguments change**,
+then there will be a period of time that the workflows will not work because you
+need to release the update AND you need to update the control room right after.
+To ensure things go smoothly, use the following steps:
+
+0. **plan a time for the release and optionally announce it**
+1. release the new version hubPredEvalsData-docker
+2. reset the control room's branch reference to hubPredEvalsData-docker to be `:latest`
+3. reset any the references to the reusable workflows back to `@main`
+4. merge the control room branch to main and it will be live
+
 
 (staging-tools-stie)=
-### Staging hub-dash-site-builder
+### hub-dash-site-builder
 
-TBC
+To stage changes to hub-dash-site-bulder from the control room:
 
-## What does it mean to stage changes?
+1. implement change in
+   [hub-dash-site-bulder](https://github.com/hubverse-org/hub-dash-site-bulder)
+   and push to the `main` branch after testing.
+2. publish a new image from the main branch (note that only tags will create an official release, so this is safe to do)
+2. create new branch in the control room and modify
+   [`generate-site.yaml`](https://github.com/hubverse-org/hub-dashboard-control-room/tree/main/.github/workflows/generate-site.yaml) so that it points to the `main` branch instead of `latest`:
+   ```diff
+    runs-on: ubuntu-latest
+    container:
+   -  image: ghcr.io/hubverse-org/hub-dash-site-builder:latest
+   +  image: ghcr.io/hubverse-org/hub-dash-site-builder:main
+      ports:
+        - 80
+      volumes:
+        - ${{ github.workspace }}:/project
+   ```
+3. fork a dashboard repository, point its workflows to the new control room
+   branch
+4. (optional) generate the data
+5. generate the site and preview (NOTE: If the JavaScript component also
+   changes, you will need to preview the site locally)
+6. add the new option and repeat step 5
 
-The concept of staging changes is the same as a dress rehearsal for a play. You
-get all the players together and execute the performance exactly as you would if
-an audience were there. You are confirming everything is operating as expected
-and providing room for improvements if things go awry.
+If you do not need to change any options in the control room, then you can
+delete the control room branch and the dashboard fork. However, **if arguments change**,
+then there will be a period of time that the workflows will not work because you
+need to release the update AND you need to update the control room right after.
+To ensure things go smoothly, use the following steps:
 
-Similarly, since the dashboard is automatically deployed to any repository that
-uses it, it is important to confirm that changes to any components produce
-expected results and do not break the dashboards in production. To confirm
-this, it is important to create a branch in the control room that implements
-the changes and temporary dashboard website to preview. This website should
-adhere to these three descriptors:
-
-1. its workflows should point to an in-development branch of the control room
-2. it should implement any configuration file changes if necessary
-3. it should be relatively quick to test
-
-Once that is set up, you can let the website build and confirm that you are
-seeing the output you expect and confirm that you are not seeing any unexpected
-artifacts or behavior.
-
-## When to stage changes
-
-You will need to stage changes when any of the tools produces results whose
-structures diverge significantly from the output of the latest versions of the
-dashboard tools. The judgement of what a significant divergence is can be
-subjective, but a pretty clear checklist to consult is:
-
- 1. Is there a new option that is available from the configuration file?
- 1. Does the tool generate new files?
- 1. Is a previously required option becoming optional?
- 1. Are the arguments for the reusable workflows changing?
- 1. Is a previously optional option becoming required? _(breaking)_
- 1. Is the structure of the generated files changing? _(breaking)_
-
-**If the answer to any of the above questions is yes, then you need to stage
-changes before pushing a release.**
-
-:::{admonition} Not all changes need to be staged
-:class: note
-
-You might be able to think of situations that were not mentioned above. For
-example, addressing a bug fix for something that can easily be verified with
-internal tests does not absolutely need to fully stage changes for deployment.
-
-Another situation is if the arguments for the underlying tools change, but
-nothing about the input or output data change. Because everything is
-encapsulated in the GitHub workflows, it is sufficient to test the workflows
-using the GitHub app to confirm it works.
-
-Sometimes a fix is urgent enough that you need to deploy without running through
-the staging. It's okay to do this if the change is small enough, but for large
-changes, you must stage the changes and verify that it works.
-
-:::
-
-## Elements you can inspect
-
-There are two methods to verify that your changes are having the effect you want,
-inspecting the artifacts and previewing the website.
-
-### Inspecting the artifacts
-
-This method is the least invasive because you can run the workflows as a "dry
-run" and then download the github artifacts to make sure they look the way they
-should. If no configuration files need to change, this can be done directly from
-the control room with the hubDashboard GitHub app.
-
-If it's data that are changing, you can even use the artifacts to preview the
-website locally.
-
-### Previewing the website on a fork
-
-There are some situations where you want to preview the website on a fork of a
-dashboard. You might want to do this if you have a breaking change and you need
-to modify a config file. This is more involved.
+0. **plan a time for the release and optionally announce it**
+1. release the new version hub-dash-site-bulder
+2. reset the control room's branch reference to hub-dash-site-bulder to be `:latest`
+3. reset any the references to the reusable workflows back to `@main`
+4. merge the control room branch to main and it will be live
 
