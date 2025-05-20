@@ -18,7 +18,8 @@ that the changes are expected to work.
 Any change to a dashboard component that adds a new feature should be staged
 before release; that is, you should test the changes on a copy of a dashboard
 and confirm the results are what you expected AND that nothing adverse happens
-for dashboards that opt out of new features.
+for dashboards that opt out of new features. **This is a practice known as
+[integration testing](https://www.geeksforgeeks.org/software-engineering-integration-testing/).**
 
 **This is not an exact science and you should use your best judgement when
 moving changes into production.** The dashboards do have a lot of moving
@@ -27,19 +28,21 @@ give you a few scenarios you can use to piece together the process for
 confidently adding new features or fixing critical bugs in the dashboard
 workflow.
 
-### Generic steps of the workflow
+### Generic steps of workflow tools
 
-An important concept to understand is that [the control
+**An important concept to understand is that [the control
 room](https://github.com/hubverse-org/hub-dashboard-control-room) workflows are
-just that: workflows. They implement the [local dashboard
-workflow](./dashboard-workflow.md) and **push the individual outputs to
-branches of the repository.** In order to do that, they use the following steps:
+just that: workflows.** They implement the same basic steps as the [local
+dashboard workflow](./dashboard-local.md) and push the individual outputs to
+branches of the repository. In order to do that, they use the following steps:
 
 1. install the tool that's required
 2. download the dashboard configuration file
 3. download the additional resources needed
 4. run a the command to generate output
 5. push that output to a branch
+
+When thinking about staging the changes
 
 :::{admonition} Examples
 
@@ -60,7 +63,6 @@ similarly, for building the site, the steps are:
 5. save the output in the `gh-pages` branch and push it
 
 :::
-
 
 ### Data flow
 
@@ -135,27 +137,75 @@ start with the config file** and follow the arrows.
 | `predevals-config.yml`  | hubPredEvalsData-docker | `generate-data.yaml` | eval-data | predevals/data |
 | `predtimechart-config.yml`  | hub-dashboard-predtimechart | `generate-data.yaml` | forecast-data | ptc/data |
 
-For example, if you add a new option to `predtimechart-config.yml`, this means
-that the following sequence will need to be followed:
+## Where to stage changes
+
+Depending on the type of change happening, you have, broadly two options to
+stage the changes locally or in a remote build. In general, if nothing changes
+about _how_ the resource is built or provisioned, then you can do local staging.
+
+### Option 1: local staging
+
+This option is ideal for **changes that do not affect _how_ the resource is
+built or provisioned.** Doing remote staging involves the same steps as the
+local workflow except that you would install the development version of the tool
+you are testing.
+
+For example, if you add a new option to `predtimechart-config.yml`, you would
+follow this process:
 
 1. implement change in new branch of
    [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
-2. create new branch in the control room and modify
-   [`generate-data.yaml`](https://github.com/hubverse-org/hub-dashboard-control-room/tree/main/.github/workflows/generate-data.yaml)
-   to call the correct branch from hub-dashboard-predtimechart
-3. fork a dashboard repository, point its workflows to the new control room
-   branch
-4. generate the data
-5. generate the site and preview (NOTE: If the JavaScript component also
-   changes, you will need to [preview the site locally](#staging-javascript))
-6. add the new option and repeat steps 4 and 5
+   and install locally.
+2. create a local copy of a dashboard repository
+3. [generate the forecasts data](#dashboard-local-forecasts) with the
+   appropriate command
+4. inspect the output (check that no files are missing or added)
+5. [generate the site and preview](#dashboard-local-site) (NOTE: If the
+   JavaScript component also changes, you will need to [post-edit the
+   javascript components](#staging-javascript))
+6. add the new option to `predtimechart-config.yml` and repeat steps 3--5.
+
+### Option 2: remote staging
+
+This option is necessary for **changes that modify workflows, affect _how_
+the resource is built, and how the resource is provisioned**. Again, the root of
+this process is based in the local workflow, but now you also have to effectively
+make a copy of the dashboard AND a copy of the control room and connect them to
+the right places.
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph control-room
+        cro>"control-room (@main)"]
+        crf>"control-room (@test)"]
+    end
+    dash["dashboard"]
+    site["dashboard@gh-pages"]
+    dashf["user/dashboard"]
+    sitef["user/dashboard@gh-pages"]
+    art["artifact"]
+    artf["artifact"]
+    subgraph tool
+        toolv>"tool (@v1.1.1)"]
+        toolf>"tool (@main)"]
+    end
+    dash --> cro
+    toolv --> cro
+    cro --> art --> site
+    toolf --> crf
+    dashf --> crf
+    crf --> artf -->sitef
+
+```
+
+For example in late March 2025, we wanted to update the site builder to [v1.0.0](https://github.com/hubverse-org/hub-dash-site-builder/releases/tag/v1.0.0).
 
 
-## Broad steps for staging changes
 
-The process for staging changes looks a bit different depending on where you are
-in the workflow. There are broad steps that should be followed, depending on
-what you are changing.
+
+## Testing changes locally
+
 
 (staging-javascript)=
 ### In JavaScript tools
@@ -207,7 +257,7 @@ flowchart TD
 
 
 (staging-control-room)=
-### In the control room
+## In the control room
 
 Unless you are staging a patch update to a frontend tool that runs in the browser,
 part of the staging will take place in [the control room](https://github.com/hubverse-org/hub-dashboard-control-room). There are three situations that you will find yourself staging,
@@ -218,7 +268,7 @@ part of the staging will take place in [the control room](https://github.com/hub
 
 
 (staging-control-room-generate)=
-#### Control room `generate-` workflows
+### Control room `generate-` workflows
 
 If you are modifying one of the `generate-data.yaml` or `generate-site.yaml`
 workflows in the control room, then:
@@ -233,7 +283,7 @@ workflows in the control room, then:
 4. inspect the resulting page and artifacts
 
 (staging-control-room-push)=
-#### Control room `push-things.yaml` workflow
+### Control room `push-things.yaml` workflow
 
 This builds off of the [the control room generate workflows](#staging-control-room-generate).
 1. create a branch in the control room
@@ -252,7 +302,7 @@ This builds off of the [the control room generate workflows](#staging-control-ro
 5. inspect the resulting page and artifacts
 
 (staging-control-room-scripts)=
-#### Control room scripts
+### Control room scripts
 
 If a script changes, it builds off of the [the control room `push-things.yaml` workflow](#staging-control-room-push):
 1. create a branch in the control room
@@ -287,7 +337,7 @@ If a script changes, it builds off of the [the control room `push-things.yaml` w
 
 
 (staging-tools)=
-### In the toolchain
+## In the toolchain
 
 Unless you test this locally, this requires you to also stage [the control room
 workflows](#staging-control-room). The general workflow for this looks like the
