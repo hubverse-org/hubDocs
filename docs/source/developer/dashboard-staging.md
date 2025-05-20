@@ -111,6 +111,30 @@ that the following sequence will need to be followed:
    changes, you will need to preview the site locally)
 6. add the new option and repeat steps 4 and 5
 
+The reason why these JavaScript tools can be staged locally is because they are
+loaded when someone visits the site.
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph site
+        forecast.html
+        eval.html
+        subgraph resources
+            predtimechart.js
+            predevals_interface.js
+        end
+    end
+    hub-dash-site-builder -..->|render.sh| site
+    forecast.html -->|calls| predtimechart.js -->|loads| predtimechart["reichlab/predtimechart@v3"]
+    predtimechart.js -->|fetches| ptc/data[(ptc/data)]
+    predtimechart.js -->|updates| forecast.html
+    eval.html -->|calls| predevals_interface.js -->|loads| predevals["hubverse-org/predevals@v1"]
+    predevals_interface.js -->|fetches| predevals/data[(predevals/data)]
+    predevals_interface.js -->|updates| eval.html
+```
+
+
 ## Broad steps for staging changes
 
 The process for staging changes looks a bit different depending on where you are
