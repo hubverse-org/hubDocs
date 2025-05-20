@@ -232,7 +232,7 @@ Here we summarize some important limitations of the visualization functionality 
 
 If you are interested in using the PredTimeChart tool for a visualization but your use case doesn't satisfy these requirements, get in touch! We may be able to make updates to support your hub.
 
-(dashboard-predevals)=
+(dashboard-predevals-eval)=
 ## PredEvals evaluation (optional)
 
 The PredEvals module creates an interactive display of scores for predictions. Dashboard users can view overall scores in a table, or see heatmaps or line plots visualizing scores broken down by a task id variable.

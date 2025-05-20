@@ -143,7 +143,7 @@ with a link to it. However, the user has different options available to them.
    file](#dashboard-ptc), then the dashboard will include a forecast
    page.
  - **Evaluations**: if the user includes a [`predevals-config.yml`
-   file](#dashboard-predevals), then the dashboard will include an
+   file](#dashboard-predevals-eval), then the dashboard will include an
    evaluations page.
  - **Additional pages**: Any additional files included in `pages/` will be
    included in the site, so long as they are also declared in the
