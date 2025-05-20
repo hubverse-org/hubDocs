@@ -108,31 +108,8 @@ that the following sequence will need to be followed:
    branch
 4. generate the data
 5. generate the site and preview (NOTE: If the JavaScript component also
-   changes, you will need to preview the site locally)
+   changes, you will need to [preview the site locally](#staging-javascript))
 6. add the new option and repeat steps 4 and 5
-
-The reason why these JavaScript tools can be staged locally is because they are
-loaded when someone visits the site.
-
-```{mermaid}
-:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
-flowchart TD
-    subgraph site
-        forecast.html
-        eval.html
-        subgraph resources
-            predtimechart.js
-            predevals_interface.js
-        end
-    end
-    hub-dash-site-builder -..->|render.sh| site
-    forecast.html -->|calls| predtimechart.js -->|loads| predtimechart["reichlab/predtimechart@v3"]
-    predtimechart.js -->|fetches| ptc/data[(ptc/data)]
-    predtimechart.js -->|updates| forecast.html
-    eval.html -->|calls| predevals_interface.js -->|loads| predevals["hubverse-org/predevals@v1"]
-    predevals_interface.js -->|fetches| predevals/data[(predevals/data)]
-    predevals_interface.js -->|updates| eval.html
-```
 
 
 ## Broad steps for staging changes
@@ -164,6 +141,30 @@ staging is:
 5. in the root of the folder, run `python -m http.server 8080` and open a
    browser to <http://localhost:8080>
 6. inspect the page and make sure that the page behaves as you expect.
+
+The reason why these JavaScript tools can be staged locally is because they are
+loaded when someone visits the site.
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph site
+        forecast.html
+        eval.html
+        subgraph resources
+            predtimechart.js
+            predevals_interface.js
+        end
+    end
+    hub-dash-site-builder -..->|render.sh| site
+    forecast.html -->|calls| predtimechart.js -->|loads| predtimechart["reichlab/predtimechart@v3"]
+    predtimechart.js -->|fetches| ptc/data[(ptc/data)]
+    predtimechart.js -->|updates| forecast.html
+    eval.html -->|calls| predevals_interface.js -->|loads| predevals["hubverse-org/predevals@v1"]
+    predevals_interface.js -->|fetches| predevals/data[(predevals/data)]
+    predevals_interface.js -->|updates| eval.html
+```
+
 
 (staging-control-room)=
 ### In the control room
