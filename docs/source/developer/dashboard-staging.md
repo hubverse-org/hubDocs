@@ -137,18 +137,22 @@ start with the config file** and follow the arrows.
 | `predevals-config.yml`  | hubPredEvalsData-docker | `generate-data.yaml` | eval-data | predevals/data |
 | `predtimechart-config.yml`  | hub-dashboard-predtimechart | `generate-data.yaml` | forecast-data | ptc/data |
 
+(dashboard-staging-where)=
 ## Where to stage changes
 
 Depending on the type of change happening, you have, broadly two options to
 stage the changes locally or in a remote build. In general, if nothing changes
 about _how_ the resource is built or provisioned, then you can do local staging.
 
+(dashboard-staging-option1)=
 ### Option 1: local staging
 
 This option is ideal for **changes that do not affect _how_ the resource is
 built or provisioned.** Doing remote staging involves the same steps as the
-local workflow except that you would install the development version of the tool
+[local workflow](./dashboard-local.md) except that you would install the development version of the tool
 you are testing.
+
+:::{admonition} Local staging example
 
 For example, if you add a new option to `predtimechart-config.yml`, you would
 follow this process:
@@ -165,6 +169,9 @@ follow this process:
    javascript components](#staging-javascript))
 6. add the new option to `predtimechart-config.yml` and repeat steps 3--5.
 
+:::
+
+(dashboard-staging-option2)=
 ### Option 2: remote staging
 
 This option is necessary for **changes that modify workflows, affect _how_
@@ -172,6 +179,16 @@ the resource is built, and how the resource is provisioned**. Again, the root of
 this process is based in the local workflow, but now you also have to effectively
 make a copy of the dashboard AND a copy of the control room and connect them to
 the right places.
+
+:::{caution}
+
+This process is the most involved and it requires careful planning. If you want
+to avoid stepping into this process, the solution is to not make changes to the
+public interface to your application. If you want to update something to allow
+people to opt-in or opt-out of something, make it configurable via the
+configuration file.
+
+:::
 
 ```{mermaid}
 :config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
@@ -181,11 +198,11 @@ flowchart TD
         crf>"control-room (@test)"]
     end
     dash["dashboard"]
-    site["dashboard@gh-pages"]
+    site>"dashboard@gh-pages"]
     dashf["user/dashboard"]
-    sitef["user/dashboard@gh-pages"]
-    art["artifact"]
-    artf["artifact"]
+    sitef>"user/dashboard@gh-pages"]
+    art[\"artifact"\]
+    artf[\"artifact"\]
     subgraph tool
         toolv>"tool (@v1.1.1)"]
         toolf>"tool (@main)"]
@@ -196,11 +213,9 @@ flowchart TD
     toolf --> crf
     dashf --> crf
     crf --> artf -->sitef
-
 ```
 
-
-:::{admonition} Example
+:::{admonition} Remote staging example
 
 For example in late March 2025, we wanted to update the site builder to [v1.0.0](https://github.com/hubverse-org/hub-dash-site-builder/releases/tag/v1.0.0). This changed the interface so
 instead of positional BASH arguments, we used argument flags:
@@ -243,11 +258,12 @@ I then ran the workflows from the dashboard forks to confirm that the site was c
 
 :::
 
+## Local Staging strategies
 
-
-
-## Testing changes locally
-
+The following sections will cover local staging strategies based on what
+component you are modifying working. Note that you will often have to mix
+testing strategies. Please read [Where to stage
+changes](#dashboard-staging-where) for an overview.
 
 (staging-javascript)=
 ### In JavaScript tools
@@ -297,12 +313,68 @@ flowchart TD
     predevals_interface.js -->|updates| eval.html
 ```
 
+### Fetching orphan branches
+
+The data generation workflows may take into account data that have already been
+generated in order to save computational time. When you are staging locally, it
+is a good idea to mimic the state of the control room as best you can.
+
+Unlike the local workflow, the remote workflow stores the data in separate
+orphan branches that do not share history with the main branch of the
+repository. You can keep these branches local by using a [**git
+worktree**](https://git-scm.com/docs/git-worktree). This is a strategy that we
+use in the [site builder
+tests](https://github.com/hubverse-org/hub-dash-site-builder/blob/77f40021cfb473cbcf2c9986b6aa518af13d863d/tests/run.sh#L94-L95).
+
+
+The pattern for to add a git worktree is:
+
+```bash
+git worktree add --checkout <directory> <branch>
+```
+
+```{code-block} bash
+:emphasize-lines: 4-5
+git clone https://github.com/reichlab/metrocast-dashboard.git
+cd metrocast-dashboard
+mkdir -p data/
+git worktree add --checkout data/ptc ptc/data
+git worktree add --checkout data/predevals predevals/data
+```
+
+From here, you can generate the data and you can use git to see what changed.
+
+
+```bash
+tmp=$(mktemp -d)
+git clone https://github.com/reichlab/flu-metrocast.git "${tmp}"
+mkdir -p data/ptc/forecasts
+ptc_generate_json_files \
+  "${tmp}" \
+  predtimechart-config.yaml \
+  data/ptc/predtimechart-options.json \
+  data/ptc/forecasts
+```
+
+When you are done, you can remove the worktrees with
+
+```bash
+rm -rf data/
+git worktree prune
+```
+
+
+## Remote staging strategies
+
+The following sections will cover remote staging strategies based on what
+component you are modifying working. Note that you will often have to mix
+testing strategies. Please read [Where to stage
+changes](#dashboard-staging-where) for an overview.
 
 (staging-control-room)=
-## In the control room
+### In the control room
 
-Unless you are staging a patch update to a frontend tool that runs in the browser,
-part of the staging will take place in [the control room](https://github.com/hubverse-org/hub-dashboard-control-room). There are three situations that you will find yourself staging,
+There are three situations that you will find yourself staging,
 
 1. updates affecting [the control room generate workflows](#staging-control-room-generate)
 2. updates affecting [the control room `push-things.yaml` workflow](#staging-control-room-push)
@@ -310,7 +382,7 @@ part of the staging will take place in [the control room](https://github.com/hub
 
 
 (staging-control-room-generate)=
-### Control room `generate-` workflows
+#### Control room `generate-` workflows
 
 If you are modifying one of the `generate-data.yaml` or `generate-site.yaml`
 workflows in the control room, then:
@@ -325,7 +397,7 @@ workflows in the control room, then:
 4. inspect the resulting page and artifacts
 
 (staging-control-room-push)=
-### Control room `push-things.yaml` workflow
+#### Control room `push-things.yaml` workflow
 
 This builds off of the [the control room generate workflows](#staging-control-room-generate).
 1. create a branch in the control room
@@ -344,7 +416,7 @@ This builds off of the [the control room generate workflows](#staging-control-ro
 5. inspect the resulting page and artifacts
 
 (staging-control-room-scripts)=
-### Control room scripts
+#### Control room scripts
 
 If a script changes, it builds off of the [the control room `push-things.yaml` workflow](#staging-control-room-push):
 1. create a branch in the control room
@@ -377,24 +449,10 @@ If a script changes, it builds off of the [the control room `push-things.yaml` w
    ```
 5. inspect the resulting page and artifacts
 
-
-(staging-tools)=
-## In the toolchain
-
-Unless you test this locally, this requires you to also stage [the control room
-workflows](#staging-control-room). The general workflow for this looks like the
-following:
-
-1. create a pull request implementing the change
-2. confirm that it works on test data and locally
-3. set up [the control room workflows](#staging-control-room)
-4. point the control room workflows to install the unreleased tool
-5. test the output
-
 (staging-tools-ptc)=
-#### Staging hub-dashboard-predtimechart
+### In hub-dashboard-predtimechart
 
-To stage changes to the hub-dashboard-predtimechart:
+To stage changes to the hub-dashboard-predtimechart from the control room:
 
 1. implement change in new branch of
    [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
@@ -424,12 +482,12 @@ To ensure things go smoothly, use the following steps:
 4. merge the control room branch to main and it will be live
 
 (staging-tools-predevals)=
-#### Staging hubPredEvalsData-docker
+### Staging hubPredEvalsData-docker
 
 TBC
 
 (staging-tools-stie)=
-#### Staging hub-dash-site-builder
+### Staging hub-dash-site-builder
 
 TBC
 
