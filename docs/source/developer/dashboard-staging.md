@@ -199,7 +199,49 @@ flowchart TD
 
 ```
 
-For example in late March 2025, we wanted to update the site builder to [v1.0.0](https://github.com/hubverse-org/hub-dash-site-builder/releases/tag/v1.0.0).
+
+:::{admonition} Example
+
+For example in late March 2025, we wanted to update the site builder to [v1.0.0](https://github.com/hubverse-org/hub-dash-site-builder/releases/tag/v1.0.0). This changed the interface so
+instead of positional BASH arguments, we used argument flags:
+
+```{code-block} bash
+:caption: before, positional arguments
+bash /render.sh "$OWNER" "$REPO" "ptc/data" "" "$HAS_FORECASTS"
+```
+
+```{code-block} bash
+:caption: after, named arguments
+render.sh -u "$OWNER" -r "$REPO"
+```
+
+In order to test this, we needed to do the following
+
+1. build the image from the main branch
+2. create a branch in the control room that would reference this image and modify the commands
+3. create a fork of a dashboard that would point to this new branch in the control room
+
+
+After merging [the updated dockerfile with new tests and interface](https://github.com/hubverse-org/hub-dash-site-builder/pull/21) into the main branch of the repository, I created the docker image from the main branchby using the [Create, Test, and Publish Docker Image workflow](https://github.com/hubverse-org/hub-dash-site-builder/actions/workflows/build-container.yaml). Note that this docker image has the `main` tag[^image-name], but it is not published.
+
+[^image-name]: This was before we had fully ironed out the details of the docker publishing workflow, so the image tag is actually `znk-dispatch-fix-34`. I am writing this as if we had the workflow that we have now.
+
+Once I did that, I opened [hubverse-org/hub-dashboard-control-room#59](https://github.com/hubverse-org/hub-dashboard-control-room/pull/59) and then modified the workflow to use the new container and the new interface (see [hubverse-org/hub-dashboard-control-room@58628f0f4](https://github.com/hubverse-org/hub-dashboard-control-room/pull/59/commits/58628f0f4cef7e5c2cb5dc9455dc63235f47ec1d)).
+
+I think created a fork of the dashboard repositories and changed their `build-site.yaml` workflows to use the branch I was testing[^testing-branch]
+
+[^testing-branch]: In this process, I actually modified the workflow for the
+    app, ran it without pushing, and inspected the artifacts. This had the same
+    effect, but meant that I could test several repositories at once.
+
+```diff
+-uses: hubverse-org/hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@main
++uses: hubverse-org/hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@znk/use-release-hsdb/58
+```
+
+I then ran the workflows from the dashboard forks to confirm that the site was correctly generated.
+
+:::
 
 
 
