@@ -39,7 +39,7 @@ branches of the repository. In order to do that, they use the following steps:
 1. install the tool that's required
 2. download the dashboard configuration file
 3. download the additional resources needed
-4. run a the command to generate output
+4. run the command to generate output
 5. push that output to a branch
 
 When thinking about staging the changes
@@ -56,7 +56,7 @@ For example in building the forecast data, the steps are:
 
 similarly, for building the site, the steps are:
 
-1. enter the [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder)
+1. launch an interactive shell from the [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder)
 2. download `site-config.yml` from the dashboard repo
 3. download the dashboard repo contents
 4. run `render.sh`
@@ -127,7 +127,7 @@ flowchart TD
     artifacts -.-> push-things.yaml ==> dashboard-branches
 ```
 
-I've arrange the diagram starting with the configuration files because **in order
+I've arranged the diagram starting with the configuration files because **in order
 to know what pieces are affected by modification of a given tool, you should
 start with the config file** and follow the arrows.
 
@@ -268,13 +268,13 @@ In order to test this, we needed to do the following
 3. create a fork of a dashboard that would point to this new branch in the control room
 
 
-After merging [the updated dockerfile with new tests and interface](https://github.com/hubverse-org/hub-dash-site-builder/pull/21) into the main branch of the repository, I created the docker image from the main branchby using the [Create, Test, and Publish Docker Image workflow](https://github.com/hubverse-org/hub-dash-site-builder/actions/workflows/build-container.yaml). Note that this docker image has the `main` tag[^image-name], but it is not published.
+After merging [the updated dockerfile with new tests and interface](https://github.com/hubverse-org/hub-dash-site-builder/pull/21) into the main branch of the repository, I created the docker image from the main branch by using the [Create, Test, and Publish Docker Image workflow](https://github.com/hubverse-org/hub-dash-site-builder/actions/workflows/build-container.yaml). Note that this docker image has the `main` tag[^image-name], but it is not published.
 
 [^image-name]: This was before we had fully ironed out the details of the docker publishing workflow, so the image tag is actually `znk-dispatch-fix-34`. I am writing this as if we had the workflow that we have now.
 
 Once I did that, I opened [hubverse-org/hub-dashboard-control-room#59](https://github.com/hubverse-org/hub-dashboard-control-room/pull/59) and then modified the workflow to use the new container and the new interface (see [hubverse-org/hub-dashboard-control-room@58628f0f4](https://github.com/hubverse-org/hub-dashboard-control-room/pull/59/commits/58628f0f4cef7e5c2cb5dc9455dc63235f47ec1d)).
 
-I think created a fork of the dashboard repositories and changed their `build-site.yaml` workflows to use the branch I was testing[^testing-branch]
+I created a fork of the dashboard repositories and changed their `build-site.yaml` workflows to use the branch I was testing[^testing-branch]
 
 [^testing-branch]: In this process, I actually modified the workflow for the
     app, ran it without pushing, and inspected the artifacts. This had the same
