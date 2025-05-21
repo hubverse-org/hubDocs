@@ -42,7 +42,14 @@ branches of the repository. In order to do that, they use the following steps:
 4. run the command to generate output
 5. push that output to a branch
 
-When thinking about staging the changes
+When thinking about staging the changes, it is important to remember that there
+is not a one-size-fits-all process for this. You have to think holistically and
+look at the changes you want to make from the perspective of a hub administrator
+who just wants a dashboard for their hub that they don't have to futz with too
+much. From that perspective, it does not really matter how elegant the tools are
+as long as the workflows can run them. What matters is that the users have
+sensible defaults and options they can add or omit from their configuration
+files.
 
 :::{admonition} Examples
 
