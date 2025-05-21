@@ -234,7 +234,7 @@ it should be feasible to fetch the hub as a sparse clone (see the tip in
 :class: note
 
 In this exercise, we are building a dashboard from scratch. However, live dashboards
-only ever start from scratch once in their lifetimes. For the rest of their life,
+only ever start from scratch once in their lifetimes. For the rest of their lives,
 they are working with _existing data_. If you want to mimic the remote dashboard
 process, **you can fetch these data from [their remote
 sources](#dashboard-local-remote-data) first**.
