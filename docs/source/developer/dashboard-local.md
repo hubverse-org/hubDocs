@@ -132,6 +132,7 @@ has the following structure (showing folders only):
 | `dashboard/data/ptc` | data for the forecast visualization | hub-dashboard-predtimechart |
 
 :::{admonition} Differences in where the data live
+:name: dashboard-local-remote-data
 
 The output of this exercise will give us a dashboard website that is
 interactive and we can [upload to any webserver such as
@@ -140,13 +141,23 @@ within the `resources/` folder of the website, you effectively have **a
 snapshot of the website at a specific date**.
 
 In the [live flu metrocast dashboard](https://reichlab.io/metrocast-dashboard),
-the data live on separate branches and are updated weekly. This allows the data
-to be updated independently from the site.
+the data live on separate [orphan
+branches](https://git-scm.com/docs/git-checkout#Documentation/git-checkout.txt---orphanltnew-branchgt)[^orphan]
+and are updated weekly. This allows the data to be updated independently from
+the site.
 
 | data type | local website source | remote website source |
 | :-------- | :------------------- | :-------------------- |
-| forecasts | `_site/resources/forecasts` | `reichlab/metrocast-dashboard@ptc/data` |
-| evals | `_site/resources/evals` | `reichlab/metrocast-dashboard@predevals/data` |
+| forecasts | `_site/resources/forecasts` | [`reichlab/metrocast-dashboard@ptc/data`](https://github.com/reichlab/metrocast-dashboard/tree/ptc/data) |
+| evals | `_site/resources/evals` | [`reichlab/metrocast-dashboard@predevals/data`](https://github.com/reichlab/metrocast-dashboard/tree/predevals/data) |
+
+
+[^orphan]: An orphan branch is a special kind of branch in git that does not
+    contain any history related to the `main` branch. Orphan branches are
+    commonly used to store website contents that do not need the source code to
+    come along for the ride. In our case, we also use orphan branches to store
+    data for the website.
+
 :::
 
 
@@ -207,6 +218,7 @@ tree -d -L 4 -I 'epi*|site_libs' $tmp
 ```
 
 :::{admonition} Forward Thinking
+:class: tip
 
 We currently have both the hub and the dashboard sources in our temporary working folder.
 
@@ -214,6 +226,56 @@ At the moment, both data generation tools assume that the source data can only
 be accessed via cloning a hub. However, since we have S3 data available to us,
 it should be feasible to fetch the hub as a sparse clone (see the tip in
 <https://hubverse.io/quickstart/submit.html>) and fetch the data using S3.
+
+:::
+
+
+:::{admonition} Fetching data from the remote branches
+:class: note
+
+In this exercise, we are building a dashboard from scratch. However, live dashboards
+only ever start from scratch once in their lifetimes. For the rest of their lives,
+they are working with _existing data_. If you want to mimic the remote dashboard
+process, **you can fetch these data from [their remote
+sources](#dashboard-local-remote-data) first**.
+
+The key is to use a tool called [git worktrees](https://git-scm.com/docs/git-worktree) that will allow us to download individual branches into separate folders. The pattern for creating
+worktrees is:
+
+```
+git worktree add --checkout <path> <branch>
+```
+
+If you want to set up the data to use in this example, you can use the following
+code:
+
+```bash
+mkdir -p $dash/data
+# NOTE: -C argument tells git to enter a folder before executing.
+git -C $dash worktree add --checkout data/ptc ptc/data
+git -C $dash worktree add --checkout data/predevals predevals/data
+```
+
+When you are done, our example would look like this.
+
+```
+├── dashboard
+│   ├── data
+│   │   ├── evals # ....... reichlab/metrocast-dashboard@predevals/data
+│   │   │   └── scores
+│   │   └── ptc   # ....... reichlab/metrocast-dashboard@ptc/data
+│   │       ├── forecasts
+│   │       └── targets
+│   └── pages
+└── hub
+    ├── auxiliary-data
+    ├── hub-config
+    ├── model-metadata
+    ├── model-output
+    ├── raw-data
+    ├── src
+    └── target-data
+```
 
 :::
 
@@ -291,7 +353,6 @@ generation expects the data to be in the same folder.
 Once you are done, you will see a folder that looks similar to [the metrocast
 dashboard ptc/data
 branch](https://github.com/reichlab/metrocast-dashboard/tree/ptc/data).
-
 
 (dashboard-local-evals)=
 ### Generate evals (docker)
