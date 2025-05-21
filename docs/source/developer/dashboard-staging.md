@@ -292,7 +292,7 @@ I then ran the workflows from the dashboard forks to confirm that the site was c
 ## Local Staging strategies
 
 The following sections will cover local staging strategies based on what
-component you are modifying working. Note that you will often have to mix
+component you are modifying. Note that you will often have to mix
 testing strategies. Please read [Where to stage
 changes](#dashboard-staging-where) for an overview.
 
