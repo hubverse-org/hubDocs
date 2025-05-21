@@ -1,6 +1,6 @@
 # The hubverse: open tools for collaborative modeling
 
-```{admonition} 📣 We have a new landing page! 
+```{admonition} 📣 We have a new landing page!
 :class: warning
 
 We have a new landing page at <https://hubverse.io/> that provides a general overview of The Hubverse. Over the next few weeks, we will be removing duplicated content from this site.
@@ -65,7 +65,6 @@ The following are some of the active and public hubs using the hubverse
 :hidden:
 overview/who-uses-hubverse.md
 overview/who-we-are.md
-overview/history.md
 overview/scope.md
 overview/definitions.md
 overview/abbreviations.md
