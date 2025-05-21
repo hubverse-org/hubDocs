@@ -344,6 +344,40 @@ flowchart TD
     predevals_interface.js -->|updates| eval.html
 ```
 
+:::{admonition} Purge the cache on release of JavaScript modules
+:class: important
+
+
+The JavaScript components we provide to the webpage are known as _version
+aliased_ URLs, which is signified by the `@v3` for PredTimeChart or `@v1` for
+PredEvals. This means that the sites will always get the latest version up to
+that major version number. For example, if we release version 1.1.0 of PredEvals,
+then the users downstream will have that version delivered via the CDN, but if
+we turn around and release version 2.0.0, they will still get the 1.1.0 version.
+
+When you release a JavaScript module, <https://cdn.jsDeliver.com> will pick it
+up within 12 hours, but user machines can keep it cached for up to seven days.
+
+If you want your changes to show up near instantly, you can [purge jsDeliver's CDN cache](https://www.jsdelivr.com/tools/purge) by entering two URLs.
+
+The way to do this is to **paste the URLs in the browser and replace `cdn` with `purge`**.
+Note that you also need to do this for **the un-versioned URL** as well:
+
+```{code-block}
+:caption: URLs to clear the cache for PredTimeChart: copy and paste into your browser
+https://purge.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js
+https://purge.jsdelivr.net/gh/reichlab/predtimechart/dist/predtimechart.bundle.js
+```
+
+```{code-block}
+:caption: URLs to clear the cache for PredEvals: copy and paste into your browser
+https://purge.jsdelivr.net/gh/hubverse-org/predevals@v1/dist/predevals.bundle.js
+https://purge.jsdelivr.net/gh/hubverse-org/predevals/dist/predevals.bundle.js
+```
+
+:::
+
+
 ### Fetching orphan branches
 
 The data generation workflows may take into account data that have already been
