@@ -260,7 +260,7 @@ for compactness):
 
 ### Generating oracle output data
 
-A hub will typically have access to data in a time series format, and will
+A hub will typically have access to data in time series format, and will
 need to convert it to the **oracle output** format for use with any tools
 that require it in that format (see the next section). In hubs that
 collect mean, median, quantile, or sample predictions for the reported
