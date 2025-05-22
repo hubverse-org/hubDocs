@@ -419,8 +419,8 @@ Once I did that, I opened [hubverse-org/hub-dashboard-control-room#59](https://g
 
 I created a fork of the dashboard repositories and changed their `build-site.yaml` workflows to use the branch I was testing[^testing-branch]
 
-[^testing-branch]: In this process, I actually modified the workflow for the
-    app, ran it without pushing, and inspected the artifacts. This had the same
+[^testing-branch]: In this process, I did not create any forks. Instead, I [modified the workflow for the
+    app](https://github.com/hubverse-org/hub-dashboard-control-room/pull/59/commits/12c41a279fdcf70a8dde9878367edbc22690ae3b), ran it without pushing, and inspected the artifacts. This had the same
     effect, but meant that I could test several repositories at once.
 
 ```diff
@@ -429,6 +429,46 @@ I created a fork of the dashboard repositories and changed their `build-site.yam
 ```
 
 I then ran the workflows from the dashboard forks to confirm that the site was correctly generated.
+
+:::
+
+:::{admonition} Staging without forks with the GitHub App
+:class: note
+:name: dashboard-staging-app
+
+One tool that can help with staging is
+[hubDashboard](https://github.com/apps/hubDashboard). It was originally
+designed so that hub administrators could have a dashboard website without
+needing to maintain GitHub workflows. We no longer use it for this purpose.
+
+The app does two things:
+
+1. any repository owner can "install" the app on their repository, giving it
+   permissions to read and write repository contents
+2. we can authenticate as the app in the control room, and use it to generate a
+   temporary github PAT that will give us permissions to push to a repository
+   that has the app installed. We control a list of [known hubs](https://github.com/hubverse-org/hub-dashboard-control-room/blob/main/known-hubs.json) that have the app installed.
+
+Because of this, we have the following pattern:
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph repo-flow
+        subgraph dashboard
+            d[dashboard workflows]
+            s[dashboard-site]
+            t[token]
+        end
+        d[dashboard] -->|uses| c[control-room] -->|builds to| s
+        d[dashboard] -->|generates|t -->|used by| c
+    end
+    subgraph app-flow
+        app -->|installed on| dashboard
+        app -->|generates|token-->|used by| c
+        c -->|builds to| s
+    end
+```
 
 :::
 
