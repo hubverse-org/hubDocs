@@ -155,7 +155,7 @@ reported in a column called `as_of`. This will then accurately represent what da
 
 Hubverse tools will only validate columns that make up the unit of observation
 that match model task IDs. You may also include additional columns that have
-a 1:1 correspondence with the data, for example, a transformation of counts to
+a 1:1 correspondence with the data---for example, a transformation of counts to
 rates or a human-readable translation of codes.
 
 (target-oracle-output)=
