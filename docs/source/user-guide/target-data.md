@@ -229,7 +229,7 @@ example in `hubExamples`:
 
 In this example, the observed weekly influenza hospitalization count in
 MA on the week ending 2022-11-19 was 79. A probability distribution that
-places probability 1 on that outcome, will have all quantiles equal to
+places probability 1 on that outcome will have all quantiles equal to
 that observed value, so 79 appears as the `oracle_value` for the quantile
 outputs for that `location` and `target_end_date`. The use of `<NA>` for
 the `output_type_id` represents the fact that this `oracle_value` is
