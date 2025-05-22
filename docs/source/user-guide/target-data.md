@@ -351,7 +351,7 @@ Briefly, this example is for a hub with five task id variables:
 - The `target_end_date` is a date in ISO format that gives the Saturday
   ending the week being predicted. For example, if the `target_end_date`
   is `"2022-12-17"`, predictions are for a quantity relating to
-  influenza activity in the week from Sunday, December 11, 2022, through
+  influenza activity in the week from Sunday, December 11, 2022 through
   Saturday, December 17, 2022.
 - The `target` describes the target quantity for the prediction.
 
