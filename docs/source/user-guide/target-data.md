@@ -211,7 +211,7 @@ output](#formats-of-model-output) task ID and model output representation
 columns. This allows the two to be merged so that `value` can be compared
 and evaluated against the corresponding `oracle_value`. The important
 difference between the outputs is that the oracle output is necessarily going
-to have a subset of the task ID columns as the model output data, and, depending
+to have a subset of the task ID columns as the model output data and, depending
 on the hub, may not have either of the model output representation columns.
 
 (oracle-intro-example)=
