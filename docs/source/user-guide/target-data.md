@@ -375,7 +375,7 @@ each `output_type`. We highlight two points about these objects:
   `quantile`, and `sample` output types are all the same, and they
   contain `<NA>` values for the `output_type_id`. In a hub without `pmf`
   or `cdf` output types, the `output_type` and `output_type_id` columns
-  could be omitted, and this duplication could be eliminated.
+  could be omitted and this duplication could be eliminated.
 
 :::{note}
 
