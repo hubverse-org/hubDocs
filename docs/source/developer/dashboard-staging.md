@@ -456,11 +456,37 @@ workflows_](https://github.com/hubverse-org/hub-dashboard-control-room/blob/9b2e
 The only difference is that there is a job that will fetch repositories that
 has the app installed.
 
-The reason this works because the control room stores two secrets: the App ID `${{
-vars.APP_ID }}` and a private key `${{ secrets.PRIVATE KEY }}` (similar to your
+The reason this works because the control room stores two secrets: the App ID (`${{
+vars.APP_ID }}`) and a private key (`${{ secrets.PRIVATE KEY }}`) (similar to your
 SSH private key). These two items are passed as `secrets` to the reusable
 workflows and allows the control room workflows to authenticate as the app,
 which can generate a temporary PAT for any repository that installed it.
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph dashboard-workflow
+        db["dashboard repository"]
+        t["key: GITHUB_TOKEN"]
+        id["id: 'none'"]
+        c["reusable workflow"]
+        site
+        db --> t --> c
+        id --> c
+        c -->|token from GITHUB_TOKEN| site
+    end
+    subgraph app-workflow
+        adb["dashboard repository"]
+        app{app}
+        pk["key: PRIVATE_KEY"]
+        aid["id: APP_ID"]
+        ac["reusable workflow"]
+        asite["site"]
+        adb -->|installed| app
+        app --> pk --> ac
+        app --> aid --> ac -->|token generated from app| asite
+    end
+```
 
 The App was originally intended to be a way for dashboards to be built without
 requiring hub admins to worry about an extra workflow. Since we migrated to
