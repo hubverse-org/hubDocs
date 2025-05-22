@@ -103,7 +103,7 @@ Here, the unit of observation is a date and location pair. That is, for each dat
 In settings where a hub is working with multiple observed targets at
 each time point (e.g., cases, hospitalizations, and deaths), the values
 of those targets will be part of the unit of observation, with a column such as
-`target` indicates what quantity is reported in each row.
+`target`, indicating what quantity is reported in each row.
 
 
 ```{table} Time series data with target data included in the unit of observation
