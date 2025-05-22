@@ -438,7 +438,7 @@ If you want to change that schedule, you can use https://crontab.guru to find th
 
 If you find that your dashboard website is not building because GitHub actions
 are down or your hub is private (and thus cannot access any data), there are
-still ways to update your dashboard.
+still ways to update your dashboard. Two options are presented below.
 
 :::{admonition} Prerequisite knowledge
 
@@ -459,7 +459,7 @@ hosted on separate branches of the dashboard repository.
 | evaluations data | `predevals/data`    | <https://github.com/reichlab/hubPredEvalsData-docker> | `build-data.yaml` |
 
 In this strategy, `gh-pages` hosts the website, which is deployed to your
-repository's GitHub pages site. The `forecast.html` and `eval.html` pages of
+repository's GitHub Pages site. The `forecast.html` and `eval.html` pages of
 your site will then dynamically fetch the data from the `ptc/data` and
 `predevals/data` branches, respectively using GitHub's
 `raw.githubusercontent.com` service. This allows the data to be updated without
@@ -482,7 +482,7 @@ that contain the data generated if you want to inspect it by hand. If
 everything seems fine, then you can publish.
 
 For forecast data, you might encounter hiccups where you want to reset the
-data. In this case check the box that says **(Forecast) Regenerate
+data. In this case, check the box that says **(Forecast) Regenerate
 previously-recorded model output data?**
 
 #### Option 2: Manually update the branches
