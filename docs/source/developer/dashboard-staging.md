@@ -209,6 +209,142 @@ follow this process:
 
 :::
 
+The following sections will cover local staging strategies based on what
+component you are modifying. Note that you will often have to mix
+testing strategies.
+
+(staging-javascript)=
+#### In JavaScript tools
+
+**The JavaScript tools [PredTimeChart](https://github.com/reichlab/predtimechart)
+and [PredEvals](https://github.com/hubverse-org/predevals) are both tools that
+can be staged locally.** For either of the tools, the steps to perform local
+staging is:
+
+1. create a new branch to implement the change
+2. implement the change and get a passing review on your pull request
+3. download the `gh-pages` branch of [any dashboard
+   repository](https://hubverse.io/tools/dashboards.html#examples) to your
+   local machine
+4. edit the first line of `resources/predtimechart.js` or
+   `resources/predevals_interface.js` so that the app pulls from your branch or
+   commit:
+   ```{code-block} diff
+   -import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js';
+   +import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@<branch-name>/dist/predtimechart.bundle.js';
+   ```
+5. in the root of the folder, run `python -m http.server 8080` and open a
+   browser to <http://localhost:8080>
+6. inspect the page and make sure that the page behaves as you expect.
+
+The reason why these JavaScript tools can be staged locally is because they are
+loaded when someone visits the site. The site builder does not know anything
+about the underlying JavaScript.
+
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart TD
+    subgraph site
+        forecast.html
+        eval.html
+        subgraph resources
+            predtimechart.js
+            predevals_interface.js
+        end
+    end
+    hub-dash-site-builder -..->|render.sh| site
+    forecast.html -->|calls| predtimechart.js -->|loads| predtimechart["reichlab/predtimechart@v3"]
+    predtimechart.js -->|fetches| ptc/data[(ptc/data)]
+    predtimechart.js -->|updates| forecast.html
+    eval.html -->|calls| predevals_interface.js -->|loads| predevals["hubverse-org/predevals@v1"]
+    predevals_interface.js -->|fetches| predevals/data[(predevals/data)]
+    predevals_interface.js -->|updates| eval.html
+```
+
+:::{admonition} Purge the cache on release of JavaScript modules
+:class: important
+
+
+The JavaScript components we provide to the webpage are known as _version
+aliased_ URLs, which, at the time of writing, is signified by the `@v3` for PredTimeChart or `@v1` for
+PredEvals. This means that the sites will always get the latest version up to
+that major version number. For example, if we release version 1.1.0 of PredEvals,
+then the users downstream will have that version delivered via the CDN, but if
+we turn around and release version 2.0.0, they will still get the 1.1.0 version.
+
+When you release a JavaScript module, <https://cdn.jsDeliver.com> will pick it
+up within 12 hours, but user machines can keep it cached for up to seven days.
+
+If you want your changes to show up near instantly, you can [purge jsDeliver's CDN cache](https://www.jsdelivr.com/tools/purge) by entering two URLs.
+
+The way to do this is to **paste the URLs in the browser and replace `cdn` with `purge`**.
+Note that you also need to do this for **the un-versioned URL** as well:
+
+```{code-block}
+:caption: URLs to clear the cache for PredTimeChart: copy and paste into your browser
+https://purge.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js
+https://purge.jsdelivr.net/gh/reichlab/predtimechart/dist/predtimechart.bundle.js
+```
+
+```{code-block}
+:caption: URLs to clear the cache for PredEvals: copy and paste into your browser
+https://purge.jsdelivr.net/gh/hubverse-org/predevals@v1/dist/predevals.bundle.js
+https://purge.jsdelivr.net/gh/hubverse-org/predevals/dist/predevals.bundle.js
+```
+
+:::
+
+
+#### Accessing pre-built data
+
+The data generation workflows may take into account data that have already been
+generated in order to save computational time. When you are staging locally, it
+is a good idea to mimic the state of the control room as best you can.
+
+Unlike the local workflow, the remote workflow stores the data in separate
+orphan branches that do not share history with the main branch of the
+repository. You can keep these branches local by using a [**git
+worktree**](https://git-scm.com/docs/git-worktree). This is a strategy that we
+use in the [site builder
+tests](https://github.com/hubverse-org/hub-dash-site-builder/blob/77f40021cfb473cbcf2c9986b6aa518af13d863d/tests/run.sh#L94-L95).
+
+
+The pattern to add a git worktree is:
+
+```bash
+git worktree add --checkout <directory> <branch>
+```
+
+```{code-block} bash
+:emphasize-lines: 4-5
+git clone https://github.com/reichlab/metrocast-dashboard.git
+cd metrocast-dashboard
+mkdir -p data/
+git worktree add --checkout data/ptc ptc/data
+git worktree add --checkout data/predevals predevals/data
+```
+
+From here, you can generate the data and you can use git to see what changed.
+
+
+```bash
+tmp=$(mktemp -d)
+git clone https://github.com/reichlab/flu-metrocast.git "${tmp}"
+mkdir -p data/ptc/forecasts
+ptc_generate_json_files \
+  "${tmp}" \
+  predtimechart-config.yaml \
+  data/ptc/predtimechart-options.json \
+  data/ptc/forecasts
+```
+
+When you are done, you can remove the worktrees with
+
+```bash
+rm -rf data/
+git worktree prune
+```
+
 (dashboard-staging-option2)=
 ### Option 2: remote staging
 
@@ -296,155 +432,13 @@ I then ran the workflows from the dashboard forks to confirm that the site was c
 
 :::
 
-## Local Staging strategies
-
-The following sections will cover local staging strategies based on what
-component you are modifying. Note that you will often have to mix
-testing strategies. Please read [Where to stage
-changes](#dashboard-staging-where) for an overview.
-
-(staging-javascript)=
-### In JavaScript tools
-
-**The JavaScript tools [PredTimeChart](https://github.com/reichlab/predtimechart)
-and [PredEvals](https://github.com/hubverse-org/predevals) are both tools that
-can be staged locally.** For either of the tools, the steps to perform local
-staging is:
-
-1. create a new branch to implement the change
-2. implement the change and get a passing review on your pull request
-3. download the `gh-pages` branch of [any dashboard
-   repository](https://hubverse.io/tools/dashboards.html#examples) to your
-   local machine
-4. edit the first line of `resources/predtimechart.js` or
-   `resources/predevals_interface.js` so that the app pulls from your branch or
-   commit:
-   ```{code-block} diff
-   -import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js';
-   +import App from 'https://cdn.jsdelivr.net/gh/reichlab/predtimechart@<branch-name>/dist/predtimechart.bundle.js';
-   ```
-5. in the root of the folder, run `python -m http.server 8080` and open a
-   browser to <http://localhost:8080>
-6. inspect the page and make sure that the page behaves as you expect.
-
-The reason why these JavaScript tools can be staged locally is because they are
-loaded when someone visits the site. The site builder does not know anything
-about the underlying JavaScript.
-
-```{mermaid}
-:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
-flowchart TD
-    subgraph site
-        forecast.html
-        eval.html
-        subgraph resources
-            predtimechart.js
-            predevals_interface.js
-        end
-    end
-    hub-dash-site-builder -..->|render.sh| site
-    forecast.html -->|calls| predtimechart.js -->|loads| predtimechart["reichlab/predtimechart@v3"]
-    predtimechart.js -->|fetches| ptc/data[(ptc/data)]
-    predtimechart.js -->|updates| forecast.html
-    eval.html -->|calls| predevals_interface.js -->|loads| predevals["hubverse-org/predevals@v1"]
-    predevals_interface.js -->|fetches| predevals/data[(predevals/data)]
-    predevals_interface.js -->|updates| eval.html
-```
-
-:::{admonition} Purge the cache on release of JavaScript modules
-:class: important
-
-
-The JavaScript components we provide to the webpage are known as _version
-aliased_ URLs, which, at the time of writing, is signified by the `@v3` for PredTimeChart or `@v1` for
-PredEvals. This means that the sites will always get the latest version up to
-that major version number. For example, if we release version 1.1.0 of PredEvals,
-then the users downstream will have that version delivered via the CDN, but if
-we turn around and release version 2.0.0, they will still get the 1.1.0 version.
-
-When you release a JavaScript module, <https://cdn.jsDeliver.com> will pick it
-up within 12 hours, but user machines can keep it cached for up to seven days.
-
-If you want your changes to show up near instantly, you can [purge jsDeliver's CDN cache](https://www.jsdelivr.com/tools/purge) by entering two URLs.
-
-The way to do this is to **paste the URLs in the browser and replace `cdn` with `purge`**.
-Note that you also need to do this for **the un-versioned URL** as well:
-
-```{code-block}
-:caption: URLs to clear the cache for PredTimeChart: copy and paste into your browser
-https://purge.jsdelivr.net/gh/reichlab/predtimechart@v3/dist/predtimechart.bundle.js
-https://purge.jsdelivr.net/gh/reichlab/predtimechart/dist/predtimechart.bundle.js
-```
-
-```{code-block}
-:caption: URLs to clear the cache for PredEvals: copy and paste into your browser
-https://purge.jsdelivr.net/gh/hubverse-org/predevals@v1/dist/predevals.bundle.js
-https://purge.jsdelivr.net/gh/hubverse-org/predevals/dist/predevals.bundle.js
-```
-
-:::
-
-
-### Accessing pre-built data
-
-The data generation workflows may take into account data that have already been
-generated in order to save computational time. When you are staging locally, it
-is a good idea to mimic the state of the control room as best you can.
-
-Unlike the local workflow, the remote workflow stores the data in separate
-orphan branches that do not share history with the main branch of the
-repository. You can keep these branches local by using a [**git
-worktree**](https://git-scm.com/docs/git-worktree). This is a strategy that we
-use in the [site builder
-tests](https://github.com/hubverse-org/hub-dash-site-builder/blob/77f40021cfb473cbcf2c9986b6aa518af13d863d/tests/run.sh#L94-L95).
-
-
-The pattern to add a git worktree is:
-
-```bash
-git worktree add --checkout <directory> <branch>
-```
-
-```{code-block} bash
-:emphasize-lines: 4-5
-git clone https://github.com/reichlab/metrocast-dashboard.git
-cd metrocast-dashboard
-mkdir -p data/
-git worktree add --checkout data/ptc ptc/data
-git worktree add --checkout data/predevals predevals/data
-```
-
-From here, you can generate the data and you can use git to see what changed.
-
-
-```bash
-tmp=$(mktemp -d)
-git clone https://github.com/reichlab/flu-metrocast.git "${tmp}"
-mkdir -p data/ptc/forecasts
-ptc_generate_json_files \
-  "${tmp}" \
-  predtimechart-config.yaml \
-  data/ptc/predtimechart-options.json \
-  data/ptc/forecasts
-```
-
-When you are done, you can remove the worktrees with
-
-```bash
-rm -rf data/
-git worktree prune
-```
-
-
-## Remote staging strategies
 
 The following sections will cover remote staging strategies based on what
 component you are modifying working. Note that you will often have to mix
-testing strategies. Please read [Where to stage
-changes](#dashboard-staging-where) for an overview.
+testing strategies.
 
 (staging-control-room)=
-### In the control room
+#### In the control room
 
 There are three situations that you will find yourself staging,
 
@@ -454,7 +448,7 @@ There are three situations that you will find yourself staging,
 
 
 (staging-control-room-generate)=
-#### Control room `generate-` workflows
+##### Control room `generate-` workflows
 
 If you are modifying one of the `generate-data.yaml` or `generate-site.yaml`
 workflows in the control room, then:
@@ -469,7 +463,7 @@ workflows in the control room, then:
 4. inspect the resulting page and artifacts
 
 (staging-control-room-push)=
-#### Control room `push-things.yaml` workflow
+##### Control room `push-things.yaml` workflow
 
 This builds off of the [the control room generate workflows](#staging-control-room-generate).
 1. create a branch in the control room
@@ -488,7 +482,7 @@ This builds off of the [the control room generate workflows](#staging-control-ro
 5. inspect the resulting page and artifacts
 
 (staging-control-room-scripts)=
-#### Control room scripts
+##### Control room scripts
 
 If a script changes, it builds off of the [the control room `push-things.yaml` workflow](#staging-control-room-push):
 1. create a branch in the control room
@@ -522,7 +516,7 @@ If a script changes, it builds off of the [the control room `push-things.yaml` w
 5. inspect the resulting page and artifacts
 
 (staging-tools-ptc)=
-### hub-dashboard-predtimechart
+#### hub-dashboard-predtimechart
 
 To stage changes to the hub-dashboard-predtimechart from the control room:
 
@@ -554,7 +548,7 @@ To ensure things go smoothly, use the following steps:
 4. merge the control room branch to main and it will be live
 
 (staging-tools-predevals)=
-### hubPredEvalsData-docker
+#### hubPredEvalsData-docker
 
 To stage changes to hubPredEvalsData-docker from the control room:
 
@@ -595,7 +589,7 @@ To ensure things go smoothly, use the following steps:
 
 
 (staging-tools-stie)=
-### hub-dash-site-builder
+#### hub-dash-site-builder
 
 To stage changes to hub-dash-site-bulder from the control room:
 
