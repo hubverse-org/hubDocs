@@ -14,11 +14,11 @@ These data come in two forms:
    been known ahead of time.
 
 Hubverse tools like [hubVis](https://hubverse-org.github.io/hubVis) make use of
-the time series data for visualizations while other hubverse tools like
+the time series data for visualizations, while other hubverse tools like
 [hubEvals](https://hubverse-org.github.io/hubEvals) and
 [hubEnsembles](https://hubverse-org.github.io/hubEnsembles) make use of the
 oracle output data for model evaluations. We describe these formats briefly
-here, and give more detail about the oracle outputs in the remainder of this
+here and give more details about the oracle outputs in the remainder of this
 document.
 
 [^truth]: Time series data is sometimes referred to as "ground truth" data, but
@@ -28,7 +28,7 @@ document.
 
 Each data format is useful for different purposes (see table below).
 Modelers will most often estimate model parameters by fitting to the raw
-data in time series format. Both data formats may be useful for
+data in time series format. Both data formats may be helpful for
 different kinds of data visualizations; for example, a plot of time
 series predictions in quantile format may use the raw time series data,
 while a plot of pmf predictions for a categorical target may use the
@@ -48,7 +48,7 @@ Both the *time series* and *oracle output* data are found in [the `target-data/`
 directory of a hub](#structure-data-and-code) with the following conventions:
 
 1. time series data MUST be named `time-series`
-2. oracle output data MUST is named `oracle-output`
+2. oracle output data MUST be named `oracle-output`
 3. files MUST be _either_ `*.csv` or `*.parquet`
 4. CSV files MUST be a single continuous file named either `time-series.csv` or
   `oracle-output.csv`
@@ -83,7 +83,7 @@ target-data/
 ## Time series
 
 The first format is *time series* data. This is often the native or
-"raw" format for data. Each row of the data set is a **unit of observation** and the columns consist of:
+"raw" format for data. Each row of the data set is a **unit of observation**, and the columns consist of:
 
 1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date.
 2. an `observation` column that records the observed value
@@ -99,11 +99,11 @@ Massachusetts (FIPS code 25), drawn from the forecasting example in
 | 2022-12-03 | 25       |         446 |
 | 2022-12-10 | 25       |         578 |
 
-Here, the unit of observation is a date and location pair. That is, for each date and location there is a single observed value.
+Here, the unit of observation is a date and location pair. That is, for each date and location, there is a single observed value.
 In settings where a hub is working with multiple observed targets at
 each time point (e.g., cases, hospitalizations, and deaths), the values
 of those targets will be part of the unit of observation, with a column such as
-`target` indicating what quantity is reported in each row.
+`target`, indicating what quantity is reported in each row.
 
 
 ```{table} Time series data with target data included in the unit of observation
@@ -125,7 +125,7 @@ of those targets will be part of the unit of observation, with a column such as
 
 Time series data are expected to be compiled from an authoritative upstream
 data source after each target date.
-Because of reporting delays the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
+Because of reporting delays, the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
 
 ```{table} Data recorded on December 3 for December 3 shows an observation of 420
 | *as\_of*     | date       | location | observation |
@@ -155,7 +155,7 @@ reported in a column called `as_of`. This will then accurately represent what da
 
 Hubverse tools will only validate columns that make up the unit of observation
 that match model task IDs. You may also include additional columns that have
-a 1:1 correspondence with the data, for example a transformation of counts to
+a 1:1 correspondence with the data---for example, a transformation of counts to
 rates or a human-readable translation of codes.
 
 (target-oracle-output)=
@@ -175,7 +175,7 @@ with three main differences:
   be a subset of the columns of valid model output for the hub, with
   just those columns that are needed to correctly align `oracle_value`s
   with the corresponding predicted `value`s produced by modelers.
-  We introduce some conventions to avoid duplication of data, described
+  We introduce some conventions to avoid duplication of data, as described
   in more detail below.
 
 <!--
@@ -230,7 +230,7 @@ example in `hubExamples`:
 In this example, the observed weekly influenza hospitalization count in
 MA on the week ending 2022-11-19 was 79. A probability distribution that
 places probability 1 on that outcome will have all quantiles equal to
-that observed value, so 79 appears as the `oracle_value` for quantile
+that observed value, so 79 appears as the `oracle_value` for the quantile
 outputs for that `location` and `target_end_date`. The use of `<NA>` for
 the `output_type_id` represents the fact that this `oracle_value` is
 relevant for all quantile levels; this convention will be described in
@@ -267,7 +267,7 @@ collect mean, median, quantile, or sample predictions for the reported
 signal values in the raw time series data, the two formats may be
 essentially the same, perhaps with some renaming of columns. However,
 these data formats will differ more in hubs that form predictions for quantities
-that are derived from the the raw time series data, such as the peak time or
+that are derived from the raw time series data, such as the peak time or
 peak incidence, and in hubs that collect pmf or cdf predictions.
 
 
@@ -295,7 +295,7 @@ one scenario for an observed event[^quanta].
 ### Model output representation columns
 
 **The `output_type` and `output_type_id` columns only need to be included if
-the hub collects `pmf` or `cdf` outputs.** For those two output types the
+the hub collects `pmf` or `cdf` outputs.** For those two output types, the
 `oracle_value` depends on the `output_type_id` (see the next section for more
 detail). On the
 other hand, the `oracle_value` is not specific to the quantile level for
@@ -305,7 +305,7 @@ to align observations with predictions.
 
 ### The `oracle_value` column
 
-Oracle output follows a similar format as model outputs, but the `value`
+Oracle output follows a similar format to model outputs, but the `value`
 column is named `oracle_value`, and it contains the value of the
 prediction that would be reported if the observed value of the target
 was known with certainty. The implications of this vary depending on the
@@ -370,7 +370,7 @@ example forecast submissions and the corresponding **oracle output** for
 each `output_type`. We highlight two points about these objects:
 
 - The `reference_date` and `horizon` columns are included in the model
-  outputs, but they are not included in the oracle output.
+  outputs but not in the oracle output.
 - In this example, the **oracle output** for the `mean`, `median`,
   `quantile`, and `sample` output types are all the same, and they
   contain `<NA>` values for the `output_type_id`. In a hub without `pmf`
@@ -380,7 +380,7 @@ each `output_type`. We highlight two points about these objects:
 :::{note}
 
 These examples are all collected and filtered from [the `hubExamples` package](https://hubverse.github.io/hubExamples). The model output data set contains over
-10,000 rows and the oracle output data has over 200,000 rows.
+10,000 rows, and the oracle output data has over 200,000 rows.
 
 To make comparisons easier, we have subset the data to Massachusetts (FIPS code
 25) with one `reference_date` of 2022-11-19 and four target end dates between 2022-11-19 and 2022-12-10.
@@ -590,7 +590,7 @@ is less than the observed rate and jumps to 1 at the observed rate.
 
 Hubs should ensure that standardized procedures for accessing target
 data are available. The data formats that a hub provides may depend on
-the needs of the specific hub, and which hubverse tools the hub wants to
+the needs of the specific hub and which hubverse tools the hub wants to
 use. For example, a hub that will not be conducting evaluations by
 comparing predictions to observed target values may not need to provide
 data in the oracle output format.
@@ -606,6 +606,6 @@ either of two ways:
 Following general conventions for storage of code related to modeling
 hubs, we recommend that any code for data access be provided in a
 separate repository following standard language-specific packaging
-guidelines, or if the code is small in scope it can be placed within the
+guidelines, or if the code is small in scope, it can be placed within the
 `src` folder of the hub’s repository.
 
