@@ -45,7 +45,7 @@ branches of the repository. In order to do that, they use the following steps:
 When thinking about staging the changes, it is important to remember that there
 is not a one-size-fits-all process for this. You have to think holistically and
 look at the changes you want to make from the perspective of a hub administrator
-who just wants a dashboard for their hub that they don't have to futz with too
+who just wants a dashboard for their hub that they don’t have to keep fixing or adjusting
 much. From that perspective, it does not really matter how elegant the tools are
 as long as the workflows can run them. What matters is that the users have
 sensible defaults and options they can add or omit from their configuration
@@ -63,7 +63,7 @@ For example in building the forecast data, the steps are:
 
 similarly, for building the site, the steps are:
 
-1. launch an interactive shell from the [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder)
+1. launch an interactive shell in a container based on  the [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder) Docker image.
 2. download `site-config.yml` from the dashboard repo
 3. download the dashboard repo contents
 4. run `render.sh`
@@ -186,7 +186,7 @@ about _how_ the resource is built or provisioned, then you can do local staging.
 ### Option 1: local staging
 
 This option is ideal for **changes that do not affect _how_ the resource is
-built or provisioned.** Doing remote staging involves the same steps as the
+built or provisioned.** Doing local staging involves the same steps as the
 [local workflow](./dashboard-local.md) except that you would install the development version of the tool
 you are testing.
 
@@ -198,7 +198,7 @@ follow this process:
 1. implement change in new branch of
    [hub-dashboard-predtimechart](https://github.com/hubverse-org/hub-dashboard-predtimechart)
    and install locally.
-2. create a local copy of a dashboard repository
+2. create a local copy of a dashboard repository and the hub it points to
 3. [generate the forecasts data](#dashboard-local-forecasts) with the
    appropriate command
 4. inspect the output (check that no files are missing or added)
@@ -356,7 +356,7 @@ flowchart TD
 
 
 The JavaScript components we provide to the webpage are known as _version
-aliased_ URLs, which is signified by the `@v3` for PredTimeChart or `@v1` for
+aliased_ URLs, which, at the time of writing, is signified by the `@v3` for PredTimeChart or `@v1` for
 PredEvals. This means that the sites will always get the latest version up to
 that major version number. For example, if we release version 1.1.0 of PredEvals,
 then the users downstream will have that version delivered via the CDN, but if
@@ -385,7 +385,7 @@ https://purge.jsdelivr.net/gh/hubverse-org/predevals/dist/predevals.bundle.js
 :::
 
 
-### Fetching orphan branches
+### Accessing pre-built data
 
 The data generation workflows may take into account data that have already been
 generated in order to save computational time. When you are staging locally, it
@@ -399,7 +399,7 @@ use in the [site builder
 tests](https://github.com/hubverse-org/hub-dash-site-builder/blob/77f40021cfb473cbcf2c9986b6aa518af13d863d/tests/run.sh#L94-L95).
 
 
-The pattern for to add a git worktree is:
+The pattern to add a git worktree is:
 
 ```bash
 git worktree add --checkout <directory> <branch>
