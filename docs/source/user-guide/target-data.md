@@ -276,7 +276,7 @@ peak incidence, and in hubs that collect pmf or cdf predictions.
 **The oracle output should include enough of the task ID variables to uniquely
 identify which `oracle_values` correspond to which predicted values.** In the
 [above oracle output example](#oracle-intro-example), the `location`,
-`target_end_date` and `target` columns are included because they are necessary
+`target_end_date`, and `target` columns are included because they are necessary
 to identify _where_ and _when_ a given _target_ was measured as the
 `oracle_value`.
 
