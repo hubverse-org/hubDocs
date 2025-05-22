@@ -432,43 +432,41 @@ I then ran the workflows from the dashboard forks to confirm that the site was c
 
 :::
 
-:::{admonition} Staging without forks with the GitHub App
-:class: note
+:::{admonition} Staging without forks (using the GitHub App)
+:class: note dropdown
 :name: dashboard-staging-app
 
-One tool that can help with staging is
-[hubDashboard](https://github.com/apps/hubDashboard). It was originally
-designed so that hub administrators could have a dashboard website without
-needing to maintain GitHub workflows. We no longer use it for this purpose.
+Not all dashboards are going to behave the same. They can pick and choose the
+features that we offer. Some dashboards have hubverse-formatted target data
+while others have more custom formats. It is often a good idea to test
+_multiple_ dashboards for these changes, not just one. One tool that can help
+with staging several dashboards at once is
+[hubDashboard](https://github.com/apps/hubDashboard) and you can run it
+directly from the control room.
 
-The app does two things:
+In short, we control a list of [known
+hubs](https://github.com/hubverse-org/hub-dashboard-control-room/blob/main/known-hubs.json)
+that have the app installed. The workflows `build.yaml`, `rebuild-data.yaml`,
+and `rebuild-site.yaml` can all be triggered manually to build the website or
+data for these hubs. **You can use these workflows to run dry runs from a specific
+branch** and inspect the artifacts that are generated. These workflows are
+similar to the workflows you will find in the dashboard repositories because
+[_they use the same reusable
+workflows_](https://github.com/hubverse-org/hub-dashboard-control-room/blob/9b2e65358da7453a03002a2aeebd6a345a018e26/.github/workflows/rebuild-site.yaml#L37-L46).
+The only difference is that there is a job that will fetch repositories that
+has the app installed.
 
-1. any repository owner can "install" the app on their repository, giving it
-   permissions to read and write repository contents
-2. we can authenticate as the app in the control room, and use it to generate a
-   temporary github PAT that will give us permissions to push to a repository
-   that has the app installed. We control a list of [known hubs](https://github.com/hubverse-org/hub-dashboard-control-room/blob/main/known-hubs.json) that have the app installed.
+The reason this works because the control room stores two secrets: the App ID `${{
+vars.APP_ID }}` and a private key `${{ secrets.PRIVATE KEY }}` (similar to your
+SSH private key). These two items are passed as `secrets` to the reusable
+workflows and allows the control room workflows to authenticate as the app,
+which can generate a temporary PAT for any repository that installed it.
 
-Because of this, we have the following pattern:
-
-```{mermaid}
-:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
-flowchart TD
-    subgraph repo-flow
-        subgraph dashboard
-            d[dashboard workflows]
-            s[dashboard-site]
-            t[token]
-        end
-        d[dashboard] -->|uses| c[control-room] -->|builds to| s
-        d[dashboard] -->|generates|t -->|used by| c
-    end
-    subgraph app-flow
-        app -->|installed on| dashboard
-        app -->|generates|token-->|used by| c
-        c -->|builds to| s
-    end
-```
+The App was originally intended to be a way for dashboards to be built without
+requiring hub admins to worry about an extra workflow. Since we migrated to
+fully reusable workflows, we have shut down the external webserver that was
+being used to receive webhooks from the repositories, but access from the
+control room remains as long as those secrets exist.
 
 :::
 
