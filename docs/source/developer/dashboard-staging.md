@@ -519,10 +519,27 @@ There are three situations that you will find yourself staging,
 (staging-control-room-generate)=
 ##### Control room `generate-` workflows
 
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart LR
+    subgraph dashboard
+        build-data.yaml
+        build-site.yaml
+    end
+    subgraph control-room
+        generate-data.yaml
+        generate-site.yaml
+    end
+    build-data.yaml --> generate-data.yaml
+    build-site.yaml --> generate-site.yaml
+```
+
+
 If you are modifying one of the `generate-data.yaml` or `generate-site.yaml`
 workflows in the control room, then:
+
 1. create a branch in the control room
-2. make the changes you need to change
+2. make the changes you need to change (e.g. pointing to the correct branch of the tool you are modifying, updating the call syntax, or updating a step)
 3. (**in a fork of a dashboard repository**), change the
    `@main` tag for the reusable workflow to `@<branch-name>`
    ```diff
@@ -534,9 +551,31 @@ workflows in the control room, then:
 (staging-control-room-push)=
 ##### Control room `push-things.yaml` workflow
 
-This builds off of the [the control room generate workflows](#staging-control-room-generate).
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart LR
+    subgraph dashboard
+        build-data.yaml
+        build-site.yaml
+    end
+    subgraph control-room
+        generate-data.yaml
+        generate-site.yaml
+        artifacts
+        push-things.yaml
+    end
+    build-data.yaml --> generate-data.yaml --> artifacts
+    build-site.yaml --> generate-site.yaml --> artifacts
+    artifacts --> push-things.yaml
+```
+
+The push things workflow is a reusable workflow that is called by other
+workflows and takes the generated artifacts and pushes them to a specific branch.
+The process for staging builds off of the [the control room generate workflows](#staging-control-room-generate) with one more step where you need to make sure the branch of the reusable
+workflow is correct.
+
 1. create a branch in the control room
-2. make the changes you need to change
+2. make the changes you need to change (e.g. pointing to the correct branch of the tool you are modifying, updating the call syntax, or updating a step)
 4. (**in the control room**) In the `generate-*` workflows, change the `push-things.yaml` workflows to use `@<branch-name>`:
    ```diff
    -uses: hubverse-org/[...]/workflows/push-things.yaml@main
@@ -553,9 +592,29 @@ This builds off of the [the control room generate workflows](#staging-control-ro
 (staging-control-room-scripts)=
 ##### Control room scripts
 
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be"}}
+flowchart LR
+    subgraph dashboard
+        build-data.yaml
+        build-site.yaml
+    end
+    subgraph control-room
+        generate-data.yaml
+        generate-site.yaml
+        artifacts
+        push-things.yaml
+        scripts/
+    end
+    build-data.yaml --> generate-data.yaml --> artifacts
+    build-site.yaml --> generate-site.yaml --> artifacts
+    artifacts --> push-things.yaml
+    scripts/ --> push-things.yaml
+```
+
 If a script changes, it builds off of the [the control room `push-things.yaml` workflow](#staging-control-room-push):
 1. create a branch in the control room
-2. make the changes you need to change
+2. make the changes you need to change (e.g. pointing to the correct branch of the tool you are modifying, updating the call syntax, or updating a step)
 4. (**in the control room**) In the `generate-*` workflows, change the `push-things.yaml` workflows to use `@<branch-name>`:
    ```diff
    -uses: hubverse-org/[...]/workflows/push-things.yaml@main
@@ -601,7 +660,7 @@ To stage changes to the hub-dashboard-predtimechart from the control room:
    branch
 4. generate the data
 5. generate the site and preview (NOTE: If the JavaScript component also
-   changes, you will need to preview the site locally)
+   changes, you will need to [preview the site locally](#staging-javascript))
 6. add the new option and repeat steps 4 and 5
 
 If you do not need to change any options in the control room, then you can
@@ -641,7 +700,7 @@ To stage changes to hubPredEvalsData-docker from the control room:
    branch
 4. generate the data
 5. generate the site and preview (NOTE: If the JavaScript component also
-   changes, you will need to preview the site locally)
+   changes, you will need to [preview the site locally](#staging-javascript))
 6. add the new option and repeat steps 4 and 5
 
 If you do not need to change any options in the control room, then you can
@@ -682,7 +741,7 @@ To stage changes to hub-dash-site-bulder from the control room:
    branch
 4. (optional) generate the data
 5. generate the site and preview (NOTE: If the JavaScript component also
-   changes, you will need to preview the site locally)
+   changes, you will need to [preview the site locally](#staging-javascript))
 6. add the new option and repeat step 5
 
 If you do not need to change any options in the control room, then you can
