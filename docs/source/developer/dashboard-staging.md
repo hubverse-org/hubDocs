@@ -13,6 +13,11 @@ that the changes are expected to work.
 
 :::
 
+:::{contents} Table of Contents
+:depth: 4
+:backlinks: none
+:::
+
 ## Introduction
 
 Any change to a dashboard component that adds a new feature should be staged
