@@ -434,8 +434,59 @@ If you want to change that schedule, you can use https://crontab.guru to find th
     - cron: "37 16 * * 5" # every Friday at 16:37 UTC == 09:37 PDT
 ```
 
+### Manual interventions
 
-## Advanced usage of the GitHub actions
+If you find that your dashboard website is not building because GitHub actions
+are down or your hub is private (and thus cannot access any data), there are
+still ways to update your dashboard. Two options are presented below.
 
-To be documented
+:::{admonition} Prerequisite knowledge
+
+This section assumes you are comfortable with git branches and workflows on
+GitHub.
+
+:::
+
+#### Understanding where each component lives
+
+The publishing strategy behind the dashboard is that the website and data are
+hosted on separate branches of the dashboard repository.
+
+| component | source branch | build tool | GitHub workflow |
+| :-------- | :------------ | :--------- | :-------------- |
+| website   | `gh-pages`    | <https://github.com/hubverse-org/hub-dash-site-builder> | `build-site.yaml` |
+| forecast data | `ptc/data`    | <https://github.com/reichlab/hub-dashboard-predtimechart> | `build-data.yaml` |
+| evaluations data | `predevals/data`    | <https://github.com/reichlab/hubPredEvalsData-docker> | `build-data.yaml` |
+
+In this strategy, `gh-pages` hosts the website, which is deployed to your
+repository's GitHub Pages site. The `forecast.html` and `eval.html` pages of
+your site will then dynamically fetch the data from the `ptc/data` and
+`predevals/data` branches, respectively using GitHub's
+`raw.githubusercontent.com` service. This allows the data to be updated without
+needing an update to the website.
+
+It is also possible to [build the site using data
+locally](https://github.com/hubverse-org/hub-dash-site-builder?tab=readme-ov-file#rendering-with-local-data)
+for offline use.
+
+#### Option 1: Manually run a workflow
+
+If something is awry, the first step is to check that the workflows are
+operating correctly. You [manually
+run](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow#running-a-workflow)
+either of the workflows to check this. All workflows have the option to do a
+dry run, which means that they will generate data, but they will not push it to
+the branch. You can check for [workflow
+artifacts](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/downloading-workflow-artifacts)
+that contain the data generated if you want to inspect it by hand. If
+everything seems fine, then you can publish.
+
+For forecast data, you might encounter hiccups where you want to reset the
+data. In this case, check the box that says **(Forecast) Regenerate
+previously-recorded model output data?**
+
+#### Option 2: Manually update the branches
+
+If the workflows are not working, you can still update your site by building
+locally and pushing to the correct branches.
 
