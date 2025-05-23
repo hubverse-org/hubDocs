@@ -1,4 +1,4 @@
-# Evaluations Dashboard
+# Evaluations dashboard
 
 The evaluations dashboard provides model evaluation scores
 for predictions. The interactivity in the dashboard is provided by the [predevals](https://github.com/hubverse-org/predevals) JavaScript module, which reads in CSV files and produces a
