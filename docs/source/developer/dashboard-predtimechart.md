@@ -168,7 +168,7 @@ a `predevals-config.yml` file inside of it. We first clone the hub repository
 locally and then run the script
 
 ```{code-block} bash
-:emphasize-lines: 7-11
+:emphasize-lines: 4-8
 git clone <hub-git-url> hub
 mkdir -p data/ptc/forecasts
 
@@ -204,7 +204,7 @@ a `predevals-config.yml` file inside of it. We first clone the hub repository
 locally and then run the script
 
 ```{code-block} bash
-:emphasize-lines: 7-11
+:emphasize-lines: 3-7
 git clone <hub-git-url> hub
 mkdir -p data/ptc/targets
 
