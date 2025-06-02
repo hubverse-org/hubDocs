@@ -21,20 +21,20 @@ the package.
 
 To update a Hubverse Python package:
 
+- [ ] If you're not a member of the core Hubverse development team, fork the
+      package's repository to your GitHub account.
 - [ ] Create a branch from `main` in the format of
 `<initials>/<feature>/<issue>` (_e.g._, `kj/add-bucket-versioning/111` )
-- [ ] Solve the issue, update/add test if necessary, commit, push
+- [ ] Make and test your changes, including any related tests.
 - [ ] Open a pull request (PR).
   - [ ] Pull requests should be as small as possible and should focus on
-    independent features.
+        independent features.
   - [ ] Each PR should include a corresponding update to the `[unreleased]`
-    section at the top of `CHANGELOG.md` (if applicable). Changelog
-    contents and style should follow the guidelines outlined in
-    [keepachangelog.com](https://keepachangelog.com/).
+        section at the top of `CHANGELOG.md` (if applicable).
   - [ ] In the PR description, include a link to the issue (_e.g._,
-    `resolves #111`) as well as any context that will help code reviewers.
+        `resolves #111`) as well as any context that will help code reviewers.
 - [ ] If the PR introduces a breaking change, these changes should be tested
-  and communicated with the community.
+      and communicated with the community.
 - [ ] Once the PR has been approved and all checks have passed, merge it.
 
 :::{tip}
