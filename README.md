@@ -141,7 +141,7 @@ with `uv remove` and follow the remaining steps.
 ### Optional automated linting
 
 The hubDocs repository includes [pre-commit](https://pre-commit.com/), which
-automtatically runs a series of checks against files before they're committed
+automatically runs a series of checks against files before they're committed
 to the repo. The [`pre-commit-config.yaml`](.pre-commit-config.yaml) config
 file defines which kind of checks will run (for example, linting markdown files,
 flagging invalid yaml, and running a spell checker).
@@ -177,8 +177,8 @@ When creating a new release version:
 1. Checkout the main branch and ensure you pull all changes from the remote repository.
 2. Create a new branch of the main branch and name it using the convention `br-<version-number>`
 3. Open `docs/source/conf.py` file and update the value of the `schema_version` variable with the version of the schema in the `schemas` repository you want the release to accompany (e.g. `v0.0.1`). This propagates the appropriate version to various substitution text elements within the docs, including the URLs pointing docson widgets to raw config schema files.
-4. If the version of the schema you are preparing the release for has not been released to `main` branch in the `schemas` repository, you can set the value of the `schema_branch` variable to the name of the branch in the `schemas` repository in which the version is being prepared (e.g. `br-v1.0.0`). This allows you to see what development versions of the schema will look like in the docson widgets while developing locally and in a pull request. If the schema has been released to `main` in the `schemas` repo, set `schema_branch` to `"main"`. The value of this variable is overridden automatically when READTHEDOCS builds the documentation on the `main` branch (or any other branch for that matter, in contrast to a pull request build) after a merge or a new release.
-5. Any any changes to the documentation needed.
+4. If the version of the schema you are preparing the release for has not been released to `main` branch in the `schemas` repository, you can set the value of the `schema_branch` variable to the name of the branch in the `schemas` repository in which the version is being prepared (e.g. `br-v1.0.0`). This allows you to see what development versions of the schema will look like in the docson widgets while developing locally and in a pull request. The value of this variable is overridden automatically when READTHEDOCS builds the documentation on the `main` branch (or any other branch for that matter, in contrast to a pull request build) after a merge or a new release.
+5. Any changes to the documentation needed.
 6. Commit and push changes (including changes to `conf.py`)
 7. Create pull request and merge after review.
 8. [Create a release on GitHub](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository?tool=webui#creating-a-release) labelling it with the same version number as the `schemas` release this release is associated with but without the `v` (e.g. a `v0.0.1` `schemas` version number would be released as `0.0.1` on `hubDocs`).
@@ -191,7 +191,7 @@ In general, contributions should be made via pull requests to the `main` branch.
 
 - New pages have to be added to an existing or new subfolder and indexed within the table of contents in `docs/source/index.md` (e.g., `user-guide/sample-output-type.md`).
 - File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).
-- Section and subsection titles should use sentence case, with only the first letter capitalized (e.g., "Additional notes).
+- Section and subsection titles should use sentence case, with only the first letter capitalized (e.g., "Additional notes").
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
 - Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.
 - Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.
