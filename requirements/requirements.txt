@@ -71,7 +71,7 @@ platformdirs==4.3.8
     # via virtualenv
 pre-commit==4.2.0
     # via hubdocs (pyproject.toml)
-pydata-sphinx-theme==0.16.1
+pydata-sphinx-theme
     # via sphinx-book-theme
 pygments==2.19.1
     # via
