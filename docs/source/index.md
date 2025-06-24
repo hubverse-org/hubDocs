@@ -3,7 +3,7 @@
 ```{admonition} 📣 We have a new landing page!
 :class: warning
 
-We have a new landing page at <https://hubverse.io/> that provides a general overview of The Hubverse. Over the next few weeks, we will be removing duplicated content from this site.
+We have a new landing page at <https://hubverse.io/> that provides a general overview of the hubverse. Over the next few weeks, we will be removing duplicated content from this site.
 ```
 
 ```{admonition} What is the hubverse for?
