@@ -4,7 +4,7 @@ The hubverse Code of Conduct Committee consists of three members, and an additio
 
 Code of Conduct Committee members include:
 <a href="mailto:contamin@pitt.edu">Lucie Contamin</a>
-<a href="mailto:sebastian.funk@lshtm.ac.uk">Sebastian Funk</a>
 <a href="mailto:ehowerton@psu.edu">Emily Howerton</a>
-<a href="mailto:elray@umass.edu">Evan Ray</a> (external member)
+<a href="mailto:lshandross@umass.edu">Li Shandross</a>
+<a href="mailto:sebastian.funk@lshtm.ac.uk">Sebastian Funk</a> (external member)
 
