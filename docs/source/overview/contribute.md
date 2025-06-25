@@ -34,9 +34,9 @@ This group is used to announce new features in the Hubverse to the user communit
 
 The governing body of the [Consortium of Infectious Disease Modeling Hubs](who-we-are.md) is the Coding Council, which comprises of any community member attending one of the periodic virtual meetings. This council generally serves as a deliberative body, discussing and setting directions for new conceptual and software development. Typically, decisions about design and prioritization are made through consensus at the Coding Council level. If differences cannot be solved by consensus, then decisions are passed to the Steering Committee, which comprises three members. Members of the Steering Committee serve one-year terms, with elections occurring in July of each calendar year. Members of the Coding Council may nominate themselves or others to serve on the Steering Committee, and a closed-ballot vote is taken if more than three individuals are nominated. The highest three vote-getters serve on the council.
 
-On July 10, 2024, the following members of the steering committee were elected:
+On June 25, 2025, the following members of the steering committee were elected:
 
-- Evan Ray, US Forecast Hub
 - Lucie Contamin, University of Pittsburgh, MIDAS
+- Matthew Cornell, University of Massachusetts in Amherst, Reich Lab
 - Anna Krystalli, R-RSE
 

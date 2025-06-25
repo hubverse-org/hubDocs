@@ -59,14 +59,14 @@ As of 2025, decisions are recorded in <https://github.com/reichlab/decisions>.
 
 ### Project Board
 
-This GitHub project board contains an overview of Hubverse tickets and work in progress:
+This GitHub project board contains an overview of hubverse tickets and work in progress:
 <https://github.com/orgs/hubverse-org/projects/3/views/2>.
 
 ### R Package Contributing and Maintenance
 
 The [`hubDevs`](https://hubverse-org.github.io/hubDevs) package is a package
-that provides tools for getting started with developing a new R package in The
-Hubverse.
+that provides tools for getting started with developing a new R package in the
+hubverse.
 
 If you want to contribute to an existing Hubverse package, please consult the
 `CONTRIBUTING.md` document for details on how to contribute.
