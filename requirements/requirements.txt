@@ -139,7 +139,7 @@ typing-extensions==4.14.0
     #   pydata-sphinx-theme
 urllib3==2.5.0
     # via requests
-uvicorn==0.34.3
+uvicorn==0.35.0
     # via sphinx-autobuild
 virtualenv==20.31.2
     # via pre-commit
