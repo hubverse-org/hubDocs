@@ -73,7 +73,6 @@ overview/support-consulting.md
 overview/contribute.md
 overview/cite.md
 overview/contact.md
-overview/contributors.md
 ```
 
 ```{toctree}
