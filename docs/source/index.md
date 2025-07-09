@@ -70,7 +70,6 @@ overview/definitions.md
 overview/abbreviations.md
 overview/data-storage.md
 overview/support-consulting.md
-overview/contribute.md
 overview/cite.md
 overview/contact.md
 ```
