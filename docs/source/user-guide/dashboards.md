@@ -228,6 +228,7 @@ Here we summarize some important limitations of the visualization functionality 
     - The forecast horizon, defined as the difference between the target date and the reference date (e.g. `horizon` or similar)
  - Model metadata must contain a boolean `designated_model` field. The visualization only includes models where this field has been set to `true`.
  - As was noted above, the target time series data must be stored in the hub using the [Hubverse conventions for target time series data](../user-guide/target-data.md). Additionally, at this time only a single `.csv` file with time series data is supported (i.e., this module currently does not support the `parquet` format or hive partitioned data).
+    - The date column in the target time series data must have the same name as the "target date" column in the model output file, and this must be specified in the `target_date_col_name` field in the `predtimechart-config.yml` file.
  - When assembling versions of the time series target data, it is assumed that the reference date is the Saturday after the date when the data build action is running. Additionally, it is assumed that the `as_of` date to use for data versioning is the reference date (i.e., there are no intermediate data releases between the time of forecast submission and the reference date).
 
 If you are interested in using the PredTimeChart tool for a visualization but your use case doesn't satisfy these requirements, get in touch! We may be able to make updates to support your hub.
