@@ -64,8 +64,6 @@ The following are some of the active and public hubs using the hubverse
 :caption: Overview
 :hidden:
 overview/who-uses-hubverse.md
-overview/who-we-are.md
-overview/scope.md
 overview/definitions.md
 overview/abbreviations.md
 overview/data-storage.md
