@@ -4,7 +4,7 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==1.0.0
     # via sphinx
-anyio==4.9.0
+anyio==4.10.0
     # via
     #   starlette
     #   watchfiles
@@ -14,7 +14,7 @@ babel==2.17.0
     #   sphinx
 beautifulsoup4==4.13.4
     # via pydata-sphinx-theme
-certifi==2025.7.14
+certifi==2025.8.3
     # via requests
 cfgv==3.4.0
     # via pre-commit
@@ -24,9 +24,9 @@ click==8.2.1
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
-distlib==0.3.9
+distlib==0.4.0
     # via virtualenv
-docutils==0.21.2
+docutils>=0.19,<0.22
     # via
     #   myst-parser
     #   pydata-sphinx-theme
@@ -141,7 +141,7 @@ urllib3==2.5.0
     # via requests
 uvicorn==0.35.0
     # via sphinx-autobuild
-virtualenv==20.31.2
+virtualenv==20.33.0
     # via pre-commit
 watchfiles==1.1.0
     # via sphinx-autobuild
