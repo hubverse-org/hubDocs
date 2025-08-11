@@ -18,7 +18,7 @@ certifi==2025.8.3
     # via requests
 cfgv==3.4.0
     # via pre-commit
-charset-normalizer==3.4.2
+charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via uvicorn
@@ -36,7 +36,7 @@ filelock==3.18.0
     # via virtualenv
 h11==0.16.0
     # via uvicorn
-identify==2.6.12
+identify==2.6.13
     # via pre-commit
 idna==3.10
     # via
@@ -55,7 +55,7 @@ markdown-it-py==3.0.0
     #   myst-parser
 markupsafe==3.0.2
     # via jinja2
-mdit-py-plugins==0.4.2
+mdit-py-plugins==0.5.0
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
@@ -69,7 +69,7 @@ packaging==25.0
     #   sphinx
 platformdirs==4.3.8
     # via virtualenv
-pre-commit==4.2.0
+pre-commit==4.3.0
     # via hubdocs (pyproject.toml)
 pydata-sphinx-theme
     # via sphinx-book-theme
@@ -141,7 +141,7 @@ urllib3==2.5.0
     # via requests
 uvicorn==0.35.0
     # via sphinx-autobuild
-virtualenv==20.33.0
+virtualenv==20.33.1
     # via pre-commit
 watchfiles==1.1.0
     # via sphinx-autobuild
