@@ -88,6 +88,7 @@ name: horizon-nomenclature
 Figure credits: Alex Vespignani and Nicole Samay.
 ```
 
+(nowcast)=
 ```{admonition} Nowcast
 model output that provides estimates/predictions of partially observed or unobserved values at the current date from a data stream before the current date. Nowcasts should be set up to be evaluated for accuracy based on comparisons with the eventually observed complete data. See the [horizon nomenclature image above](#horizon-nomenclature).
 ```
