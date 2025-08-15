@@ -105,6 +105,6 @@ a description of a possible future to be modeled, described in terms of model pa
 
 (scenario-projection)=
 ```{admonition} Scenario projection
-model output that provides estimates of future observations of future trends, conditional on specific assumptions about a given scenario. Scenario projects are challenging to evaluate against future observed data since the assumptions under which scenarios were generated are unlikely to have been exactly met. See the [horizon nomenclature image above](#horizon-nomenclature).
+model output that provides estimates of future observations of future trends, conditional on specific assumptions about a given scenario. Scenario projections are challenging to evaluate against future observed data since the assumptions under which scenarios were generated are unlikely to have been exactly met. See the [horizon nomenclature image above](#horizon-nomenclature).
 ```
 
