@@ -32,7 +32,7 @@ docutils>=0.19,<0.23
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinx-togglebutton
-filelock==3.18.0
+filelock==3.19.1
     # via virtualenv
 h11==0.16.0
     # via uvicorn
@@ -141,7 +141,7 @@ urllib3==2.5.0
     # via requests
 uvicorn==0.35.0
     # via sphinx-autobuild
-virtualenv==20.33.1
+virtualenv==20.34.0
     # via pre-commit
 watchfiles==1.1.0
     # via sphinx-autobuild
