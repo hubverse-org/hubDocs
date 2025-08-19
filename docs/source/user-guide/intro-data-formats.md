@@ -6,6 +6,7 @@ On this page, we provide an [outline on the contents of this section](#data-form
 ## User Guide section outline
 This section of the documentation provides standards for:
 
+* [Data storage](#data-storage): supporeted data storage and archiving options for Hubs
 * [Structure of hub repositories](#hub-structure): standards for file and directory structures for Hubs
 * [Hub configuration files](#hub-config): the files needed to set up and run a modeling hub
 * [Modeling tasks](#tasks): tasks define the goals of the modeling effort in terms of variables and output format

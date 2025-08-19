@@ -66,7 +66,6 @@ The following are some of the active and public hubs using the hubverse
 overview/who-uses-hubverse.md
 overview/terminology.md
 overview/abbreviations.md
-overview/data-storage.md
 overview/support-consulting.md
 overview/cite.md
 overview/contact.md
@@ -92,6 +91,7 @@ quickstart-hub-admin/using-hub.md
 :caption: User Guide
 :hidden:
 user-guide/intro-data-formats.md
+user-guide/data-storage.md
 user-guide/hub-structure.md
 user-guide/hub-config.md
 user-guide/tasks.md
