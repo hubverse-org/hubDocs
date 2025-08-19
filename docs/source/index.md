@@ -67,8 +67,8 @@ overview/who-uses-hubverse.md
 overview/terminology.md
 overview/abbreviations.md
 overview/support-consulting.md
-overview/cite.md
 overview/contact.md
+overview/cite.md
 ```
 
 ```{toctree}
