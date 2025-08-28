@@ -66,7 +66,6 @@ The following are some of the active and public hubs using the hubverse
 overview/who-uses-hubverse.md
 overview/terminology.md
 overview/abbreviations.md
-overview/support-consulting.md
 overview/contact.md
 overview/cite.md
 ```
