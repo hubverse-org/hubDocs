@@ -104,3 +104,4 @@ if build_type in ("tag", "branch"):
     schema_branch = "main"
 
 myst_substitutions = {"schema_version": schema_version, "schema_branch": schema_branch}
+
