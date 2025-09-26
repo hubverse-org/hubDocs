@@ -101,7 +101,6 @@ user-guide/target-data.md
 user-guide/model-abstracts.md
 user-guide/dashboards.md
 user-guide/software.md
-user-guide/presentations.md
 ```
 
 ```{toctree}

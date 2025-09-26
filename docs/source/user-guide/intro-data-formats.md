@@ -17,7 +17,6 @@ This section of the documentation provides standards for:
 * [Model abstracts](#model-abstracts): structure for round-specific detailed narrative descriptions of modeling methods and results
 * [Dashboards](#dashboards): tools to build a dashboard website for a modeling hub
 * [Software](#software): suite of packages to assist users in building a hub
-* [Presentations](#presentations): slides and videos about the hubverse
 
 (running-examples)=
 ## Running examples
