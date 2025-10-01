@@ -586,6 +586,10 @@ greater than 1 but less than or equal to 1.25. These `oracle_value`s
 encode a step function CDF that is equal to 0 when the `output_type_id`
 is less than the observed rate and jumps to 1 at the observed rate.
 
+### Optional `as_of` column to record data version source
+
+Oracle output data are most commonly dervied from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
+
 ## How hubs should provide access to target time series data and oracle output
 
 Hubs should ensure that standardized procedures for accessing target
