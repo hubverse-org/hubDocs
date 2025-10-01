@@ -85,7 +85,7 @@ target-data/
 The first format is *time series* data. This is often the native or
 "raw" format for data. Each row of the data set is a **unit of observation**, and the columns consist of:
 
-1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date of oservation. The column should share the same name across target data and model outputs.
+1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date of observation. The column should share the same name across target data and model outputs.
 2. an `observation` column that records the observed value
 
 Here is an example of this form of data, showing selected dates for
