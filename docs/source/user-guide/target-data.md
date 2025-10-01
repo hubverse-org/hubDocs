@@ -85,21 +85,21 @@ target-data/
 The first format is *time series* data. This is often the native or
 "raw" format for data. Each row of the data set is a **unit of observation**, and the columns consist of:
 
-1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date.
+1. task ID variables that uniquely define the unit of observation. This must include at least one column representing the date of oservation. The column should share the same name across target data and model outputs.
 2. an `observation` column that records the observed value
 
 Here is an example of this form of data, showing selected dates for
 Massachusetts (FIPS code 25), drawn from the forecasting example in
 `hubExamples`:
 
-| date       | location | observation |
+| target_end_date       | location | observation |
 |:-----------|:---------|------------:|
 | 2022-11-19 | 25       |          79 |
 | 2022-11-26 | 25       |         221 |
 | 2022-12-03 | 25       |         446 |
 | 2022-12-10 | 25       |         578 |
 
-Here, the unit of observation is a date and location pair. That is, for each date and location, there is a single observed value.
+Here, the unit of observation is a target_end_date and location pair. That is, for each target_end_date and location, there is a single observed value.
 In settings where a hub is working with multiple observed targets at
 each time point (e.g., cases, hospitalizations, and deaths), the values
 of those targets will be part of the unit of observation, with a column such as
@@ -108,7 +108,7 @@ of those targets will be part of the unit of observation, with a column such as
 
 ```{table} Time series data with target data included in the unit of observation
 
-| date       | target | location | observation |
+| target_end_date       | target | location | observation |
 |:-----------|:-------|:---------|------------:|
 | 2022-11-19 | cases  | 25       |          79 |
 | 2022-11-26 | cases  | 25       |         221 |
@@ -128,7 +128,7 @@ data source after each target date.
 Because of reporting delays, the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
 
 ```{table} Data recorded on December 3 for December 3 shows an observation of 420
-| *as\_of*     | date       | location | observation |
+| *as\_of*     | target_end_date       | location | observation |
 |:-------------|:-----------|:---------|------------:|
 | *2022-12-03* | 2022-11-19 | 25       |          79 |
 | *2022-12-03* | 2022-11-26 | 25       |         221 |
@@ -136,7 +136,7 @@ Because of reporting delays, the data may initially be represented by one value 
 ```
 
 ```{table} Data recorded on December 10 shows that the December 3 observation increased by 26 cases
-| *as\_of*     | date       | location | observation |
+| *as\_of*     | target_end_date       | location | observation |
 |:-------------|:-----------|:---------|------------:|
 | *2022-12-10* | 2022-11-19 | 25       |          79 |
 | *2022-12-10* | 2022-11-26 | 25       |         221 |
