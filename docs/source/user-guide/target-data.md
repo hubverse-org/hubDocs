@@ -77,7 +77,10 @@ time series target file, this is valid:
 target-data/
 └── time-series.csv
 ```
+## Top-level properties of target data configuration
 
+* `observable_unit`: An array of column names whose unique value combinations define the minimum observable unit. Must only include the `date_col`, `target_col` (if present), and any other task ID columns. If versioned, unique combinations will also take into account the values in the `as_of` column but is never included in the observable unit as it is not a task ID but a versioning column. This property is required.
+* `date_col`: The default date column across time-series, oracle-output, and model-output datasets. Expected to be of type `Date`.
 
 (target-time-series)=
 ## Time series
