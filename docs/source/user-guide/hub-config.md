@@ -6,7 +6,7 @@ The `hub-config` directory in a modeling hub is required to contain three JSON[^
    2. `tasks.json`{.codeitem} - JSON file specifying modeling tasks and model output formats, which may be round-specific. See the [hub model task configuration (`tasks.json` file) section](#tasks-metadata) below for more details on the `tasks.json` file.
    3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. The [template metadata schema file section](#model-metadata-schema) has more information on the `model-metadata-schema.json` file.
 
-Hubs with target data may contain the following optional JSON file:
+Hubs with target data may contain the following optional JSON file:  
    4. `target-data`{.codeitem} - JSON file defining a `target_data_metadata` object with top-level properties that describe expectations across target datasets 
 
 [^json]: We do not currently support json references or yaml metadata files due to technical issues.
@@ -60,5 +60,5 @@ The hub model task configuration file specifies the model tasks (task IDs and ta
 The target data configuration file defines a `target_data_metadata` object with top-level properties that describe expectations across target datasets.
 
 (hub-admin-config)=
-### Hub target-data-schema configuration (`target-data.json`) interactive schema
+### Hub target data configuration (`target-data.json`) interactive schema
 https://github.com/reichlab/decisions/blob/main/decisions/2025-06-17-RFC-target-data-metadata.md#target-data-schemajson
