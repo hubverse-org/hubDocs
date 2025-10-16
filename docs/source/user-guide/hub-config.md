@@ -7,7 +7,7 @@ The `hub-config` directory in a modeling hub is required to contain three JSON[^
    3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. The [template metadata schema file section](#model-metadata-schema) has more information on the `model-metadata-schema.json` file.
 
 Hubs with target data may contain the following optional JSON file:  
-* `target-data`{.codeitem} - JSON file defining a `target_data_metadata` object with top-level properties that describe expectations across target datasets, with the ability to override these defaults for specific dataset types (time-series and oracle-output). See the [target data configuration (`target-data.json`) preview](#target-data-config) below. 
+* `target-data`{.codeitem} - JSON file defining a `target_data_metadata` object with top-level properties that describe expectations across target datasets, with the ability to override these defaults for specific dataset types (`time-series` and `oracle-output`). See the [target data configuration (`target-data.json`) preview](#target-data-config) below. 
 
 [^json]: We do not currently support json references or yaml metadata files due to technical issues.
 
@@ -57,7 +57,7 @@ The hub model task configuration file specifies the model tasks (task IDs and ta
 
 ## Hub target data configuration (`target-data.json` file)
 
-For hubs that use target data, the optional target data configuration file defines a `target_data_metadata` object with top-level properties that describe expectations across target datasets, as well as time series- and oracle output-specific configuration.
+For hubs that use target data, the optional target data configuration file defines a `target_data_metadata` object with top-level properties that describe expectations across target datasets. Top-level properties can be overridden  as well as time series- and oracle output-specific configuration.
 
 (target-data-config)=
 ### Hub target data configuration (`target-data.json`) schema preview
