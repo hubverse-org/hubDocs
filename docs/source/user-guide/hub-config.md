@@ -57,7 +57,7 @@ The hub model task configuration file specifies the model tasks (task IDs and ta
 
 ## Hub target data configuration (`target-data.json` file)
 
-For hubs that use target data, the optional target data configuration file defines a `target_data_metadata` object with top-level properties that describe expectations across target datasets. Top-level properties can be overridden at the dataset-specific (`time-series` and `oracle output`) level. The target data configuration file removes the need to inspect dataset contents to infer schemas and ensures reproducible data validation and versioning behavior.
+For hubs that use target data, the optional target data configuration file contains multiple top-level properties that describe target data format expectations across target datasets. Top-level properties can be overridden at the dataset-specific (`time-series` and `oracle output`) level. The target data configuration file removes the need to inspect dataset contents to infer schemas and thus allow to load the target data faster and ensures reproducible data validation and versioning behavior.
 
 (target-data-config)=
 ### Hub target data configuration (`target-data.json`) schema preview
