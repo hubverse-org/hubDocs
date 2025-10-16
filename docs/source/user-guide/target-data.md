@@ -94,7 +94,7 @@ Properties can be set at two levels:
 * `date_col`: The default date column across time-series, oracle-output, and model-output datasets. Expected to be of type `Date`.
 *  `versioned`: Boolean indicating whether all target type datasets use `as_of` versioning by default. If `true`, datasets are expected to have a date `as_of` column indicating the version of each data point. Defaults to `false`. Can be overridden at the dataset level.
 
-
+(target-time-series)=
 ## Time series
 
 The first format is *time series* data. This is often the native or
