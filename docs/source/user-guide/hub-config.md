@@ -6,6 +6,9 @@ The `hub-config` directory in a modeling hub is required to contain three JSON[^
    2. `tasks.json`{.codeitem} - JSON file specifying modeling tasks and model output formats, which may be round-specific. See the [hub model task configuration (`tasks.json` file) section](#tasks-metadata) below for more details on the `tasks.json` file.
    3. `model-metadata-schema.json`{.codeitem} - JSON file defining format of model metadata files. The [template metadata schema file section](#model-metadata-schema) has more information on the `model-metadata-schema.json` file.
 
+Hubs with target data may contain the following optional JSON file:  
+* `target-data`{.codeitem} - JSON file specifying target data objects with top-level properties that describe expectations across target datasets, and with the ability to override these defaults for specific dataset types (`time-series` and `oracle-output`). See the [target data configuration (`target-data.json`) preview](#target-data-config) below. 
+
 [^json]: We do not currently support json references or yaml metadata files due to technical issues.
 
 
@@ -51,4 +54,129 @@ The hub model task configuration file specifies the model tasks (task IDs and ta
 {{'See [raw schema](https://raw.githubusercontent.com/hubverse-org/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json)'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
 
 {{'<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/schemas/BRANCH/SCHEMA_VERSION/tasks-schema.json"></script>'.replace('SCHEMA_VERSION', schema_version).replace('BRANCH', schema_branch)}}
+
+## Hub target data configuration (`target-data.json` file)
+
+For hubs that use target data, the optional target data configuration file contains multiple top-level properties that describe target data format expectations across target datasets. Top-level properties can be overridden at the dataset-specific (`time-series` and `oracle output`) level. The target data configuration file removes the need to inspect dataset contents to infer schemas, thus allowing target data to be loaded faster and ensuring reproducible data validation and versioning behavior.
+
+(target-data-config)=
+### Hub target data configuration (`target-data.json`) schema preview
+```json
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+    "title": "Schema for Modeling Hub target data definitions",
+    "description": "This is the schema of the target-data.json configuration file that defines metadata about target data used to visualise and evaluate modeling hub model outputs.",
+    "type": "object",
+    "properties": {
+        "schema_version": {
+            "description": "URL to a version of the Modeling Hub schema target-data-schema.json file (see https://github.com/hubverse-org/schemas). Used to declare the schema version a 'target-data.json' file is written for and for config file validation. The URL provided should be the URL to the raw content of the schema file on GitHub.",
+            "examples": [
+                "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json"
+            ],
+            "type": "string",
+            "format": "uri"
+        },
+        "observable_unit": {
+            "description": "Names of columns whose unique value combinations define the minimum observable unit across all target type data. Each combination of values must be unique (and in time-series data also unique across `as_of` data versions if applicable). The majority are expected to correspond to task ID names but may include other columns as well (e.g., the `date_col` column).",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string"
+            }
+        },
+        "date_col": {
+            "description": "Name of the date column across hub data (time-series, oracle-output and model-output if present). This is the column that stores the date on which observed data actually occurred.",
+            "type": "string"
+        },
+        "versioned": {
+            "description": "Indicates whether all target type datasets are versioned using `as_of` dates by default. If true, both time-series and oracle-output data are expected to have a date `as_of` column that indicates the version of each data point. Can be overridden at the dataset level.",
+            "type": "boolean",
+            "default": false
+        },
+        "time-series": {
+            "type": "object",
+            "properties": {
+                "non_task_id_schema": {
+                    "type": "object",
+                    "description": "Key-value pairs of non-task ID column names and data types found in time-series data. Include any columns in the time-series data that do not correspond exactly to a task ID. The `as_of` column does not need to be defined here as it is a reserved column.",
+                    "examples": [
+                        {
+                            "location_name": "character"
+                        },
+                        {
+                            "population": "integer"
+                        }
+                    ],
+                    "additionalProperties": {
+                        "type": "string",
+                        "enum": [
+                            "character",
+                            "double",
+                            "integer",
+                            "logical",
+                            "Date"
+                        ]
+                    }
+                },
+                "observable_unit": {
+                    "description": "Names of columns whose unique value combinations define the minimum observable unit for time-series data. Each combination of values must be unique across `as_of` data versions if applicable. The majority are expected to correspond to task ID names but may include other columns as well (e.g., the `date_col` column). If not specified or null, uses the global `observable_unit`.",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": null
+                },
+                "versioned": {
+                    "description": "Indicates whether time-series data are versioned using `as_of` dates. If true, the data is expected to have a date `as_of` column that indicates the version of each data point. If not specified, inherits from the global `versioned` setting.",
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false
+        },
+        "oracle-output": {
+            "type": "object",
+            "properties": {
+                "has_output_type_ids": {
+                    "type": "boolean",
+                    "description": "Indicates whether the oracle-output data have an `output_type` and `output_type_id` column. These columns are necessary if hub includes `pmf` and `cdf` output types but optional otherwise.",
+                    "default": false
+                },
+                "observable_unit": {
+                    "description": "Names of task IDs whose unique value combinations define an observable unit in oracle-output data. Each combination of values must be unique once combined with output type IDs if present. Use to override the global `observable_unit` in situations where some output types require additional task ID values to map onto target data. If not specified or null, uses the global `observable_unit`.",
+                    "type": [
+                        "array",
+                        "null"
+                    ],
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string"
+                    },
+                    "default": null
+                },
+                "versioned": {
+                    "description": "Indicates whether oracle-output data are versioned using `as_of` dates. If true, the data is expected to have a date `as_of` column that indicates the version of each data point. If not specified, inherits from the global `versioned` setting.",
+                    "type": "boolean"
+                }
+            },
+            "additionalProperties": false
+        },
+        "additional_metadata": {
+            "description": "Optional property in which any type of custom metadata can be stored.",
+            "type": "object",
+            "additionalProperties": true
+        }
+    },
+    "required": [
+        "schema_version",
+        "observable_unit",
+        "date_col"
+    ],
+    "additionalProperties": false
+}
+```
 
