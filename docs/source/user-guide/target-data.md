@@ -80,7 +80,7 @@ target-data/
 
 ## Target data configuration
 
-The target-data.json configuration file contains top-level properties that describe expectations across target datasets, with the ability to override these defaults for specific dataset types.
+The `target-data.json` configuration file contains top-level properties that describe expectations across target datasets, with the ability to override these defaults for specific dataset types.
 
 Properties can be set at two levels:
 
