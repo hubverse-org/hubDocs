@@ -166,12 +166,17 @@ reported in a column called `as_of`. This will then accurately represent what da
 [dashboards](dashboards.md) to automatically extract the data that were available for any given model round.
 
 
-### Additional columns
+### Time series specific options
 
-Hubverse tools will only validate columns that make up the unit of observation
-that match model task IDs. You may also include additional columns that have
-a 1:1 correspondence with the data---for example, a transformation of counts to
-rates or a human-readable translation of codes.
+Time series can have properties that may be set globally or can be overridden for specific datasets. The time series specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
+
+* `non_task_id_schema`: Optional. Key-value pairs of non-task ID column names and their R data types, one of (`character`, `double`, `integer`, `logical`, `Date`). Include any columns in the time-series data that do not correspond exactly to a task ID. The `as_of` column does not need to be defined here as it is a reserved column.
+
+* `observable_unit`: Optional. Names of columns whose unique value combinations define the minimum observable unit for time-series data. Use to override the global `observable_unit` when time-series requires a different set of columns. If not specified or set to `null`, uses the global `observable_unit`.
+
+* `versioned`: Optional. Boolean indicating whether time-series data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property.
+
+Hubverse tools will only validate the content of the columns that make up the unit of observation that match model task IDs. You may also include additional columns that have a 1:1 correspondence with the data---for example, a transformation of counts to rates or a human-readable translation of codes. These should be defined in the `non_task_id_schema` property.
 
 (target-oracle-output)=
 ## Oracle output
@@ -288,35 +293,22 @@ peak incidence, and in hubs that collect pmf or cdf predictions.
 
 ### Task ID columns
 
-**The oracle output should include enough of the task ID variables to uniquely
-identify which `oracle_values` correspond to which predicted values.** In the
-[above oracle output example](#oracle-intro-example), the `location`,
-`target_end_date`, and `target` columns are included because they are necessary
-to identify _where_ and _when_ a given _target_ was measured as the
-`oracle_value`.
+**The oracle output should include enough of the task ID variables to uniquely identify which `oracle_values` correspond to which predicted values.** In the [above oracle output example](#oracle-intro-example), the `location`, `target_end_date`, and `target` columns are included because they are necessary to identify _where_ and _when_ a given _target_ was measured as the `oracle_value`.
 
-Similarly, **any task ID variables that are not necessary to match observations
-with predictions can be omitted from the oracle output.** In the [above oracle
-output example](#oracle-intro-example), the `horizon`, `model_id`, and
-`reference_date` columns are not included. Both `horizon` and `reference_date`
-are related to the `target_end_date` and thus would be redundant. Importantly,
-_these task ID variables are not applicable for observed data_---they are used
-for describing model-specific parameters about unknown events. Likewise, in a
-scenario projection setting, the `scenario_id` can be omitted as there is only
-one scenario for an observed event[^quanta].
+Similarly, **any task ID variables that are not necessary to match observations with predictions can be omitted from the oracle output.** In the [above oracle output example](#oracle-intro-example), the `horizon`, `model_id`, and `reference_date` columns are not included. Both `horizon` and `reference_date` are related to the `target_end_date` and thus would be redundant. Importantly, _these task ID variables are not applicable for observed data_---they are used for describing model-specific parameters about unknown events. Likewise, in a scenario projection setting, the `scenario_id` can be omitted as there is only one scenario for an observed event[^quanta].
 
 [^quanta]: just don't tell the quantum physicists.
 
+Nonetheless, there are instances in which an output type may require a Task ID variable such as `horizon` to correctly map onto target data, and for such cases there is an option to specify additional task ID variables in the `observable_unit` property (see [Oracle output specific options](#oracle-output-specific-options) for more details).
+
+
 ### Model output representation columns
 
-**The `output_type` and `output_type_id` columns only need to be included if
-the hub collects `pmf` or `cdf` outputs.** For those two output types, the
-`oracle_value` depends on the `output_type_id` (see the next section for more
-detail). On the
-other hand, the `oracle_value` is not specific to the quantile level for
-quantile forecasts or the sample index for sample forecasts, and so for these
-output types (as well as mean and median), the `output_type_id` is not needed
-to align observations with predictions.
+The `oracle-output` has a unique property, not present in the global or time series properties:
+
+* `has_output_type_ids`: Boolean. Must be `true` if `pmf` or `cdf` output types exist. Can be `false` otherwise. If `true`, the dataset must include `output_type` and `output_type_id` columns. Defaults to `false`.
+
+**The `output_type` and `output_type_id` columns only need to be included if the hub collects `pmf` or `cdf` outputs.** For those two output types, the `oracle_value` depends on the `output_type_id` (see the next section for more detail). On the other hand, the `oracle_value` is not specific to the quantile level for quantile forecasts or the sample index for sample forecasts, and so for these output types (as well as mean and median), the `output_type_id` is not needed to align observations with predictions.
 
 ### The `oracle_value` column
 
@@ -343,6 +335,16 @@ was known with certainty. The implications of this vary depending on the
       observed value, corresponding to the step function cdf of a
       probability distribution that places all of its probability at the
       observed value.
+
+
+(oracle-output-specific-options)=
+### Oracle output specific options
+
+Oracle outputs can have properties that may be set globally or can be overridden for specific datasets. The oracle output specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
+
+* `observable_unit`: Optional. Names of task IDs whose unique value combinations define an observable unit in oracle-output data. Each combination of values must be unique once combined with output type IDs if present. Use to override the global `observable_unit` in situations where some output types require additional task ID values to map onto target data (e.g., when `pmf` output type [functionally requires horizon](https://github.com/reichlab/flusight-dashboard/issues/20#issuecomment-2815550603)). If not specified or set to `null`, uses the global `observable_unit`.
+
+* `versioned`: Optional. Boolean indicating whether oracle-output data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property. Note that oracle-output data is expected to have only a single version of each unique combination of observable unit values, in contrast to time-series which is allowed to have multiple versions. This is to minimize confusion and reduce the risk of downloading multiple observed values and scoring on each of them.
 
 
 ## Examples of the oracle output format
@@ -377,15 +379,14 @@ for each target, as is summarized in the following table:
 | target | output_type | description |
 |:---|:---|:---|
 | wk inc flu hosp | quantile, median, mean, sample | weekly count of hospital admissions with flu |
-| wk flu hosp rate | cdf | week rate of hospital admissions with flu per 100,000 population |
+| wk flu hosp rate | cdf | weekly rate of hospital admissions with flu per 100,000 population |
 | wk flu hosp rate category | pmf | categorical severity level of the hospital admissions rate, with levels ‘low’, ‘moderate’, ‘high’, and ‘very high’ |
 
 Below, we show snippets of the contents of a `model_out_tbl` with
 example forecast submissions and the corresponding **oracle output** for
 each `output_type`. We highlight two points about these objects:
 
-- The `reference_date` and `horizon` columns are included in the model
-  outputs but not in the oracle output.
+- The `reference_date` and `horizon` columns are included in the model outputs but not in the oracle output (although they could be included if specified under the global or dataset-specific `observable unit` properties).
 - In this example, the **oracle output** for the `mean`, `median`,
   `quantile`, and `sample` output types are all the same, and they
   contain `<NA>` values for the `output_type_id`. In a hub without `pmf`
@@ -603,7 +604,7 @@ is less than the observed rate and jumps to 1 at the observed rate.
 
 ### Optional `as_of` column to record data version source
 
-Oracle output data are most commonly dervied from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
+Oracle output data are most commonly derived from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
 
 ## How hubs should provide access to target time series data and oracle output
 
