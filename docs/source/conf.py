@@ -87,7 +87,7 @@ html_js_files = [
 # -- Options for EPUB output
 epub_show_urls = "footnote"
 
-schema_version = "v5.1.0"
+schema_version = "v6.0.0"
 # Use schema_branch variable to specify a branch in the schemas repository from which config schema will be source, especially for docson widgets.
 # Useful if the schema being documented hasn't been released to the `main` branch in the schemas repo yet.
 schema_branch = "br-" + schema_version
