@@ -340,7 +340,7 @@ was known with certainty. The implications of this vary depending on the
 (oracle-output-specific-options)=
 ### Oracle output specific options
 
-Oracle outputs can have additional properties that may be set globally or can be overridden for specific datasets. These properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
+Oracle outputs can have properties that may be set globally or can be overridden for specific datasets. The oracle output specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
 
 * `observable_unit`: Optional. Names of task IDs whose unique value combinations define an observable unit in oracle-output data. Each combination of values must be unique once combined with output type IDs if present. Use to override the global `observable_unit` in situations where some output types require additional task ID values to map onto target data (e.g., when `pmf` output type [functionally requires horizon](https://github.com/reichlab/flusight-dashboard/issues/20#issuecomment-2815550603)). If not specified or set to `null`, uses the global `observable_unit`.
 
