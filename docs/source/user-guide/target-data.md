@@ -293,27 +293,22 @@ peak incidence, and in hubs that collect pmf or cdf predictions.
 
 ### Task ID columns
 
-**The oracle output should include enough of the task ID variables to uniquely
-identify which `oracle_values` correspond to which predicted values.** In the
-[above oracle output example](#oracle-intro-example), the `location`,
-`target_end_date`, and `target` columns are included because they are necessary
-to identify _where_ and _when_ a given _target_ was measured as the
-`oracle_value`.
+**The oracle output should include enough of the task ID variables to uniquely identify which `oracle_values` correspond to which predicted values.** In the [above oracle output example](#oracle-intro-example), the `location`, `target_end_date`, and `target` columns are included because they are necessary to identify _where_ and _when_ a given _target_ was measured as the `oracle_value`.
 
-Similarly, **any task ID variables that are not necessary to match observations with predictions can be omitted from the oracle output.** In the [above oracle output example](#oracle-intro-example), the `horizon`, `model_id`, and `reference_date` columns are not included. Both `horizon` and `reference_date` are related to the `target_end_date` and thus would be redundant. Importantly, _these task ID variables are not applicable for observed data_---they are used for describing model-specific parameters about unknown events. Likewise, in a scenario projection setting, the `scenario_id` can be omitted as there is only one scenario for an observed event[^quanta]. Nonetheless, there are instances in which an output type may require a Task ID variable such as `horizon` to correctly map onto target data, and for such cases there is an option to specify additional task ID variables in the `observable_unit` property (see [Oracle output specific options](#oracle-output-specific-options) for more details).
+Similarly, **any task ID variables that are not necessary to match observations with predictions can be omitted from the oracle output.** In the [above oracle output example](#oracle-intro-example), the `horizon`, `model_id`, and `reference_date` columns are not included. Both `horizon` and `reference_date` are related to the `target_end_date` and thus would be redundant. Importantly, _these task ID variables are not applicable for observed data_---they are used for describing model-specific parameters about unknown events. Likewise, in a scenario projection setting, the `scenario_id` can be omitted as there is only one scenario for an observed event[^quanta].
 
 [^quanta]: just don't tell the quantum physicists.
 
+Nonetheless, there are instances in which an output type may require a Task ID variable such as `horizon` to correctly map onto target data, and for such cases there is an option to specify additional task ID variables in the `observable_unit` property (see [Oracle output specific options](#oracle-output-specific-options) for more details).
+
+
 ### Model output representation columns
 
-**The `output_type` and `output_type_id` columns only need to be included if
-the hub collects `pmf` or `cdf` outputs.** For those two output types, the
-`oracle_value` depends on the `output_type_id` (see the next section for more
-detail). On the
-other hand, the `oracle_value` is not specific to the quantile level for
-quantile forecasts or the sample index for sample forecasts, and so for these
-output types (as well as mean and median), the `output_type_id` is not needed
-to align observations with predictions.
+The `oracle-output` has a unique property, not present in the global or time series properties:
+
+* `has_output_type_ids`: Boolean. Must be `true` if `pmf` or `cdf` output types exist. Can be `false` otherwise. If `true`, the dataset must include `output_type` and `output_type_id` columns. Defaults to `false`.
+
+**The `output_type` and `output_type_id` columns only need to be included if the hub collects `pmf` or `cdf` outputs.** For those two output types, the `oracle_value` depends on the `output_type_id` (see the next section for more detail). On the other hand, the `oracle_value` is not specific to the quantile level for quantile forecasts or the sample index for sample forecasts, and so for these output types (as well as mean and median), the `output_type_id` is not needed to align observations with predictions.
 
 ### The `oracle_value` column
 
