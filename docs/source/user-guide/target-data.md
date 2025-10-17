@@ -168,7 +168,7 @@ reported in a column called `as_of`. This will then accurately represent what da
 
 ### Time series specific options
 
-Time series can have additional properties that may be set globally or can be overridden for specific datasets. These properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
+Time series can have properties that may be set globally or can be overridden for specific datasets. The time series specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
 
 * `non_task_id_schema`: Optional. Key-value pairs of non-task ID column names and their R data types, one of (`character`, `double`, `integer`, `logical`, `Date`). Include any columns in the time-series data that do not correspond exactly to a task ID. The `as_of` column does not need to be defined here as it is a reserved column.
 
