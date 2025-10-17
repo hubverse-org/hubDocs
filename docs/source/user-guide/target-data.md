@@ -176,7 +176,7 @@ Time series can have properties that may be set globally or can be overridden fo
 
 * `versioned`: Optional. Boolean indicating whether time-series data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property.
 
-Hubverse tools will only validate columns that make up the unit of observation that match model task IDs. You may also include additional columns that have a 1:1 correspondence with the data---for example, a transformation of counts to rates or a human-readable translation of codes. These should be defined in the `non_task_id_schema` property.
+Hubverse tools will only validate the content of the columns that make up the unit of observation that match model task IDs. You may also include additional columns that have a 1:1 correspondence with the data---for example, a transformation of counts to rates or a human-readable translation of codes. These should be defined in the `non_task_id_schema` property.
 
 (target-oracle-output)=
 ## Oracle output
