@@ -18,7 +18,7 @@ certifi==2025.10.5
     # via requests
 cfgv==3.4.0
     # via pre-commit
-charset-normalizer==3.4.3
+charset-normalizer==3.4.4
     # via requests
 click==8.3.0
     # via uvicorn
@@ -139,11 +139,11 @@ typing-extensions==4.15.0
     #   pydata-sphinx-theme
 urllib3==2.5.0
     # via requests
-uvicorn==0.37.0
+uvicorn==0.38.0
     # via sphinx-autobuild
 virtualenv==20.35.3
     # via pre-commit
-watchfiles==1.1.0
+watchfiles==1.1.1
     # via sphinx-autobuild
 websockets==15.0.1
     # via sphinx-autobuild
