@@ -24,7 +24,9 @@ The files within the `hub-config` directory specify general configurations for a
 * Configuring model output visualizations
    * Visualization tools may benefit from programmatically identifying task ID variables so that a separate visualization of model outputs can be generated for each combination of those variables (e.g., via facetting or menu selections). For example, producing separate visualizations for different locations or scenario IDs may be beneficial.
    * The `tasks.json` file contains metadata about the targets, including a human-readable description and units that can be used for visualization.
-
+```{admonition} NOTE
+All objects in `admin-schema.json` and `tasks.json` disallow additional properties by default. Custom properties are only permitted within `additional_metadata` fields, which are allowed in `tasks.round` objects, `tasks.rounds.model_tasks.target_metadata` objects, and at the top levels of `target-data.json` and `admin.json` files.
+```
 
 ## Hub administrative configuration (`admin.json` file)
 
