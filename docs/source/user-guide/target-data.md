@@ -42,57 +42,7 @@ oracle output. The primary use case of oracle output is for evaluation.
 Common uses for target time series and oracle output data. A ✅
 indicates which data formats are most commonly used for each purpose.
 
-## File formats
-
-Both the *time series* and *oracle output* data are found in [the `target-data/`
-directory of a hub](#structure-data-and-code) with the following conventions:
-
-1. time series data MUST be named `time-series`
-2. oracle output data MUST be named `oracle-output`
-3. files MUST be _either_ `*.csv` or `*.parquet`
-4. CSV files MUST be a single continuous file named either `time-series.csv` or
-  `oracle-output.csv`
-5. parquet files MAY be partitioned (see [partitioning target data](#structure-partitioning-target-data) for details)
-
-For example, this represents a valid time series data set because it is (1)
-named "time-series", (3) file extensions end with `.parquet`, and is (5)
-partitioned.
-
-```
-target-data/
-└── time-series/
-    ├── as_of=2023-06-03
-    │   └── part-0.parquet
-    ├── as_of=2023-06-10
-    │   └── part-0.parquet
-    └── as_of=2023-06-17
-        └── part-0.parquet
-```
-
-However, if the files above were "csv" files, this would violate (4). For a CSV
-time series target file, this is valid:
-
-
-```
-target-data/
-└── time-series.csv
-```
-
-## Target data configuration
-
-The `target-data.json` configuration file contains top-level properties that describe expectations across target datasets, with the ability to override these defaults for specific dataset types.
-
-Properties can be set at two levels:
-
-1.  Global (top-level): Default values that apply to all target dataset types
-2.  Dataset-specific (time-series, oracle-output)
-
-
-### Global (top-level) properties
-
-* `observable_unit`: An array of column names whose unique value combinations define the minimum observable unit. Must only include the `date_col`, `target_col` (if present), and any other task ID columns. When versioning is used, unique combinations will also take into account the values in the `as_of` column, though the `as_of` column is never included in the observable unit as it is a versioning column, not a task ID. This property is required.
-* `date_col`: The default date column across time-series, oracle-output, and model-output (if present) datasets. Expected to be of type `Date`.
-*  `versioned`: Boolean indicating whether all target type datasets use `as_of` versioning by default. If `true`, datasets are expected to have a date `as_of` column indicating the version of each data point. Defaults to `false`. Can be overridden at the dataset level.
+**Hub administrators:** see [Target Data Hub Configuration](#target-data-hub-configuration) for setup and performance guidance.
 
 (target-time-series)=
 ## Time series
@@ -165,18 +115,7 @@ the hubverse recommends recording the date target data were
 reported in a column called `as_of`. This will then accurately represent what data were available at a given point in time, and will allow tools like our
 [dashboards](dashboards.md) to automatically extract the data that were available for any given model round.
 
-
-### Time series specific options
-
-Time series can have properties that may be set globally or can be overridden for specific datasets. The time series specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
-
-* `non_task_id_schema`: Optional. Key-value pairs of non-task ID column names and their R data types, one of (`character`, `double`, `integer`, `logical`, `Date`). Include any columns in the time-series data that do not correspond exactly to a task ID. The `as_of` column does not need to be defined here as it is a reserved column.
-
-* `observable_unit`: Optional. Names of columns whose unique value combinations define the minimum observable unit for time-series data. Use to override the global `observable_unit` when time-series requires a different set of columns. If not specified or set to `null`, uses the global `observable_unit`.
-
-* `versioned`: Optional. Boolean indicating whether time-series data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property.
-
-Hubverse tools will only validate the content of the columns that make up the unit of observation that match model task IDs. You may also include additional columns that have a 1:1 correspondence with the data---for example, a transformation of counts to rates or a human-readable translation of codes. These should be defined in the `non_task_id_schema` property.
+**For configuration details, see [Configuring time-series data](#configuring-time-series-data).**
 
 (target-oracle-output)=
 ## Oracle output
@@ -299,7 +238,7 @@ Similarly, **any task ID variables that are not necessary to match observations 
 
 [^quanta]: just don't tell the quantum physicists.
 
-Nonetheless, there are instances in which an output type may require a Task ID variable such as `horizon` to correctly map onto target data, and for such cases there is an option to specify additional task ID variables in the `observable_unit` property (see [Oracle output specific options](#oracle-output-specific-options) for more details).
+Nonetheless, there are instances in which an output type may require a Task ID variable such as `horizon` to correctly map onto target data, and for such cases there is an option to specify additional task ID variables in the `observable_unit` property (see [Configuring oracle-output data](#configuring-oracle-output-data) for more details).
 
 
 ### Model output representation columns
@@ -336,15 +275,7 @@ was known with certainty. The implications of this vary depending on the
       probability distribution that places all of its probability at the
       observed value.
 
-
-(oracle-output-specific-options)=
-### Oracle output specific options
-
-Oracle outputs can have properties that may be set globally or can be overridden for specific datasets. The oracle output specific properties are optional, and when not defined in the `target-data.json` file, the global (top-level) defaults will be used. Following are the available options:
-
-* `observable_unit`: Optional. Names of task IDs whose unique value combinations define an observable unit in oracle-output data. Each combination of values must be unique once combined with output type IDs if present. Use to override the global `observable_unit` in situations where some output types require additional task ID values to map onto target data (e.g., when `pmf` output type [functionally requires horizon](https://github.com/reichlab/flusight-dashboard/issues/20#issuecomment-2815550603)). If not specified or set to `null`, uses the global `observable_unit`.
-
-* `versioned`: Optional. Boolean indicating whether oracle-output data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property. Note that oracle-output data is expected to have only a single version of each unique combination of observable unit values, in contrast to time-series which is allowed to have multiple versions. This is to minimize confusion and reduce the risk of downloading multiple observed values and scoring on each of them.
+**For configuration details, see [Configuring oracle-output data](#configuring-oracle-output-data).**
 
 
 ## Examples of the oracle output format
@@ -606,7 +537,166 @@ is less than the observed rate and jumps to 1 at the observed rate.
 
 Oracle output data are most commonly derived from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
 
-## How hubs should provide access to target time series data and oracle output
+(target-data-hub-configuration)=
+## Target Data Hub Configuration
+
+This section provides comprehensive guidance for hub administrators on configuring target data for optimal performance and usability.
+
+### File Formats and Naming
+
+Both the *time series* and *oracle output* data are found in [the `target-data/`
+directory of a hub](#structure-data-and-code) with the following conventions:
+
+1. time series data MUST be named `time-series`
+2. oracle output data MUST be named `oracle-output`
+3. files MUST be _either_ `*.csv` or `*.parquet`
+4. CSV files MUST be a single continuous file named either `time-series.csv` or
+  `oracle-output.csv`
+5. parquet files MAY be partitioned (see [partitioning target data](#structure-partitioning-target-data) for details)
+
+For example, this represents a valid time series data set because it is (1)
+named "time-series", (3) file extensions end with `.parquet`, and is (5)
+partitioned.
+
+```
+target-data/
+└── time-series/
+    ├── as_of=2023-06-03
+    │   └── part-0.parquet
+    ├── as_of=2023-06-10
+    │   └── part-0.parquet
+    └── as_of=2023-06-17
+        └── part-0.parquet
+```
+
+However, if the files above were "csv" files, this would violate (4). For a CSV
+time series target file, this is valid:
+
+
+```
+target-data/
+└── time-series.csv
+```
+
+**Choosing a file format:**
+
+Both CSV and Parquet formats are supported, but they have different characteristics:
+
+- **CSV**: Universal compatibility, human-readable, good for smaller datasets
+- **Parquet**: Embedded schema (more robust and reliable), better performance, especially for large datasets and cloud storage (recommended)
+
+### Performance Considerations
+
+Hub administrators should consider these performance factors when configuring target data:
+
+**File Format Impact:**
+
+Parquet format provides significant performance advantages:
+- **Faster queries**: Columnar storage enables efficient filtering
+- **Efficient column selection**: Only requested columns are read from disk
+- **Better compression**: Reduces storage costs and data transfer
+- **Cloud optimization**: Particularly beneficial for S3/GCS where I/O is slower
+
+**For cloud-based hubs**, Parquet format is strongly recommended as it minimizes expensive network operations.
+
+**Configuration Impact:**
+
+Using `target-data.json` (detailed below) provides significant performance benefits:
+- **Faster schema creation**: Config-based vs. scanning files, eliminating file I/O
+- **Particularly important for cloud hubs**: Avoids slow remote file system operations
+
+The configuration file is optional but **strongly recommended for**:
+- Cloud-based hubs (S3, GCS)
+- Large datasets
+- Hubs prioritizing user experience and data access speed
+
+(configuring-target-data-json)=
+### The target-data.json Configuration File
+
+:::{tip}
+For an interactive view of the full `target-data.json` schema, see the [Hub target data configuration interactive schema](#target-data-config).
+:::
+
+The `target-data.json` configuration file allows hub administrators to explicitly define target data schemas and properties, improving performance and reliability.
+
+**Why use target-data.json?**
+
+Without configuration, hubverse tools must infer schemas by scanning actual data files. This can cause several issues:
+- **Inconsistent schema inference**: Different tools or file formats may infer different data types
+- **Partition column conflicts**: Parquet partition columns are stored as strings in the file system, which can conflict with the intended data type (e.g., dates stored as strings vs. Date type)
+- **Ambiguous data types**: Inference may not always produce the intended type
+
+With `target-data.json`, you get:
+- **Deterministic schemas**: Explicit type definitions ensure consistency across all tools
+- **Correct data types**: Specify intended types for partition columns and other fields
+- **Single source of truth**: One configuration file that all hubverse tools reference
+
+**Configuration Structure:**
+
+The file contains two levels of properties:
+
+1. **Global (top-level)**: Default values applying to all target dataset types
+2. **Dataset-specific**: Properties for `time-series` and/or `oracle-output` that override global defaults
+
+**Global Properties:**
+
+* `observable_unit`: An array of column names whose unique value combinations define the minimum observable unit. Must only include the `date_col`, `target_col` (if present), and any other task ID columns. When versioning is used, unique combinations will also take into account the values in the `as_of` column, though the `as_of` column is never included in the observable unit as it is a versioning column, not a task ID. This property is required.
+* `date_col`: The default date column across time-series, oracle-output, and model-output (if present) datasets. Expected to be of type `Date`.
+*  `versioned`: Boolean indicating whether all target type datasets use `as_of` versioning by default. If `true`, datasets are expected to have a date `as_of` column indicating the version of each data point. Defaults to `false`. Can be overridden at the dataset level.
+
+(configuring-time-series-data)=
+### Configuring Time-Series Data
+
+Dataset-specific properties for time-series data can be specified under a `"time-series"` key to override global settings.
+
+**Time-series-specific property (no global equivalent):**
+
+* `non_task_id_schema`: Optional. Key-value pairs of non-task ID column names and their R data types, one of (`character`, `double`, `integer`, `logical`, `Date`). Include any columns in the time-series data that do not correspond exactly to a task ID. The `as_of` column does not need to be defined here as it is a reserved column.
+
+**Properties that can override global settings:**
+
+* `observable_unit`: Optional. Names of columns whose unique value combinations define the minimum observable unit for time-series data. Use to override the global `observable_unit` when time-series requires a different set of columns. If not specified or set to `null`, uses the global `observable_unit`.
+
+* `versioned`: Optional. Boolean indicating whether time-series data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property.
+
+Hubverse tools will only validate the content of the columns that make up the unit of observation that match model task IDs. You may also include additional columns that have a 1:1 correspondence with the data---for example, a transformation of counts to rates or a human-readable translation of codes. These should be defined in the `non_task_id_schema` property.
+
+:::{note}
+Should you need to validate such additional columns, you can use [custom target data checks](https://hubverse-org.github.io/hubValidations/articles/deploying-custom-functions.html) in hubValidations (see also the guide on [writing custom validation functions](https://hubverse-org.github.io/hubValidations/articles/writing-custom-fns.html)).
+:::
+
+(configuring-oracle-output-data)=
+### Configuring Oracle-Output Data
+
+Dataset-specific properties for oracle-output data can be specified under an `"oracle-output"` key to override global settings.
+
+**Oracle-output-specific property (no global equivalent):**
+
+* `has_output_type_ids`: Boolean. Must be `true` if `pmf` or `cdf` output types exist. Can be `false` otherwise. If `true`, the dataset must include `output_type` and `output_type_id` columns. Defaults to `false`.
+
+**Properties that can override global settings:**
+
+* `observable_unit`: Optional. Names of task IDs whose unique value combinations define an observable unit in oracle-output data. Each combination of values must be unique once combined with output type IDs if present. Use to override the global `observable_unit` to ensure oracle outputs can be successfully mapped to model outputs for evaluation, particularly when some output types require additional task ID values (see [special case below](#special-case-different-observable-units-between-datasets) for an example). If not specified or set to `null`, uses the global `observable_unit`.
+
+* `versioned`: Optional. Boolean indicating whether oracle-output data are versioned using `as_of` dates. Use to override the global `versioned` setting. If not specified, inherits from the global `versioned` property. Note that oracle-output data is expected to have only a single version of each unique combination of observable unit values, in contrast to time-series which is allowed to have multiple versions. This is to minimize confusion and reduce the risk of downloading multiple observed values and scoring on each of them.
+
+**Important considerations:**
+
+- `output_type` and `output_type_id` columns are only required for `pmf` and `cdf` output types
+- For `mean`, `median`, `quantile`, and `sample` outputs, these columns can be omitted
+
+(special-case-different-observable-units-between-datasets)=
+**Special case: Different observable units between datasets**
+
+In some hubs, oracle-output data may require additional columns in its `observable_unit` that are not present in time-series data.
+For example, if your hub collects `pmf` output types with categorical predictions based on `horizon`,
+the oracle-output data needs the `horizon` column to determine which pmf category corresponds to the observed outcome.
+In this case, the oracle-output observable unit would include `horizon` while the time-series observable unit does not.
+
+This is configured by overriding the global `observable_unit` in the oracle-output dataset-specific configuration.
+See the [RFC decision document](https://github.com/reichlab/decisions/blob/main/decisions/2025-06-17-RFC-target-data-metadata.md) for detailed examples.
+
+## Access and Distribution
 
 Hubs should ensure that standardized procedures for accessing target
 data are available. The data formats that a hub provides may depend on
