@@ -42,7 +42,7 @@ oracle output. The primary use case of oracle output is for evaluation.
 Common uses for target time series and oracle output data. A ✅
 indicates which data formats are most commonly used for each purpose.
 
-**Hub administrators:** see [Target Data Hub Configuration](#target-data-hub-configuration) for setup and performance guidance.
+**Hub administrators:** see [File Formats and Naming](#file-formats-and-naming) and [Target Data Hub Configuration](#target-data-hub-configuration) for setup and performance guidance.
 
 (target-time-series)=
 ## Time series
@@ -537,12 +537,7 @@ is less than the observed rate and jumps to 1 at the observed rate.
 
 Oracle output data are most commonly derived from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
 
-(target-data-hub-configuration)=
-## Target Data Hub Configuration
-
-This section provides comprehensive guidance for hub administrators on configuring target data for optimal performance and usability.
-
-### File Formats and Naming
+## File Formats and Naming
 
 Both the *time series* and *oracle output* data are found in [the `target-data/`
 directory of a hub](#structure-data-and-code) with the following conventions:
@@ -584,6 +579,11 @@ Both CSV and Parquet formats are supported, but they have different characterist
 
 - **CSV**: Universal compatibility, human-readable, good for smaller datasets
 - **Parquet**: Embedded schema (more robust and reliable), better performance, especially for large datasets and cloud storage (recommended)
+
+(target-data-hub-configuration)=
+## Target Data Hub Configuration
+
+This section provides guidance for hub administrators on configuring target data through the `target-data.json` file for optimal performance and usability.
 
 ### Performance Considerations
 
@@ -643,6 +643,7 @@ The file contains two levels of properties:
 * `observable_unit`: An array of column names whose unique value combinations define the minimum observable unit. Must only include the `date_col`, `target_col` (if present), and any other task ID columns. When versioning is used, unique combinations will also take into account the values in the `as_of` column, though the `as_of` column is never included in the observable unit as it is a versioning column, not a task ID. This property is required.
 * `date_col`: The default date column across time-series, oracle-output, and model-output (if present) datasets. Expected to be of type `Date`.
 *  `versioned`: Boolean indicating whether all target type datasets use `as_of` versioning by default. If `true`, datasets are expected to have a date `as_of` column indicating the version of each data point. Defaults to `false`. Can be overridden at the dataset level.
+* `additional_metadata`: Optional. An object containing hub-specific metadata that isn't part of the standard schema. Use this to store custom information that may be useful for your hub's tooling or documentation. The schema does not validate the contents of this field.
 
 (configuring-time-series-data)=
 ### Configuring Time-Series Data
@@ -695,6 +696,104 @@ In this case, the oracle-output observable unit would include `horizon` while th
 
 This is configured by overriding the global `observable_unit` in the oracle-output dataset-specific configuration.
 See the [RFC decision document](https://github.com/reichlab/decisions/blob/main/decisions/2025-06-17-RFC-target-data-metadata.md) for detailed examples.
+
+### Configuration Examples
+
+The following examples demonstrate common `target-data.json` configurations for different hub scenarios.
+
+#### Example 1: Versioned Hub
+
+A basic configuration for a hub that maintains versioned target data:
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": ["target_date", "location", "target"],
+  "date_col": "target_date",
+  "versioned": true
+}
+```
+
+This configuration defines a global observable unit and versioning for all target datasets.
+
+#### Example 2: Non-Task ID Columns
+
+A configuration that includes additional non-task ID columns with explicit data type declarations:
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": ["target_date", "location", "target"],
+  "date_col": "target_date",
+  "time-series": {
+    "non_task_id_schema": {
+      "location_name": "character"
+    }
+  }
+}
+```
+
+The `non_task_id_schema` property specifies data types for additional columns that provide context alongside task IDs (like human-readable location names).
+
+#### Example 3: Oracle Output with Output Type IDs
+
+A configuration for oracle outputs containing `output_type` and `output_type_id` columns for pmf/cdf structures:
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": ["target_date", "location", "target"],
+  "date_col": "target_date",
+  "oracle-output": {
+    "has_output_type_ids": true
+  }
+}
+```
+
+Set `has_output_type_ids` to `true` when your oracle-output data includes `pmf` or `cdf` output types.
+
+#### Example 4: Dataset-Specific Overrides
+
+A configuration demonstrating hierarchical overrides where oracle-output uses different observable units and versioning than time-series data:
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": ["target_date", "location", "target"],
+  "date_col": "target_date",
+  "versioned": true,
+  "oracle-output": {
+    "observable_unit": ["target_date", "location", "target", "horizon"],
+    "versioned": false
+  }
+}
+```
+
+This example shows how oracle-output can override global settings. Here it requires `horizon` in its observable unit (see [special case above](#special-case-different-observable-units-between-datasets)) and disables versioning for oracle-output while keeping it enabled for time-series.
+
+#### Example 5: Custom Metadata
+
+A configuration showing how to include hub-specific metadata while maintaining schema compliance:
+
+```json
+{
+  "schema_version": "https://raw.githubusercontent.com/hubverse-org/schemas/main/v6.0.0/target-data-schema.json",
+  "observable_unit": ["target_date", "location", "target"],
+  "date_col": "target_date",
+  "additional_metadata": {
+    "data_source": "CDC NNDSS",
+    "collection_year": 2024,
+    "is_provisional": true,
+    "reporting_jurisdictions": ["state", "territory"],
+    "update_schedule": {
+      "frequency": "weekly",
+      "day": "Thursday"
+    }
+  }
+}
+```
+
+Use `additional_metadata` to store hub-specific information that isn't part of the standard schema but may be useful for your hub's tooling or documentation.
 
 ## Access and Distribution
 
