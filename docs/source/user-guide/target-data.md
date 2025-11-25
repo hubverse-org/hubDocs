@@ -1,4 +1,4 @@
-Target (Observed) Data
+Target (observed) data
 ================
 
 ## Definitions
