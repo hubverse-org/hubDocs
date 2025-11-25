@@ -582,7 +582,7 @@ Both CSV and Parquet formats are supported, but they have different characterist
 - **Parquet**: Embedded schema (more robust and reliable), better performance, especially for large datasets and cloud storage (recommended)
 
 (target-data-hub-configuration)=
-## Target Data Hub Configuration
+## Target data hub configuration
 
 This section provides guidance for hub administrators on configuring target data through the `target-data.json` file for optimal performance and usability.
 
