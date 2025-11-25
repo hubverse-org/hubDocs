@@ -537,7 +537,7 @@ is less than the observed rate and jumps to 1 at the observed rate.
 
 Oracle output data are most commonly derived from time series data which may be versioned with an `as_of` column. While only a single unique version of an oracle output row (excluding the `oracle_value` column) is allowed, the version (`as_of` value) of the time-series dataset used to derive the `oracle_value` of a particular row can be stored in an optional `as_of` column in oracle output data. This can be useful for tracking the provenance of oracle output data but is not required.
 
-## File Formats and Naming
+## File formats and naming
 
 Both the *time series* and *oracle output* data are found in [the `target-data/`
 directory of a hub](#structure-data-and-code) with the following conventions:
