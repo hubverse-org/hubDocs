@@ -771,7 +771,7 @@ A configuration demonstrating hierarchical overrides where oracle-output uses di
 
 This example shows how oracle-output can override global settings. Here it requires `horizon` in its observable unit (see [special case above](#special-case-different-observable-units-between-datasets)) and disables versioning for oracle-output while keeping it enabled for time-series.
 
-#### Example 5: Custom Metadata
+#### Example 5: custom metadata
 
 A configuration showing how to include hub-specific metadata while maintaining schema compliance:
 
