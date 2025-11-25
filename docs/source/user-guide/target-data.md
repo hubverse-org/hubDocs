@@ -600,7 +600,7 @@ Parquet format provides significant performance advantages:
 
 **For cloud-based hubs**, Parquet format is strongly recommended as it minimizes expensive network operations.
 
-**Configuration Impact:**
+**Configuration impact:**
 
 Using `target-data.json` (detailed below) provides significant performance benefits:
 - **Faster schema creation**: Config-based vs. scanning files, eliminating file I/O
