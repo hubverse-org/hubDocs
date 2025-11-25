@@ -702,7 +702,7 @@ See the [RFC decision document](https://github.com/reichlab/decisions/blob/main/
 
 The following examples demonstrate common `target-data.json` configurations for different hub scenarios.
 
-#### Example 1: Versioned Hub
+#### Example 1: versioned hub
 
 A basic configuration for a hub that maintains versioned target data:
 
