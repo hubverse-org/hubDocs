@@ -717,7 +717,7 @@ A basic configuration for a hub that maintains versioned target data:
 
 This configuration defines a global observable unit and versioning for all target datasets.
 
-#### Example 2: Non-Task ID Columns
+#### Example 2: non-task ID columns
 
 A configuration that includes additional non-task ID columns with explicit data type declarations:
 
