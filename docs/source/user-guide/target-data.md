@@ -687,7 +687,7 @@ Dataset-specific properties for oracle-output data can be specified under an `"o
 - For `mean`, `median`, `quantile`, and `sample` outputs, these columns can be omitted
 
 (special-case-different-observable-units-between-datasets)=
-**Special case: Different observable units between datasets**
+**Special case: different observable units between datasets**
 
 In some hubs, oracle-output data may require additional columns in its `observable_unit` that are not present in time-series data.
 For example, if your hub collects `pmf` output types with categorical predictions based on `horizon`,
