@@ -611,7 +611,7 @@ The configuration file is optional but **strongly recommended for**:
 - Hubs prioritizing user experience and data access speed
 
 (configuring-target-data-json)=
-### The target-data.json Configuration File
+### The `target-data.json` configuration file
 
 :::{tip}
 For an interactive view of the full `target-data.json` schema, see the [Hub target data configuration interactive schema](#target-data-config).
