@@ -668,7 +668,7 @@ Should you need to validate such additional columns, you can use [custom target 
 :::
 
 (configuring-oracle-output-data)=
-### Configuring Oracle-Output Data
+### Configuring oracle-output data
 
 Dataset-specific properties for oracle-output data can be specified under an `"oracle-output"` key to override global settings.
 
