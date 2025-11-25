@@ -638,7 +638,7 @@ The file contains two levels of properties:
 1. **Global (top-level)**: Default values applying to all target dataset types
 2. **Dataset-specific**: Properties for `time-series` and/or `oracle-output` that override global defaults
 
-**Global Properties:**
+**Global properties:**
 
 * `observable_unit`: An array of column names whose unique value combinations define the minimum observable unit. Must only include the `date_col`, `target_col` (if present), and any other task ID columns. When versioning is used, unique combinations will also take into account the values in the `as_of` column, though the `as_of` column is never included in the observable unit as it is a versioning column, not a task ID. This property is required.
 * `date_col`: The default date column across time-series, oracle-output, and model-output (if present) datasets. Expected to be of type `Date`.
