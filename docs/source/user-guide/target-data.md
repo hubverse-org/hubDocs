@@ -736,7 +736,7 @@ A configuration that includes additional non-task ID columns with explicit data 
 
 The `non_task_id_schema` property specifies data types for additional columns that provide context alongside task IDs (like human-readable location names).
 
-#### Example 3: Oracle Output with Output Type IDs
+#### Example 3: oracle output with output type IDs
 
 A configuration for oracle outputs containing `output_type` and `output_type_id` columns for pmf/cdf structures:
 
