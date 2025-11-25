@@ -631,7 +631,7 @@ With `target-data.json`, you get:
 - **Correct data types**: Specify intended types for partition columns and other fields
 - **Single source of truth**: One configuration file that all hubverse tools reference
 
-**Configuration Structure:**
+**Configuration structure:**
 
 The file contains two levels of properties:
 
