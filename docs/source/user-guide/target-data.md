@@ -795,7 +795,7 @@ A configuration showing how to include hub-specific metadata while maintaining s
 
 Use `additional_metadata` to store hub-specific information that isn't part of the standard schema but may be useful for your hub's tooling or documentation.
 
-## Access and Distribution
+## Access and distribution
 
 Hubs should ensure that standardized procedures for accessing target
 data are available. The data formats that a hub provides may depend on
