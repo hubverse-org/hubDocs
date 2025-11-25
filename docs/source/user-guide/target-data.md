@@ -753,7 +753,7 @@ A configuration for oracle outputs containing `output_type` and `output_type_id`
 
 Set `has_output_type_ids` to `true` when your oracle-output data includes `pmf` or `cdf` output types.
 
-#### Example 4: Dataset-Specific Overrides
+#### Example 4: dataset-specific overrides
 
 A configuration demonstrating hierarchical overrides where oracle-output uses different observable units and versioning than time-series data:
 
