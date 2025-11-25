@@ -590,7 +590,7 @@ This section provides guidance for hub administrators on configuring target data
 
 Hub administrators should consider these performance factors when configuring target data:
 
-**File Format Impact:**
+**File format impact:**
 
 Parquet format provides significant performance advantages:
 - **Faster queries**: Columnar storage enables efficient filtering
