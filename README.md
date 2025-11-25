@@ -193,6 +193,11 @@ In general, contributions should be made via pull requests to the `main` branch.
 - File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).
 - Section and subsection titles should use sentence case, with only the first letter capitalized (e.g., "Additional notes").
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
+- When using [custom targets](https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#directive-target) such as subsection titles that can be linked to from other parts of the website), it is best practice to use explicit anchors, such as:
+  ```
+  (my-target-subsection)=
+  ### This is my target subsection
+  ```
 - Images used in Markdown pages should be stored in `docs/source/images` or in some instances under `docs/_static`.
 - Files that are not Markdown files (e.g., html files, json files, pdf files) should be stored in `docs/source/files` or in some instances under `docs/_static`.
 - Scripts that are meant to be regularly run for updating content should be stored in `scripts/`.
