@@ -646,7 +646,7 @@ The file contains two levels of properties:
 * `additional_metadata`: Optional. An object containing hub-specific metadata that isn't part of the standard schema. Use this to store custom information that may be useful for your hub's tooling or documentation. The schema does not validate the contents of this field.
 
 (configuring-time-series-data)=
-### Configuring Time-Series Data
+### Configuring time-series data
 
 Dataset-specific properties for time-series data can be specified under a `"time-series"` key to override global settings.
 
