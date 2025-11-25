@@ -586,7 +586,7 @@ Both CSV and Parquet formats are supported, but they have different characterist
 
 This section provides guidance for hub administrators on configuring target data through the `target-data.json` file for optimal performance and usability.
 
-### Performance Considerations
+### Performance considerations
 
 Hub administrators should consider these performance factors when configuring target data:
 
