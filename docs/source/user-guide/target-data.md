@@ -698,7 +698,7 @@ In this case, the oracle-output observable unit would include `horizon` while th
 This is configured by overriding the global `observable_unit` in the oracle-output dataset-specific configuration.
 See the [RFC decision document](https://github.com/reichlab/decisions/blob/main/decisions/2025-06-17-RFC-target-data-metadata.md) for detailed examples.
 
-### Configuration Examples
+### Configuration examples
 
 The following examples demonstrate common `target-data.json` configurations for different hub scenarios.
 
