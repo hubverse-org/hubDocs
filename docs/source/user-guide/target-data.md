@@ -619,7 +619,7 @@ For an interactive view of the full `target-data.json` schema, see the [Hub targ
 
 The `target-data.json` configuration file allows hub administrators to explicitly define target data schemas and properties, improving performance and reliability.
 
-**Why use target-data.json?**
+**Why use `target-data.json`?**
 
 Without configuration, hubverse tools must infer schemas by scanning actual data files. This can cause several issues:
 - **Inconsistent schema inference**: Different tools or file formats may infer different data types
