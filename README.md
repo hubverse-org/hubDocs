@@ -193,7 +193,7 @@ In general, contributions should be made via pull requests to the `main` branch.
 - File names and directories should be in lower case, and hyphens should be used in place of spaces (not underscores) for consistency, to make searches easier, and to help with accessibility. [Additional explanations and suggestions can be found in this page](https://developers.google.com/style/filenames).
 - Section and subsection titles should use sentence case, with only the first letter capitalized (e.g., "Additional notes").
 - Formatting of pages should try to use (1) native Markdown formatting first, (2) HTML formatting when Markdown formatting is insufficient or inadequate, (3) customization of HTML through CSS using `custom.css` (`docs/_static/css/custom.css`).
-- When using [custom targets](https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#directive-target) such as subsection titles that can be linked to from other parts of the website), it is best practice to use explicit anchors, such as:
+- When using [custom targets](https://myst-parser.readthedocs.io/en/latest/syntax/cross-referencing.html#directive-target) (internal cross-references) such as subsection titles that can be linked to from other parts of the website), it is best practice to use explicit anchors, such as:
   ```
   (my-target-subsection)=
   ### This is my target subsection
