@@ -620,6 +620,10 @@ For an interactive view of the full `target-data.json` schema, see the [Hub targ
 
 The `target-data.json` configuration file allows hub administrators to explicitly define target data schemas and properties, improving performance and reliability.
 
+**File location:**
+
+The `target-data.json` file must be stored in the `hub-config/` directory along with all other hub configuration files.
+
 **Why use `target-data.json`?**
 
 Without configuration, hubverse tools must infer schemas by scanning actual data files. This can cause several issues:
