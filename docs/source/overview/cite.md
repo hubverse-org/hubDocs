@@ -35,6 +35,7 @@ To cite [**the hubverse landing website**](https://hubverse.io/), please use the
 ```{admonition} hubverse website citation
 The Consortium of Infectious Disease Modeling Hubs. Hubverse Website. URL: https://hubverse.io/
 ```
+
 ## Specific hubverse packages
 - To cite a specific **hubverse R package**, such as `hubUtils`, run `citation("hubUtils")` in your R console to find the appropriate text.
 - To cite a specific **hubverse Python package**, such as `hub-data`, please use the format below. Be sure to replace the text inside `<angle brackets>`, including the package name, release number, date, repository link, and PyPI page. To find the most current release number, date, search for the specific package in [PyPI](https://pypi.org/) or find the package in the [hubverse Python packages page](https://github.com/orgs/hubverse-org/repositories?q=language%3APython) and look for the information in the middle of the right-hand column under **Releases**.
