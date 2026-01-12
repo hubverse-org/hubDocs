@@ -145,7 +145,7 @@ virtualenv==20.35.4
     # via pre-commit
 watchfiles==1.1.1
     # via sphinx-autobuild
-websockets==15.0.1
+websockets==16.0
     # via sphinx-autobuild
 wheel==0.45.1
     # via sphinx-togglebutton
