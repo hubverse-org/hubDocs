@@ -49,7 +49,7 @@ jinja2==3.1.6
     #   hubdocs (pyproject.toml)
     #   myst-parser
     #   sphinx
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
     # via
     #   mdit-py-plugins
     #   myst-parser
@@ -59,7 +59,7 @@ mdit-py-plugins==0.5.0
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-myst-parser==4.0.1
+myst-parser==5.0.0
     # via hubdocs (pyproject.toml)
 nodeenv==1.10.0
     # via pre-commit
@@ -95,7 +95,7 @@ snowballstemmer==3.0.1
     # via sphinx
 soupsieve==2.8.2
     # via beautifulsoup4
-sphinx==8.2.3
+sphinx==9.0.0
     # via
     #   hubdocs (pyproject.toml)
     #   myst-parser
@@ -110,7 +110,7 @@ sphinx-autobuild==2025.8.25
     # via hubdocs (pyproject.toml)
 sphinx-book-theme==1.1.4
     # via hubdocs (pyproject.toml)
-sphinx-design==0.6.1
+sphinx-design==0.7.0
     # via hubdocs (pyproject.toml)
 sphinx-subfigure==0.2.4
     # via hubdocs (pyproject.toml)
