@@ -63,7 +63,7 @@ myst-parser==5.0.0
     # via hubdocs (pyproject.toml)
 nodeenv==1.10.0
     # via pre-commit
-packaging==25.0
+packaging==26.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
