@@ -267,16 +267,17 @@ For details, see the [limitations and requirements section](#predevals-limitatio
 ### Configuring the PredEvals module
 
 
-To include the PredEvals component[^predevals-nope], edit the `predevals-config.yml` file to match your hub. Broadly, you need to specify four things:
+To include the PredEvals component[^predevals-nope], edit the `predevals-config.yml` file to match your hub. Broadly, you need to specify five things:
 
 1. schema version
-2. targets: one or more targets that includes
+2. `rounds_idx`: the 0-based index of the `rounds` entry in the hub's `tasks.json` configuration file to use for the evaluation (limited to a single [round block defined from a variable](#ptc-limitation-rounds)). Note that you need to provide this even if your hub has only one `rounds` entry.
+3. targets: one or more targets that includes
    - target ID
    - scoring metrics (see the [details for `hubEvals::score_model_out()`](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for a list of available metrics and [Scoring rules in `scoringutils`](https://epiforecasts.io/scoringutils/articles/scoring-rules.html) for a detailed breakdown of how these metrics are scored).
    - what metrics should include relative scores compared to a baseline model
    - task IDs required for the target
-3. evaluation sets that provide evaluations over a specific time period and broken down by different task ID variables.
-4. a dictionary that defines human-readable values for task ID variable values.
+4. evaluation sets that provide evaluations over a specific time period and broken down by different task ID variables.
+5. a dictionary that defines human-readable values for task ID variable values.
 
 
 Here, we give an example configuration file that is adapted from the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub)[^predevals-trim].
@@ -292,7 +293,8 @@ It is generally recommended that the baseline model used for relative skill scor
 
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+rounds_idx: 0
 targets:
 - target_id: wk inc flu hosp
   metrics:
@@ -353,10 +355,10 @@ task_id_text:
     ...
 ```
 
-This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
+This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
 
 
-<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json"></script>
+<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json"></script>
 
 
 Unlike the PredTimeChart module, PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
