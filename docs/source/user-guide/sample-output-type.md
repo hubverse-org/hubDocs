@@ -1,11 +1,13 @@
 # Sample output type
 
 ## Introduction
+
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that come out of a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
 In the hubverse, a "modeling task" is the element that is being predicted and that can be represented by a univariate (e.g., scalar or single) value. We could also tie this to a tabular representation of data more concretely as a combination of values from a set of task ID columns that uniquely define a single prediction. We note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).
 
-Take the following `model_output` data for the mean `output_type` as an example:
+We will use the following `model_output` data to help solidify the concept of a modeling task. (Note that the mean `output_type` is used due to its simplicity.)
+
 | origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
 | 2024-03-15 | -1 | MA | mean | NA| - |
@@ -13,7 +15,7 @@ Take the following `model_output` data for the mean `output_type` as an example:
 | 2024-03-15 |  1 | MA | mean | NA| - |
 
 
-In the above table, the three task-id columns `origin_date`, `horizon`, and `location` uniquely define a modeling task. Here, there are three modeling tasks, represented by the tuples <br>
+In the above table, the three task-id columns `origin_date`, `horizon`, and `location` uniquely define a modeling task in every row. Here, there are three modeling tasks (one for each row), represented by the tuples <br>
 
 ```
 {origin_date: "2024-03-15", horizon: "-1", location: "MA"}
@@ -21,22 +23,28 @@ In the above table, the three task-id columns `origin_date`, `horizon`, and `loc
 {origin_date: "2024-03-15", horizon: "1", location: "MA"}
 ```
 
-In words, the first of these tuples represents a forecast for one day (assume here the horizon is on the timescale of day) before the origin date of 2024-03-15 in Massachusetts.
+In words, the first of these tuples (as well as the first row in the table above it) represents a forecast for one day (assume here the horizon is on the timescale of day) before the origin date of 2024-03-15 in Massachusetts.
+
 
 ## Individual modeling tasks
-In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct, as is implied by the `compound_idx` column in the table below (grayed out to indicate that such a column exists implicitly in the dataset and is not typically present in the actual tabular data). In this setting, the `output_type_id` column indexes the samples that exist for each modeling task.
 
-|compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
-|:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 0| - |
-| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 1| - |
-| ${\color{lightgrey}1}$ | 2024-03-15 | -1 | MA | sample | 2| - |
-| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 3| - |
-| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 4| - |
-| ${\color{lightgrey}2}$ | 2024-03-15 | 0 | MA | sample | 5| - |
-| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 6| - |
-| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 7| - |
-| ${\color{lightgrey}3}$ | 2024-03-15 | 1 | MA | sample | 8| - |
+In many settings, forecasts will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). In the situations where forecasts are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. 
+
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. Then, we might end up with following data set, in which each block of three rows (separated by a heavy line) represents the sample output type forecasts for a particular modeling task.
+
+| origin_date | horizon | location | output_type| output_type_id | value |
+|:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| 2024-03-15 | -1 | MA | sample | 0| - |
+| 2024-03-15 | -1 | MA | sample | 1| - |
+| 2024-03-15 | -1 | MA | sample | 2| - |
+|:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| 2024-03-15 | 0 | MA | sample | 3| - |
+| 2024-03-15 | 0 | MA | sample | 4| - |
+| 2024-03-15 | 0 | MA | sample | 5| - |
+|:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
+| 2024-03-15 | 1 | MA | sample | 6| - |
+| 2024-03-15 | 1 | MA | sample | 7| - |
+| 2024-03-15 | 1 | MA | sample | 8| - |
 
 In this setting, a hub will specify a minimum and maximum number of required samples in the metadata for the prediction task. The associated configuration might look like:
 
@@ -45,8 +53,8 @@ In this setting, a hub will specify a minimum and maximum number of required sam
     "sample": {
         "output_type_id_params": {
             "type": "integer",
-            "min_samples_per_task": 100,
-            "max_samples_per_task": 100
+            "min_samples_per_task": 9,
+            "max_samples_per_task": 9
         },
         "value": {
             "type":"double",
@@ -57,7 +65,7 @@ In this setting, a hub will specify a minimum and maximum number of required sam
 }
 ```
 
-In words, the above configuration specifies that  `"output_type_id_params"` samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 100 samples per modeling task. The "value" specifications correspond to the values contained in the "value" column (e..g they must be storable as numeric "double" format and be no less than zero).
+In words, the above configuration specifies that  `"output_type_id_params"` samples are required, they must be integers, and there must be exactly (i.e., no more or less than) 9 samples per modeling task. The "value" specifications correspond to the values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero).
 
 Note that the `output_type_id` parameters are specified in an `"output_type_id_params"` block because they are parameters defining the allowable values. For other output types, the `"output_type_id"` block is used to list required and optional values explicitly.
 
