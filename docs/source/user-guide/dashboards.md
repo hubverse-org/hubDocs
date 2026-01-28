@@ -220,7 +220,6 @@ Here we summarize some important limitations of the visualization functionality 
  - The visualization tool can only display step-ahead predictions that use the quantile output type.
  - It can only display predictions for tasks that are defined in [a single entry in the `rounds` section of the hub's `tasks.json` configuration file]{#ptc-limitation-rounds}. Note that it is possible to display predictions for multiple rounds, and a dashboard typically will do that. However, those rounds must be defined in a single `rounds` block.
  - It can only display predictions for modeling tasks that are defined in [a single entry of the `model_tasks` section of the hub's `tasks.json` configuration file.]{#ptc-limitation-mt} Again, this allows for display of predictions across multiple modeling tasks as long as the values of the task id variables defining those modeling tasks are specified in the same `model_tasks` block.
- - Currently, only a single prediction target is supported. Specifically, the `target_metadata` array in the specified `model_tasks` object within the specified `rounds` object must contain exactly one object, which must have a single key in the `target_keys` object.
  - The following quantile levels (`output_type_id`s) must be present: `0.025`, `0.25`, `0.5`, `0.75`, `0.975`. These quantiles define the predictive median and the bounds of 50% and 95% prediction intervals.
  - The hub must have task id variables defining:
     - A reference date for predictions (e.g., `reference_date`, `origin_date`, or similar)
@@ -267,16 +266,17 @@ For details, see the [limitations and requirements section](#predevals-limitatio
 ### Configuring the PredEvals module
 
 
-To include the PredEvals component[^predevals-nope], edit the `predevals-config.yml` file to match your hub. Broadly, you need to specify four things:
+To include the PredEvals component[^predevals-nope], edit the `predevals-config.yml` file to match your hub. Broadly, you need to specify five things:
 
 1. schema version
-2. targets: one or more targets that includes
+2. `rounds_idx`: the 0-based index of the `rounds` entry in the hub's `tasks.json` configuration file to use for the evaluation (limited to a single [round block defined from a variable](#ptc-limitation-rounds)). Note that you need to provide this even if your hub has only one `rounds` entry.
+3. targets: one or more targets that includes
    - target ID
    - scoring metrics (see the [details for `hubEvals::score_model_out()`](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for a list of available metrics and [Scoring rules in `scoringutils`](https://epiforecasts.io/scoringutils/articles/scoring-rules.html) for a detailed breakdown of how these metrics are scored).
    - what metrics should include relative scores compared to a baseline model
    - task IDs required for the target
-3. evaluation sets that provide evaluations over a specific time period and broken down by different task ID variables.
-4. a dictionary that defines human-readable values for task ID variable values.
+4. evaluation sets that provide evaluations over a specific time period and broken down by different task ID variables.
+5. a dictionary that defines human-readable values for task ID variable values.
 
 
 Here, we give an example configuration file that is adapted from the [FluSight forecast hub](https://github.com/cdcepi/FluSight-forecast-hub)[^predevals-trim].
@@ -292,7 +292,8 @@ It is generally recommended that the baseline model used for relative skill scor
 
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+rounds_idx: 0
 targets:
 - target_id: wk inc flu hosp
   metrics:
@@ -353,13 +354,13 @@ task_id_text:
     ...
 ```
 
-This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
+This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
 
 
-<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.0/config_schema.json"></script>
+<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json"></script>
 
 
-Unlike the PredTimeChart module, PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
+PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
 
 The example specifies two evaluation sets, named `"Full season"` and `"Last 4 weeks"`. In the evaluation dashboard, a dropdown menu allows users to select the evaluation set for which results are displayed. Both evaluation sets are specified using a combination of filters on the modeling round (`round_filters`) and other filters on the modeling tasks (`task_filters`). Two types of `round_filters` are available. Both evaluation sets use the `min` setting to specify the earliest round id that is included in the evaluation set. The value of this setting must be a valid value of the task id variable that is used for the `round_id_from_variable` in the hub's `tasks.json` configuration file. The `"Last 4 weeks"` evaluation set additionally specifies `n_last`, which gives the trailing number of modeling rounds to include in the evaluation set.
 
