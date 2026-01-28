@@ -145,7 +145,7 @@ This was the situation we found ourselves in when implementing this fix
 
 ### R Packages
 
-The R packages used are dicated by the `renv.lock` file in the repository. This
+The R packages used are managed by the `renv.lock` file in the repository. This
 file was manually generated with a modified [renv workflow](https://docs.posit.co/ide/user/ide/guide/environments/r/renv.html#workflow): `renv::init()` followed by
 `renv::install("hubverse-org/hubPredEvalsData")` and `renv::snapshot()`. The
 reason for the `renv::install()` step is because renv cannot infer what GitHub
@@ -172,10 +172,12 @@ locks our container to a point in time with a specific R version.
 This means that with every release of `hubPredEvalsData`, we need to update the
 lockfile for the docker image.
 
-To update this image, make sure you have {renv} installed on your machine and
-then run `Rscript ./scripts/update.R`. This will update the lockfile and you can
-create a pull request for these results. An example of a pull request with
-these changes can be found in [hubverse-org/hubPredEvalsData-docker#3](https://github.com/hubverse-org/hubPredEvalsData-docker/pull/3).
+To update this image, make sure you have https://rstudio.github.io/renv/ installed
+on your machine and then follow the "How to update" instructions at 
+https://github.com/hubverse-org/hubPredEvalsData-docker/blob/main/README.md. This 
+will update the lockfile and you can create a pull request for these results. An
+example of a pull request with these changes can be found in
+[hubverse-org/hubPredEvalsData-docker#3](https://github.com/hubverse-org/hubPredEvalsData-docker/pull/3).
 
 #### Updating dependencies after a minor R version update
 
