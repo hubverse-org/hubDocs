@@ -21,7 +21,7 @@ BibTeX:
 ## HubEnsembles package
 If you used the **hubEnsembles** package in your work, please cite the following preprint:
 ```{admonition} hubEnsembles citation
-Shandross L, Howerton E, Contamin L, Hochheiser H, Krystalli A, Consortium of Infectious Disease Modeling Hubs, et al. [Multi-model ensembles in infectious disease and public health: Methods, interpretation, and implementation in R](https://www.medrxiv.org/content/10.1101/2024.06.24.24309416v2) [Internet]. medRxiv; 2025 [cited 2025 Nov 26]. p. 2024.06.24.24309416. Available from: https://www.medrxiv.org/content/10.1101/2024.06.24.24309416v2
+Shandross L, Howerton E, Contamin L, Hochheiser H, Krystalli A, Consortium of Infectious Disease Modeling Hubs, et al. [Multi-Model Ensembles in Infectious Disease and Public Health: Methods, Interpretation, and Implementation in R](https://onlinelibrary.wiley.com/doi/10.1002/sim.70333) [Internet]. Statistics in Medicine. 2026;45(1–2):e70333. Available from: https://onlinelibrary.wiley.com/doi/10.1002/sim.70333
 ```
 
 ## HubDocs site
