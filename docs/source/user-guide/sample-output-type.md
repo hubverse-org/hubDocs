@@ -247,7 +247,7 @@ To configure this response dependence structure, `horizon` is excluded from the 
 ```
 
 #### Example D: Response dependence across horizons and variants
-***Joint distribution across both***
+***Joint distribution across both horizons and variants***
 
 Here, there is response dependence across both `horizon` and `variant`. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
 
