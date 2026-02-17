@@ -4,17 +4,17 @@
 
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that originate from a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a "modeling task" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific point (or "slice") in the space defined by the task ID variables. Each modeling task results in a single predicted value. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+In the hubverse, a "modeling task" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific point (or "slice") in the space defined by the task ID variables that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
 
 We will use the following `model_output` data to help solidify the concept of a modeling task. (The mean `output_type` is used for demonstration purposes due to its simplicity.)
 
 | origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 2024-03-15 | -1 | MA | mean | NA| - |
-| 2024-03-15 |  0 | MA | mean | NA| - |
 | 2024-03-15 |  1 | MA | mean | NA| - |
+| 2024-03-15 |  2 | MA | mean | NA| - |
+| 2024-03-15 |  3 | MA | mean | NA| - |
 
-In this table, the task ID columns are `origin_date`, `horizon`, and `location`. There are three modeling tasks (one per row): horizon -1, horizon 0, and horizon 1—all for Massachusetts and origin date 2024-03-15. The first row, for example, represents a single slice of task ID space, a prediction for one day before the origin date in Massachusetts, resulting in one predicted value.
+In this table, the task ID columns are `origin_date`, `horizon`, and `location`. There are three modeling tasks (one per row): horizon 1, horizon 2, and horizon 3—all for Massachusetts and origin date 2024-03-15. The first row, for example, represents a single slice of task ID space, a prediction for one week ahead in Massachusetts, resulting in one predicted value.
 
 
 ## Sampling modeling tasks
@@ -33,15 +33,15 @@ Now, suppose we wanted to collect samples for each of the modeling tasks defined
 
 |compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 1 | 2024-03-15 | -1 | MA | sample | 0| - |
-| 1 | 2024-03-15 | -1 | MA | sample | 1| - |
-| 1 | 2024-03-15 | -1 | MA | sample | 2| - |
-| 2 | 2024-03-15 | 0 | MA | sample | 3| - |
-| 2 | 2024-03-15 | 0 | MA | sample | 4| - |
-| 2 | 2024-03-15 | 0 | MA | sample | 5| - |
-| 3 | 2024-03-15 | 1 | MA | sample | 6| - |
-| 3 | 2024-03-15 | 1 | MA | sample | 7| - |
-| 3 | 2024-03-15 | 1 | MA | sample | 8| - |
+| 1 | 2024-03-15 | 1 | MA | sample | 0| - |
+| 1 | 2024-03-15 | 1 | MA | sample | 1| - |
+| 1 | 2024-03-15 | 1 | MA | sample | 2| - |
+| 2 | 2024-03-15 | 2 | MA | sample | 3| - |
+| 2 | 2024-03-15 | 2 | MA | sample | 4| - |
+| 2 | 2024-03-15 | 2 | MA | sample | 5| - |
+| 3 | 2024-03-15 | 3 | MA | sample | 6| - |
+| 3 | 2024-03-15 | 3 | MA | sample | 7| - |
+| 3 | 2024-03-15 | 3 | MA | sample | 8| - |
 
 In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. In the marginal case, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
 
@@ -79,26 +79,26 @@ In both cases, joint sampling introduces additional dimensions to the predictive
 
 Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. We call such a group a **compound modeling task**.
 
-Consider the following model output[^2] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **7 and 14 day predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
+Consider the following model output[^2] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **1 and 2 week predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
 
 | origin_date | horizon | variant |location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 2024-03-15 | 7 | AA | MA | sample | - | - |
-| 2024-03-15 | 7 | AA | MA | sample | - | - |
-| 2024-03-15 | 7 | BB | MA | sample | - | - |
-| 2024-03-15 | 7 | BB | MA | sample | - | - |
-| 2024-03-15 | 7 | CC | MA | sample | - | - |
-| 2024-03-15 | 7 | CC | MA | sample | - | - |
-| 2024-03-15 | 7 | DD | MA | sample | - | - |
-| 2024-03-15 | 7 | DD | MA | sample | - | - |
-| 2024-03-15 | 14 | AA | MA | sample | - | - |
-| 2024-03-15 | 14 | AA | MA | sample | - | - |
-| 2024-03-15 | 14 | BB | MA | sample | - | - |
-| 2024-03-15 | 14 | BB | MA | sample | - | - |
-| 2024-03-15 | 14 | CC | MA | sample | - | - |
-| 2024-03-15 | 14 | CC | MA | sample | - | - |
-| 2024-03-15 | 14 | DD | MA | sample | - | - |
-| 2024-03-15 | 14 | DD | MA | sample | - | - |
+| 2024-03-15 | 1 | AA | MA | sample | - | - |
+| 2024-03-15 | 1 | AA | MA | sample | - | - |
+| 2024-03-15 | 1 | BB | MA | sample | - | - |
+| 2024-03-15 | 1 | BB | MA | sample | - | - |
+| 2024-03-15 | 1 | CC | MA | sample | - | - |
+| 2024-03-15 | 1 | CC | MA | sample | - | - |
+| 2024-03-15 | 1 | DD | MA | sample | - | - |
+| 2024-03-15 | 1 | DD | MA | sample | - | - |
+| 2024-03-15 | 2 | AA | MA | sample | - | - |
+| 2024-03-15 | 2 | AA | MA | sample | - | - |
+| 2024-03-15 | 2 | BB | MA | sample | - | - |
+| 2024-03-15 | 2 | BB | MA | sample | - | - |
+| 2024-03-15 | 2 | CC | MA | sample | - | - |
+| 2024-03-15 | 2 | CC | MA | sample | - | - |
+| 2024-03-15 | 2 | DD | MA | sample | - | - |
+| 2024-03-15 | 2 | DD | MA | sample | - | - |
 
 [^2]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
@@ -115,22 +115,22 @@ This is essentially the marginal case described earlier, included here for compa
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
-| 2 | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
-| 3 | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
-| 4 | 2024-03-15 | MA | 14 | AA | sample | s8 | - |
-| 4 | 2024-03-15 | MA | 14 | AA | sample | s9 | - |
-| 5 | 2024-03-15 | MA | 14 | BB | sample | s10 | - |
-| 5 | 2024-03-15 | MA | 14 | BB | sample | s11 | - |
-| 6 | 2024-03-15 | MA | 14 | CC | sample | s12 | - |
-| 6 | 2024-03-15 | MA | 14 | CC | sample | s13 | - |
-| 7 | 2024-03-15 | MA | 14 | DD | sample | s14 | - |
-| 7 | 2024-03-15 | MA | 14 | DD | sample | s15 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 1 | CC | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
+| 3 | 2024-03-15 | MA | 1 | DD | sample | s6 | - |
+| 3 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
+| 4 | 2024-03-15 | MA | 2 | AA | sample | s8 | - |
+| 4 | 2024-03-15 | MA | 2 | AA | sample | s9 | - |
+| 5 | 2024-03-15 | MA | 2 | BB | sample | s10 | - |
+| 5 | 2024-03-15 | MA | 2 | BB | sample | s11 | - |
+| 6 | 2024-03-15 | MA | 2 | CC | sample | s12 | - |
+| 6 | 2024-03-15 | MA | 2 | CC | sample | s13 | - |
+| 7 | 2024-03-15 | MA | 2 | DD | sample | s14 | - |
+| 7 | 2024-03-15 | MA | 2 | DD | sample | s15 | - |
 
 </div>
 
@@ -163,22 +163,22 @@ This is the first example of a true compound modeling task, where each group con
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 14 | AA | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 14 | CC | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 14 | DD | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 14 | AA | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 14 | CC | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 14 | DD | sample | s3 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | BB | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | CC | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | DD | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | CC | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | DD | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s3 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
+| 1 | 2024-03-15 | MA | 2 | CC | sample | s3 | - |
+| 1 | 2024-03-15 | MA | 2 | DD | sample | s3 | - |
 
 </div>
 
@@ -211,22 +211,22 @@ Here, `horizon` is the only variable with response dependence. This could be des
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 7 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 14 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 7 | BB | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 14 | BB | sample | s3 | - |
-| 2 | 2024-03-15 | MA | 7 | CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 14| CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 7 | CC | sample | s5 | - |
-| 2 | 2024-03-15 | MA | 14 | CC | sample | s5 | - |
-| 3 | 2024-03-15 | MA | 7 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 14 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 7 | DD | sample | s7 | - |
-| 3 | 2024-03-15 | MA | 14 | DD | sample | s7 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 2 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 1 | CC | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 2 | CC | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
+| 2 | 2024-03-15 | MA | 2 | CC | sample | s5 | - |
+| 3 | 2024-03-15 | MA | 1 | DD | sample | s6 | - |
+| 3 | 2024-03-15 | MA | 2 | DD | sample | s6 | - |
+| 3 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
+| 3 | 2024-03-15 | MA | 2 | DD | sample | s7 | - |
 
 </div>
 
@@ -255,22 +255,22 @@ Here, there is response dependence across both `horizon` and `variant`. Each sam
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 14 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 14 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 14 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 14 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 7 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 7 | DD | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 14 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 14 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 14 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 14 | DD | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | BB | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | CC | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | DD | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 2 | AA | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 2 | BB | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 2 | CC | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 2 | DD | sample | s0 | - |
+| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 2 | BB | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 2 | CC | sample | s1 | - |
+| 0 | 2024-03-15 | MA | 2 | DD | sample | s1 | - |
 
 </div>
 
