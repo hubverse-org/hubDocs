@@ -102,7 +102,7 @@ Consider the following model output[^2] submission file from a hub reporting on 
 
 [^2]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
-Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or compound task-id set. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing.
+Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing.
 
 ### Examples of different `compound_taskid_set` configurations
 
@@ -183,7 +183,7 @@ This is the first example of a true compound modeling task, where each group con
 </div>
 
 ```{attention}
-Rows are grouped so each unique sample for each compound modeling task is together. The first four rows correspond to the first sample ("s0") for the first compound modeling task (compound_idx=0), covering all four variants. The second four rows correspond to the second sample ("s1") for the same compound modeling task.
+Rows are grouped so dependent samples for each modeling task are together. The first four rows correspond to the first sample ("s0") for the first compound modeling task (compound_idx=0), covering all four variants. The second four rows correspond to the second sample ("s1") for the same compound modeling task.
 ```
 
 The table above shows two unique compound modeling tasks (shown with the `compound_idx` column), with two independent sample draws for each, identified by `output_type_id` (s0, s1, s2, s3, making a total of four samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `horizon`, and `location` values, while the values of `variant` vary.
@@ -249,7 +249,7 @@ To configure this response dependence structure, `horizon` is excluded from the 
 #### Example D: Response dependence across horizons and variants
 ***Joint distribution across both horizons and variants***
 
-Here, there is response dependence across both `horizon` and `variant`. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
+Here, there is response dependence across both the `horizon` and `variant` variables. Each sample represents a grouped collection of possible values for all four variants across both prediction horizons.
 
 <div class="heatMap3">
 
@@ -344,7 +344,7 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
   </tr>
 </table>
 
-[^3]: The letters shown in parentheses shown in the column names indicate the actual composition of the compound task id set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
+[^3]: The letters in parentheses shown in the column names indicate the actual composition of the compound task id set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
 
 <br>
 
