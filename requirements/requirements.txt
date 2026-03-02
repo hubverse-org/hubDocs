@@ -14,7 +14,7 @@ babel==2.18.0
     #   sphinx
 beautifulsoup4==4.14.3
     # via pydata-sphinx-theme
-certifi==2026.1.4
+certifi==2026.2.25
     # via requests
 cfgv==3.5.0
     # via pre-commit
@@ -32,11 +32,11 @@ docutils>=0.19,<0.23
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinx-togglebutton
-filelock==3.24.3
+filelock==3.25.0
     # via virtualenv
 h11==0.16.0
     # via uvicorn
-identify==2.6.16
+identify==2.6.17
     # via pre-commit
 idna==3.11
     # via
