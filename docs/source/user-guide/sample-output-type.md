@@ -294,7 +294,7 @@ To configure this response dependence structure, both `horizon` and `variant` ar
 
 Different models may generate samples for different compound modeling tasks. For example, some might simulate data from all horizons sequentially, making predictions that consider what has happened at past horizons. Such a model would create output data like that of Examples C and D in the previous subsection, which have response dependence across horizons. Other models might only simulate draws from each horizon independently from other time points; these models would have output data similar to that of Examples A or B, which have no response dependence across horizons.
 
-A hub should specify a `"compound_taskid_set"` field in the configuration for the sample `output_type` to indicate the task-id columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
+A hub should specify a `"compound_taskid_set"` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
 
 Sometimes, multiple `"compound_taskid_set"` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^3] shows how different specifications of the `"compound_taskid_set"` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
 
@@ -344,25 +344,25 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
   </tr>
 </table>
 
-[^3]: The letters in parentheses shown in the column names indicate the actual composition of the compound task id set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
+[^3]: The letters in parentheses shown in the column names indicate the actual composition of the compound task ID set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
 
 <br>
 
-In general, a submission will pass validation if the task-id variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. For the example of [`"origin_date"`, `"horizon"`, `"location"`] in the table above:
+In general, a submission will pass validation if the task ID variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. For the example of [`"origin_date"`, `"horizon"`, `"location"`] in the table above:
 - Both Submissions B and D would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
 - Submissions A and C would fail validation since when the data are grouped by the `"compound_taskid_set"` variables, there would be no rows that share an `output_type_id`.
 
-To put it another way, samples can only describe "coarser" compound modeling tasks than those defined using the `compound_taskid_set` field. This is why all example submissions in the first row of the table pass validation, yet Example Submission A fails validation when the `compound_taskid_set` does not contain all four task-id variables.
+To put it another way, samples can only describe "coarser" compound modeling tasks than those defined using the `compound_taskid_set` field. This is why all example submissions in the first row of the table pass validation, yet Example Submission A fails validation when the `compound_taskid_set` does not contain all four task ID variables.
 
 ```{caution}
-**Derived task-ids** are a type of task-ids whose values depend wholly on that of other task-id variables. A common example is the `target_end_date` task-id, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task-ids.
+**Derived task IDs** are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
 
-These derived task-ids must be properly configured, or they can cause problems when validating compound modeling tasks by throwing erroneous errors. *If **all** the task-id variables a derived task-id is derived from are part of the `compound_taskid_set`, then that derived task-id must also be a part of the `compound_taskid_set`; otherwise, that derived task-id should be excluded.*
+These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing erroneous errors. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
 ```
 
 ### Number of samples vs. `output_type_id`
 
-The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task-id variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task-id-set appears exactly twice in the provided data.
+The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task ID variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task ID set appears exactly twice in the provided data.
 
 ### Relationship to `output_types`
 
