@@ -18,7 +18,7 @@ certifi==2026.2.25
     # via requests
 cfgv==3.5.0
     # via pre-commit
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
     # via requests
 click==8.3.1
     # via uvicorn
@@ -67,7 +67,7 @@ packaging==26.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
-platformdirs==4.9.2
+platformdirs==4.9.4
     # via virtualenv
 pre-commit==4.5.1
     # via hubdocs (pyproject.toml)
@@ -124,7 +124,7 @@ sphinxcontrib-htmlhelp==2.1.0
     # via sphinx
 sphinxcontrib-jsmath==1.0.1
     # via sphinx
-sphinxcontrib-mermaid==2.0.0
+sphinxcontrib-mermaid==2.0.1
     # via hubdocs (pyproject.toml)
 sphinxcontrib-qthelp==2.0.0
     # via sphinx
