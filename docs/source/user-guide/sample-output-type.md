@@ -329,17 +329,17 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
     <td>✅</td>
   </tr>
   <tr>
-    <th scope="row"><code>["origin_date", "location"]</code></th>
-    <td>❌</td>
-    <td>❌</td>
-    <td>❌</td>
-    <td>✅</td>
-  </tr>
-  <tr>
     <th scope="row"><code>["origin_date", "location", "variant"]</code></th>
     <td>❌</td>
     <td>❌</td>
     <td>✅</td>
+    <td>✅</td>
+  </tr>
+  <tr>
+    <th scope="row"><code>["origin_date", "location"]</code></th>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
     <td>✅</td>
   </tr>
 </table>
@@ -348,7 +348,7 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
 
 <br>
 
-In general, a submission will pass validation if the task ID variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. For the example of [`"origin_date"`, `"horizon"`, `"location"`] in the table above:
+In general, a submission will pass validation if the task ID variables that define a compound modeling task (as implied by the sample ID values present in the `output_type_id` column) are also present in the `"compound_taskid_set"`. For the example of [`"origin_date"`, `"location"`, `"horizon"`] in the second row of the table above:
 - Both Submissions B and D would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
 - Submissions A and C would fail validation since when the data are grouped by the `"compound_taskid_set"` variables, there would be no rows that share an `output_type_id`.
 
@@ -358,11 +358,13 @@ To put it another way, samples can only describe "coarser" compound modeling tas
 **Derived task IDs** are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
 
 These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing erroneous errors. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
+
+For example, if `reference_date` and `horizon` are both part of the `compound_taskid_set`, then the derived task ID `target_end_date` should be part of the `compound_taskid_set`. However, if, say, `horizon` displays response dependence and is thus not part of the `compound_taskid_set`, then `target_end_date` should also be excluded from the `compound_taskid_set`.
 ```
 
 ### Number of samples vs. `output_type_id`
 
-The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task ID variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task ID set appears exactly twice in the provided data.
+The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task ID variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task ID set appears exactly twice in the provided data (i.e., a unique combination of "origin_date", "location", "horizon", "variant").
 
 ### Relationship to `output_types`
 
