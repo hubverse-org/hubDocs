@@ -27,21 +27,21 @@ How modeling tasks relate to each other determines the structure of this distrib
 
 In many settings, predictions will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). When predictions are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. In mathematical terms, these samples represent draws from marginal predictive distributions.
 
-Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^1] values 1, 2, and 3) and three samples per group. The `output_type_id` column contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (0-2, 3-5, and 6-8 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single slice of task ID space.
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^1] values 1, 2, and 3) and three samples per group. The `output_type_id` column contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single slice of task ID space.
 
 [^1]: The `compound_idx` column is a visual aid to indicate which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
 
 |compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 1 | 2024-03-15 | 1 | MA | sample | 0| - |
 | 1 | 2024-03-15 | 1 | MA | sample | 1| - |
 | 1 | 2024-03-15 | 1 | MA | sample | 2| - |
-| 2 | 2024-03-15 | 2 | MA | sample | 3| - |
+| 1 | 2024-03-15 | 1 | MA | sample | 3| - |
 | 2 | 2024-03-15 | 2 | MA | sample | 4| - |
 | 2 | 2024-03-15 | 2 | MA | sample | 5| - |
-| 3 | 2024-03-15 | 3 | MA | sample | 6| - |
+| 2 | 2024-03-15 | 2 | MA | sample | 6| - |
 | 3 | 2024-03-15 | 3 | MA | sample | 7| - |
 | 3 | 2024-03-15 | 3 | MA | sample | 8| - |
+| 3 | 2024-03-15 | 3 | MA | sample | 9| - |
 
 In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. In the marginal case, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
 
@@ -115,22 +115,22 @@ This is essentially the marginal case described earlier, included here for compa
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
-| 2 | 2024-03-15 | MA | 1 | CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
-| 3 | 2024-03-15 | MA | 1 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
-| 4 | 2024-03-15 | MA | 2 | AA | sample | s8 | - |
-| 4 | 2024-03-15 | MA | 2 | AA | sample | s9 | - |
-| 5 | 2024-03-15 | MA | 2 | BB | sample | s10 | - |
-| 5 | 2024-03-15 | MA | 2 | BB | sample | s11 | - |
-| 6 | 2024-03-15 | MA | 2 | CC | sample | s12 | - |
-| 6 | 2024-03-15 | MA | 2 | CC | sample | s13 | - |
-| 7 | 2024-03-15 | MA | 2 | DD | sample | s14 | - |
-| 7 | 2024-03-15 | MA | 2 | DD | sample | s15 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s2 | - |
+| 2 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 1 | BB | sample | s4 | - |
+| 3 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
+| 3 | 2024-03-15 | MA | 1 | CC | sample | s6 | - |
+| 4 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
+| 4 | 2024-03-15 | MA | 1 | DD | sample | s8 | - |
+| 5 | 2024-03-15 | MA | 2 | AA | sample | s9 | - |
+| 5 | 2024-03-15 | MA | 2 | AA | sample | s10 | - |
+| 6 | 2024-03-15 | MA | 2 | BB | sample | s11 | - |
+| 6 | 2024-03-15 | MA | 2 | BB | sample | s12 | - |
+| 7 | 2024-03-15 | MA | 2 | CC | sample | s13 | - |
+| 7 | 2024-03-15 | MA | 2 | CC | sample | s14 | - |
+| 8 | 2024-03-15 | MA | 2 | DD | sample | s15 | - |
+| 8 | 2024-03-15 | MA | 2 | DD | sample | s16 | - |
 
 </div>
 
@@ -163,30 +163,30 @@ This is the first example of a true compound modeling task, where each group con
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 2 | AA | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 2 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 2 | CC | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 2 | DD | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 2 | AA | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 2 | CC | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 2 | DD | sample | s3 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | CC | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | DD | sample | s2 | - |
+| 2 | 2024-03-15 | MA | 2 | AA | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 2 | CC | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 2 | DD | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 2 | AA | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 2 | BB | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 2 | CC | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 2 | DD | sample | s4 | - |
 
 </div>
 
 ```{attention}
-Rows are grouped so dependent samples for each modeling task are together. The first four rows correspond to the first sample ("s0") for the first compound modeling task (compound_idx=0), covering all four variants. The second four rows correspond to the second sample ("s1") for the same compound modeling task.
+Rows are grouped so dependent samples for each modeling task are together. The first four rows correspond to the first sample ("s1") for the first compound modeling task (compound_idx=1), covering all four variants. The second four rows correspond to the second sample ("s2") for the same compound modeling task.
 ```
 
-The table above shows two unique compound modeling tasks (shown with the `compound_idx` column), with two independent sample draws for each, identified by `output_type_id` (s0, s1, s2, s3, making a total of four samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `horizon`, and `location` values, while the values of `variant` vary.
+The table above shows two unique compound modeling tasks (shown with the `compound_idx` column), with two independent sample draws for each, identified by `output_type_id` (s1, s2, s3, s4, making a total of four samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `horizon`, and `location` values, while the values of `variant` vary.
 
 To configure this response dependence structure, `variant` is excluded from the `compound_taskid_set`:
 
@@ -211,26 +211,26 @@ Here, `horizon` is the only variable with response dependence. This could be des
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 2 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
-| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 2 | BB | sample | s2 | - |
-| 1 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
-| 1 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
-| 2 | 2024-03-15 | MA | 1 | CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 2 | CC | sample | s4 | - |
-| 2 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
-| 2 | 2024-03-15 | MA | 2 | CC | sample | s5 | - |
-| 3 | 2024-03-15 | MA | 1 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 2 | DD | sample | s6 | - |
-| 3 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
-| 3 | 2024-03-15 | MA | 2 | DD | sample | s7 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s2 | - |
+| 2 | 2024-03-15 | MA | 1 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 2 | BB | sample | s3 | - |
+| 2 | 2024-03-15 | MA | 1 | BB | sample | s4 | - |
+| 2 | 2024-03-15 | MA | 2 | BB | sample | s4 | - |
+| 3 | 2024-03-15 | MA | 1 | CC | sample | s5 | - |
+| 3 | 2024-03-15 | MA | 2 | CC | sample | s5 | - |
+| 3 | 2024-03-15 | MA | 1 | CC | sample | s6 | - |
+| 3 | 2024-03-15 | MA | 2 | CC | sample | s6 | - |
+| 4 | 2024-03-15 | MA | 1 | DD | sample | s7 | - |
+| 4 | 2024-03-15 | MA | 2 | DD | sample | s7 | - |
+| 4 | 2024-03-15 | MA | 1 | DD | sample | s8 | - |
+| 4 | 2024-03-15 | MA | 2 | DD | sample | s8 | - |
 
 </div>
 
-The table above shows four unique compound modeling tasks (shown with the `compound_idx` column) and two independent sample draws for each, identified by `output_type_id` (s0-s7, making a total of eight samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `location`, and `variant` values, while `horizon` varies.
+The table above shows four unique compound modeling tasks (shown with the `compound_idx` column) and two independent sample draws for each, identified by `output_type_id` (s1-s8, making a total of eight samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `location`, and `variant` values, while `horizon` varies.
 
 To configure this response dependence structure, `horizon` is excluded from the `compound_taskid_set`:
 
@@ -255,26 +255,26 @@ Here, there is response dependence across both the `horizon` and `variant` varia
 
 |compound_idx| origin_date |location | horizon | variant | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 2 | AA | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 2 | BB | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 2 | CC | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 2 | DD | sample | s0 | - |
-| 0 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 2 | BB | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 2 | CC | sample | s1 | - |
-| 0 | 2024-03-15 | MA | 2 | DD | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | CC | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | DD | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | CC | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 2 | DD | sample | s1 | - |
+| 1 | 2024-03-15 | MA | 1 | AA | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | CC | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 1 | DD | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | AA | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | BB | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | CC | sample | s2 | - |
+| 1 | 2024-03-15 | MA | 2 | DD | sample | s2 | - |
 
 </div>
 
-The table above shows one unique compound modeling task (shown with the `compound_idx` column value) and two unique sample draws, identified by `output_type_id` (s0 and s1). This single compound modeling task can be described as predictions for **"Massachusetts with the `origin_date` of `2024-03-15`"**, with a fixed combination of `origin_date` and `location` values, while both `horizon` and `variant` vary.
+The table above shows one unique compound modeling task (shown with the `compound_idx` column value) and two unique sample draws, identified by `output_type_id` (s1 and s2). This single compound modeling task can be described as predictions for **"Massachusetts with the `origin_date` of `2024-03-15`"**, with a fixed combination of `origin_date` and `location` values, while both `horizon` and `variant` vary.
 
 To configure this response dependence structure, both `horizon` and `variant` are excluded from the `compound_taskid_set`:
 
