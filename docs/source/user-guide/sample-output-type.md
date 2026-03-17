@@ -294,9 +294,9 @@ To configure this response dependence structure, both `horizon` and `variant` ar
 
 Different models may generate samples for different compound modeling tasks. For example, some might simulate data from all horizons sequentially, making predictions that consider what has happened at past horizons. Such a model would create output data like that of Examples C and D in the previous subsection, which have response dependence across horizons. Other models might only simulate draws from each horizon independently from other time points; these models would have output data similar to that of Examples A or B, which have no response dependence across horizons.
 
-A hub should specify a `"compound_taskid_set"` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
+A hub should specify a `compound_taskid_set` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
 
-Sometimes, multiple `"compound_taskid_set"` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^3] shows how different specifications of the `"compound_taskid_set"` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
+Sometimes, multiple `compound_taskid_set` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^3] shows how different specifications of the `compound_taskid_set` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
 
 <!-- accessible table derived from
 https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
