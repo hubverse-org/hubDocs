@@ -117,14 +117,21 @@ html[data-theme="dark"] {
   word-wrap: break-word;
   text-align: center;*/
 }
-.heatMap1 tr:nth-child(even) { background: grey; }
+.heatMap1 tr:nth-child(n+2):nth-child(-n+2) { background: grey; }
+.heatMap1 tr:nth-child(n+4):nth-child(-n+4) { background: grey; }
+.heatMap1 tr:nth-child(n+6):nth-child(-n+6) { background: grey; }
+.heatMap1 tr:nth-child(n+8):nth-child(-n+8) { background: grey; }
+.heatMap1 tr:nth-child(n+10):nth-child(-n+10) { background: grey; }
+.heatMap1 tr:nth-child(n+12):nth-child(-n+12) { background: grey; }
+.heatMap1 tr:nth-child(n+14):nth-child(-n+14) { background: grey; }
+.heatMap1 tr:nth-child(n+16):nth-child(-n+16) { background: grey; }
 
 
 .heatMap2 tr:nth-child(n+5):nth-child(-n+8) { background: grey; }
 .heatMap2 tr:nth-child(n+13):nth-child(-n+16) { background: grey; }
 
 
-.heatMap3 tr:nth-child(n+9) { background: grey; }
+.heatMap3 tr:nth-child(n+9):nth-child(-n+16) { background: grey; }
 
 .heatMap4 tr:nth-child(n+3):nth-child(-n+4) { background: grey; }
 .heatMap4 tr:nth-child(n+7):nth-child(-n+8) { background: grey; }
