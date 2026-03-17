@@ -64,7 +64,20 @@ In this setting, a hub will specify a minimum and maximum number of required sam
 
 More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be integers, and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero) and the `"is_required"` property specifies that samples are a required output type.
 
-Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly.
+Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly. One example for the mean output type is shown below; more information and examples can be found on the [Hub configuration files page](hub-config.md#hub-model-task-configuration-tasks-json-file) in the `tasks.json` file section.
+
+```{code-block} json
+    "mean": {
+        "output_type_id": {
+            "required": null
+        },
+        "value": {
+            "type": "double",
+            "minimum": 0
+        },
+        "is_required": true
+    }
+```
 
 (compound-modeling-tasks)=
 ## Compound modeling tasks
@@ -77,7 +90,7 @@ Consider two common scenarios:
 
 In both cases, joint sampling introduces additional dimensions to the predictive distribution. Instead of a univariate distribution at each modeling task, we have a multivariate distribution spanning multiple modeling tasks. We refer to this as **response dependence** across the task IDs that vary within a group, because the predicted values (responses) for different modeling tasks are statistically dependent.
 
-Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set.
+Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set. In other words, any variables not included in the "compound_taskid_set" are assumed to be part of a multivariate outcome.
 
 Consider the following model output[^2] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **1 and 2 week predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
 
@@ -102,7 +115,7 @@ Consider the following model output[^2] submission file from a hub reporting on 
 
 [^2]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
-Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing.
+Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light gray and gray to highlight adjacent samples
 
 ### Examples of different `compound_taskid_set` configurations
 
@@ -135,7 +148,7 @@ This is essentially the marginal case described earlier, included here for compa
 </div>
 
 ```{attention}
-Rows with the same `compound_idx` value indicate distinct sample predictions made for the same group. In this marginal case, each group contains a single modeling task. For example, each pair of rows with the same `compound_idx` correspond to the same modeling task, but are each from one of sixteen distinct sample draws "s#".
+Rows with the same `compound_idx` value indicate distinct sample predictions made for the same group. In this marginal case, each group contains a single modeling task. For example, each pair of rows with the same `compound_idx` correspond to the same modeling task, but are each from one of sixteen distinct sample draws "s#" (e.g., "s1" and "s2" are two distinct sample draws for {origin_date: "2024-03-15", horizon: "1", location: "MA", variant: "AA"}).
 ```
 
 The table above shows eight unique modeling tasks, with two samples for each. A unique combination of `origin_date`, `location`, `horizon`, and `variant` defines each modeling task.
