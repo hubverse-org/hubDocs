@@ -16,6 +16,26 @@ We will use the following `model_output` data to help solidify the concept of a 
 
 In this table, the task ID columns are `origin_date`, `horizon`, and `location`. There are three modeling tasks (one per row): horizon 1, horizon 2, and horizon 3—all for Massachusetts and origin date 2024-03-15. The first row, for example, represents a single slice of task ID space, a prediction for one week ahead in Massachusetts, resulting in one predicted value.
 
+## Definitions of key terms
+
+[modeling-tasks]{#key-term-modeling-tasks}
+: A definition of the goals of a modeling effort (i.e., what it is hoping to predict), possibly including conditions, assumptions, and task ID variables. Generally, they are defined by unique combinations of the task IDs.
+
+[task IDs (AKA task ID variables, task ID columns)]{#key-term-task-ids}
+: Column(s) in model output that provide details about what is being predicted. These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Common examples include `target`, `location`, `reference_date`, and `horizon`.
+
+[output type ID]{#key-term-output-type-id}
+: A column in model output that specifies more identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. If one or more task IDs display of response dependence, rows of sample predictions from a particular model that share an output type ID may be assumed to represent a single sample from a joint distribution across multiple levels of the task ID variables.
+
+[compound_idx]{#key-term-compound_idx}
+: A column used a visual aid to indicate which rows belong to the same group in the example model output on this page. In the marginal case, each group contains samples for one modeling task. The `compound_idx` column is not a task ID variable and is not typically present in actual model output data.
+
+[compound task ID set]{#key-term-compound-task-id-set}
+: The collection of task IDs that remain constant within a group of jointly sampled modeling tasks. Any variables not included in the compound task ID set are assumed to be part of a multivariate outcome
+
+[compound modeling task]{#key-term-compound-modeling-task}
+: A group of related predictions defined by the compound task ID set. A single compound modeling task is defined by unique combinations of the task ID variables in the compound task ID set.
+
 
 ## Sampling modeling tasks
 
