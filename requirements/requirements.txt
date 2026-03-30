@@ -4,7 +4,7 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==1.0.0
     # via sphinx
-anyio==4.12.1
+anyio==4.13.0
     # via
     #   starlette
     #   watchfiles
@@ -73,7 +73,7 @@ pre-commit==4.5.1
     # via hubdocs (pyproject.toml)
 pydata-sphinx-theme
     # via sphinx-book-theme
-pygments==2.19.2
+pygments==2.20.0
     # via
     #   accessible-pygments
     #   pydata-sphinx-theme
@@ -114,7 +114,7 @@ sphinx-design==0.7.0
     # via hubdocs (pyproject.toml)
 sphinx-subfigure==0.2.4
     # via hubdocs (pyproject.toml)
-sphinx-togglebutton==0.4.4
+sphinx-togglebutton==0.4.5
     # via hubdocs (pyproject.toml)
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
