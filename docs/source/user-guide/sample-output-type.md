@@ -4,7 +4,7 @@
 
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that originate from a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a "[modeling task](tasks.md)" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the task ID variables[^1] that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+In the hubverse, a "[modeling task](tasks.md)" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the [task ID variables](tasks.md#task-id-variables)[^1] that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
 
 [^1]: (AKA task IDs, task ID columns) Column(s) in model output that provide details about what is being predicted. Common examples include `target`, `location`, `reference_date`, and `horizon`. These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions.
 
@@ -28,11 +28,11 @@ How modeling tasks relate to each other determines the structure of this distrib
 
 In many settings, predictions will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). When predictions are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. In mathematical terms, these samples represent draws from marginal predictive distributions.
 
-Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](model-output.md#details-about-model-output-column-specifications)[^3] contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](model-output.md#details-about-model-output-column-specifications)[^3] contains sample indices that are unique across an entire model output file, not just within each group, so each group has distinct indices (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
 
 [^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
 
-[^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. This is important for instances when samples come from a joint distribution, so that some rows may not share all task ID values, but if they have the same `output-type_id`, they are presumed to represent a single sample from a joint distribution. Examples are given below.
+[^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. This is important for samples originating from a joint distribution, so that rows that have the same `output_type_id` are presumed to represent a single sample from a joint distribution. Examples are given later in the text.
 
 |compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -46,7 +46,7 @@ Now, suppose we wanted to collect samples for each of the modeling tasks defined
 | 3 | 2024-03-15 | 3 | MA | sample | 8| - |
 | 3 | 2024-03-15 | 3 | MA | sample | 9| - |
 
-In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. When samples originate from marginal distributions, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
+In this type of setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. When samples originate from marginal distributions, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like the following:
 
 ```{code-block} json
 "output_type": {
@@ -65,7 +65,7 @@ In this setting, a hub will specify a minimum and maximum number of required sam
 }
 ```
 
-More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be integers, and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero) and the `"is_required"` property specifies that samples are a required output type.
+More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be integers, and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero). The `"is_required"` property specifies that samples are a required output type.
 
 Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly. One example for the mean output type is shown below; more information and examples can be found on the [Hub configuration files page](hub-config.md#hub-model-task-configuration-tasks-json-file) in the `tasks.json` file section.
 
@@ -89,7 +89,7 @@ In the previous section, we saw that when sampling from marginal distributions, 
 
 Consider three common scenarios:
 - **Trajectories over time**: A model might predict values across multiple time horizons as a coherent path. Rather than drawing each horizon's prediction independently, the model draws an entire trajectory, a sample from a joint distribution over horizons.
-- **Trajectories over locations**: A model making predictions for multiple locations might draw the trajectories together (or perhaps even draw trajectories across both time), resulting in a sample from a joint distribution over locations.
+- **Trajectories over locations**: A model making predictions for multiple locations might draw the trajectories together (or perhaps even draw trajectories across both time and space), resulting in a sample from a joint distribution over locations.
 - **Variant proportions**: A model predicting proportions of multiple disease variants might draw all variant proportions together, a sample from a joint distribution across variants.
 
 In all cases, joint sampling introduces additional dimensions to the predictive distribution. Instead of a univariate distribution at each modeling task, we have a multivariate distribution spanning multiple modeling tasks. We refer to this as **response dependence** across the task IDs that vary within a group, because the predicted values (responses) for different modeling tasks are statistically dependent.
@@ -126,7 +126,7 @@ Notice that this example submission file could be displaying predictions with an
 #### Example A: No response dependence across task IDs
 ***Each group = one modeling task***
 
-This is essentially the marginal distributions case described earlier, included here for comparison. Each group contains a single modeling task, with no response dependence across any task IDs.
+This is equivalent to the marginal distributions case described earlier, included here for comparison. Each group contains a single modeling task, with no response dependence across any task IDs.
 
 <div class="heatMap1">
 
@@ -155,9 +155,9 @@ This is essentially the marginal distributions case described earlier, included 
 Rows with the same `compound_idx` value indicate distinct sample predictions made for the same group. When samples originate from marginal distributions, each group contains a single modeling task. For example, each pair of rows with the same `compound_idx` correspond to the same modeling task, but are each from one of sixteen distinct sample draws "s#" (e.g., "s1" and "s2" are two distinct sample draws for {origin_date: "2024-03-15", horizon: "1", location: "MA", variant: "AA"}).
 ```
 
-The table above shows eight unique modeling tasks, with two samples for each. A unique combination of `origin_date`, `location`, `horizon`, and `variant` defines each modeling task.
+The table above shows eight unique modeling tasks, with two sample predictions for each. A unique combination of `origin_date`, `location`, `horizon`, and `variant` defines each modeling task.
 
-To configure this response dependence structure, all task IDs are included in the `compound_taskid_set`:
+To configure this dependence structure, all task IDs are included in the `compound_taskid_set`:
 
 ```{code-block} json
 :lineno-start: 1
@@ -200,12 +200,12 @@ This is the first example of a true compound modeling task, where each group con
 </div>
 
 ```{attention}
-Rows are grouped so dependent samples for each modeling task are together. The first four rows correspond to the first sample ("s1") for the first compound modeling task (compound_idx=1), covering all four variants. The second four rows correspond to the second sample ("s2") for the same compound modeling task.
+Rows are grouped so dependent samples for each modeling task are together. The first four rows correspond to the first sample ("s1") for the first compound modeling task (`compound_idx` = 1), covering all four variants. The second four rows correspond to the second sample ("s2") for the same compound modeling task.
 ```
 
-The table above shows two unique compound modeling tasks (shown with the `compound_idx` column), with two independent sample draws for each, identified by `output_type_id` (s1, s2, s3, s4, making a total of four samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `horizon`, and `location` values, while the values of `variant` vary.
+The table above shows two unique compound modeling tasks (shown with the `compound_idx` column), with two independent sample draws for each, identified by `output_type_id` (s1, s2, s3, s4, making a total of four sample predictions). Each compound modeling task is defined by a fixed combination of `origin_date`, `horizon`, and `location` values, while the values of `variant` vary.
 
-To configure this response dependence structure, `variant` is excluded from the `compound_taskid_set`:
+To configure this dependence structure, `variant` is excluded from the `compound_taskid_set`:
 
 ```{code-block} json
 :lineno-start: 1
@@ -247,9 +247,9 @@ Here, `horizon` is the only variable with response dependence. This could be des
 
 </div>
 
-The table above shows four unique compound modeling tasks (shown with the `compound_idx` column) and two independent sample draws for each, identified by `output_type_id` (s1-s8, making a total of eight samples). Each compound modeling task is defined by a fixed combination of `origin_date`, `location`, and `variant` values, while `horizon` varies.
+The table above shows four unique compound modeling tasks (shown with the `compound_idx` column) and two independent sample draws for each, identified by `output_type_id` (s1-s8, making a total of eight sample predictions). Each compound modeling task is defined by a fixed combination of `origin_date`, `location`, and `variant` values, while `horizon` varies.
 
-To configure this response dependence structure, `horizon` is excluded from the `compound_taskid_set`:
+To configure this dependence structure, `horizon` is excluded from the `compound_taskid_set`:
 
 ```{code-block} json
 :lineno-start: 1
@@ -293,7 +293,7 @@ Here, there is response dependence across both the `horizon` and `variant` varia
 
 The table above shows one unique compound modeling task (shown with the `compound_idx` column value) and two unique sample draws, identified by `output_type_id` (s1 and s2). This single compound modeling task can be described as predictions for **"Massachusetts with the `origin_date` of `2024-03-15`"**, with a fixed combination of `origin_date` and `location` values, while both `horizon` and `variant` vary.
 
-To configure this response dependence structure, both `horizon` and `variant` are excluded from the `compound_taskid_set`:
+To configure this dependence structure, both `horizon` and `variant` are excluded from the `compound_taskid_set`:
 
 ```{code-block} json
 :lineno-start: 1
@@ -372,7 +372,7 @@ In general, a submission will pass validation if the task ID variables that defi
 To put it another way, samples can only describe "coarser" compound modeling tasks than those defined using the `compound_taskid_set` field. This is why all example submissions in the first row of the table pass validation, yet Example Submission A fails validation when the `compound_taskid_set` does not contain all four task ID variables.
 
 ```{caution}
-**Derived task IDs** are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
+[**Derived task IDs**](tasks.md#derived-task-id-variables) are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
 
 These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing errors when they should not. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
 
@@ -381,11 +381,11 @@ For example, if `reference_date` and `horizon` are both part of the `compound_ta
 
 ### Number of samples vs. `output_type_id`
 
-The number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task ID variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task ID set appears exactly twice in the provided data (i.e., a unique combination of "origin_date", "location", "horizon", "variant").
+The total number of samples per individual modeling task in the above examples can always be determined by the number of times that each unique combination of task ID variables (i.e., each individual modeling task) appears in the submission. For Submissions A, B, C, and D above, even though the number of unique values of `output_type_id` changes, all examples have two samples per individual modeling task since each task ID set appears exactly twice in the provided data (i.e., a unique combination of "origin_date", "location", "horizon", "variant").
 
-### Relationship to `output_types`
+### Relationship to `output_type`
 
-Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time, we choose to only implement the concept of compound modeling tasks for sample `output_types`, to facilitate data format validation for samples. In mathematical terms, this means that all output types may collect predictions from marginal distributions, but only samples can collect predictions from joint distributions.
+Compound modeling tasks are a general conceptual property of the way targets for a hub are defined. As such, they could be configured for a specific target, for all output types, not just samples. However, at the present time, we choose to only implement the concept of compound modeling tasks for the sample `output_type`, to facilitate data format validation for samples. In mathematical terms, this means that all output types may collect predictions from marginal distributions, but only samples can collect predictions from joint distributions.
 
 At a later time, the hubverse may revisit a way to more generally define compound modeling tasks, as they can be used for different things. For example, compound modeling tasks defined for a compositional data target could
 
@@ -395,4 +395,3 @@ At a later time, the hubverse may revisit a way to more generally define compoun
 <br>
 
 Documentation about tests for other output types can be found in [Validation Pull Requests on GitHub](https://hubverse-org.github.io/hubValidations/articles/validate-pr.html#validate_pr-check-details).
-
