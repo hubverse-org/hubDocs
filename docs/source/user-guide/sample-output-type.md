@@ -4,7 +4,9 @@
 
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that originate from a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a "modeling task" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the task ID variables that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+In the hubverse, a "[modeling task](tasks.md)" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the task ID variables[^1] that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+
+[^1]: (AKA task IDs, task ID columns) Column(s) in model output that provide details about what is being predicted. Common examples include `target`, `location`, `reference_date`, and `horizon`. These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions.
 
 We will use the following `model_output` data to help solidify the concept of a modeling task. (The mean `output_type` is used for demonstration purposes due to its simplicity.)
 
@@ -16,27 +18,6 @@ We will use the following `model_output` data to help solidify the concept of a 
 
 In this table, the task ID columns are `origin_date`, `horizon`, and `location`. There are three modeling tasks (one per row): horizon 1, horizon 2, and horizon 3—all for Massachusetts and origin date 2024-03-15. The first row, for example, represents a single slice of task ID space, a prediction for one week ahead in Massachusetts, resulting in one predicted value.
 
-## Definitions of key terms
-
-[modeling-tasks]{#key-term-modeling-tasks}
-: A definition of the goals of a modeling effort (i.e., what it is hoping to predict), possibly including conditions, assumptions, and task ID variables. Generally, they are defined by unique combinations of the task IDs.
-
-[task IDs (AKA task ID variables, task ID columns)]{#key-term-task-ids}
-: Column(s) in model output that provide details about what is being predicted. These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Common examples include `target`, `location`, `reference_date`, and `horizon`.
-
-[output type ID]{#key-term-output-type-id}
-: A column in model output that specifies more identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. If one or more task IDs display of response dependence, rows of sample predictions from a particular model that share an output type ID may be assumed to represent a single sample from a joint distribution across multiple levels of the task ID variables.
-
-[compound_idx]{#key-term-compound_idx}
-: A column used a visual aid to indicate which rows belong to the same group in the example model output on this page. In the marginal case, each group contains samples for one modeling task. The `compound_idx` column is not a task ID variable and is not typically present in actual model output data.
-
-[compound task ID set]{#key-term-compound-task-id-set}
-: The collection of task IDs that remain constant within a group of jointly sampled modeling tasks. Any variables not included in the compound task ID set are assumed to be part of a multivariate outcome
-
-[compound modeling task]{#key-term-compound-modeling-task}
-: A group of related predictions defined by the compound task ID set. A single compound modeling task is defined by unique combinations of the task ID variables in the compound task ID set.
-
-
 ## Sampling modeling tasks
 
 While the mean output type produces a single predicted value per modeling task, the sample output type captures uncertainty by providing multiple possible values for each task. Each sample represents one possible outcome, and together, the collection of samples describes a distribution of predicted values.
@@ -47,9 +28,11 @@ How modeling tasks relate to each other determines the structure of this distrib
 
 In many settings, predictions will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). When predictions are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. In mathematical terms, these samples represent draws from marginal predictive distributions.
 
-Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^1] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The `output_type_id` column contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](model-output.md#details-about-model-output-column-specifications)[^3] contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
 
-[^1]: The `compound_idx` column is a visual aid to indicate which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
+[^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
+
+[^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. This is important for instances when samples come from a joint distribution, so that some rows may not share all task ID values, but if they have the same `output-type_id`, they are presumed to represent a single sample from a joint distribution. Examples are given below.
 
 |compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -112,7 +95,7 @@ In both cases, joint sampling introduces additional dimensions to the predictive
 
 Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set. In other words, any variables not included in the "compound_taskid_set" are assumed to be part of a multivariate outcome.
 
-Consider the following model output[^2] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **1 and 2 week predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
+Consider the following model output[^4] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **1 and 2 week predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
 
 | origin_date | horizon | variant |location | output_type| output_type_id | value |
 |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -133,7 +116,7 @@ Consider the following model output[^2] submission file from a hub reporting on 
 | 2024-03-15 | 2 | DD | MA | sample | - | - |
 | 2024-03-15 | 2 | DD | MA | sample | - | - |
 
-[^2]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
+[^4]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
 Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light and dark gray to highlight adjacent samples.
 
@@ -329,7 +312,7 @@ Different models may generate samples for different compound modeling tasks. For
 
 A hub should specify a `compound_taskid_set` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
 
-Sometimes, multiple `compound_taskid_set` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^3] shows how different specifications of the `compound_taskid_set` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
+Sometimes, multiple `compound_taskid_set` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^5] shows how different specifications of the `compound_taskid_set` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
 
 <!-- accessible table derived from
 https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
@@ -377,7 +360,7 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
   </tr>
 </table>
 
-[^3]: The letters in parentheses shown in the column names indicate the actual composition of the compound task ID set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
+[^5]: The letters in parentheses shown in the column names indicate the actual composition of the compound task ID set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
 
 <br>
 
