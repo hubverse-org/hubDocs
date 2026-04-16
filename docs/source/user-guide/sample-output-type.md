@@ -4,7 +4,7 @@
 
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that originate from a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a "modeling task" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific point (or "slice") in the space defined by the task ID variables that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+In the hubverse, a "modeling task" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the task ID variables that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
 
 We will use the following `model_output` data to help solidify the concept of a modeling task. (The mean `output_type` is used for demonstration purposes due to its simplicity.)
 
@@ -63,7 +63,7 @@ Now, suppose we wanted to collect samples for each of the modeling tasks defined
 | 3 | 2024-03-15 | 3 | MA | sample | 8| - |
 | 3 | 2024-03-15 | 3 | MA | sample | 9| - |
 
-In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. In this "marginal" case, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
+In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. When samples originate from marginal distributions, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
 
 ```{code-block} json
 "output_type": {
@@ -135,14 +135,14 @@ Consider the following model output[^2] submission file from a hub reporting on 
 
 [^2]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
-Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light gray and gray to highlight adjacent samples
+Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light and dark gray to highlight adjacent samples.
 
 ### Examples of different `compound_taskid_set` configurations
 
 #### Example A: No response dependence across task IDs
 ***Each group = one modeling task***
 
-This is essentially the marginal case described earlier, included here for comparison. Each group contains a single modeling task, with no response dependence across any task IDs.
+This is essentially the marginal distributions case described earlier, included here for comparison. Each group contains a single modeling task, with no response dependence across any task IDs.
 
 <div class="heatMap1">
 
@@ -168,7 +168,7 @@ This is essentially the marginal case described earlier, included here for compa
 </div>
 
 ```{attention}
-Rows with the same `compound_idx` value indicate distinct sample predictions made for the same group. In this marginal case, each group contains a single modeling task. For example, each pair of rows with the same `compound_idx` correspond to the same modeling task, but are each from one of sixteen distinct sample draws "s#" (e.g., "s1" and "s2" are two distinct sample draws for {origin_date: "2024-03-15", horizon: "1", location: "MA", variant: "AA"}).
+Rows with the same `compound_idx` value indicate distinct sample predictions made for the same group. When samples originate from marginal distributions, each group contains a single modeling task. For example, each pair of rows with the same `compound_idx` correspond to the same modeling task, but are each from one of sixteen distinct sample draws "s#" (e.g., "s1" and "s2" are two distinct sample draws for {origin_date: "2024-03-15", horizon: "1", location: "MA", variant: "AA"}).
 ```
 
 The table above shows eight unique modeling tasks, with two samples for each. A unique combination of `origin_date`, `location`, `horizon`, and `variant` defines each modeling task.
@@ -390,7 +390,7 @@ To put it another way, samples can only describe "coarser" compound modeling tas
 ```{caution}
 **Derived task IDs** are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
 
-These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing erroneous errors. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
+These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing errors when they should not. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
 
 For example, if `reference_date` and `horizon` are both part of the `compound_taskid_set`, then the derived task ID `target_end_date` should be part of the `compound_taskid_set`. However, if, say, `horizon` displays response dependence and is thus not part of the `compound_taskid_set`, then `target_end_date` should also be excluded from the `compound_taskid_set`.
 ```
