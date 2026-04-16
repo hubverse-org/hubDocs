@@ -39,15 +39,15 @@ In this table, the task ID columns are `origin_date`, `horizon`, and `location`.
 
 ## Sampling modeling tasks
 
-While the mean output type produces a single predicted value per modeling task, the sample output type captures uncertainty by providing multiple possible values at each slice of task ID space. Each sample represents one possible outcome, and together, the collection of samples describes a distribution of predicted values.
+While the mean output type produces a single predicted value per modeling task, the sample output type captures uncertainty by providing multiple possible values for each task. Each sample represents one possible outcome, and together, the collection of samples describes a distribution of predicted values.
 
-How modeling tasks relate to each other determines the structure of this distribution. When modeling tasks are treated independently, samples at each slice form a univariate (single-variable) distribution. When modeling tasks are grouped together, samples capture a multivariate (joint) distribution across the group.
+How modeling tasks relate to each other determines the structure of this distribution. When modeling tasks are treated independently, samples for each task form a univariate (single-variable) distribution. When modeling tasks are grouped together, samples capture a multivariate (joint) distribution across the group of tasks.
 
 ## Marginal distributions
 
 In many settings, predictions will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). When predictions are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. In mathematical terms, these samples represent draws from marginal predictive distributions.
 
-Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^1] values 1, 2, and 3) and three samples per group. The `output_type_id` column contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single slice of task ID space.
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^1] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The `output_type_id` column contains sample indexes that are unique across an entire model output file, not just within each group, so each group has distinct sample indexes (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
 
 [^1]: The `compound_idx` column is a visual aid to indicate which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
 
@@ -63,7 +63,7 @@ Now, suppose we wanted to collect samples for each of the modeling tasks defined
 | 3 | 2024-03-15 | 3 | MA | sample | 8| - |
 | 3 | 2024-03-15 | 3 | MA | sample | 9| - |
 
-In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. In the marginal case, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
+In this setting, a hub will specify a minimum and maximum number of required samples per group in the configuration for the prediction task. In this "marginal" case, each group corresponds to a single modeling task, but as we will see in the [compound modeling tasks section](#compound-modeling-tasks), a group can span multiple modeling tasks. The associated configuration might look like:
 
 ```{code-block} json
 "output_type": {
@@ -102,7 +102,7 @@ Note that samples use an `"output_type_id_params"` block to define allowable val
 (compound-modeling-tasks)=
 ## Compound modeling tasks
 
-In the previous section, we saw that when sampling from marginal distributions, each sample is drawn from a single modeling task (a single slice of task ID space). In some settings, however, modeling hubs may wish to capture relationships between modeling tasks by sampling from a joint distribution. This means drawing values for multiple modeling tasks at once as a coherent set.
+In the previous section, we saw that when sampling from marginal distributions, each sample is drawn from a single modeling task. In some settings, however, modeling hubs may wish to capture relationships between modeling tasks by sampling from a joint distribution. This means drawing values for multiple modeling tasks at once as a coherent set.
 
 Consider two common scenarios:
 - **Trajectories over time**: A model might predict values across multiple time horizons as a coherent path. Rather than drawing each horizon's prediction independently, the model draws an entire trajectory, a sample from a joint distribution over horizons.
