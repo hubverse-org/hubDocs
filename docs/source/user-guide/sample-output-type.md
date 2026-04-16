@@ -87,11 +87,12 @@ Note that samples use an `"output_type_id_params"` block to define allowable val
 
 In the previous section, we saw that when sampling from marginal distributions, each sample is drawn from a single modeling task. In some settings, however, modeling hubs may wish to capture relationships between modeling tasks by sampling from a joint distribution. This means drawing values for multiple modeling tasks at once as a coherent set.
 
-Consider two common scenarios:
+Consider three common scenarios:
 - **Trajectories over time**: A model might predict values across multiple time horizons as a coherent path. Rather than drawing each horizon's prediction independently, the model draws an entire trajectory, a sample from a joint distribution over horizons.
+- **Trajectories over locations**: A model making predictions for multiple locations might draw the trajectories together (or perhaps even draw trajectories across both time), resulting in a sample from a joint distribution over locations.
 - **Variant proportions**: A model predicting proportions of multiple disease variants might draw all variant proportions together, a sample from a joint distribution across variants.
 
-In both cases, joint sampling introduces additional dimensions to the predictive distribution. Instead of a univariate distribution at each modeling task, we have a multivariate distribution spanning multiple modeling tasks. We refer to this as **response dependence** across the task IDs that vary within a group, because the predicted values (responses) for different modeling tasks are statistically dependent.
+In all cases, joint sampling introduces additional dimensions to the predictive distribution. Instead of a univariate distribution at each modeling task, we have a multivariate distribution spanning multiple modeling tasks. We refer to this as **response dependence** across the task IDs that vary within a group, because the predicted values (responses) for different modeling tasks are statistically dependent.
 
 Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set. In other words, any variables not included in the "compound_taskid_set" are assumed to be part of a multivariate outcome.
 
