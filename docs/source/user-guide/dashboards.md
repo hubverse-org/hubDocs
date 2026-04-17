@@ -405,17 +405,17 @@ If your hub is using a non-standard scoring metric, i.e not one on the [Score mo
 3. Create a folder structure on the `predevals/data` branch in the following format:
 
  ```text
-|-scores/
-|  |-target_id/
-|  |  |-eval_sets_name/
-|  |  |  |-disaggregate_by_1/
-|  |  |  |  |-scores.csv
-|  |  |  |-disaggregate_by_2/
-|  |  |  |  |-scores.csv
+├──scores/
+│ └──target_id/
+│ │  └──eval_sets_name/
+│ │  │  ├──disaggregate_by_1/
+│ │  │  │  └──scores.csv
+│ │  |  ├──disaggregate_by_2/
+│ │  |  |  └──scores.csv
 ...
-|  |  |  |-disaggregate_by_n/
-|  |  |  |  |-scores.csv
-|  |  |  |-scores.csv
+│ | │   ├──disaggregate_by_n/
+│ │ │   |  └──scores.csv
+│ │ │   └──scores.csv
 ```
 
 For a more concrete example, let us say our `predevals-config.yml` looks like this:
@@ -449,14 +449,14 @@ task_id_text:
 
 Then the structure would look like this:
 ```text
-|-scores/
-  |  |-resources_used/
-  |  |  |-Full season/
-  |  |  |  |-location/
-  |  |  |  |  |-scores.csv
-  |  |  |  |-horizon
-  |  |  |  |  |-scores.csv
-  |  |  |  |-scores.csv
+│-scores/
+│  └──resources_used/
+│  │  └──Full season/
+│  │  │  ├──location/
+│  │  │  │  └──scores.csv
+│  │  │  ├──horizon
+│  │  │  │  └──scores.csv
+│  │  │  └──scores.csv
 ```
 
 Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_scores` and `location`, and each row will contain a score for a particular model, location combination.
