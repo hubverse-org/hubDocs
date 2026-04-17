@@ -396,7 +396,7 @@ The PredEvals module has several important limitations:
 (custom-predevals)=
 ### Custom PredEvals Evaluation Page (optional)
 
-If your hub is using a non-standard scoring metric, i.e not one on [this page](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details), you still can use PredEvals for visualization. To do this, you will need to manually create scores files in the structure expected by PredEvals. You can use the following steps:
+If your hub is using a non-standard scoring metric, i.e not one on the [Score model output predictions page](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details), you still can use PredEvals for visualization. To do this, you will need to manually create scores files in the structure expected by PredEvals. You can use the following steps:
 
 1. First, follow the instructions in [Configuring the PredEvals module](#dashboard-predevals-config) and set up the `predevals-config.yml` file as normal.
 
@@ -459,7 +459,7 @@ Then the structure would look like this:
   |  |  |  |-scores.csv
 ```
 
-Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_scores` and `location`, and each row will contain a score for a particular model, location combination, the model_id and the location.
+Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_scores` and `location`, and each row will contain a score for a particular model, location combination.
 
 4. Create the scores in accordance with the way `predevals-config.yml`was structured and place them in the folders. This will depend on the particular hub and require a custom script
 
