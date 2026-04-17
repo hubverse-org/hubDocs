@@ -393,6 +393,78 @@ The PredEvals module has several important limitations:
  - Only hubs with `round_id_from_variable` set to `true` in the `tasks.json` configuration file are supported.
  - Supported output types include `mean`, `median`, `quantile`, and `pmf`. However, support for ordinal pmf predictions is still experimental. The `sample` and `cdf` output types are not supported.
 
+(custom-predevals)=
+### Custom PredEvals Evaluation Page (optional)
+
+If your hub is using a non-standard scoring metric, i.e not one on the [Score model output predictions page](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details), you still can use PredEvals for visualization. To do this, you will need to manually create scores files in the structure expected by PredEvals. You can use the following steps:
+
+1. First, follow the instructions in [Configuring the PredEvals module](#dashboard-predevals-config) and set up the `predevals-config.yml` file as normal.
+
+2. Create a `predevals/data` branch on the repository. This should an [orphan branch](https://stackoverflow.com/questions/1384325/in-git-is-there-a-simple-way-of-introducing-an-unrelated-branch-to-a-repository/4288660#4288660) of the repo.
+
+3. Create a folder structure on the `predevals/data` branch in the following format:
+
+ ```text
+├──scores/
+│ └──target_id/
+│ │  └──eval_sets_name/
+│ │  │  ├──disaggregate_by_1/
+│ │  │  │  └──scores.csv
+│ │  |  ├──disaggregate_by_2/
+│ │  |  |  └──scores.csv
+...
+│ | │   ├──disaggregate_by_n/
+│ │ │   |  └──scores.csv
+│ │ │   └──scores.csv
+```
+
+For a more concrete example, let us say our `predevals-config.yml` looks like this:
+
+```yaml
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+rounds_idx: 0
+targets:
+- target_id: resources_used
+  metrics:
+  - allocation_score
+  disaggregate_by:
+  - location
+  - horizon
+eval_sets:
+- eval_set_name: Full season
+    horizon:
+    - 0
+    - 1
+    - 2
+    - 3
+task_id_text:
+  location:
+    '01': Alabama
+    '02': Alaska
+    '04': Arizona
+    '05': Arkansas
+    '06': California
+    ...
+```
+
+Then the structure would look like this:
+```text
+│-scores/
+│  └──resources_used/
+│  │  └──Full season/
+│  │  │  ├──location/
+│  │  │  │  └──scores.csv
+│  │  │  ├──horizon
+│  │  │  │  └──scores.csv
+│  │  │  └──scores.csv
+```
+
+Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_scores` and `location`, and each row will contain a score for a particular model, location combination.
+
+4. Create the scores in accordance with the way `predevals-config.yml`was structured and place them in the folders. This will depend on the particular hub and require a custom script
+
+The data on the branch can be updated manually or using a [github workflow](#dashboard-workflows). If using a github workflow, it will need to be a custom workflow.
+
 (dashboard-workflows)=
 ## Using GitHub actions to build site contents and data
 
