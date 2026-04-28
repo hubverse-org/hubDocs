@@ -14,13 +14,13 @@ babel==2.18.0
     #   sphinx
 beautifulsoup4==4.14.3
     # via pydata-sphinx-theme
-certifi==2026.2.25
+certifi==2026.4.22
     # via requests
 cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.4.7
     # via requests
-click==8.3.2
+click==8.3.3
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
@@ -38,7 +38,7 @@ h11==0.16.0
     # via uvicorn
 identify==2.6.19
     # via pre-commit
-idna==3.11
+idna==3.13
     # via
     #   anyio
     #   requests
@@ -63,13 +63,13 @@ myst-parser==5.0.0
     # via hubdocs (pyproject.toml)
 nodeenv==1.10.0
     # via pre-commit
-packaging==26.1
+packaging==26.2
     # via
     #   pydata-sphinx-theme
     #   sphinx
 platformdirs==4.9.6
     # via virtualenv
-pre-commit==4.5.1
+pre-commit==4.6.0
     # via hubdocs (pyproject.toml)
 pydata-sphinx-theme
     # via sphinx-book-theme
@@ -139,7 +139,7 @@ typing-extensions==4.15.0
     #   pydata-sphinx-theme
 urllib3==2.6.3
     # via requests
-uvicorn==0.44.0
+uvicorn==0.46.0
     # via sphinx-autobuild
 virtualenv==21.2.4
     # via pre-commit
@@ -147,5 +147,5 @@ watchfiles==1.1.1
     # via sphinx-autobuild
 websockets==16.0
     # via sphinx-autobuild
-wheel==0.46.3
+wheel==0.47.0
     # via sphinx-togglebutton
