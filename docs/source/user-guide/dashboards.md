@@ -384,6 +384,84 @@ In principle, it would be possible to implement `round_filters` by specifying th
 
 :::
 
+(predevals-scale-transformations)=
+### Scale transformations (optional)
+
+For targets whose values span orders of magnitude (for example, count-based forecasts), it can be useful to evaluate predictions on a transformed scale rather than (or in addition to) the natural scale. PredEvals supports configuring scale transformations as part of `predevals-config.yml` from schema version `v1.1.0` onwards.
+
+To opt in, update your config's `schema_version` to the v1.1.0 URL:
+
+```yaml
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
+```
+
+Transforms can be configured at two levels:
+
+- **`transform_defaults`** (top-level, optional): a default transformation applied to every target whose available output types support transformation.
+- **`targets[*].transform`** (per-target, optional): a transformation specific to one target. A per-target `transform` *replaces* `transform_defaults` entirely for that target. There is no merge between the two blocks.
+
+Each `transform` block, whether at the top level or per-target, has the following structure:
+
+| Property | Required | Description |
+| -------- | -------- | ----------- |
+| `fun`    | yes      | Name of the transform function. Must be one of the supported values listed below. |
+| `args`   | no       | Optional named arguments passed to `fun` (for example, `offset` for `log_shift`). Argument names must match the chosen function's formals. |
+| `append` | no       | If `true` (default), transformed-scale scores are produced in addition to natural-scale scores. If `false`, only transformed-scale scores are produced. |
+| `label`  | no       | Optional human-readable label associated with this transformation (for example, `log`). |
+
+#### Supported transform functions
+
+The schema restricts `fun` to the following functions, supported by the hubverse dashboards:
+
+| `fun`        | Source         | Description                                                              |
+| ------------ | -------------- | ------------------------------------------------------------------------ |
+| `log_shift`  | `scoringutils` | Natural log after adding a positive offset (set via `args.offset`). Useful when forecasts may be zero. |
+| `log1p`      | base R         | Natural log of `(1 + x)`. |
+| `log`        | base R         | Natural log (base e). |
+| `log10`      | base R         | Log base 10. |
+| `log2`       | base R         | Log base 2. |
+| `sqrt`       | base R         | Square root. |
+
+#### Opting a target out
+
+To exclude a single target from an inherited `transform_defaults` (without removing the default for other targets), set `transform: false` on that target.
+
+#### Example
+
+```yaml
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
+rounds_idx: 0
+transform_defaults:
+  fun: log_shift
+  args:
+    offset: 1
+targets:
+- target_id: wk inc flu hosp
+  metrics:
+  - wis
+  - ae_median
+- target_id: wk flu hosp rate category
+  metrics:
+  - log_score
+  - rps
+  transform: false
+```
+
+In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`) from `transform_defaults`. The categorical target `wk flu hosp rate category` opts out explicitly with `transform: false`.
+
+#### Validation
+
+The configuration validator surfaces clear errors and warnings for transform-related misconfigurations:
+
+- **Unknown `fun` value.** A `fun` value outside the allowlist is rejected at schema validation time.
+- **Invalid `args`.** If `args` includes a name the chosen `fun` does not accept, validation fails with the list of allowed argument names.
+- **Explicit transform on a target with no transformable output types** (for example, a `pmf`-only target with an explicit `transform` block): validation fails. Targets that cannot be meaningfully transformed should use `transform: false` or be omitted from a configuration that sets `transform_defaults`.
+- **Inherited transform on a target with no transformable output types.** If `transform_defaults` is configured but the target's available output types do not support transformation, validation emits a warning. Setting `transform: false` on the target silences the warning.
+
+#### Backwards compatibility
+
+Existing v1.0.1 configurations continue to validate against schema v1.1.0 without any changes. Migrating the `schema_version` URL is only required if you want to opt into transform configuration.
+
 (predevals-limitations)=
 ### PredEvals limitations and requirements
 
