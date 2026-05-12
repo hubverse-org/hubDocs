@@ -38,7 +38,7 @@ h11==0.16.0
     # via uvicorn
 identify==2.6.19
     # via pre-commit
-idna==3.13
+idna==3.14
     # via
     #   anyio
     #   requests
@@ -49,13 +49,13 @@ jinja2==3.1.6
     #   hubdocs (pyproject.toml)
     #   myst-parser
     #   sphinx
-markdown-it-py==4.0.0
+markdown-it-py==4.2.0
     # via
     #   mdit-py-plugins
     #   myst-parser
 markupsafe==3.0.3
     # via jinja2
-mdit-py-plugins==0.5.0
+mdit-py-plugins==0.6.0
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
@@ -83,7 +83,7 @@ pyyaml==6.0.3
     #   myst-parser
     #   pre-commit
     #   sphinxcontrib-mermaid
-requests==2.33.1
+requests==2.34.0
     # via sphinx
 roman-numerals-py==4.1.0
     # via sphinx
@@ -137,7 +137,7 @@ typing-extensions==4.15.0
     #   anyio
     #   beautifulsoup4
     #   pydata-sphinx-theme
-urllib3==2.6.3
+urllib3==2.7.0
     # via requests
 uvicorn==0.46.0
     # via sphinx-autobuild
