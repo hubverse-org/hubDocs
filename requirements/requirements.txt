@@ -20,7 +20,7 @@ cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.4.7
     # via requests
-click==8.3.3
+click==8.4.0
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
@@ -38,7 +38,7 @@ h11==0.16.0
     # via uvicorn
 identify==2.6.19
     # via pre-commit
-idna==3.14
+idna==3.15
     # via
     #   anyio
     #   requests
@@ -55,11 +55,11 @@ markdown-it-py==4.2.0
     #   myst-parser
 markupsafe==3.0.3
     # via jinja2
-mdit-py-plugins==0.6.0
+mdit-py-plugins==0.6.1
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-myst-parser==5.0.0
+myst-parser==5.1.0
     # via hubdocs (pyproject.toml)
 nodeenv==1.10.0
     # via pre-commit
@@ -139,11 +139,11 @@ typing-extensions==4.15.0
     #   pydata-sphinx-theme
 urllib3==2.7.0
     # via requests
-uvicorn==0.46.0
+uvicorn==0.47.0
     # via sphinx-autobuild
 virtualenv==21.3.0
     # via pre-commit
-watchfiles==1.1.1
+watchfiles==1.2.0
     # via sphinx-autobuild
 websockets==16.0
     # via sphinx-autobuild
