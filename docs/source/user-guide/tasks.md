@@ -96,6 +96,7 @@ There can be **one or more task ID variables to define a modeling "target"** (th
 For example, in our [Running Example 1](#running-example-1), the task ID variables are `target`, `location`, and `origin_date`.
 In this example, `target` is the target key and can only take on one value, "inc covid hosp".
 
+(derived-task-id-variables)=
 #### Derived Task ID variables
 
 Each model output task is based on unique combinations of task ID values. For example, for a given `origin_date` which is a task ID which often acts as the round ID and as the starting projection date (week 0; let's say "2024-11-07"), 2 `location`s, and 2 `horizon` values, there are 4 unique tasks (1 `origin_date` × 2 `location`s × 2 `horizon`s).
