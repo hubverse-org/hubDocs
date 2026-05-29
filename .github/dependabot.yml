@@ -1,15 +1,16 @@
-# instruct GitHub dependabot to scan github actions and Python code for dependency updates
+# instruct GitHub dependabot to scan pre-commit hooks and Python code for dependency updates
+# note: this site is built by Read the Docs (not GitHub Actions), so there are no workflow
+# files for the github-actions ecosystem to scan
 
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    # dependabot automatically checks .github/workflows/ and .github/actions/
+  - package-ecosystem: "pre-commit"
     directory: "/"
     schedule:
       interval: "weekly"
     # group all run-of-the mill updates into a single pull request
     groups:
-      gha-updates:
+      pre-commit-updates:
         applies-to: version-updates
         update-types:
           - patch
