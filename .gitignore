@@ -172,3 +172,4 @@ cython_debug/
 # unignore docson lib directory
 !docs/_static/docson/lib/
 .claude/
+CLAUDE.md
