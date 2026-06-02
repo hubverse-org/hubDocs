@@ -387,9 +387,9 @@ In principle, it would be possible to implement `round_filters` by specifying th
 (predevals-scale-transformations)=
 ### Scale transformations (optional)
 
-For targets whose values span orders of magnitude (for example, count-based forecasts), it can be useful to evaluate predictions on a transformed scale rather than (or in addition to) the natural scale. PredEvals supports configuring scale transformations as part of `predevals-config.yml` from schema version `v1.1.0` onwards.
+When a target's values span a wide range of magnitudes, scores computed on the natural scale can be dominated by the largest values. Applying a scale transformation before scoring can give a more balanced evaluation across magnitudes. PredEvals supports configuring scale transformations in `predevals-config.yml` from schema version `v1.1.0` onwards, applied instead of or alongside natural-scale scoring.
 
-To opt in, update your config's `schema_version` to the v1.1.0 URL:
+Scale transformations require schema version `v1.1.0` or later. If your config's `schema_version` points to an earlier version, update it to a version that supports transforms — for example, the one that introduced them:
 
 ```yaml
 schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
@@ -398,29 +398,41 @@ schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/
 Transforms can be configured at two levels:
 
 - **`transform_defaults`** (top-level, optional): a default transformation applied to every target whose available output types support transformation.
-- **`targets[*].transform`** (per-target, optional): a transformation specific to one target. A per-target `transform` *replaces* `transform_defaults` entirely for that target. There is no merge between the two blocks.
+- **`targets[*].transform`** (per-target, optional): a transformation specific to one target. A per-target `transform` *replaces* `transform_defaults` entirely for that target.
 
 Each `transform` block, whether at the top level or per-target, has the following structure:
 
 | Property | Required | Description |
 | -------- | -------- | ----------- |
 | `fun`    | yes      | Name of the transform function. Must be one of the supported values listed below. |
-| `args`   | no       | Optional named arguments passed to `fun` (for example, `offset` for `log_shift`). Argument names must match the chosen function's formals. |
-| `append` | no       | If `true` (default), transformed-scale scores are produced in addition to natural-scale scores. If `false`, only transformed-scale scores are produced. |
-| `label`  | no       | Optional human-readable label associated with this transformation (for example, `log`). |
+| `args`   | no       | Optional named arguments passed to `fun` (for example, `offset` for `log_shift`). Argument names must match the chosen function's formals (excluding the data argument itself). |
+| `append` | no       | If `true` (default), transformed-scale scores are produced *in addition to* natural-scale scores. If `false`, *only* transformed-scale scores are produced. |
+| `label`  | no       | Optional short human-readable label for the transformed scale (for example, `log`). This label identifies the transformed scale in the dashboard, shown in parentheses next to the metric name, e.g. `WIS (log)` (see [How transformed scores appear](#predevals-transform-output) below). If omitted, the `fun` name is used as the label. |
 
 #### Supported transform functions
 
-The schema restricts `fun` to the following functions, supported by the hubverse dashboards:
+The schema restricts `fun` to the following allowlist of functions, all of which are strictly monotonic and supported by the hubverse dashboards:
 
-| `fun`        | Source         | Description                                                              |
-| ------------ | -------------- | ------------------------------------------------------------------------ |
-| `log_shift`  | `scoringutils` | Natural log after adding a positive offset (set via `args.offset`). Useful when forecasts may be zero. |
-| `log1p`      | base R         | Natural log of `(1 + x)`. |
-| `log`        | base R         | Natural log (base e). |
-| `log10`      | base R         | Log base 10. |
-| `log2`       | base R         | Log base 2. |
-| `sqrt`       | base R         | Square root. |
+| `fun`        | Source         | Computes                                                                 | Notable arguments |
+| ------------ | -------------- | ------------------------------------------------------------------------ | ----------------- |
+| `log_shift`  | [`scoringutils::log_shift()`](https://epiforecasts.io/scoringutils/reference/log_shift.html) | Natural logarithm after adding an `offset` to the values: `log(x + offset)`. | `offset` (default `0`), `base` (default `e`). With the default `offset = 0` this is a plain natural log; set `offset: 1` (or another positive value) when forecasts can be zero, since `log(0)` is undefined. |
+| `log1p`      | [base R](https://rdrr.io/r/base/Log.html) | Natural logarithm of `(1 + x)`, i.e. `log(1 + x)`. | — |
+| `log`        | [base R](https://rdrr.io/r/base/Log.html) | Natural logarithm (base *e*). Undefined at `0`. | `base` (default *e*). |
+| `log10`      | [base R](https://rdrr.io/r/base/Log.html) | Base-10 logarithm. | — |
+| `log2`       | [base R](https://rdrr.io/r/base/Log.html) | Base-2 logarithm. | — |
+| `sqrt`       | [base R](https://rdrr.io/r/base/MathFun.html) | Square root. | — |
+
+#### Which output types are transformed
+
+A target's single resolved transform applies uniformly to **every transformable output type** the target declares. The transformable output types are:
+
+| Output type | Transformable? |
+| ----------- | -------------- |
+| `mean`, `median`, `quantile` | Yes |
+| `sample` | Not yet — support is under consideration |
+| `pmf` | No (categorical output types are not meaningfully transformed) |
+
+Metrics computed on a non-transformable output type (for example, the pmf metrics `log_score` or `rps`) are always scored on the natural scale and receive no transformed-scale column. See the [hubEvals metric × output-type compatibility reference](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for which metrics apply to which output types.
 
 #### Opting a target out
 
@@ -449,6 +461,16 @@ targets:
 
 In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`) from `transform_defaults`. The categorical target `wk flu hosp rate category` opts out explicitly with `transform: false`.
 
+(predevals-transform-output)=
+#### How transformed scores appear in the dashboard
+
+When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses — for example, `WIS (log)` alongside `WIS`, or `Rel. WIS (log)` alongside `Rel. WIS`.
+
+- With **`append: true`** (the default), both the natural-scale and transformed-scale version of each affected metric are available.
+- With **`append: false`**, only the transformed-scale version is shown.
+
+Two metric families — interval coverage (for example `50% Cov.`, `95% Cov.`) and bias — are mathematically unchanged by any monotonic transform, so they are shown only once, with no separate transformed-scale variant.
+
 #### Validation
 
 The configuration validator surfaces clear errors and warnings for transform-related misconfigurations:
@@ -456,7 +478,7 @@ The configuration validator surfaces clear errors and warnings for transform-rel
 - **Unknown `fun` value.** A `fun` value outside the allowlist is rejected at schema validation time.
 - **Invalid `args`.** If `args` includes a name the chosen `fun` does not accept, validation fails with the list of allowed argument names.
 - **Explicit transform on a target with no transformable output types** (for example, a `pmf`-only target with an explicit `transform` block): validation fails. Targets that cannot be meaningfully transformed should use `transform: false` or be omitted from a configuration that sets `transform_defaults`.
-- **Inherited transform on a target with no transformable output types.** If `transform_defaults` is configured but the target's available output types do not support transformation, validation emits a warning. Setting `transform: false` on the target silences the warning.
+- **Inherited transform on a target with no transformable output types.** If `transform_defaults` is configured but the target's available output types do not support transformation, validation emits a warning and the transform is silently skipped for that target at scoring time. Setting `transform: false` on the target silences the warning.
 
 #### Backwards compatibility
 
