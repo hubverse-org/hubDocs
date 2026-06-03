@@ -292,7 +292,7 @@ It is generally recommended that the baseline model used for relative skill scor
 
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
 rounds_idx: 0
 targets:
 - target_id: wk inc flu hosp
@@ -354,10 +354,10 @@ task_id_text:
     ...
 ```
 
-This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
+This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
 
 
-<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json"></script>
+<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json"></script>
 
 
 PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
@@ -398,7 +398,27 @@ schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/
 Transforms can be configured at two levels:
 
 - **`transform_defaults`** (top-level, optional): a default transformation applied to every target whose available output types support transformation.
-- **`targets[*].transform`** (per-target, optional): a transformation specific to one target. A per-target `transform` *replaces* `transform_defaults` entirely for that target.
+- A **`transform`** field on an individual target (per-target, optional): a transformation specific to that one target, which *replaces* `transform_defaults` entirely for it.
+
+For example, the abbreviated config below sets a default transform, has the first target inherit it, the second target use its own transform instead, and the third opt out:
+
+```yaml
+transform_defaults:          # applies to all transformable targets by default
+  fun: log_shift
+  args:
+    offset: 1
+targets:
+- target_id: wk inc flu hosp
+  metrics: [wis]
+  # no transform field -> inherits transform_defaults (log_shift)
+- target_id: wk inc covid hosp
+  metrics: [wis]
+  transform:                 # replaces transform_defaults for this target
+    fun: sqrt
+- target_id: wk flu hosp rate category
+  metrics: [log_score]
+  transform: false           # opts this target out of transform_defaults
+```
 
 Each `transform` block, whether at the top level or per-target, has the following structure:
 
@@ -466,6 +486,9 @@ In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`) from 
 
 When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses — for example, `WIS (log)` alongside `WIS`, or `Rel. WIS (log)` alongside `Rel. WIS`.
 
+<!-- TODO: add a screenshot of the evaluations table showing transformed-scale metric columns (e.g. `Rel. WIS (log)`) once the predevals dashboard UI for transforms is finalised, matching the screenshots earlier on this page. See review on hubverse-org/hubDocs#477. -->
+
+
 - With **`append: true`** (the default), both the natural-scale and transformed-scale version of each affected metric are available.
 - With **`append: false`**, only the transformed-scale version is shown.
 
@@ -521,7 +544,7 @@ If your hub is using a non-standard scoring metric, i.e not one on the [Score mo
 For a more concrete example, let us say our `predevals-config.yml` looks like this:
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
 rounds_idx: 0
 targets:
 - target_id: resources_used
