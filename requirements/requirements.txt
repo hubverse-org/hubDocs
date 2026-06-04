@@ -38,7 +38,7 @@ h11==0.16.0
     # via uvicorn
 identify==2.6.19
     # via pre-commit
-idna==3.17
+idna==3.18
     # via
     #   anyio
     #   requests
@@ -139,7 +139,7 @@ typing-extensions==4.15.0
     #   pydata-sphinx-theme
 urllib3==2.7.0
     # via requests
-uvicorn==0.48.0
+uvicorn==0.49.0
     # via sphinx-autobuild
 virtualenv==21.4.2
     # via pre-commit
