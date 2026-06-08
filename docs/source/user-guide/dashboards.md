@@ -385,7 +385,7 @@ In principle, it would be possible to implement `round_filters` by specifying th
 :::
 
 (predevals-scale-transformations)=
-### Scale transformations (optional)
+### Scale transformations for PredEvals (optional)
 
 When a target's values span a wide range of magnitudes, scores computed on the natural scale can be dominated by the largest values. Applying a scale transformation before scoring can give a more balanced evaluation across magnitudes. PredEvals supports configuring scale transformations in `predevals-config.yml` from schema version `v1.1.0` onwards, applied instead of or alongside natural-scale scoring.
 
@@ -400,17 +400,18 @@ Transforms can be configured at two levels:
 - **`transform_defaults`** (top-level, optional): a default transformation applied to every target whose available output types support transformation.
 - A **`transform`** field on an individual target (per-target, optional): a transformation specific to that one target, which *replaces* `transform_defaults` entirely for it.
 
-For example, the abbreviated config below sets a default transform, has the first target inherit it, the second target use its own transform instead, and the third opt out:
+The structure of a `transform` block and the functions available are detailed below, but it may be easier to start with an illustrative case. In the abbreviated config below, a default transform is set, the first target inherits it, the second target uses its own transform instead, and the third opts out:
 
 ```yaml
 transform_defaults:          # applies to all transformable targets by default
   fun: log_shift
   args:
     offset: 1
+  label: log                 # dashboard label for the transformed scale, e.g. "WIS (log)"
 targets:
 - target_id: wk inc flu hosp
   metrics: [wis]
-  # no transform field -> inherits transform_defaults (log_shift)
+  # no transform field -> inherits transform_defaults (log_shift, labelled "log")
 - target_id: wk inc covid hosp
   metrics: [wis]
   transform:                 # replaces transform_defaults for this target
@@ -452,7 +453,7 @@ A target's single resolved transform applies uniformly to **every transformable 
 | `sample` | Not yet — support is under consideration |
 | `pmf` | No (categorical output types are not meaningfully transformed) |
 
-Metrics computed on a non-transformable output type (for example, the pmf metrics `log_score` or `rps`) are always scored on the natural scale and receive no transformed-scale column. See the [hubEvals metric × output-type compatibility reference](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for which metrics apply to which output types.
+Metrics computed on a non-transformable output type (for example, the pmf metrics `log_score` or `rps`) are always scored on the natural scale and receive no transformed-scale column. See the [hubEvals `score_model_out()` documentation details](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for the definition of each metric (e.g. what `wis` or `ae_median` mean) and which metrics (e.g. `wis`) can be applied to each output type (e.g. `quantile`).
 
 #### Opting a target out
 
@@ -467,6 +468,7 @@ transform_defaults:
   fun: log_shift
   args:
     offset: 1
+  label: log
 targets:
 - target_id: wk inc flu hosp
   metrics:
@@ -479,12 +481,12 @@ targets:
   transform: false
 ```
 
-In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`) from `transform_defaults`. The categorical target `wk flu hosp rate category` opts out explicitly with `transform: false`.
+In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`, labelled `log`) from `transform_defaults`, so its transformed-scale scores appear in the dashboard as e.g. `WIS (log)`. The categorical target `wk flu hosp rate category` opts out explicitly with `transform: false`.
 
 (predevals-transform-output)=
 #### How transformed scores appear in the dashboard
 
-When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses — for example, `WIS (log)` alongside `WIS`, or `Rel. WIS (log)` alongside `Rel. WIS`.
+When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses. In the example above, `label: log` means the transformed `WIS` appears as `WIS (log)` alongside the natural-scale `WIS` (and `Rel. WIS (log)` alongside `Rel. WIS`).
 
 <!-- TODO: add a screenshot of the evaluations table showing transformed-scale metric columns (e.g. `Rel. WIS (log)`) once the predevals dashboard UI for transforms is finalised, matching the screenshots earlier on this page. See review on hubverse-org/hubDocs#477. -->
 
