@@ -4,7 +4,7 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==1.0.0
     # via sphinx
-anyio==4.13.0
+anyio==4.14.0
     # via
     #   starlette
     #   watchfiles
@@ -130,7 +130,7 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-starlette==1.2.1
+starlette==1.3.1
     # via sphinx-autobuild
 typing-extensions==4.15.0
     # via
@@ -141,7 +141,7 @@ urllib3==2.7.0
     # via requests
 uvicorn==0.49.0
     # via sphinx-autobuild
-virtualenv==21.4.2
+virtualenv==21.5.0
     # via pre-commit
 watchfiles==1.2.0
     # via sphinx-autobuild
