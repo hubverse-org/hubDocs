@@ -1,8 +1,6 @@
 # The hubverse: open tools for collaborative modeling
 
 ```{admonition} Looking for a broad overview of the hubverse?
-:class: seealso
-
 Visit <https://hubverse.io/> for a general introduction to the hubverse. This site provides detailed technical documentation on how to use it.
 ```
 
