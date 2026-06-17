@@ -1,9 +1,7 @@
 # The hubverse: open tools for collaborative modeling
 
-```{admonition} 📣 We have a new landing page!
-:class: warning
-
-We have a new landing page at <https://hubverse.io/> that provides a general overview of the hubverse. Over the next few weeks, we will be removing duplicated content from this site.
+```{admonition} Looking for a broad overview of the hubverse?
+Visit <https://hubverse.io/> for a general introduction to the hubverse. This site provides detailed technical documentation on how to use it.
 ```
 
 ```{admonition} What is the hubverse for?
