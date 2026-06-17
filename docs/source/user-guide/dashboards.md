@@ -292,7 +292,7 @@ It is generally recommended that the baseline model used for relative skill scor
 
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
 rounds_idx: 0
 targets:
 - target_id: wk inc flu hosp
@@ -354,10 +354,10 @@ task_id_text:
     ...
 ```
 
-This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
+This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML). You can view the [raw schema](https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json) for this file to see the detailed specification of its contents, or use the widget below to explore the schema interactively:
 
 
-<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json"></script>
+<script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json"></script>
 
 
 PredEvals supports scoring for multiple targets. We could specify another target for evaluation by adding an entry for it at the same level as the `"wk inc flu hosp"` target, complete with specifications for the `target_id`, the `metrics` and `relative_metrics` to compute, the `baseline` to use for relative metrics (if applicable), and the task id variables to `disaggregate_by` for that target.
@@ -383,6 +383,131 @@ For each evaluation set, all filters are combined with "and" logic.  For example
 In principle, it would be possible to implement `round_filters` by specifying the set of rounds to include within the `task_filters` block. While this is possible, specifying `round_filters` is more convenient and maintainable, so we recommend using those settings where appropriate.
 
 :::
+
+(predevals-scale-transformations)=
+### Scale transformations for PredEvals (optional)
+
+When a target's values span a wide range of magnitudes, scores computed on the natural scale can be dominated by the largest values. Applying a scale transformation before scoring can give a more balanced evaluation across magnitudes. PredEvals supports configuring scale transformations in `predevals-config.yml` from schema version `v1.1.0` onwards, applied instead of or alongside natural-scale scoring.
+
+Scale transformations require schema version `v1.1.0` or later. If your config's `schema_version` points to an earlier version, update it to a version that supports transforms — for example, the one that introduced them:
+
+```yaml
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
+```
+
+Transforms can be configured at two levels:
+
+- **`transform_defaults`** (top-level, optional): a default transformation applied to every target whose available output types support transformation.
+- A **`transform`** field on an individual target (per-target, optional): a transformation specific to that one target, which *replaces* `transform_defaults` entirely for it.
+
+The structure of a `transform` block and the functions available are detailed below, but it may be easier to start with an illustrative case. In the abbreviated config below, a default transform is set, the first target inherits it, the second target uses its own transform instead, and the third opts out:
+
+```yaml
+transform_defaults:          # applies to all transformable targets by default
+  fun: log_shift
+  args:
+    offset: 1
+  label: log                 # dashboard label for the transformed scale, e.g. "WIS (log)"
+targets:
+- target_id: wk inc flu hosp
+  metrics: [wis]
+  # no transform field -> inherits transform_defaults (log_shift, labelled "log")
+- target_id: wk inc covid hosp
+  metrics: [wis]
+  transform:                 # replaces transform_defaults for this target
+    fun: sqrt
+- target_id: wk flu hosp rate category
+  metrics: [log_score]
+  transform: false           # opts this target out of transform_defaults
+```
+
+Each `transform` block, whether at the top level or per-target, has the following structure:
+
+| Property | Required | Description |
+| -------- | -------- | ----------- |
+| `fun`    | yes      | Name of the transform function. Must be one of the supported values listed below. |
+| `args`   | no       | Optional named arguments passed to `fun` (for example, `offset` for `log_shift`). Argument names must match the chosen function's formals (excluding the data argument itself). |
+| `append` | no       | If `true` (default), transformed-scale scores are produced *in addition to* natural-scale scores. If `false`, *only* transformed-scale scores are produced. |
+| `label`  | no       | Optional short human-readable label for the transformed scale (for example, `log`). This label identifies the transformed scale in the dashboard, shown in parentheses next to the metric name, e.g. `WIS (log)` (see [How transformed scores appear](#predevals-transform-output) below). If omitted, the `fun` name is used as the label. |
+
+#### Supported transform functions
+
+The schema restricts `fun` to the following allowlist of functions, all of which are strictly monotonic and supported by the hubverse dashboards:
+
+| `fun`        | Source         | Computes                                                                 | Notable arguments |
+| ------------ | -------------- | ------------------------------------------------------------------------ | ----------------- |
+| `log_shift`  | [`scoringutils::log_shift()`](https://epiforecasts.io/scoringutils/reference/log_shift.html) | Natural logarithm after adding an `offset` to the values: `log(x + offset)`. | `offset` (default `0`), `base` (default `e`). With the default `offset = 0` this is a plain natural log; set `offset: 1` (or another positive value) when forecasts can be zero, since `log(0)` is undefined. |
+| `log1p`      | [base R](https://rdrr.io/r/base/Log.html) | Natural logarithm of `(1 + x)`, i.e. `log(1 + x)`. | — |
+| `log`        | [base R](https://rdrr.io/r/base/Log.html) | Natural logarithm (base *e*). Undefined at `0`. | `base` (default *e*). |
+| `log10`      | [base R](https://rdrr.io/r/base/Log.html) | Base-10 logarithm. | — |
+| `log2`       | [base R](https://rdrr.io/r/base/Log.html) | Base-2 logarithm. | — |
+| `sqrt`       | [base R](https://rdrr.io/r/base/MathFun.html) | Square root. | — |
+
+#### Which output types are transformed
+
+A target's single resolved transform applies uniformly to **every transformable output type** the target declares. The transformable output types are:
+
+| Output type | Transformable? |
+| ----------- | -------------- |
+| `mean`, `median`, `quantile` | Yes |
+| `sample` | Not yet — support is under consideration |
+| `pmf` | No (categorical output types are not meaningfully transformed) |
+
+Metrics computed on a non-transformable output type (for example, the pmf metrics `log_score` or `rps`) are always scored on the natural scale and receive no transformed-scale column. See the [hubEvals `score_model_out()` documentation details](https://hubverse-org.github.io/hubEvals/reference/score_model_out.html#details) for the definition of each metric (e.g. what `wis` or `ae_median` mean) and which metrics (e.g. `wis`) can be applied to each output type (e.g. `quantile`).
+
+#### Opting a target out
+
+To exclude a single target from an inherited `transform_defaults` (without removing the default for other targets), set `transform: false` on that target.
+
+#### Example
+
+```yaml
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
+rounds_idx: 0
+transform_defaults:
+  fun: log_shift
+  args:
+    offset: 1
+  label: log
+targets:
+- target_id: wk inc flu hosp
+  metrics:
+  - wis
+  - ae_median
+- target_id: wk flu hosp rate category
+  metrics:
+  - log_score
+  - rps
+  transform: false
+```
+
+In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`, labelled `log`) from `transform_defaults`, so its transformed-scale scores appear in the dashboard as e.g. `WIS (log)`. The categorical target `wk flu hosp rate category` opts out explicitly with `transform: false`.
+
+(predevals-transform-output)=
+#### How transformed scores appear in the dashboard
+
+When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses. In the example above, `label: log` means the transformed `WIS` appears as `WIS (log)` alongside the natural-scale `WIS` (and `Rel. WIS (log)` alongside `Rel. WIS`).
+
+<!-- TODO: add a screenshot of the evaluations table showing transformed-scale metric columns (e.g. `Rel. WIS (log)`) once the predevals dashboard UI for transforms is finalised, matching the screenshots earlier on this page. See review on hubverse-org/hubDocs#477. -->
+
+
+- With **`append: true`** (the default), both the natural-scale and transformed-scale version of each affected metric are available.
+- With **`append: false`**, only the transformed-scale version is shown.
+
+Two metric families — interval coverage (for example `50% Cov.`, `95% Cov.`) and bias — are mathematically unchanged by any monotonic transform, so they are shown only once, with no separate transformed-scale variant.
+
+#### Validation
+
+The configuration validator surfaces clear errors and warnings for transform-related misconfigurations:
+
+- **Unknown `fun` value.** A `fun` value outside the allowlist is rejected at schema validation time.
+- **Invalid `args`.** If `args` includes a name the chosen `fun` does not accept, validation fails with the list of allowed argument names.
+- **Explicit transform on a target with no transformable output types** (for example, a `pmf`-only target with an explicit `transform` block): validation fails. Targets that cannot be meaningfully transformed should use `transform: false` or be omitted from a configuration that sets `transform_defaults`.
+- **Inherited transform on a target with no transformable output types.** If `transform_defaults` is configured but the target's available output types do not support transformation, validation emits a warning and the transform is silently skipped for that target at scoring time. Setting `transform: false` on the target silences the warning.
+
+#### Backwards compatibility
+
+Existing v1.0.1 configurations continue to validate against schema v1.1.0 without any changes. Migrating the `schema_version` URL is only required if you want to opt into transform configuration.
 
 (predevals-limitations)=
 ### PredEvals limitations and requirements
@@ -421,7 +546,7 @@ If your hub is using a non-standard scoring metric, i.e not one on the [Score mo
 For a more concrete example, let us say our `predevals-config.yml` looks like this:
 
 ```yaml
-schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.0.1/config_schema.json
+schema_version: https://raw.githubusercontent.com/hubverse-org/hubPredEvalsData/main/inst/schema/v1.1.0/config_schema.json
 rounds_idx: 0
 targets:
 - target_id: resources_used
