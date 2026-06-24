@@ -5,7 +5,7 @@ To cite the **hubverse project** as a whole, please cite the project descriptor 
 
 ::::{tab-set}
 :::{tab-item} APA
-Consortium of Infectious Disease Modeling Hubs, Kerr, M., Borchering, R., Castro Rivadeneira, A. J., Contamin, L., Funk, S., Hochheiser, H., Howerton, E., Krystalli, A., Shandross, L., & Reich, N. G. (2026). [A software platform for collaborative infectious disease modelling](https://www.nature.com/articles/s44360-026-00145-7). *Nature Health*, Article s44360-026-00145-7. [https://doi.org/10.1038/s44360-026-00145-7](https://doi.org/10.1038/s44360-026-00145-7)
+Consortium of Infectious Disease Modeling Hubs, Kerr, M., Borchering, R., Castro Rivadeneira, A. J., Contamin, L., Funk, S., Hochheiser, H., Howerton, E., Krystalli, A., Shandross, L., & Reich, N. G. (2026). [A software platform for collaborative infectious disease modelling](https://www.nature.com/articles/s44360-026-00145-7). *Nature Health*, Article s44360-026-00145-7. https://doi.org/10.1038/s44360-026-00145-7
 :::
 :::{tab-item} Vancouver
 Consortium of Infectious Disease Modeling Hubs, Kerr M, Borchering R, Castro Rivadeneira AJ, Contamin L, Funk S, Hochheiser H, Howerton E, Krystalli A, Shandross L, Reich NG. [A software platform for collaborative infectious disease modelling](https://www.nature.com/articles/s44360-026-00145-7). Nat Health. 2026; Article s44360-026-00145-7. doi: [10.1038/s44360-026-00145-7](https://doi.org/10.1038/s44360-026-00145-7).
@@ -29,7 +29,7 @@ If you used the **hubEnsembles** package in your work, please cite the following
 
 ::::{tab-set}
 :::{tab-item} APA
-Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, et al. (2026). [Multi-model ensembles in infectious disease and public health: Methods, interpretation, and implementation in R](https://onlinelibrary.wiley.com/doi/10.1002/sim.70333). *Statistics in Medicine*, *45*(1–2), e70333. [https://doi.org/10.1002/sim.70333](https://doi.org/10.1002/sim.70333)
+Shandross, L., Howerton, E., Contamin, L., Hochheiser, H., Krystalli, A., Consortium of Infectious Disease Modeling Hubs, et al. (2026). [Multi-model ensembles in infectious disease and public health: Methods, interpretation, and implementation in R](https://onlinelibrary.wiley.com/doi/10.1002/sim.70333). *Statistics in Medicine*, *45*(1–2), e70333. https://doi.org/10.1002/sim.70333
 :::
 :::{tab-item} Vancouver
 Shandross L, Howerton E, Contamin L, Hochheiser H, Krystalli A, Consortium of Infectious Disease Modeling Hubs, et al. [Multi-model ensembles in infectious disease and public health: Methods, interpretation, and implementation in R](https://onlinelibrary.wiley.com/doi/10.1002/sim.70333). Stat Med. 2026;45(1–2):e70333. doi: [10.1002/sim.70333](https://doi.org/10.1002/sim.70333).
