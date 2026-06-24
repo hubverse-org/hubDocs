@@ -3,18 +3,18 @@
 ## Hubverse project
 To cite the **hubverse project** as a whole, please cite the project descriptor preprint:
 ```{admonition} hubverse project citation
-Consortium of Infectious Disease Modeling Hubs; Kerr M, Borchering R, Castro Rivadeneira AJ, Contamin L, Funk S, Hochheiser H, et al. [Coordinating collaborative infectious disease modeling projects with the hubverse](https://www.medrxiv.org/content/10.1101/2025.10.03.25337284v1) [Internet]. medRxiv; 2025 [cited 2025 Nov 26]. p. 2025.10.03.25337284. Available from: https://www.medrxiv.org/content/10.1101/2025.10.03.25337284v1
+Consortium of Infectious Disease Modeling Hubs; Kerr M, Borchering R, Castro Rivadeneira AJ, Contamin L, Funk S, Hochheiser H, et al. [A software platform for collaborative infectious disease modelling](https://www.nature.com/articles/s44360-026-00145-7) [Internet]. Nature Health. 2026;s44360-026-00145-7. Available from: https://www.nature.com/articles/s44360-026-00145-7
 ```
 
 BibTeX:
 ```
-@article{cidmh2025-hubverse,
-	title = {Coordinating collaborative infectious disease modeling projects with the hubverse},
-	author = {Hubs, Consortium of Infectious Disease Modeling and Kerr, Melissa and Borchering, Rebecca and Castro Rivadeneira, Alvaro J. and Contamin, Lucie and Funk, Sebastian and Hochheiser, Harry and Howerton, Emily and Krystalli, Anna and Shandross, Li and Reich, Nicholas G.},
-	journal = {medRxiv},
-	year = {2025},
-	url = {https://www.medrxiv.org/content/10.1101/2025.10.03.25337284v1},
-	doi = {10.1101/2025.10.03.25337284},
+@article{cidmh2026-hubverse,
+	title = {A software platform for collaborative infectious disease modelling},
+	author = {{Consortium of Infectious Disease Modeling Hubs} and Kerr, Melissa and Borchering, Rebecca and Castro Rivadeneira, Alvaro J. and Contamin, Lucie and Funk, Sebastian and Hochheiser, Harry and Howerton, Emily and Krystalli, Anna and Shandross, Li and Reich, Nicholas G.},
+	journal = {Nature Health},
+	year = {2026},
+	url = {https://www.nature.com/articles/s44360-026-00145-7},
+	doi = {10.1038/s44360-026-00145-7},
 }
 ```
 
