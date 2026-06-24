@@ -4,7 +4,7 @@
 
 The sample `output_type` can represent a probabilistic distribution through a collection of possible future observed values ("samples") that originate from a predictive model. Depending on the model's setup and the hub's configuration settings, different information may be requested or required to identify each sample.
 
-In the hubverse, a "[modeling task](tasks.md)" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the [task ID variables](tasks.md#task-id-vars)[^1] that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
+In the hubverse, a "[modeling task](tasks.md)" is defined by a unique combination of task ID column values. You can think of each modeling task as a specific part of the space defined by the [task ID variables](#task-id-vars)[^1] that we are interested in predicting. Each modeling task results in a single prediction. (Note that this concept is similar to that of a ["forecast unit" in the scoringutils R package](https://epiforecasts.io/scoringutils/reference/set_forecast_unit.html).)
 
 [^1]: (AKA task IDs, task ID columns) Column(s) in model output that provide details about what is being predicted. Common examples include `target`, `location`, `reference_date`, and `horizon`. These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions.
 
@@ -28,7 +28,7 @@ How modeling tasks relate to each other determines the structure of this distrib
 
 In many settings, predictions will be made for individual modeling tasks, with no notion of modeling tasks being related to each other or collected into sets (for more on this, see the [compound modeling tasks section](#compound-modeling-tasks)). When predictions are assumed to be made for individual modeling tasks, every modeling task is treated as distinct. In mathematical terms, these samples represent draws from marginal predictive distributions.
 
-Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](model-output.md#column-details)[^3] contains sample indices that are unique across an entire model output file, not just within each group, so each group has distinct indices (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
+Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](#column-details)[^3] contains sample indices that are unique across an entire model output file, not just within each group, so each group has distinct indices (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
 
 [^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
 
@@ -67,7 +67,7 @@ In this type of setting, a hub will specify a minimum and maximum number of requ
 
 More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be integers, and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero). The `"is_required"` property specifies that samples are a required output type.
 
-Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly. One example for the mean output type is shown below; more information and examples can be found on the [Hub configuration files page](hub-config.md#tasks-metadata) in the `tasks.json` file section.
+Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly. One example for the mean output type is shown below; more information and examples can be found on the [Hub configuration files page](#tasks-metadata) in the `tasks.json` file section.
 
 ```{code-block} json
     "mean": {
@@ -372,7 +372,7 @@ In general, a submission will pass validation if the task ID variables that defi
 To put it another way, samples can only describe "coarser" compound modeling tasks than those defined using the `compound_taskid_set` field. This is why all example submissions in the first row of the table pass validation, yet Example Submission A fails validation when the `compound_taskid_set` does not contain all four task ID variables.
 
 ```{caution}
-[**Derived task IDs**](tasks.md#derived-task-id-variables) are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
+[**Derived task IDs**](#derived-task-id-variables) are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
 
 These derived task IDs must be properly configured, or they can cause problems when validating compound modeling tasks by throwing errors when they should not. *If **all** the task ID variables a derived task ID is derived from are part of the `compound_taskid_set`, then that derived task ID must also be a part of the `compound_taskid_set`; otherwise, that derived task ID should be excluded.*
 
