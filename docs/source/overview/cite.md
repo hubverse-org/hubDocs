@@ -38,7 +38,7 @@ Shandross L, Howerton E, Contamin L, Hochheiser H, Krystalli A, Consortium of In
 ```
 @article{shandross2026multi,
 	title     = {Multi-Model Ensembles in Infectious Disease and Public Health: {Methods}, Interpretation, and Implementation in {R}},
-	author    = {Shandross, Li and Howerton, Emily and Contamin, Lucie and Hochheiser, Harry and Krystalli, Anna and {Consortium of Infectious Disease Modeling Hubs} and others},
+	author    = {Shandross, Li and Howerton, Emily and Contamin, Lucie and Hochheiser, Harry and Krystalli, Anna and {Consortium of Infectious Disease Modeling Hubs} and Reich, Nicholas G. and Ray, Evan L.},
 	journal   = {Statistics in Medicine},
 	volume    = {45},
 	number    = {1--2},
