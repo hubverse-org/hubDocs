@@ -139,13 +139,13 @@ typing-extensions==4.16.0
     #   pydata-sphinx-theme
 urllib3==2.7.0
     # via requests
-uvicorn==0.50.2
+uvicorn==0.51.0
     # via sphinx-autobuild
 virtualenv==21.6.0
     # via pre-commit
 watchfiles==1.2.0
     # via sphinx-autobuild
-websockets==16.0
+websockets==16.1
     # via sphinx-autobuild
 wheel==0.47.0
     # via sphinx-togglebutton
