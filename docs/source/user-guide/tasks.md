@@ -182,6 +182,17 @@ We therefore strongly suggest that Hubs adopt the following standard task ID or 
 [^new-vars]: As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
 In those cases, the new variables should be added to this list to ensure that the concepts are documented centrally and can be reused in future efforts.
 
+(task-id-data-types)=
+#### Date values in task ID variables
+
+Several standard task ID variables represent dates (for example, `origin_date`{.codeitem}, `forecast_date`{.codeitem}, `reference_date`{.codeitem}, and `target_date`{.codeitem}/`target_end_date`{.codeitem}).
+
+:::{important}
+Date-valued task IDs must be represented as strings in ISO 8601 date format (`YYYY-MM-DD`), for example `"2024-11-07"`.
+
+The hubverse currently supports **dates only, not datetimes**. There is no way to attach a time component (e.g., `2024-11-07T14:30:00`) to a task ID value, and datetimes are not supported anywhere in the hubverse framework. If a modeling task requires finer-than-daily resolution, represent the time component using a separate task ID variable.
+:::
+
 (output-types)=
 ## Output types
 
