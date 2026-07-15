@@ -190,7 +190,20 @@ Several standard task ID variables represent dates (for example, `origin_date`{.
 :::{important}
 Date-valued task IDs must be represented as strings in ISO 8601 date format (`YYYY-MM-DD`), for example `"2024-11-07"`.
 
-The hubverse currently supports **dates only, not datetimes**. There is no way to attach a time component (e.g., `2024-11-07T14:30:00`) to a task ID value, and datetimes are not supported anywhere in the hubverse framework. If a modeling task requires finer-than-daily resolution, represent the time component using a separate task ID variable.
+The hubverse currently supports **dates only, not datetimes**. There is no datetime type and no time-of-day type anywhere in the hubverse framework, so you cannot attach a time component (e.g., `2024-11-07T14:30:00`) to a task ID value.
+:::
+
+If a modeling task requires finer-than-daily resolution, split the sub-daily component into its own task ID variable. The benefit is *not* that this represents time "properly"; it is that the component can then be encoded as a plain `integer` or `character` value (for example, `hour` as `14`, or `"14:30"`) — data types the hubverse already reads and validates (via its Arrow/R tooling). No time data type is needed, and this works today with no changes to hubData or hubValidations.
+
+:::{warning}
+The hubverse read and validation functions treat such a variable **strictly as an `integer` or `character` column, with no temporal semantics**: no timezone, no time-of-day type, no interpretation of its ordering as time, and no validity checking (for example, `hour` values of `47`, or `"25:99"`, would pass validation unless the hub adds its own custom validation checks). Any temporal meaning lives entirely in the hub's config and the modeler's convention.
+
+To keep conventions compatible across hubs and avoid sorting surprises, adopt a canonical encoding — either:
+
+- an **`integer`** in a fixed range (e.g., `hour` from `0` to `23`), or
+- a **zero-padded, fixed-width `character` string** (e.g., `"HH:MM"`, so `"09:30"` rather than `"9:30"`).
+
+Because these columns carry no temporal type, character values are sorted lexically (character by character) rather than numerically — so without zero-padding, `"9"` sorts *after* `"10"`. Prefer zero-padded strings or integers to avoid this.
 :::
 
 (output-types)=
