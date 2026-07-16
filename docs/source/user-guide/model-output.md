@@ -129,6 +129,9 @@ More detail about each of these column groups is given in the following points:
     2. `output_type_id`{.codeitem} specifies more identifying information specific to the output type, which varies depending on the `output_type`.
 3. `value`{.codeitem} contains the model’s prediction.
 
+:::{note}
+Across all model output columns, the hubverse supports **dates only, not datetimes**. Any date-valued column — whether a task ID such as `reference_date` or `target_date`, or any other column defined with a date data type — must use ISO 8601 date strings in `YYYY-MM-DD` format. See [the note on date values in task ID variables](#task-id-data-types) for details.
+:::
 
 The following table provides more detail on how to configure the three "model output representation" columns based on each model output type.
 

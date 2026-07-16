@@ -182,6 +182,29 @@ We therefore strongly suggest that Hubs adopt the following standard task ID or 
 [^new-vars]: As Hubs define new modeling tasks, they may need to introduce new task ID variables that have not been used before.
 In those cases, the new variables should be added to this list to ensure that the concepts are documented centrally and can be reused in future efforts.
 
+(task-id-data-types)=
+#### Date values in task ID variables
+
+Several standard task ID variables represent dates (for example, `origin_date`{.codeitem}, `forecast_date`{.codeitem}, `reference_date`{.codeitem}, and `target_date`{.codeitem}/`target_end_date`{.codeitem}).
+
+:::{important}
+Date-valued task IDs must be represented as strings in ISO 8601 date format (`YYYY-MM-DD`), for example `"2024-11-07"`.
+
+The hubverse currently supports **dates only, not datetimes**. There is no datetime type and no time-of-day type anywhere in the hubverse framework, so you cannot attach a time component (e.g., `2024-11-07T14:30:00`) to a task ID value.
+:::
+
+If a modeling task appears to require finer-than-daily resolution, we currently recommend avoiding it where possible. The hubverse has no time or datetime type, so there is no first-class way to represent sub-daily resolution, and the available workaround carries real validation costs (see below). Consider whether a daily-or-coarser formulation can meet your needs first.
+
+If sub-daily resolution is genuinely unavoidable, the only option today is to encode the sub-daily component as a separate task ID variable with a plain `integer` or `character` type (for example, `hour` as `14`, or `"14:30"`). These are types the hubverse already reads and validates via its Arrow/R tooling, with no changes to hubData or hubValidations. Weigh the following before doing so.
+
+:::{warning}
+**No temporal semantics.** Such a variable is treated strictly as an `integer` or `character` column: no timezone, no time-of-day type, and no interpretation of its ordering as time. Values are validated like any other task ID, by membership against the accepted values you enumerate in the hub's config, not against any notion of a valid time. An out-of-range value such as `hour = 47` is only rejected if it falls outside the accepted values you have defined.
+
+**Validation performance cost.** The hubverse validates value combinations against an expanded grid, roughly the cartesian product of every task ID's accepted values within a modeling task. A temporal task ID multiplies the size of that grid by its number of accepted values: an hourly variable (24 values) multiplies it about 24 times, while a minute-level variable (1440 values) multiplies it about 1440 times, which can make validation impractically slow and memory-heavy. Keep the resolution as coarse as possible.
+
+**Encoding.** These columns carry no temporal type, so character values sort lexically rather than numerically (without zero-padding, `"9"` sorts after `"10"`). If you do introduce one, use a canonical encoding: an `integer` in a fixed range (for example, `0` to `23`), or a zero-padded, fixed-width `character` string (for example, `"09:30"` rather than `"9:30"`).
+:::
+
 (output-types)=
 ## Output types
 
