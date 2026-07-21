@@ -25,7 +25,7 @@ repos:
     args: [--allow-missing-credentials]
   - id: detect-private-key
 - repo: https://github.com/codespell-project/codespell
-  rev: v2.4.2
+  rev: v2.4.3
   hooks:
   - id: codespell
     args: [--write-changes]
