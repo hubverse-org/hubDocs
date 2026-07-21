@@ -8,17 +8,13 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    # group all run-of-the mill updates into a single pull request
+    # SemVer update-type filtering (patch/minor) is not supported for the
+    # pre-commit ecosystem, so group ALL pre-commit updates into a single PR
     groups:
       pre-commit-updates:
         applies-to: version-updates
-        update-types:
-          - patch
-          - minor
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - "version-update:semver-patch"
+        patterns:
+          - "*"
 
   - package-ecosystem: "pip"
     directory: "/"
