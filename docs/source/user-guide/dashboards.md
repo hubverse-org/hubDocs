@@ -150,7 +150,7 @@ to include an HTML snippet at the end of every page you would:
 (dashboard-ptc)=
 ## PredTimeChart visualization (optional)
 
-The PredTimeChart visualization module creates an interactive display of step-ahead predictions, including scenario projections, hindcasts, nowcasts, and forecasts. Dashboard users can select different models to include, the reference date (also referred to as the origin date) when predictions were created, and the values of task id variables to show (such as location). The visualization shows predictions alongside the latest available target data and the version of the target that was available at the time the predictions were created.
+The PredTimeChart visualization module creates an interactive display of step-ahead predictions, including scenario projections, hindcasts, nowcasts, and forecasts. Dashboard users can select different models to include, the reference date (also referred to as the origin date) when predictions were created, and the values of task id variables to show (such as location). The visualization shows predictions alongside the latest available target data and the version of the target that was available at the time the predictions were created (see [data revisions and retrospective evaluation](#data-revisions-warning)).
 
 ```{figure} ../images/dashboard-viz-screenshot.png
 ---
