@@ -24,6 +24,23 @@ document.
 [^truth]: Time series data is sometimes referred to as "ground truth" data, but
     we no longer use this term in the hubverse.
 
+:::{admonition} Data revisions, retrospective forecasting, and evaluation
+:class: warning
+:name: data-revisions-warning
+
+Forecasts in a real-time hub were made using the data **available at the time**. Surveillance data is often revised after its initial release (reporting delays, backfill, and corrections), so the observed value for a given target date can change in later data versions. In practice, generating forecasts from finalized data and then evaluating them against that same data can make retrospective performance look substantially better than it really was in real time.
+
+Because of this, the data version used to **generate** forecasts and the data version used to **score** them are two different things:
+
+- **Generating forecasts retrospectively.** If you attempt to generate new forecasts retrospectively using the latest version of the target data, you are not reproducing the information forecasters actually had, and your results may be misleading. For a faithful replication, restrict each forecast's inputs to the data as it was available **as of** that forecast's reference date.
+- **Scoring.** Score forecasts against an appropriate **"finalized"** version of the data — the version that was defined *in advance* as the prediction target. This "final" version may vary depending on the hub setup: for example, the data as of the end of the season, or each data point given a fixed amount of time to stabilize (e.g. the value after a set number of weeks of revisions). Check the hub's documentation for how its target is defined.
+
+To obtain the data as it was reported on a past date:
+
+- If this hub publishes versioned target data (an `as_of` column / `versioned: true` in `target-data.json`) or versions its target data in the repository's git history, reconstruct the version available at the relevant date from the hub itself.
+- Otherwise, use an external archive that preserves data revisions — for example, [Delphi's Epidata API](https://delphi.cmu.edu/epidata/v5/docs), accessible via the [epidatr](https://cmu-delphi.github.io/epidatr/) (R) and [epidatpy](https://cmu-delphi.github.io/epidatpy/) (Python) clients.
+:::
+
 ## Uses of target time series data and oracle output
 
 Each data format is useful for different purposes (see table below).
@@ -91,6 +108,10 @@ of those targets will be part of the unit of observation, with a column such as
 Time series data are expected to be compiled from an authoritative upstream
 data source after each target date.
 Because of reporting delays, the data may initially be represented by one value that could be updated in one or more subsequent versions of the data.
+
+:::{seealso}
+Recording data versions is what makes a faithful retrospective analysis possible. For why this matters when hub data is reused, see [data revisions and retrospective evaluation](#data-revisions-warning).
+:::
 
 ```{table} Data recorded on December 3 for December 3 shows an observation of 420
 | *as\_of*     | target_end_date       | location | observation |
