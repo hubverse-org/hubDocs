@@ -5,7 +5,7 @@ for predictions. The interactivity in the dashboard is provided by the [predeval
 dashboard interface to view charts and tables summarizing these files.
 
 :::{warning}
-**Forecasting or evaluating retrospectively?** Surveillance data gets revised after it's first reported, so the data version you use matters — evaluating on finalized data can make performance look substantially better than it really was. To *re-generate* forecasts, restrict each forecast's inputs to the data available **as of** its reference date. To *score* forecasts, use the finalized target defined by the hub (which may differ from both the as-of-forecast-time data and the current snapshot). See [data revisions and retrospective evaluation](#data-revisions-warning) for details and links to versioned-data archives.
+**Forecasting or evaluating retrospectively?** Surveillance data gets revised after it's first reported, so the data version you use matters — generating forecasts from finalized data and then evaluating against it can make performance look substantially better than it really was. To *re-generate* forecasts, restrict each forecast's inputs to the data available **as of** its reference date. To *score* forecasts, use the finalized target defined by the hub (which may differ from both the as-of-forecast-time data and the current snapshot). See [data revisions and retrospective evaluation](#data-revisions-warning) for details and links to versioned-data archives.
 :::
 
 The docker image

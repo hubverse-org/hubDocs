@@ -28,7 +28,7 @@ document.
 :class: warning
 :name: data-revisions-warning
 
-Forecasts in a real-time hub were made using the data **available at the time**. Surveillance data is often revised after its initial release (reporting delays, backfill, and corrections), so the observed value for a given target date can change in later data versions. In practice, making predictions using finalized data and then evaluated with that same data can make retrospective performance look substantially better than it really was in real time.
+Forecasts in a real-time hub were made using the data **available at the time**. Surveillance data is often revised after its initial release (reporting delays, backfill, and corrections), so the observed value for a given target date can change in later data versions. In practice, generating forecasts from finalized data and then evaluating them against that same data can make retrospective performance look substantially better than it really was in real time.
 
 Because of this, the data version used to **generate** forecasts and the data version used to **score** them are two different things:
 
