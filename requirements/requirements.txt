@@ -18,7 +18,7 @@ certifi==2026.7.22
     # via requests
 cfgv==3.5.0
     # via pre-commit
-charset-normalizer==3.4.7
+charset-normalizer==3.5.1
     # via requests
 click==8.4.0
     # via uvicorn
@@ -130,7 +130,7 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-starlette==1.5.0
+starlette==1.6.0
     # via sphinx-autobuild
 typing-extensions==4.16.0
     # via
@@ -147,5 +147,5 @@ watchfiles==1.2.0
     # via sphinx-autobuild
 websockets==17.0.1
     # via sphinx-autobuild
-wheel==0.47.0
+wheel==0.48.0
     # via sphinx-togglebutton
