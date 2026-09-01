@@ -20,7 +20,7 @@ cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.5.1
     # via requests
-click==8.4.0
+click==8.5.0
     # via uvicorn
 colorama==0.4.6
     # via sphinx-autobuild
@@ -145,7 +145,7 @@ virtualenv==21.7.0
     # via pre-commit
 watchfiles==1.2.0
     # via sphinx-autobuild
-websockets==17.0.1
+websockets==17.1
     # via sphinx-autobuild
 wheel==0.48.0
     # via sphinx-togglebutton
