@@ -488,7 +488,7 @@ In this example, `wk inc flu hosp` inherits `log_shift` (with `offset: 1`, label
 
 When a transform applies to a target, the dashboard presents the transformed-scale metrics labelled with the transform's `label` in parentheses. In the example above, `label: log` means the transformed `WIS` appears as `WIS (log)` alongside the natural-scale `WIS` (and `Rel. WIS (log)` alongside `Rel. WIS`).
 
-<!-- TODO: add a screenshot of the evaluations table showing transformed-scale metric columns (e.g. `Rel. WIS (log)`) once the predevals dashboard UI for transforms is finalised, matching the screenshots earlier on this page. See review on hubverse-org/hubDocs#477. -->
+![A screenshot of the COVID-19 Forecast Hub dashboard evaluations table showing transformed-scale metric columns (Rel. WIS (log), WIS (log), Rel. MAE (log), and MAE (log)) alongside their natural-scale counterparts.](../images/dashboard-eval-transform-table-covid.png)
 
 
 - With **`append: true`** (the default), both the natural-scale and transformed-scale version of each affected metric are available.

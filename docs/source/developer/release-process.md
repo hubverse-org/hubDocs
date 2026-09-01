@@ -182,8 +182,8 @@ gitGraph
   version change, but [schemas v3.0.0](https://github.com/hubverse-org/schemas/releases/tag/v3.0.0)
   included the breaking change of switching `sample/output_type_id` (an array)
   to `sample/output_type_id_params` (an object). The breaking change meant that
-  it was a non-trivial task to switch from a `v2.0.1` schema to `v3.0.0` and the
-  users. This was reflected in the month-long timeline between [the
+  it was a non-trivial task for hubs and their users to switch from a `v2.0.1`
+  schema to `v3.0.0`. This was reflected in the month-long timeline between [the
   announcement of the change on
   2024-05-13](https://github.com/orgs/hubverse-org/discussions/13) to the
   actual release on 2024-06-18.

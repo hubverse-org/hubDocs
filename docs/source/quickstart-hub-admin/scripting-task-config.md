@@ -39,7 +39,7 @@ install.packages("hubAdmin", repos = c("https://hubverse-org.r-universe.dev", "h
 
 ## Step 4: Write the script to create and configure a `"tasks"` config file
 
-For this step, please visit the [Scripting task configuration files vignette](https://hubverse-org.github.io/hubAdmin/dev/articles/scripting-tasks-config.html) from the `hubAdmin` package and follow the steps in the [Creation of a `tasks.json` file section](https://hubverse-org.github.io/hubAdmin/dev/articles/scripting-tasks-config.html#creation-of-a-tasks-json-file).
+For this step, please visit the [Scripting task configuration files vignette](https://hubverse-org.github.io/hubAdmin/articles/scripting-tasks-config.html) from the `hubAdmin` package and follow the steps in the [Creation of a `tasks.json` file section](https://hubverse-org.github.io/hubAdmin/articles/scripting-tasks-config.html#creation-of-a-tasks-json-file).
 
 And note, while you can copy and paste the code snippets to your console, we strongly recommend to manually enter the commands in your script and run them as you go along.
 
