@@ -22,8 +22,8 @@ Then `library(hubverse)` loads the core packages listed below. Instructions for 
 | [`hubData`](https://hubverse-org.github.io/hubData) | Connect to, access, and manipulate hub model-output and target data. |
 | [`hubAdmin`](https://hubverse-org.github.io/hubAdmin) | Create and validate hub configuration files such as `admin.json` and `tasks.json`. |
 | [`hubValidations`](https://hubverse-org.github.io/hubValidations) | Validate model-output submissions, typically as pull-request CI checks on a hub. |
-| [`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles) | Build ensembles from model outputs, including weighted and quantile averages and linear pools. |
-| [`hubEvals`](https://hubverse-org.github.io/hubEvals) | Evaluate and score infectious-disease model outputs. |
+| [`hubEnsembles`](https://hubverse-org.github.io/hubEnsembles) | Build ensembles from model outputs, including weighted ensembles and linear pools. |
+| [`hubEvals`](https://hubverse-org.github.io/hubEvals) | Evaluate and score model outputs. |
 | [`hubVis`](https://hubverse-org.github.io/hubVis) | Plot and visualize hub model outputs to synthesize model submissions. |
 | [`hubExamples`](https://hubverse-org.github.io/hubExamples) | Example forecasting and scenario-modeling data in the hubverse format. |
 | [`hubUtils`](https://hubverse-org.github.io/hubUtils) | Lightweight utility functions shared across hubverse packages. |
@@ -37,7 +37,7 @@ The Python packages support data access and the data pipelines behind hubverse d
 
 | Package | Purpose |
 | --- | --- |
-| [`hubdata`](https://pypi.org/project/hubdata/) | Python tools for accessing and working with hubverse hub data ([source](https://github.com/hubverse-org/hub-data)). |
+| [`hubdata`](https://pypi.org/project/hubdata/) | Python tools for accessing and working with hubverse hub data. |
 | [`hubverse-transform`](https://github.com/hubverse-org/hubverse-transform) | Transform hubverse model-output files; used in the cloud data pipeline. |
 
 (software-js)=
@@ -53,18 +53,18 @@ These JavaScript components power the interactive [hubverse dashboards](https://
 (friends-of-the-hubverse)=
 ## Friends of the hubverse
 
-Compatible tools from the wider community that work well alongside hubverse packages.
+Tools from the wider community that work well alongside hubverse packages.
 
 | Tool | Purpose |
 | --- | --- |
-| [`modelimportance`](https://mkim425.r-universe.dev/modelimportance) | Measures the contribution and importance of individual models within an ensemble. |
-| [`alloscore`](https://github.com/aaronger/alloscore) | Scoring methods for allocation and decision problems built on forecasts. |
 | [`scoringutils`](https://epiforecasts.io/scoringutils/) | Evaluate and score probabilistic forecasts with a range of proper scoring rules. |
-| [`fable`](https://fable.tidyverts.org/) | Tidy time-series forecasting models that integrate with the tidyverts ecosystem. |
-| [`EpiBenchmark`](https://accidda.github.io/EpiBenchmark/) | Benchmark and compare epidemic-forecasting models. |
+| [`alloscore`](https://github.com/aaronger/alloscore) | Scoring methods for allocation and decision problems built on forecasts. |
+| [`modelimportance`](https://mkim425.r-universe.dev/modelimportance) | Measures the contribution and importance of individual models within an ensemble. |
+| [`fable`](https://fable.tidyverts.org/) | Forecasting models that can be evaluated, visualized & combined in tidyverse style. |
+| [`EpiBenchmark`](https://accidda.github.io/EpiBenchmark/) | Benchmark and compare epidemic forecasting models. |
 
 (archival-data-resources)=
 ## Archival data resources
 
-Several hubs have been reformatted to the hubverse standard and archived so their data remain available for analysis. Browse them, alongside all active hubs, on the [hubverse list of hubs](https://hubverse.io/community/hubs.html).
+Several hubs have been reformatted to the hubverse standard and archived so their data remain available for analysis. Browse them, alongside all active hubs, on the [hubverse list of hubs](https://hubverse.io/community/hubs.html#archival-hubs).
 
