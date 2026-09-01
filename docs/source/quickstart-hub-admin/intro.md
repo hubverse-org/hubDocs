@@ -34,7 +34,7 @@ The [simple forecast hub example](https://github.com/hubverse-org/example-simple
 
 #### 2. Complex forecast hub example
 
-The [complex forecast hub example](https://github.com/hubverse-org/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/covid19-forecast-hub-europe/covid19-forecast-hub-europe).
+The [complex forecast hub example](https://github.com/hubverse-org/example-complex-forecast-hub) is designed to be similar to the [US COVID-19 Forecast Hub](https://github.com/reichlab/covid19-forecast-hub) and the [European COVID-19 Forecast Hub](https://github.com/european-modelling-hubs/covid19-forecast-hub-europe_archive) (archived).
 
 #### 3. Complex scenario hub example
 

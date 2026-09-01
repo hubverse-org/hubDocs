@@ -101,7 +101,7 @@ to retrospectively review that PR.
 ### New release process
 
 The release process adopted in August 2024 alleviates the "many features =
-large PR" problem and makes it easier to multiple people to work on package
+large PR" problem and makes it easier for multiple people to work on package
 features simultaneously.
 
 Now that we distribute packages outside of GitHub itself, builds can be pinned
@@ -170,7 +170,7 @@ gitGraph
     checkout release
     commit id: "2zy1 (0.14.1)"
     checkout main
-    merge release id: "1u2n (1.14.1)" tag: "0.14.1"
+    merge release id: "1u2n (0.14.1)" tag: "0.14.1"
 ```
 
 {#major}
@@ -193,7 +193,7 @@ gitGraph
 : **Minor version number**: this version number will change if there are new
   features or enhanced behaviors available to the users in a way that _does not
   affect how users who do not need the new features use the package_. This
-  number grows the fastes in early stages of development.
+  number grows the fastest in early stages of development.
   **EXAMPLE**: The [`{hubValidations}` package version 0.5.0](https://hubverse-org.github.io/hubValidations/news/index.html#hubvalidations-050)
   gives users the ability to reduce compute time by allowing them to sub-set
   the configuration by the new `output_type` argument to
@@ -289,7 +289,7 @@ computer and not someone pretending to be you.
 Zhian likes to create tags via the command line because he has set up his git
 configuration to use [a gpg signature](https://gist.github.com/phortuin/cf24b1cca3258720c71ad42977e1ba57)
 so the tags and the releases are both verified. Recently, Git and GitHub added
-support for [creating signatures via an SSH key](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification), which is _a lot_ more approchable than GPG.
+support for [creating signatures via an SSH key](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification), which is _a lot_ more approachable than GPG.
 
 Unfortunately, you cannot create a signed tag on the GitHub web interface and it
 must be done locally.
@@ -330,7 +330,7 @@ Some tips for CRAN submissions:
 - Commit the `CRAN_SUBMISSION` file when it changes
 
 :::{tip}
-If you get an unhelpful or nasty review from a CRAN administrator, contact one of the other Hubverse maintainers who has experience submitting to CRAN (i.e. Zhian) for backup/strategy/comiseration. You can also see if you ran into a common issue by checking [The CRAN Cookbook](https://contributor.r-project.org/cran-cookbook/)
+If you get an unhelpful or nasty review from a CRAN administrator, contact one of the other Hubverse maintainers who has experience submitting to CRAN (i.e. Zhian) for backup/strategy/commiseration. You can also see if you ran into a common issue by checking [The CRAN Cookbook](https://contributor.r-project.org/cran-cookbook/)
 :::
 
 

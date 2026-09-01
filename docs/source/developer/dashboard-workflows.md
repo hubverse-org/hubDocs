@@ -290,7 +290,7 @@ that are specific to GitHub workflows.
 :::{admonition} GitHub App-related inputs, outputs, and steps
 :class: dropdown important
 
-**All GitHub App related inputs, outputs, and steps will can be ignored for this
+**All GitHub App related inputs, outputs, and steps can be ignored for this
 chapter.**
 
 There are a few parts in each of these workflows that are related to handling
@@ -342,7 +342,7 @@ workflows and we will use a few conventions:
 
 1. ribbon nodes (asymmetric nodes) are **branches**
 1. parallelograms pointing to the right are **inputs**
-1. parallelograms pionting to the left are **outputs or artifacts**
+1. parallelograms pointing to the left are **outputs or artifacts**
    1. artifacts and outputs are often surrounded by their own boxes to indicate
       that they persist beyond the job/workflow execution
    1. output values will have a `key: ` label with the name of the output

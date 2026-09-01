@@ -26,7 +26,7 @@ In the files pane, click on the `src` folder and ensure you are inside the folde
 
 ## Step 3: Install the `hubAdmin` package
 
-In the Console of RSudio, install the [latest version of the `hubAdmin` package from the R-universe](https://hubverse-org.r-universe.dev/hubAdmin) by running the following command:
+In the Console of RStudio, install the [latest version of the `hubAdmin` package from the R-universe](https://hubverse-org.r-universe.dev/hubAdmin) by running the following command:
 
 ``` r
 install.packages("hubAdmin", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))

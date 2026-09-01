@@ -178,7 +178,7 @@ gitGraph
     commit id: "CDEF" tag: "v0.6.3"
 ```
 
-**Note the v0.6.3 tag is on the `ak/hotfix/123` branch at the bottom.
+**Note** the v0.6.3 tag is on the `ak/hotfix/123` branch at the bottom.
 
 At this point, the checks will not run on the pull request because there will be
 a conflict in the DESCRIPTION and NEWS.md files. This is okay. All you did was

@@ -63,7 +63,7 @@ Now, read below for details on some of the lines of code in this file:
 - <mark style="background-color: #32E331">The code highlighted in green</mark> establishes that the *round identifier* is encoded by a *task id* variable in the data.
 - <mark style="background-color: #38C7ED">The code highlighted in light blue</mark> sets the *round identifier* as `"origin_date"`.
 - `task_ids` includes the variables `origin_date`, `target`, `horizon`, and `location`.
-- <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`). To be clear, no specific `origin_date` is required because every submission will have a different `origin_date` as each submission corresponds to a different forecasting period (compare this with `location`, where some specific locations may be required for every submission.
+- <mark style="background-color: #FFE331">The first variable, `origin_date` is highlighted in yellow</mark> and states that no *origin dates* are required and that there are three valid, possible dates (`"2022-11-28", "2022-12-05", "2022-12-12"`). To be clear, no specific `origin_date` is required because every submission will have a different `origin_date` as each submission corresponds to a different forecasting period (compare this with `location`, where some specific locations may be required for every submission).
 
 ```{image} ../images/tasks-schema-1.png
 :alt: Some of the initial lines of code in the tasks.json file
@@ -108,7 +108,7 @@ As seen previously, each `task_ids` has a `required` and an `optional` property 
 - To indicate **no possible additional information**, **`optional` can be set to `null`**.
 - If **`required` is set to `null`** but `optional` contains values, (see for example [`"location"`](#setting-up-location)): **no particular value is required, but at least one of the `optional` values is expected**.
 - There may be cases where we have **multiple `model_tasks` and a given task ID is relevant to one or more model tasks but not others.** For example, in the code snippet below; on lines 8--14, the `horizon` task id is relevant to the first model task, whose `target` is `inc covid hosp`, and any one of the optional values specified is expected in the `horizon` column in a model output file.
-  However, shown on lines 30--36, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value is expected in the `horizon` column in model output files.
+  However, shown on lines 30--36, **`horizon` is irrelevant to the second model task**, whose `target` is `peak size hosp`. For this model task, **both `required` and `optional` are set to `null`** in the `horizon` task ID configuration, and a missing value is expected in the `horizon` column in model output files.
 
 ```{code-block} json
 :force: true
@@ -233,7 +233,7 @@ Each output type contains the following properties:
             0.9,
             0.95,
             0.975,
-            0.99,
+            0.99
         ]
     },
     "value": {

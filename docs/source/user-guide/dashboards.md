@@ -209,7 +209,7 @@ This file is written in the [YAML format](https://en.wikipedia.org/wiki/YAML), a
  - `horizon_col_name`: The name of the column that represents the forecast horizon for a step-ahead prediction.
  - `initial_checked_models`: An array of model ids that should be displayed when the visualization is first loaded.
  - `disclaimer` (**optional**): Text that is displayed immediately above the visualization to provide important information to dashboard users.
- - `task_id_text` (**optional**): A mapping of values for task id variables to text that is displayed in the visualization. In the example above, this is be used to replace numeric location codes with location names. Each task id variable with a value-to-text mapping should be listed as a property under `task_id_text`.
+ - `task_id_text` (**optional**): A mapping of values for task id variables to text that is displayed in the visualization. In the example above, this is used to replace numeric location codes with location names. Each task id variable with a value-to-text mapping should be listed as a property under `task_id_text`.
  In the example above, the `"location"` task ID lists the FIPS codes for US states and territories. The value-to-text mapping `"01": "Alabama"` shows that the variable `"01"` corresponds to `"Alabama"`.
 
 (ptc-limitations)=
@@ -584,7 +584,7 @@ Then the structure would look like this:
 │  │  │  └──scores.csv
 ```
 
-Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_scores` and `location`, and each row will contain a score for a particular model, location combination.
+Each scores.csv file will require at least the following columns `model_id`, `metric_names` aggregated by the relevant metric, i.e. in this example `scores/resources_used/Full season/location/scores.csv` will have the column names `model_id`, `allocation_score` and `location`, and each row will contain a score for a particular model, location combination.
 
 4. Create the scores in accordance with the way `predevals-config.yml`was structured and place them in the folders. This will depend on the particular hub and require a custom script
 
@@ -600,7 +600,7 @@ The template dashboard repository comes with two GitHub workflows that are respo
 
 You can also [manually run](https://docs.github.com/en/actions/managing-workflow-runs-and-deployments/managing-workflow-runs/manually-running-a-workflow#running-a-workflow) either of these workflows if you need to rebuild your site or data.
 
-If the above defaults looks good to you, then as long as you've enabled GitHub Actions, then there's nothing you need to do!
+If the above defaults look good to you, then as long as you've enabled GitHub Actions, there's nothing you need to do!
 
 ### Modifying the schedule of the data builds
 
@@ -654,8 +654,8 @@ hosted on separate branches of the dashboard repository.
 | component | source branch | build tool | GitHub workflow |
 | :-------- | :------------ | :--------- | :-------------- |
 | website   | `gh-pages`    | <https://github.com/hubverse-org/hub-dash-site-builder> | `build-site.yaml` |
-| forecast data | `ptc/data`    | <https://github.com/reichlab/hub-dashboard-predtimechart> | `build-data.yaml` |
-| evaluations data | `predevals/data`    | <https://github.com/reichlab/hubPredEvalsData-docker> | `build-data.yaml` |
+| forecast data | `ptc/data`    | <https://github.com/hubverse-org/hub-dashboard-predtimechart> | `build-data.yaml` |
+| evaluations data | `predevals/data`    | <https://github.com/hubverse-org/hubPredEvalsData-docker> | `build-data.yaml` |
 
 In this strategy, `gh-pages` hosts the website, which is deployed to your
 repository's GitHub Pages site. The `forecast.html` and `eval.html` pages of
