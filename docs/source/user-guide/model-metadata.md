@@ -15,7 +15,7 @@ The general goals for model metadata are that
 1. explicit requirements for model metadata should be minimal
 2. hubs may set fields to be required as necessary for that hub.
 
-Note: Model metadata is a required feature of a hub and describes the characteristics of models contributing to a hub, while [model abstracts](../user-guide/model-abstracts.md) is an optional feature of a hub that is useful for keeping track of round-specific detailed narrative descriptions modeling methods and results.
+Note: Model metadata is a required feature of a hub and describes the characteristics of models contributing to a hub, while [model abstracts](../user-guide/model-abstracts.md) are an optional feature of a hub that is useful for keeping track of round-specific detailed narrative descriptions of modeling methods and results.
 
 ## Recommended standards
 Many hubs will use a standard set of metadata fields, which we place in the following template schema. Individual hubs may want to add additional metadata fields. These should be selected to specify fields likely to remain stable across rounds, leaving model attributes expected to change across rounds to be described in round-specific abstracts. For consistency across Hubs, we encourage using a common set of metadata fields with standard names and definitions. We describe fields used in past Hubs in a second section below the template file.
@@ -27,7 +27,7 @@ The following is a [template `model-metadata-schema.json` file from the **exampl
 
    <script src="../_static/docson/widget.js" data-schema="https://raw.githubusercontent.com/hubverse-org/example-complex-forecast-hub/main/hub-config/model-metadata-schema.json"></script>
 
-Further details on these fields (e.g. license information) can be found [in the README file for of the `model-metadata/` folder](https://github.com/hubverse-org/example-complex-forecast-hub/tree/main/model-metadata#readme) in the example complex forecast hub.
+Further details on these fields (e.g. license information) can be found [in the README file of the `model-metadata/` folder](https://github.com/hubverse-org/example-complex-forecast-hub/tree/main/model-metadata#readme) in the example complex forecast hub.
 
 (optional-additional-metadata-fields)=
 ## Optional additional metadata fields

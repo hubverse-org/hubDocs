@@ -15,7 +15,7 @@ Make sure you are in the `hub-config` folder. Then, click on `model-metadata-sch
 
 ## Step 2: Examine the `model-metadata-schema.json` file
 
-You should see the code below in your source panel (upper right-hand panel).
+You should see the code below in your source panel (upper left-hand panel).
 
 ```{image} ../images/model-metadata-schema-0.png
 :alt: Screenshot of the code in the model-metadata-schema.json file

@@ -369,7 +369,7 @@ called `scores.csv`, which contains models in rows and the scores and other
 data in columns.
 
 [^predevals-options]: As with the `predtimechart-options.json` file, the
-    contents of this file are automatically generated and out of scoope for
+    contents of this file are automatically generated and out of scope for
     this tutorial. It is generated directly from the `predevals-config.yml`
     file, except in JSON format.
 

@@ -429,8 +429,8 @@ I created a fork of the dashboard repositories and changed their `build-site.yam
     effect, but meant that I could test several repositories at once.
 
 ```diff
--uses: hubverse-org/hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@main
-+uses: hubverse-org/hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@znk/use-release-hsdb/58
+-uses: hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@main
++uses: hubverse-org/hub-dashboard-control-room/.github/workflows/generate-site.yaml@znk/use-release-hsdb/58
 ```
 
 I then ran the workflows from the dashboard forks to confirm that the site was correctly generated.
@@ -462,7 +462,7 @@ The only difference is that there is a job that will fetch repositories that
 has the app installed.
 
 The reason this works because the control room stores two secrets: the App ID (`${{
-vars.APP_ID }}`) and a private key (`${{ secrets.PRIVATE KEY }}`) (similar to your
+vars.APP_ID }}`) and a private key (`${{ secrets.PRIVATE_KEY }}`) (similar to your
 SSH private key). These two items are passed as `secrets` to the reusable
 workflows and allows the control room workflows to authenticate as the app,
 which can generate a temporary PAT for any repository that installed it.
@@ -719,10 +719,10 @@ To ensure things go smoothly, use the following steps:
 (staging-tools-stie)=
 #### hub-dash-site-builder
 
-To stage changes to hub-dash-site-bulder from the control room:
+To stage changes to hub-dash-site-builder from the control room:
 
 1. implement change in
-   [hub-dash-site-bulder](https://github.com/hubverse-org/hub-dash-site-bulder)
+   [hub-dash-site-builder](https://github.com/hubverse-org/hub-dash-site-builder)
    and push to the `main` branch after testing.
 2. publish a new image from the main branch (note that only tags will create an official release, so this is safe to do)
 2. create new branch in the control room and modify
@@ -751,8 +751,8 @@ need to release the update AND you need to update the control room right after.
 To ensure things go smoothly, use the following steps:
 
 0. **plan a time for the release and optionally announce it**
-1. release the new version hub-dash-site-bulder
-2. reset the control room's branch reference to hub-dash-site-bulder to be `:latest`
+1. release the new version hub-dash-site-builder
+2. reset the control room's branch reference to hub-dash-site-builder to be `:latest`
 3. reset any the references to the reusable workflows back to `@main`
 4. merge the control room branch to main and it will be live
 

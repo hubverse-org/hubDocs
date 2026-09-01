@@ -8,7 +8,7 @@ You may fit one, several, or none of these roles.
 Below are details of what aspects of the hubverse each role will interact with.
 
 ```{figure} ../images/hubverse_roles.png
-:alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysis, and finally stakeholders.
+:alt: Schematic of the hubverse showing different roles as stick figures with their relationships to a hub and the hubverse. These relationships are described in the text below. Roles present are: hub administrators, hubverse developers, modelers, analysts, and finally stakeholders.
 :name: fig-hubverse-roles
 
 A schematic illustration of the hubverse, showing different roles.
@@ -42,8 +42,8 @@ You use R? Great! Python? Go for it! Excel? Nobody's stopping you! Dark Magick? 
 You will be most interested in knowing how to format your output.
 For that, you can use functions from the [`{hubValidations}` R package ](https://hubverse-org.github.io/hubValidations):
 
-- Use [`submission_tmpl()`](https://hubverse-org.github.io/hubValidations/reference/submission_tmpl.html) to create a submission template and get an idea of what your model outputs should look like to be successfully incorporated into a hub. This includes accepted values for different columns as well the data types each column should adhere to. You can subset this template depending on the type of model output you're submitting and populate it with your model output values.
-- Use  [`validate_submission()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) to validate your model output file prior to submitting. This can help pick up any issues with your submission prior to submitting. The sames checks will be also run as part of your submission but running them locally means you have access to additional check output that can hep you identify and fix any problems faster. See more about [validating your submission locally](https://hubverse-org.github.io/hubValidations/articles/validate-submission.html).
+- Use [`submission_tmpl()`](https://hubverse-org.github.io/hubValidations/reference/submission_tmpl.html) to create a submission template and get an idea of what your model outputs should look like to be successfully incorporated into a hub. This includes accepted values for different columns as well as the data types each column should adhere to. You can subset this template depending on the type of model output you're submitting and populate it with your model output values.
+- Use  [`validate_submission()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) to validate your model output file prior to submitting. This can help pick up any issues with your submission prior to submitting. The same checks will also be run as part of your submission but running them locally means you have access to additional check output that can help you identify and fix any problems faster. See more about [validating your submission locally](https://hubverse-org.github.io/hubValidations/articles/validate-submission.html).
 
 
 As a modeler, you will need to
@@ -57,7 +57,7 @@ As a modeler, you will need to
 
 With the standardized data formats and schema in each hub, you can confidently write analysis scripts that will work for all model submissions to a hub.
 No data cleaning is needed.
-To get started, you can read the [accessing data from a hub vignette](https://hubverse-org.github.io/hubData/articles/connect_hub.html) from the [`{hubData}` R package](https://hubverse-org.github.io/hubData)
+To get started, you can read the [accessing data from a hub vignette](https://hubverse-org.github.io/hubData/articles/connect_hub.html) from the [`{hubData}` R package](https://hubverse-org.github.io/hubData).
 
 Once you have access to the data, you can summarise it in the following ways:
 
@@ -66,7 +66,7 @@ Once you have access to the data, you can summarise it in the following ways:
    - predictions data sitting in a folder on your computer
  - plotting forecasts
  - evaluating forecasts
- - ensembling forecasts (via the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles)
+ - ensembling forecasts (via the [`{hubEnsembles}` R package](https://hubverse-org.github.io/hubEnsembles))
  - and more!
 
 (stakeholders)=

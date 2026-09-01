@@ -40,7 +40,7 @@ period, and task ID.** The resulting folder structure looks like the one below
 You can install the latest version of this tool with docker:
 
 ```bash
-docker pull ghcr.io/hubverse-org/hub-predevalsdata-docker:latest
+docker pull ghcr.io/hubverse-org/hubpredevalsdata-docker:latest
 ```
 
 ## How the evaluations are built

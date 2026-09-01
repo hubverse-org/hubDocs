@@ -75,7 +75,7 @@ The following components are not required for a hub but may be useful:
 :::{admonition} Partitioning Target Data
 :class: note
 
-* Partitioned target data files should be stored in the `target-data` directory, in either a `target-data/times-series` or `target-data/oracle-output` subdirectory.
+* Partitioned target data files should be stored in the `target-data` directory, in either a `target-data/time-series` or `target-data/oracle-output` subdirectory.
 * Partitioned target data should follow Apache Hive naming conventions. In Apache Hive, the file name format of partitioned data depends on the partition column names and their values. The files corresponding to each partition are stored in subdirectories, and the directory names encode the partition column names and their values, e.g. `<partition_column_1>=<value_1>/<partition_column_2>=<value_2>/.../<data_files>`. This means Hive-style partitioned data subdirectories are self describing and can be easily read by partition-aware data readers.
 
 * Here's an example of oracle output data in the `target-data/oracle-output` directory partitioned by `target_end_date`:
