@@ -58,7 +58,7 @@ Tools from the wider community that work well alongside hubverse packages.
 | Tool | Purpose |
 | --- | --- |
 | [`scoringutils`](https://epiforecasts.io/scoringutils/) | Evaluate and score probabilistic forecasts with a range of proper scoring rules. |
-| [`alloscore`](https://github.com/aaronger/alloscore) | Scoring methods for allocation and decision problems built on forecasts. |
+| [`alloscore2`](https://reichlab.io/alloscore2/) | Scoring methods for allocation and decision problems built on forecasts. |
 | [`modelimportance`](https://mkim425.r-universe.dev/modelimportance) | Measures the contribution and importance of individual models within an ensemble. |
 | [`MicroHub`](https://sjfox.github.io/microhub-workshop/) |  An R Shiny app to work with hub data locally. |
 | [`EpiBenchmark`](https://accidda.github.io/EpiBenchmark/) | Benchmark and compare epidemic forecasting models. |
