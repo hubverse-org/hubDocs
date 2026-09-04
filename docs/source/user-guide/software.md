@@ -7,7 +7,7 @@ This page groups the packages by language, followed by community tools that work
 (software-r)=
 ## R packages
 
-Most users start here. The [`hubverse`](https://hubverse-org.r-universe.dev/hubverse) meta-package installs and loads the full suite in one step, or you can install any package individually from the [hubverse R-Universe](https://hubverse-org.r-universe.dev/packages).
+Since the majority of hubverse users are R users, our suite of R packages is the most well-developed. The [`hubverse`](https://hubverse-org.r-universe.dev/hubverse) meta-package installs and loads the full suite in one step, or you can install any package individually from the [hubverse R-Universe](https://hubverse-org.r-universe.dev/packages).
 
 Install the `hubverse` meta-package from R-Universe:
 
