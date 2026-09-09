@@ -4,7 +4,7 @@ This page is for developers and contributors to the hubverse infrastructure.
 
 ## Schema and Example Hubs
 
-Modeling tasks for all hubs are defined validated via hub configuration files.
+Modeling tasks for all hubs are defined and validated via hub configuration files.
 A valid hub configuration file is defined by our schemas, which are archived in
 <https://github.com/hubverse-org/schemas#readme>.
 
@@ -32,7 +32,7 @@ maintained by the Reich lab so hubs can synchronize data with the cloud.
 
 - <https://github.com/hubverse-org/hubverse-infrastructure#readme>
   provides an **infrastructure-as-code (IaC)** solution
-   - Read more about [onboarding a hub](cloud-onboarding))
+   - Read more about [onboarding a hub](cloud-onboarding)
 - <https://github.com/hubverse-org/hubverse-transform#readme>
   performs data transformation of model output files and is deployed as an AWS
   Lambda function

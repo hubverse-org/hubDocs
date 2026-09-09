@@ -347,7 +347,7 @@ each `output_type`. We highlight two points about these objects:
 
 :::{note}
 
-These examples are all collected and filtered from [the `hubExamples` package](https://hubverse.github.io/hubExamples). The model output data set contains over
+These examples are all collected and filtered from [the `hubExamples` package](https://hubverse-org.github.io/hubExamples). The model output data set contains over
 10,000 rows, and the oracle output data has over 200,000 rows.
 
 To make comparisons easier, we have subset the data to Massachusetts (FIPS code

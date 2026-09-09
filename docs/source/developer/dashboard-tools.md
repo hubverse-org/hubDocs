@@ -95,7 +95,7 @@ read and convert the data to JSON format.
 [[polars](https://pola.rs)]{#dashboard-tool-polars}
 : A data manipulation library that provides lazy data frame utilities in Python.
   It gives our tool the ability to read and slice hub data. Eventually, this
-  will be subserseded by the hub-data package.
+  will be superseded by the hub-data package.
 
 (dashboard-evals)=
 ## Evaluations visualization
