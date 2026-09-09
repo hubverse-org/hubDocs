@@ -134,7 +134,7 @@ You can install the development version with:
 pip install git+https://github.com/hubverse-org/hub-dashboard-predtimechart
 ```
 
-The latest version can be installed by finding the latest release and appending that to the above command. For example, here's how to install v2.2.0:
+The latest version can be installed by finding the [latest release](https://github.com/hubverse-org/hub-dashboard-predtimechart/releases/latest) and appending that to the above command. For example, here's how to install v2.2.0:
 
 ```bash
 pip install git+https://github.com/hubverse-org/hub-dashboard-predtimechart@v2.2.0

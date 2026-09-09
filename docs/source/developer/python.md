@@ -114,7 +114,7 @@ Hubverse Python packages:
 
 ### Creating a new Python package (empty)
 
-The[`uv init`](https://docs.astral.sh/uv/reference/cli/#uv-init) command can
+The [`uv init`](https://docs.astral.sh/uv/reference/cli/#uv-init) command can
 create an new, empty Python package structure using the `src` layout. The
 following command creates a directory called `new-package`
 in the current working directory:
@@ -208,9 +208,9 @@ which protects against supply chain attacks and credential leaks.
 This article contains a clearly-written deep dive into
 [how trusted publishing works and the advantages of using it](https://blog.trailofbits.com/2023/05/23/trusted-publishing-a-new-benchmark-for-packaging-security/).
 
-### TestPYPI setup
+### TestPyPI setup
 
-Once you complete the GitHub and TestPYPI setup as outlined below, the new
+Once you complete the GitHub and TestPyPI setup as outlined below, the new
 Hubverse package will be pushed to TestPyPI automatically. You will only need
 to do this once.
 
@@ -229,7 +229,7 @@ package's `main` branch.
     protection rules or fill out any other information when configuring it.
     :::
 
-2. Add the `publish-pypy-test.yaml` workflow the package's Github repo:
+2. Add the `publish-pypi-test.yaml` workflow the package's Github repo:
     - Copy the [`publish-pypi-test.yaml` workflow from hubverse-developer-actions](https://github.com/hubverse-org/hubverse-developer-actions/tree/main/publish-pypi-test/publish-pypi-test.yaml).
     - Change `<package>` in the TestPyPI url to the name of your package
     (_e.g._, `https://test.pypi.org/p/hubDataPy`)
@@ -243,7 +243,7 @@ don't already have one.
 for the Hubverse package.
     - PyPI Project Name: name in the `[project]` section of the package's
     `pyproject.toml` file
-    - Owner: GitHub organization name (`hubverse-io`)
+    - Owner: GitHub organization name (`hubverse-org`)
     - Repository name: the package's GitHub repository name
     - Workflow name: full file name of the GitHub workflow that publishes to
     TestPyPI (_e.g._ `publish-pypi-test.yaml`)
@@ -270,7 +270,7 @@ You will only need to do this once.
     are authorized to approve releases.
     :::
 
-2. Add the `publish-pypy.yaml` workflow the package's Github repo:
+2. Add the `publish-pypi.yaml` workflow the package's Github repo:
     - Copy the [`publish-pypi` workflow from hubverse-developer-actions](https://github.com/hubverse-org/hubverse-developer-actions/tree/main/publish-pypi/publish-pypi.yaml).
     - Change `<package>` in the PyPI url to the name of your package
     (_e.g._, `https://pypi.org/p/hubDataPy`)
@@ -284,7 +284,7 @@ don't already have one.
 for the Hubverse package:
     - PyPI Project Name: name in the `[project]` section of the package's
     `pyproject.toml` file
-    - Owner: GitHub organization name (`hubverse-io`)
+    - Owner: GitHub organization name (`hubverse-org`)
     - Repository name: the package's GitHub repository name
     - Workflow name: full file name of the GitHub workflow that publishes to
     PyPI (_e.g._ `publish-pypi.yaml`)
@@ -294,5 +294,5 @@ for the Hubverse package:
 ### Add package maintainers
 
 To ensure continuity, it's important that Hubverse packages on both PyPI and
-TestPYPI have multiple maintainers and collaborators. You can add other Hubverse
+TestPyPI have multiple maintainers and collaborators. You can add other Hubverse
 devs to these roles from the project's _Collaborators_ page on PyPI/TestPyPI.

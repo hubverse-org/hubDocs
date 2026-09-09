@@ -25,7 +25,7 @@ Now, you should validate the config files to be sure they are properly functiona
 
 ## Congratulations!
 
-Your simple hub repository is now ready to be used! You created a simple hub and modified the `config.json` and `task.json` files. You now have:
+Your simple hub repository is now ready to be used! You created a simple hub and modified the `admin.json` and `tasks.json` files. You now have:
 - [x] Created a hub repository
 - [x] Cloned the hub repository to your local computer
 - [x] Configured the modeling hub by:

@@ -24,7 +24,7 @@ You now have a repository to collect models (in this example, forecasts), and yo
 
 This technical README should be stored on your hub. When requesting forecast submissions, you should share this document with modelers.
 
-[This is an example of a technical README](https://github.com/reichlab/covid19-forecast-hub/blob/master/data-processed/README.md) that is used by the US COVID-19 Forecast Hub.
+[This is an example of a technical README](https://github.com/CDCgov/covid19-forecast-hub/blob/main/model-output/README.md) that is used by the US COVID-19 Forecast Hub.
 
 ## Accepting forecasts
 

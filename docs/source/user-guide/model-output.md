@@ -125,7 +125,7 @@ More detail about each of these column groups is given in the following points:
 
 1. **"Task IDs" (multiple columns)**:  The details of the outcome (the model task) are provided by the modeler and can be stored in a series of "task ID" columns as described in this [section on task ID variables](#task-id-vars). These "task ID" columns may also include additional information, such as any conditions or assumptions used to generate the predictions. Some example task ID variables include `target`, `location`, `reference_date`, and `horizon`. Although there are no restrictions on naming task ID variables, we suggest that hubs adopt the standard task ID or column names and definitions specified in the [section on usage of task ID variables](#task-id-use) when appropriate.
 2. **"Model output representation" (2 columns)**: consists of two columns specifying how the model outputs are represented. Both of these columns will be present in all model output data:
-    1. `output_type`{.codeitem} specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"cmf"`, `"pmf"`, or `"sample"`.
+    1. `output_type`{.codeitem} specifies the type of representation of the predictive distribution, namely `"mean"`, `"median"`, `"quantile"`, `"cdf"`, `"pmf"`, or `"sample"`.
     2. `output_type_id`{.codeitem} specifies more identifying information specific to the output type, which varies depending on the `output_type`.
 3. `value`{.codeitem} contains the model’s prediction.
 
@@ -326,7 +326,7 @@ You can use the
 outfile <- fs::path(hub_path, "model-output", model_id, file_name)
 
 # coerce model output data to the data types of the hub schema
-config_tasks <- hubData::read_config(hub_path, "tasks")
+config_tasks <- hubUtils::read_config(hub_path, "tasks")
 model_out <- hubData::coerce_to_hub_schema(model_out, config_tasks)
 
 # write to parquet file
@@ -389,10 +389,10 @@ Some other possible model output representations have been proposed but not incl
 
 ## Validating prediction values
 
-Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validation checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html) from the `hubValidations` R package).
+Before model outputs can be incorporated into a hub, they must be validated. If a hub is centrally stored on GitHub, validation checks will be automatically performed for each submission (via the [`validate_pr()` function](https://hubverse-org.github.io/hubValidations/reference/validate_pr.html) from the `hubValidations` R package).
 
 Teams can also validate their submissions locally via the function
-[`validate_submissions()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html)
+[`validate_submission()`](https://hubverse-org.github.io/hubValidations/reference/validate_submission.html)
 from the `hubValidations` R package, which performs two validation tasks:
 
 * Validation based on rules that can easily be encoded in the JSON schema, such as

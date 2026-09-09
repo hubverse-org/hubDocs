@@ -182,7 +182,7 @@ shows the following files and folders.
 | `data.html` | --- | `pages/data.qmd` | yes |
 | `img/` | --- | `pages/img` | yes |
 | `eval.html` | `static/eval.qmd` | `predevals-config.yml` | yes |
-| `forecast.html` | `static/eval.qmd` | `predtimechart-config.yml` | yes |
+| `forecast.html` | `static/forecast.qmd` | `predtimechart-config.yml` | yes |
 | `resources/` | `static/resources/` | --- | no |
 | `site_libs` | `static/_quarto.yml` | --- | no |
 

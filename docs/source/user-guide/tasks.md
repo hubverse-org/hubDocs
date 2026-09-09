@@ -123,7 +123,7 @@ If any task IDs with `required` values have dependent derived task IDs, **it is 
 
 Take for example a scenario where  `target_date` is derived from `origin_date`
 and `horizon` via `target_date = origin_date + horizon * 7`. If you have a required `origin_date` value of "2024-11-07", then
-your `tasks.config` _must_ include `target_date` in `derived_task_ids`. Without
+your `tasks.json` _must_ include `target_date` in `derived_task_ids`. Without
 specifying this, modelers will end up with a
 [`req_vals`](https://hubverse-org.github.io/hubValidations/reference/check_tbl_values_required.html)
 check failure _even if their submission file is valid_.
