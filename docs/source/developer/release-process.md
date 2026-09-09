@@ -330,7 +330,7 @@ Some tips for CRAN submissions:
 - Commit the `CRAN_SUBMISSION` file when it changes
 
 :::{tip}
-If you get an unhelpful or nasty review from a CRAN administrator, contact one of the other Hubverse maintainers who has experience submitting to CRAN (i.e. Zhian) for backup/strategy/commiseration. You can also see if you ran into a common issue by checking [The CRAN Cookbook](https://contributor.r-project.org/cran-cookbook/)
+If you get an unhelpful or nasty review from a CRAN administrator, contact one of the other Hubverse maintainers who has experience submitting to CRAN for backup/strategy/commiseration. You can also see if you ran into a common issue by checking [The CRAN Cookbook](https://contributor.r-project.org/cran-cookbook/)
 :::
 
 
