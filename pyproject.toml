@@ -6,7 +6,6 @@ authors = [
 ]
 maintainers = [
     {name = "Alvaro J. Castro", email="acastrorivad@umass.edu"},
-    {name = "Zhian N. Kamvar", email="zkamvar@umass.edu"},
     {name = "Anna Krystalli", email="r.rse.eu@gmail.com"},
 ]
 license = {text = "MIT License"}

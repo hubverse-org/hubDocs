@@ -286,7 +286,7 @@ _signed_ tags with the `-s` flag, which adds a cryptographic signature to the
 annotated tag metadata that allows anyone to verify that it came from your
 computer and not someone pretending to be you.
 
-Zhian likes to create tags via the command line because he has set up his git
+One way to create tags is via the command line, if you have set up your git
 configuration to use [a gpg signature](https://gist.github.com/phortuin/cf24b1cca3258720c71ad42977e1ba57)
 so the tags and the releases are both verified. Recently, Git and GitHub added
 support for [creating signatures via an SSH key](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification), which is _a lot_ more approachable than GPG.
