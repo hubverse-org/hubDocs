@@ -38,7 +38,7 @@ h11==0.16.0
     # via uvicorn
 identify==2.6.19
     # via pre-commit
-idna==3.19
+idna==3.20
     # via
     #   anyio
     #   requests
@@ -137,9 +137,9 @@ typing-extensions==4.16.0
     #   anyio
     #   beautifulsoup4
     #   pydata-sphinx-theme
-urllib3==2.7.0
+urllib3==2.8.0
     # via requests
-uvicorn==0.52.0
+uvicorn==0.53.0
     # via sphinx-autobuild
 virtualenv==21.7.0
     # via pre-commit
