@@ -1,84 +1,72 @@
 # Software
 
-To assist users in building a hub, we have developed a software suite with specific functions and uses outlined below. These tools are designed to support common modeling hub tasks, like loading model output data, plotting the model output data, building ensembles using the data, and, in some cases, evaluating the predictions made by different models.
+The hubverse is built as a suite of interoperable, open-source packages that support the common tasks of running a modeling hub: administering hubs, validating and evaluating model outputs, accessing hub data, and building ensembles and visualizations. The packages are written in R, Python, and JavaScript, and because they all rely on the same [data standards](https://hubverse.io/tools/data.html), they work on any hub.
 
-## hubverse
+This page groups the packages by language, followed by community tools that work well alongside the hubverse ("friends of the hubverse") and archival data resources. For a comprehensive list of every package, review our [repositories on GitHub](https://github.com/orgs/hubverse-org/repositories).
 
-`hubverse` is a collection of packages that enables collaborative modeling exercises through a unified framework for aggregating, visualizing, and evaluating forecasts. **Installing `hubverse` also installs all the other packages listed below**. It is designed to make it easy to install and load multiple `hubverse` packages in a single step.
+In the tables below, {octicon}`book;1em` links to a package's documentation and {octicon}`mark-github;1em` to its source code.
 
-- repository: <https://github.com/hubverse-org/hubverse#readme>
-- [`hubverse` package documentation](https://hubverse-org.github.io/hubverse).
-- [`hubverse` package documentation (development)](https://hubverse-org.github.io/hubverse/dev/).
+(software-r)=
+## R packages
 
-## hubAdmin
+Since the majority of hubverse users are R users, our suite of R packages is the most well-developed. The [`hubverse`](https://hubverse-org.r-universe.dev/hubverse) meta-package installs and loads the full suite in one step, or you can install any package individually from the [hubverse R-Universe](https://hubverse-org.r-universe.dev/packages).
 
-`hubAdmin` is an R package that provides utility functions for administering hubs, specifically for creating and validating hub configuration files.
+Install the `hubverse` meta-package from R-Universe:
 
-- repository: <https://github.com/hubverse-org/hubAdmin#readme>
-- [`hubAdmin` package documentation](https://hubverse-org.github.io/hubAdmin).
-- [`hubAdmin` package documentation (development)](https://hubverse-org.github.io/hubAdmin/dev/).
+```r
+install.packages("hubverse", repos = c("https://hubverse-org.r-universe.dev", "https://cloud.r-project.org"))
+```
 
-## hubCI
+Then `library(hubverse)` loads the core packages listed below. Installation instructions for each package are on its documentation site.
 
-`hubCI` is an R package that provides functionality for setting up hubverse continuous integration workflows.
+| Package | Purpose | Links |
+| :--- | :--- | :--- |
+| `hubData` | Connect to, access, and manipulate hub model-output and target data. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubData) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubData) |
+| `hubAdmin` | Create and validate hub configuration files such as `admin.json` and `tasks.json`. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubAdmin) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubAdmin) |
+| `hubValidations` | Validate model-output submissions, typically as pull-request CI checks on a hub. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubValidations) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubValidations) |
+| `hubEnsembles` | Build ensembles from model outputs, including weighted ensembles and linear pools. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubEnsembles) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubEnsembles) |
+| `hubEvals` | Evaluate and score model outputs. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubEvals) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubEvals) |
+| `hubVis` | Plot and visualize hub model outputs to synthesize model submissions. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubVis) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubVis) |
+| `hubExamples` | Example forecasting and scenario-modeling data in the hubverse format. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubExamples) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubExamples) |
+| `hubUtils` | Lightweight utility functions shared across hubverse packages. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubUtils) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubUtils) |
+| `hubCI` | Set up and manage hubverse continuous-integration workflows. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubCI) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubCI) |
+| `hubDevs` | Utilities for creating and standardizing new hubverse packages. | [{octicon}`book;1em`](https://hubverse-org.github.io/hubDevs) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubDevs) |
 
-- repository: <https://github.com/hubverse-org/hubCI#readme>
-- [`hubCI` package documentation](https://hubverse-org.github.io/hubCI).
-- [`hubCI` package documentation (development)](https://hubverse-org.github.io/hubCI/dev/).
+(software-python)=
+## Python packages
 
-## hubData
+The Python packages support data access and the data pipelines behind hubverse dashboards.
 
-`hubData` is an R package that provides tools for connecting to, interacting with, and manipulating hub data.
+| Package | Purpose | Links |
+| :--- | :--- | :--- |
+| `hubdata` | Python tools for accessing and working with hubverse hub data. | [{octicon}`book;1em`](https://hubverse-org.github.io/hub-data/) [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hub-data) |
+| `hubverse-transform` | Transform hubverse model-output files; used in the cloud data pipeline. | [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hubverse-transform) |
 
-- repository: <https://github.com/hubverse-org/hubData#readme>
-- [`hubData` package documentation](https://hubverse-org.github.io/hubData).
-- [`hubData` package documentation (development)](https://hubverse-org.github.io/hubData/dev/).
+(software-js)=
+## JavaScript and dashboard components
 
-## hubEnsembles
+These JavaScript components power the interactive [hubverse dashboards](https://hubverse.io/tools/dashboards.html).
 
-`hubEnsembles` is an R package that provides functionality for creating ensembles from model output data. Supported ensemble methods include weighted averages, quantile averages, and linear pools.
+| Package | Purpose | Links |
+| :--- | :--- | :--- |
+| `predtimechart` | A predtimechart-based forecast-visualization component for hub dashboards. | [{octicon}`mark-github;1em`](https://github.com/hubverse-org/hub-dashboard-predtimechart) |
+| `predevals` | A JavaScript module for interactive exploration of forecast evaluations. | [{octicon}`mark-github;1em`](https://github.com/hubverse-org/predevals) |
 
-- repository: <https://github.com/hubverse-org/hubEnsembles#readme>
-- [`hubEnsembles` package documentation](https://hubverse-org.github.io/hubEnsembles).
-- [`hubEnsembles` package documentation (development)](https://hubverse-org.github.io/hubEnsembles/dev/).
+(friends-of-the-hubverse)=
+## Friends of the hubverse
 
-## hubEvals
+Tools from the wider community that work well alongside hubverse packages.
 
-`hubEvals` is an R package that provides tools for evaluating infectious disease model outputs.
+| Tool | Purpose | Links |
+| :--- | :--- | :--- |
+| `scoringutils` | Evaluate and score probabilistic forecasts with a range of proper scoring rules. | [{octicon}`book;1em`](https://epiforecasts.io/scoringutils/) [{octicon}`mark-github;1em`](https://github.com/epiforecasts/scoringutils) |
+| `alloscore2` | Scoring methods for allocation and decision problems built on forecasts. | [{octicon}`book;1em`](https://reichlab.io/alloscore2/) [{octicon}`mark-github;1em`](https://github.com/reichlab/alloscore2) |
+| `modelimportance` | Measures the contribution and importance of individual models within an ensemble. | [{octicon}`book;1em`](https://mkim425.r-universe.dev/modelimportance) [{octicon}`mark-github;1em`](https://github.com/mkim425/modelimportance) |
+| `MicroHub` | An R Shiny app to work with hub data locally. | [{octicon}`book;1em`](https://sjfox.github.io/microhub-workshop/) [{octicon}`mark-github;1em`](https://github.com/sjfox/microhub-workshop) |
+| `EpiBenchmark` | Benchmark and compare epidemic forecasting models. | [{octicon}`book;1em`](https://accidda.github.io/EpiBenchmark/) [{octicon}`mark-github;1em`](https://github.com/ACCIDDA/EpiBenchmark) |
+| `RespiLens` | A responsive web app to explore respiratory disease forecasts in the US. | [{octicon}`book;1em`](https://www.respilens.com/) [{octicon}`mark-github;1em`](https://github.com/ACCIDDA/RespiLens) |
 
-- repository: <https://github.com/hubverse-org/hubEvals#readme>
-- [`hubEvals` package documentation](https://hubverse-org.github.io/hubEvals).
-- [`hubEvals` package documentation (development)](https://hubverse-org.github.io/hubEvals/dev/).
+(archival-data-resources)=
+## Archival data resources
 
-## hubExamples
-
-`hubExamples` is an R package that provides example data for forecasting and scenario modeling hubs in the hubverse format.
-
-- repository: <https://github.com/hubverse-org/hubExamples#readme>
-- [`hubExamples` package documentation](https://hubverse-org.github.io/hubExamples).
-- [`hubExamples` package documentation (development)](https://hubverse-org.github.io/hubExamples/dev/).
-
-## hubUtils
-
-`hubUtils` is a lightweight R package containing general utilities imported by other hubverse packages. Previously, `hubUtils` was a larger package with more functions, but most were moved and split across `hubData` and `hubAdmin`.
-
-- repository: <https://github.com/hubverse-org/hubUtils#readme>
-- [`hubUtils` package documentation](https://hubverse-org.github.io/hubUtils).
-- [`hubUtils` package documentation (development)](https://hubverse-org.github.io/hubUtils/dev/).
-
-## hubValidations
-
-`hubValidations` is an R package that facilitates the implementation of general validation rules enforced on submissions in the form of pull requests to hub repositories.
-
-- repository: <https://github.com/hubverse-org/hubValidations#readme>
-- [`hubValidations` package documentation](https://hubverse-org.github.io/hubValidations).
-- [`hubValidations` package documentation (development)](https://hubverse-org.github.io/hubValidations/dev/).
-
-## hubVis
-
-`hubVis` is an R package that provides plotting methods for hub model outputs to synthesize and visualize model submissions.
-
-- repository: <https://github.com/hubverse-org/hubVis#readme>
-- [`hubVis` package documentation](https://hubverse-org.github.io/hubVis).
-- [`hubVis` package documentation (development)](https://hubverse-org.github.io/hubVis/dev/).
-
+Several hubs have been reformatted to the hubverse standard and archived so their data remain available for analysis. Browse them, alongside all active hubs, on the [hubverse list of hubs](https://hubverse.io/community/hubs.html#archival-hubs).
