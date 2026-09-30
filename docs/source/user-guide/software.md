@@ -65,6 +65,7 @@ Tools from the wider community that work well alongside hubverse packages.
 | `MicroHub` | An R Shiny app to work with hub data locally. | [{octicon}`book;1em`](https://sjfox.github.io/microhub-workshop/) [{octicon}`mark-github;1em`](https://github.com/sjfox/microhub-workshop) |
 | `EpiBenchmark` | Benchmark and compare epidemic forecasting models. | [{octicon}`book;1em`](https://accidda.github.io/EpiBenchmark/) [{octicon}`mark-github;1em`](https://github.com/ACCIDDA/EpiBenchmark) |
 | `RespiLens` | A responsive web app to explore respiratory disease forecasts in the US. | [{octicon}`book;1em`](https://www.respilens.com/) [{octicon}`mark-github;1em`](https://github.com/ACCIDDA/RespiLens) |
+| `Hubverse Support Tools` | Browser-based tools to prepare metadata, format data, and guide GitHub submissions for hubverse hubs — no coding required. | [{octicon}`book;1em`](https://dma-prime.github.io/Hubverse-Support-Tools/) [{octicon}`mark-github;1em`](https://github.com/DMA-PRIME/Hubverse-Support-Tools) |
 
 (archival-data-resources)=
 ## Archival data resources
