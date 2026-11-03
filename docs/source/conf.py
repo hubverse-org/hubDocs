@@ -2,7 +2,6 @@
 
 import os
 
-
 # -- Project information
 
 project = "Modeling Hub Documentation"
@@ -25,6 +24,7 @@ extensions = [
     "sphinx_subfigure",  # multi-panel images
     "sphinxcontrib.mermaid",  # compose diagrams in code
     "sphinx_togglebutton",  # toggle things
+    "sphinx_llms_txt",  # llms.txt and llms-full.txt for LLM tools
 ]
 
 # -- Options for mermaid
@@ -83,6 +83,21 @@ html_theme_options = {
 html_js_files = [
     "js/custom.js",
 ]
+
+# html_baseurl sets each page's canonical link and the base of llms.txt
+# links. Read the Docs provides the URL of the version being built. Local
+# builds leave it empty, so llms.txt links are relative.
+html_baseurl = os.environ.get("READTHEDOCS_CANONICAL_URL", "")
+
+# -- Options for llms.txt
+
+llms_txt_title = "Hubverse documentation"
+llms_txt_summary = (
+    "Technical documentation for the hubverse, open-source software and "
+    "data standards for collaborative modeling hubs. It covers hub "
+    "configuration, data formats, hub administration and development "
+    "of hubverse tools. For a general introduction, see https://hubverse.io/."
+)
 
 # -- Options for EPUB output
 epub_show_urls = "footnote"
