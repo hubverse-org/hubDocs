@@ -94,7 +94,7 @@ Consider three common scenarios:
 
 In all cases, joint sampling introduces additional dimensions to the predictive distribution. Instead of a univariate distribution at each modeling task, we have a multivariate distribution spanning multiple modeling tasks. We refer to this as **response dependence** across the task IDs that vary within a group, because the predicted values (responses) for different modeling tasks are statistically dependent.
 
-Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set. In other words, any variables not included in the "compound_taskid_set" are assumed to be part of a multivariate outcome.
+Within a group of jointly sampled modeling tasks, some task ID values remain constant (defining which group we're in), while others vary (defining the multiple modeling tasks covered by the joint distribution). The `"compound_taskid_set"` specifies which task IDs remain constant within a group. Task IDs not in this set vary within the group and are sampled jointly, introducing response dependence across those task IDs. A **compound modeling task** is thus a group of related predictions defined by the compound task ID set. In other words, any variables not included in the `"compound_taskid_set"` are assumed to be part of a multivariate outcome. At the limit, an empty compound task ID set (`[]`) holds no task ID constant, so every task ID varies within the group and all of them are sampled jointly.
 
 Consider the following model output[^4] submission file from a hub reporting on **variant** proportions observed in **Massachusetts** (`location`) on **2024-03-15** (`origin_date`) for **1 and 2 week predictions** (`horizon`). There are four variants (`AA`, `BB`, `CC`, and `DD`) represented over two horizons, with two sample predictions for each of the eight combinations; this results in a total of 16 rows of sample output type predictions.
 
@@ -263,6 +263,7 @@ To configure this dependence structure, `horizon` is excluded from the `compound
 }
 ```
 
+(sample-example-d)=
 #### Example D: Response dependence across horizons and variants
 ***Joint distribution across both horizons and variants***
 
@@ -307,11 +308,43 @@ To configure this dependence structure, both `horizon` and `variant` are exclude
 }
 ```
 
+#### Example E: Response dependence across all task IDs
+***Joint distribution across every task ID***
+
+This is the limiting case of Example D. No task ID is held constant, so every task ID varies within a group and all of them are sampled jointly. Only a hub whose rounds are not identified by a task ID can declare an empty set (see [the round ID variable](#compound-taskid-set-round-id)).
+
+The submission file is the one shown in [Example D](#sample-example-d). It reports on a single `origin_date` and a single `location`, so holding those two task IDs constant and holding none constant describe the same file. The two configurations diverge when a submission covers more than one location. Under Example D, a sample draw may cover one location or several. Under Example E, every sample draw must cover every location in the submission.
+
+To configure this dependence structure, no task IDs are included in the `compound_taskid_set`:
+
+```{code-block} json
+:lineno-start: 1
+:emphasize-lines: 6
+"output_type_id_params": {
+    "type": "character",
+    "max_length": 6,
+    "min_samples_per_task": 2,
+    "max_samples_per_task": 2,
+    "compound_taskid_set": []
+}
+```
+
 ### Configuration of `compound_taskid_set`
 
 Different models may generate samples for different compound modeling tasks. For example, some might simulate data from all horizons sequentially, making predictions that consider what has happened at past horizons. Such a model would create output data like that of Examples C and D in the previous subsection, which have response dependence across horizons. Other models might only simulate draws from each horizon independently from other time points; these models would have output data similar to that of Examples A or B, which have no response dependence across horizons.
 
-A hub should specify a `compound_taskid_set` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.**
+A hub should specify a `compound_taskid_set` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.** The field is optional, and when it is omitted it defaults to all task ID variables, the configuration of Example A.
+
+```{warning}
+Omitting `compound_taskid_set` and setting it to `[]` configure the two ends of the range: the finest compound modeling task and the coarsest.
+
+| `"compound_taskid_set"` | resolves to | meaning |
+|:--- |:--- |:--- |
+| omitted | all task IDs | each modeling task is its own compound modeling task (Example A); jointly sampled submissions also pass |
+| `[]` | no task IDs | every task ID is sampled jointly (Example E) |
+
+Setting the field to `[]` to express "this hub has no compound task IDs to declare" therefore configures the coarsest structure instead of the finest. In a hub whose rounds are not identified by a task ID, the configuration is valid, so the mistake is not caught when the config is validated. It surfaces later, when submissions that are not jointly sampled across every task ID are rejected for describing a finer compound modeling task than the hub accepts.
+```
 
 Sometimes, multiple `compound_taskid_set` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^5] shows how different specifications of the `compound_taskid_set` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
 
@@ -359,6 +392,13 @@ https://www.w3.org/WAI/tutorials/tables/irregular/#table-with-two-tier-headers
     <td>❌</td>
     <td>✅</td>
   </tr>
+  <tr>
+    <th scope="row"><code>[]</code></th>
+    <td>❌</td>
+    <td>❌</td>
+    <td>❌</td>
+    <td>✅</td>
+  </tr>
 </table>
 
 [^5]: The letters in parentheses shown in the column names indicate the actual composition of the compound task ID set in the examples from the previous subsection, where 1) o_d is origin_date, 2) l is location, 3) h is horizon, and 4) v is variant.
@@ -378,6 +418,13 @@ These derived task IDs must be properly configured, or they can cause problems w
 
 For example, if `reference_date` and `horizon` are both part of the `compound_taskid_set`, then the derived task ID `target_end_date` should be part of the `compound_taskid_set`. However, if, say, `horizon` displays response dependence and is thus not part of the `compound_taskid_set`, then `target_end_date` should also be excluded from the `compound_taskid_set`.
 ```
+
+(compound-taskid-set-round-id)=
+#### The round ID variable
+
+When a round sets `round_id_from_variable` to `true`, every sample `compound_taskid_set` in that round must include the task ID named by `round_id` (see [`tasks.json` configuration](#tasks-metadata)). Each model output file covers a single round, so the round ID variable holds one value throughout the file. A sample therefore cannot be joint across it. In Examples A to D, `origin_date` would serve as the round ID variable, which is why every set includes it. An empty set is only valid when `round_id_from_variable` is `false`.
+
+From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
 
 ### Number of samples vs. `output_type_id`
 
