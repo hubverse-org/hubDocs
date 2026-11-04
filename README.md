@@ -24,6 +24,12 @@ This site uses [ReadTheDocs](https://readthedocs.org/) and
 maintaining the content. The
 [live version of the website can be found in this page](https://docs.hubverse.io/en/latest/).
 
+The build also generates
+[`llms.txt`](https://docs.hubverse.io/en/latest/llms.txt) and
+[`llms-full.txt`](https://docs.hubverse.io/en/latest/llms-full.txt), which
+index the site's pages as Markdown for LLM-based tools. Both are generated
+from the pages in the table of contents and need no manual updates.
+
 Useful links:
 
 - Documentation for our current theme, [Sphinx Book Theme](https://sphinx-book-theme.readthedocs.io/en/stable/)

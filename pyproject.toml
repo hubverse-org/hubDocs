@@ -22,6 +22,7 @@ dependencies = [
     "sphinx-autobuild",
     "sphinx-book-theme",
     "sphinx-design",
+    "sphinx-llms-txt>=0.7.1",
     "sphinx-subfigure>=0.2.4",
     "sphinx-togglebutton>=0.3.2",
     "sphinxcontrib-mermaid",
