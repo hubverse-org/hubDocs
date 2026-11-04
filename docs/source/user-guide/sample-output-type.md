@@ -32,7 +32,7 @@ Now, suppose we wanted to collect samples for each of the modeling tasks defined
 
 [^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
 
-[^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample. This is important for samples originating from a joint distribution, so that rows that have the same `output_type_id` are presumed to represent a single sample from a joint distribution. Examples are given later in the text.
+[^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample (see [allowed sample IDs](#sample-output-type-ids)). This is important for samples originating from a joint distribution, so that rows that have the same `output_type_id` are presumed to represent a single sample from a joint distribution. Examples are given later in the text.
 
 |compound_idx| origin_date | horizon | location | output_type| output_type_id | value |
 |:----------: |:----------: | :-----------: | :-----------: | :-----------: | :-----------: | :-----------: |
@@ -65,7 +65,7 @@ In this type of setting, a hub will specify a minimum and maximum number of requ
 }
 ```
 
-More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be integers, and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero). The `"is_required"` property specifies that samples are a required output type.
+More specifically, the `"output_type_id_params"` property specifies that sample `output_type_id`s must be [integer sample IDs](#sample-output-type-ids), and there must be exactly (i.e., no more or less than) 3 samples per modeling task (group). The `"value"` specification refers to the predicted values contained in the "value" column (e.g., they must be storable as numeric "double" format and be no less than zero). The `"is_required"` property specifies that samples are a required output type.
 
 Note that samples use an `"output_type_id_params"` block to define allowable values through parameters (like min/max). Other output types use an `"output_type_id"` block that lists required and optional values explicitly. One example for the mean output type is shown below; more information and examples can be found on the [Hub configuration files page](#tasks-metadata) in the `tasks.json` file section.
 
@@ -81,6 +81,28 @@ Note that samples use an `"output_type_id_params"` block to define allowable val
         "is_required": true
     }
 ```
+
+(sample-output-type-ids)=
+### Allowed sample IDs
+
+The `"type"` property of `"output_type_id_params"` sets which values the `output_type_id` column may hold for samples. Every sample row must have a non-empty `output_type_id`.
+
+`"integer"`
+: Each sample ID is a non-negative integer, written with digits only and without leading zeros, such as `"0"` or `"12"`. Values such as `"s1"`, `"1.5"`, `"1.0"`, `"01"` and `"-1"` fail validation.
+
+`"character"`
+: Each sample ID has at most `"max_length"` characters. It may contain only ASCII letters, digits, underscores (`_`), hyphens (`-`) and periods (`.`), such as `"s1"` or `"3fa9c2e12_001"`. The second example combines a hash of the `model_id` and round ID (`3fa9c2e1`), the modeling task index (`2`) and the sample index within the modeling task (`001`), so that IDs from different models and rounds do not collide. A hub using IDs like this needs a `"max_length"` of at least 13.
+
+A submission with a sample ID that breaks these rules fails validation, and the other sample checks do not run.
+
+(sample-output-type-id-scope)=
+### Scope of sample IDs
+
+Give each independent draw its own sample ID. Rows that share an ID are one draw, so restarting the numbering at each location describes samples that are joint across locations.
+
+A sample ID identifies a draw only within one model output file, which holds the predictions of one model for one round. Validation checks sample IDs within that file only. Two files can therefore use the same sample IDs, and in model output combined across models or rounds, the same ID can refer to unrelated draws. A draw in combined model output is identified by its `model_id`, its round ID and its `output_type_id` together.
+
+A hub that wants sample IDs to be distinct across all of its model output can use character IDs that encode the model and the round, such as the `"3fa9c2e12_001"` example above. Validation does not check that such IDs are distinct across files.
 
 (compound-modeling-tasks)=
 ## Compound modeling tasks
@@ -123,6 +145,7 @@ Notice that this example submission file could be displaying predictions with an
 
 ### Examples of different `compound_taskid_set` configurations
 
+(sample-example-a)=
 #### Example A: No response dependence across task IDs
 ***Each group = one modeling task***
 
@@ -171,6 +194,7 @@ To configure this dependence structure, all task IDs are included in the `compou
 }
 ```
 
+(sample-example-b)=
 #### Example B: Response dependence across variants
 ***Joint distribution across variants***
 
@@ -425,6 +449,87 @@ For example, if `reference_date` and `horizon` are both part of the `compound_ta
 When a round sets `round_id_from_variable` to `true`, every sample `compound_taskid_set` in that round must include the task ID named by `round_id` (see [`tasks.json` configuration](#tasks-metadata)). Each model output file covers a single round, so the round ID variable holds one value throughout the file. A sample therefore cannot be joint across it. In Examples A to D, `origin_date` would serve as the round ID variable, which is why every set includes it. An empty set is only valid when `round_id_from_variable` is `false`.
 
 From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
+
+(sample-validation)=
+### Validating coarser samples
+
+The examples in this section use a configured `compound_taskid_set` of `["origin_date", "location", "horizon", "variant"]`, so each compound modeling task is one variant at one horizon. Each of the example submissions A to D passes validation against it.
+
+#### Samples are validated in each compound modeling task they cover
+
+A sample that is coarser than the configured set covers several compound modeling tasks. Validation splits the sample into one slice per compound modeling task, and checks each slice within its compound modeling task. In [Example B](#sample-example-b), sample `"s1"` is joint across the four variants at horizon 1, so it has four slices. It counts as one sample for each of the four compound modeling tasks. `"min_samples_per_task"` and `"max_samples_per_task"` therefore apply to the number of samples in each compound modeling task, and each compound modeling task in Example B holds two samples.
+
+#### Samples in a modeling task can have different compound task ID sets
+
+Each sample's compound task ID set is checked against the configured set on its own, and the samples in a modeling task do not have to share one set. In the submission below, the horizon 1 samples are joint across variants, as in [Example B](#sample-example-b), and the horizon 2 samples cover one variant each, as in [Example A](#sample-example-a). The submission passes validation.
+
+The table shows variants `AA` and `BB` only, and leaves out the task ID columns that hold a single value. Here, `compound_idx` numbers the compound modeling tasks of the configured set, and each compound modeling task has its own colour. The rows of each sample are boxed together. Sample `"s1"` has two slices, one in compound idx 1 and one in compound idx 2. Each of the horizon 2 samples has a single slice. Every compound modeling task holds two samples.
+
+<table class="table spl-slices">
+  <thead>
+    <tr>
+      <th>compound_idx</th>
+      <th>horizon</th>
+      <th>variant</th>
+      <th>output_type</th>
+      <th>output_type_id</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="cidx-1 spl-first"><td>1</td><td>1</td><td>AA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>1</td><td>BB</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-1 spl-first"><td>1</td><td>1</td><td>AA</td><td>sample</td><td>s2</td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>1</td><td>BB</td><td>sample</td><td>s2</td><td>-</td></tr>
+    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>2</td><td>AA</td><td>sample</td><td><strong>s3</strong></td><td>-</td></tr>
+    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>2</td><td>AA</td><td>sample</td><td>s4</td><td>-</td></tr>
+    <tr class="cidx-4 spl-first spl-last"><td>4</td><td>2</td><td>BB</td><td>sample</td><td><strong>s5</strong></td><td>-</td></tr>
+    <tr class="cidx-4 spl-first spl-last"><td>4</td><td>2</td><td>BB</td><td>sample</td><td>s6</td><td>-</td></tr>
+  </tbody>
+</table>
+
+<p class="spl-legend">
+  <span class="spl-swatch cidx-1"></span>compound_idx 1 (horizon 1, AA): n = 2
+  <span class="spl-swatch cidx-2"></span>compound_idx 2 (horizon 1, BB): n = 2
+  <span class="spl-swatch cidx-3"></span>compound_idx 3 (horizon 2, AA): n = 2
+  <span class="spl-swatch cidx-4"></span>compound_idx 4 (horizon 2, BB): n = 2
+</p>
+
+#### Partly overlapping samples fail validation
+
+Two samples partly overlap when they share some compound modeling tasks but not others. In the submission below, sample `"s1"` is joint across variants `AA` and `BB`, and sample `"s2"` across `BB` and `CC`. Sample `"s3"` covers `BB` only. The three samples share `BB`, but each covers different variants[^6], so the submission fails validation.
+
+The table shows horizon 1 for variants `AA` to `CC`, with the same layout as the table above.
+
+<table class="table spl-slices">
+  <thead>
+    <tr>
+      <th>compound_idx</th>
+      <th>variant</th>
+      <th>output_type</th>
+      <th>output_type_id</th>
+      <th>covers</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="cidx-1 spl-first"><td>1</td><td>AA</td><td>sample</td><td><strong>s1</strong></td><td>AA, BB</td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>BB</td><td>sample</td><td><strong>s1</strong></td><td>AA, BB</td><td>-</td></tr>
+    <tr class="cidx-2 spl-first"><td>2</td><td>BB</td><td>sample</td><td>s2</td><td>BB, CC</td><td>-</td></tr>
+    <tr class="cidx-3 spl-last"><td>3</td><td>CC</td><td>sample</td><td>s2</td><td>BB, CC</td><td>-</td></tr>
+    <tr class="cidx-2 spl-first spl-last"><td>2</td><td>BB</td><td>sample</td><td><strong>s3</strong></td><td>BB</td><td>-</td></tr>
+  </tbody>
+</table>
+
+<p class="spl-legend">
+  <span class="spl-swatch cidx-1"></span>compound_idx 1 (AA): n = 1
+  <span class="spl-swatch cidx-2"></span>compound_idx 2 (BB): n = 3
+  <span class="spl-swatch cidx-3"></span>compound_idx 3 (CC): n = 1
+</p>
+
+[^6]: The `covers` column lists the variants each sample spans. Like `compound_idx`, it is added for illustration and is not part of model output.
+
+A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the number of samples per compound modeling task can become uneven. In the submission above, `BB` holds three samples, while `AA` and `CC` hold one each.
 
 ### Number of samples vs. `output_type_id`
 
