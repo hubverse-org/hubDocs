@@ -26,7 +26,7 @@ colorama==0.4.6
     # via sphinx-autobuild
 distlib==0.4.4
     # via virtualenv
-docutils==0.22.4
+docutils>=0.22.4,<0.23
     # via
     #   myst-parser
     #   pydata-sphinx-theme
@@ -76,7 +76,7 @@ platformdirs==4.14.0
     # via virtualenv
 pre-commit==4.7.0
     # via hubdocs (pyproject.toml)
-pydata-sphinx-theme==0.20.0
+pydata-sphinx-theme
     # via sphinx-book-theme
 pygments==2.21.0
     # via
