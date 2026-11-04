@@ -137,3 +137,18 @@ html[data-theme="dark"] {
 .heatMap4 tr:nth-child(n+7):nth-child(-n+8) { background: grey; }
 .heatMap4 tr:nth-child(n+11):nth-child(-n+12) { background: grey; }
 .heatMap4 tr:nth-child(n+15):nth-child(-n+16) { background: grey; }
+
+/* Sample tables in "Validating coarser samples": rows are coloured by
+   compound_idx and each sample's rows are boxed. The colours are
+   translucent so that they work in both light and dark themes. */
+.spl-slices tr.cidx-1 td, .spl-swatch.cidx-1 { background: rgba(31, 119, 180, 0.2); }
+.spl-slices tr.cidx-2 td, .spl-swatch.cidx-2 { background: rgba(255, 127, 14, 0.25); }
+.spl-slices tr.cidx-3 td, .spl-swatch.cidx-3 { background: rgba(44, 160, 44, 0.22); }
+.spl-slices tr.cidx-4 td, .spl-swatch.cidx-4 { background: rgba(148, 103, 189, 0.25); }
+.spl-slices td { text-align: center; border-top: none; border-bottom: none; }
+.spl-slices td:first-child { border-left: 4px solid var(--pst-color-text-base); }
+.spl-slices td:last-child { border-right: 4px solid var(--pst-color-text-base); }
+.spl-slices tr.spl-first td { border-top: 4px solid var(--pst-color-text-base); }
+.spl-slices tr.spl-last td { border-bottom: 4px solid var(--pst-color-text-base); }
+.spl-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; font-size: 0.9em; }
+.spl-swatch { display: inline-block; width: 1em; height: 1em; margin-right: 0.4em; vertical-align: -0.15em; border: 1px solid var(--pst-color-border); }
