@@ -100,7 +100,7 @@ A submission with a sample ID that breaks these rules fails validation, and the 
 
 Give each independent draw its own sample ID. Rows that share an ID are one draw, so restarting the numbering at each location describes samples that are joint across locations.
 
-A sample ID identifies a draw only within one model output file, which holds the predictions of one model for one round. Validation checks sample IDs within that file only. Two files can therefore use the same sample IDs, and in model output combined across models or rounds, the same ID can refer to unrelated draws. A draw in combined model output is identified by its `model_id`, its round ID and its `output_type_id` together.
+A sample ID identifies a draw only within one model output file, which holds the predictions of one model for one round. Validation checks sample IDs within that file only. Two files can therefore use the same sample IDs, and in model output combined across models or rounds, the same ID can refer to unrelated draws. A draw in combined model output is identified by its `model_id`, its round ID and its `output_type_id` together. Note that where a round's round ID is not a task ID, it is recorded only in the file names of its model output files (see [submission rounds](#submission-rounds)).
 
 A hub that wants sample IDs to be distinct across all of its model output can use character IDs that encode the model and the round, such as the `"3fa9c2e12_001"` example above. Validation does not check that such IDs are distinct across files.
 
