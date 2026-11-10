@@ -17,7 +17,7 @@ The three components of modeling tasks are:
 
 [^json]: Due to technical issues, we do not currently support [json references](http://niem.github.io/json/reference/json-schema/references/) or yaml metadata files.
 
-[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true`, and the `round_id` should be a column defined in the `task_ids`. See the [`tasks.json` schema](#tasks-metadata) for details.
+[^multiround]: For multiple rounds to share the same tasks without duplicating the `model_tasks` block, `round_id_from_variable` can be set to `true`, and the `round_id` must name a task ID of every modeling task in the round. See the [`tasks.json` schema](#tasks-metadata) for details.
 
 
 (task-id-vars)=
