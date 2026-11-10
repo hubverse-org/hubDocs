@@ -100,7 +100,7 @@ setuptools==84.2.1
     # via sphinx-togglebutton
 snowballstemmer==3.1.0
     # via sphinx
-soupsieve==3.0.3
+soupsieve==4.0.1
     # via beautifulsoup4
 sphinx==9.1.0
     # via
