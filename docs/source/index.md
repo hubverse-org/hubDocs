@@ -69,11 +69,11 @@ Many public hubs are built on the hubverse. A few examples are shown below.
 
 :::
 
-::: {grid-item-card} GZlab China COVID-19 Forecast Hub
+::: {grid-item-card} GZlab China Infectious Disease Forecast Hub
 
- - <https://github.com/dailypartita/China-COVID-19-Forecast-Hub#readme>
- - [📈 Forecasts](https://dailypartita.github.io/China-COVID-19-Forecast-Dashboard/forecast.html)
- - [📋 Evaluations](https://dailypartita.github.io/China-COVID-19-Forecast-Dashboard/eval.html)
+ - <https://github.com/dailypartita/China-Infectious-Disease-Forecast-Hub#readme>
+ - [📈 Forecasts](https://dailypartita.github.io/China-Infectious-Disease-Forecast-Dashboard/forecast.html)
+ - [📋 Evaluations](https://dailypartita.github.io/China-Infectious-Disease-Forecast-Dashboard/eval.html)
 
 :::
 
