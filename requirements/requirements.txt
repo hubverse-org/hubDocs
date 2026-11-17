@@ -53,17 +53,17 @@ jinja2==3.1.6
     #   pydata-sphinx-theme
     #   sphinx
     #   sphinxcontrib-mermaid
-markdown-it-py==4.2.0
+markdown-it-py==4.3.0
     # via
     #   mdit-py-plugins
     #   myst-parser
 markupsafe==3.0.3
     # via jinja2
-mdit-py-plugins==0.6.1
+mdit-py-plugins==0.7.0
     # via myst-parser
 mdurl==0.1.2
     # via markdown-it-py
-myst-parser==5.1.0
+myst-parser==5.2.0
     # via hubdocs (pyproject.toml)
 nodeenv==1.12.0
     # via pre-commit
@@ -100,7 +100,7 @@ setuptools==84.2.1
     # via sphinx-togglebutton
 snowballstemmer==3.1.0
     # via sphinx
-soupsieve==4.0.1
+soupsieve==4.1
     # via beautifulsoup4
 sphinx==9.1.0
     # via
@@ -118,11 +118,11 @@ sphinx-autobuild==2025.8.25
     # via hubdocs (pyproject.toml)
 sphinx-book-theme==1.4.0
     # via hubdocs (pyproject.toml)
-sphinx-design==0.7.0
+sphinx-design==0.8.0
     # via hubdocs (pyproject.toml)
 sphinx-llms-txt==0.7.1
     # via hubdocs (pyproject.toml)
-sphinx-subfigure==0.2.4
+sphinx-subfigure==0.3.0
     # via hubdocs (pyproject.toml)
 sphinx-togglebutton==0.4.5
     # via hubdocs (pyproject.toml)
