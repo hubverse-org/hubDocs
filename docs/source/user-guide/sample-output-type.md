@@ -119,7 +119,7 @@ Consider the following model output[^4] submission file from a hub reporting on 
 
 [^4]: In model output files, an entry of "-" stands in for specific values to be provided by the submitter. They are not assumed to be identical.
 
-Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides four possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light and dark gray to highlight adjacent samples.
+Notice that this example submission file could be displaying predictions with any number of response dependence structures (or none at all) since we are not given the `output_type_id` values or `compound_taskid_set`. The following subsection provides five possible combinations of compound modeling tasks that this model output data may be representing. Different samples are distinguished from each other by using light and dark gray to highlight adjacent samples.
 
 ### Examples of different `compound_taskid_set` configurations
 
@@ -311,7 +311,7 @@ To configure this dependence structure, both `horizon` and `variant` are exclude
 #### Example E: Response dependence across all task IDs
 ***Joint distribution across every task ID***
 
-This is the limiting case of Example D. No task ID is held constant, so every task ID varies within a group and all of them are sampled jointly. Only a hub whose rounds are not identified by a task ID can declare an empty set (see [the round ID variable](#compound-taskid-set-round-id)).
+This is the limiting case of Example D. No task ID is held constant, so every task ID varies within a group and all of them are sampled jointly. Only a hub whose rounds are not identified by a task ID can declare an empty set (see [the round ID variable](#compound-taskid-set-round-id)). In this example, `origin_date` is therefore an ordinary task ID, and each round's round ID comes from its `round_id`.
 
 The submission file is the one shown in [Example D](#sample-example-d). It reports on a single `origin_date` and a single `location`, so holding those two task IDs constant and holding none constant describe the same file. The two configurations diverge when a submission covers more than one location. Under Example D, a sample draw may cover one location or several. Under Example E, every sample draw must cover every location in the submission.
 
@@ -422,7 +422,7 @@ For example, if `reference_date` and `horizon` are both part of the `compound_ta
 (compound-taskid-set-round-id)=
 #### The round ID variable
 
-When a round sets `round_id_from_variable` to `true`, every sample `compound_taskid_set` in that round must include the task ID named by `round_id` (see [`tasks.json` configuration](#tasks-metadata)). Each model output file covers a single round, so the round ID variable holds one value throughout the file. A sample therefore cannot be joint across it. In Examples A to D, `origin_date` would serve as the round ID variable, which is why every set includes it. An empty set is only valid when `round_id_from_variable` is `false`.
+When a round sets `round_id_from_variable` to `true`, every sample `compound_taskid_set` in that round must include the task ID named by `round_id` (see [`tasks.json` configuration](#tasks-metadata)). Each model output file covers a single round, so the round ID variable holds one value throughout the file. A sample therefore cannot be joint across it. Every set in Examples A to D includes `origin_date`, so they are valid whether or not `origin_date` identifies the rounds. Example E is valid only if it does not. An empty set is only valid when `round_id_from_variable` is `false`.
 
 From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. It also reports an error for a modeling task that does not have the round ID variable as a task ID. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
 
