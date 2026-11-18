@@ -98,11 +98,21 @@ A submission with a sample ID that breaks these rules fails validation, and the 
 (sample-output-type-id-scope)=
 ### Scope of sample IDs
 
-Give each independent draw its own sample ID. Rows that share an ID are one draw, so restarting the numbering at each location describes samples that are joint across locations.
+A sample ID identifies one draw from a model's predictive distribution. Rows that share a sample ID belong to the same draw, so they are sampled jointly.
 
-A sample ID identifies a draw only within one model output file, which holds the predictions of one model for one round. Validation checks sample IDs within that file only. Two files can therefore use the same sample IDs, and in model output combined across models or rounds, the same ID can refer to unrelated draws. A draw in combined model output is identified by its `model_id`, its round ID and its `output_type_id` together. Note that where a round's round ID is not a task ID, it is recorded only in the file names of its model output files (see [submission rounds](#submission-rounds)).
+Sample IDs are scoped to one model output file, which holds the predictions of one model for one round. Validation checks sample IDs within that file only, so two files can use the same sample IDs.
+
+```{important}
+In model output combined across models or rounds, the same sample ID can refer to unrelated draws. To separate draws, group rows by `model_id`, round ID and `output_type_id` together.
+```
 
 A hub that wants sample IDs to be distinct across all of its model output can use character IDs that encode the model and the round, such as the `"3fa9c2e12_001"` example above. Validation does not check that such IDs are distinct across files.
+
+```{admonition} Reusing sample IDs across compound modeling tasks
+:class: caution
+
+To ensure samples are properly interpreted, independently drawn samples need their own unique sample IDs within a submission, even when they are for different [compound modeling tasks](#compound-modeling-tasks). For example, in a hub whose `compound_taskid_set` includes `location`, a model may sample each location in a separate run. If the numbering restarts at each location, so that every location has samples `1` to `100`, each sample ID appears in every location's rows. Hubverse tools then interpret those samples as joint across locations. Validation cannot catch this error, because [coarser samples](#sample-validation) (i.e., samples joint across additional task IDs) are valid.
+```
 
 (compound-modeling-tasks)=
 ## Compound modeling tasks
@@ -453,83 +463,79 @@ From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves
 (sample-validation)=
 ### Validating coarser samples
 
-The examples in this section use a configured `compound_taskid_set` of `["origin_date", "location", "horizon", "variant"]`, so each compound modeling task is one variant at one horizon. Each of the example submissions A to D passes validation against it.
+The first example in this section uses a configured `compound_taskid_set` of `["origin_date", "location", "horizon", "variant"]`, so each compound modeling task is one variant at one horizon. Each of the example submissions A to D passes validation against it.
 
 #### Samples are validated in each compound modeling task they cover
 
 A sample that is coarser than the configured set covers several compound modeling tasks. Validation splits the sample into one slice per compound modeling task, and checks each slice within its compound modeling task. In [Example B](#sample-example-b), sample `"s1"` is joint across the four variants at horizon 1, so it has four slices. It counts as one sample for each of the four compound modeling tasks. `"min_samples_per_task"` and `"max_samples_per_task"` therefore apply to the number of samples in each compound modeling task, and each compound modeling task in Example B holds two samples.
 
-#### Samples in a modeling task can have different compound task ID sets
+#### Samples in one submission can have different compound task ID sets
 
-Each sample's compound task ID set is checked against the configured set on its own, and the samples in a modeling task do not have to share one set. In the submission below, the horizon 1 samples are joint across variants, as in [Example B](#sample-example-b), and the horizon 2 samples cover one variant each, as in [Example A](#sample-example-a). The submission passes validation.
+The next two examples come from a hub that collects trajectories over horizons. Its configured `compound_taskid_set` is `["origin_date", "location"]`, so each compound modeling task is one location's trajectory. Coarser samples, which are joint across several locations, are also valid.
 
-The table shows variants `AA` and `BB` only, and leaves out the task ID columns that hold a single value. Here, `compound_idx` numbers the compound modeling tasks of the configured set, and each compound modeling task has its own colour. The rows of each sample are boxed together. Sample `"s1"` has two slices, one in compound idx 1 and one in compound idx 2. Each of the horizon 2 samples has a single slice. Every compound modeling task holds two samples.
+A modeling team submitting to this hub may fit different models to different groups of locations and combine their output in one submission. In the submission below, one model samples Massachusetts and Connecticut jointly, and a separate model samples Texas on its own. Samples `"s1"` and `"s2"` are joint across `MA` and `CT`, so their compound task ID set is `["origin_date"]`. Samples `"s3"` and `"s4"` cover `TX` only, so their compound task ID set is the configured `["origin_date", "location"]`.
+
+Validation splits samples `"s1"` and `"s2"` into slices, so each is validated once for `MA` and once for `CT`, and the submission passes. Downstream analyses, such as scoring, can therefore always work with model output at the configured compound task ID set, here one location at a time. To score the `MA` and `CT` samples as joint draws, the coarser samples need to be identified and scored separately.
+
+The table leaves out `horizon` and the task ID columns that hold a single value. Each sample has rows for every horizon, and the table shows one of them per location. Here, `compound_idx` numbers the compound modeling tasks of the configured set, and each compound modeling task has its own colour. The rows of each sample are boxed together. Samples `"s1"` and `"s2"` each have two slices, one in compound idx 1 and one in compound idx 2. Samples `"s3"` and `"s4"` each have a single slice. Every compound modeling task holds two samples.
 
 <table class="table spl-slices">
   <thead>
     <tr>
       <th>compound_idx</th>
-      <th>horizon</th>
-      <th>variant</th>
+      <th>location</th>
       <th>output_type</th>
       <th>output_type_id</th>
       <th>value</th>
     </tr>
   </thead>
   <tbody>
-    <tr class="cidx-1 spl-first"><td>1</td><td>1</td><td>AA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>1</td><td>BB</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-1 spl-first"><td>1</td><td>1</td><td>AA</td><td>sample</td><td>s2</td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>1</td><td>BB</td><td>sample</td><td>s2</td><td>-</td></tr>
-    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>2</td><td>AA</td><td>sample</td><td><strong>s3</strong></td><td>-</td></tr>
-    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>2</td><td>AA</td><td>sample</td><td>s4</td><td>-</td></tr>
-    <tr class="cidx-4 spl-first spl-last"><td>4</td><td>2</td><td>BB</td><td>sample</td><td><strong>s5</strong></td><td>-</td></tr>
-    <tr class="cidx-4 spl-first spl-last"><td>4</td><td>2</td><td>BB</td><td>sample</td><td>s6</td><td>-</td></tr>
+    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td>s2</td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td>s2</td><td>-</td></tr>
+    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>TX</td><td>sample</td><td><strong>s3</strong></td><td>-</td></tr>
+    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>TX</td><td>sample</td><td>s4</td><td>-</td></tr>
   </tbody>
 </table>
 
 <p class="spl-legend">
-  <span class="spl-swatch cidx-1"></span>compound_idx 1 (horizon 1, AA): n = 2
-  <span class="spl-swatch cidx-2"></span>compound_idx 2 (horizon 1, BB): n = 2
-  <span class="spl-swatch cidx-3"></span>compound_idx 3 (horizon 2, AA): n = 2
-  <span class="spl-swatch cidx-4"></span>compound_idx 4 (horizon 2, BB): n = 2
+  <span class="spl-swatch cidx-1"></span>compound_idx 1 (MA): n = 2
+  <span class="spl-swatch cidx-2"></span>compound_idx 2 (CT): n = 2
+  <span class="spl-swatch cidx-3"></span>compound_idx 3 (TX): n = 2
 </p>
 
 #### Partly overlapping samples fail validation
 
-Two samples partly overlap when they share some compound modeling tasks but not others. In the submission below, sample `"s1"` is joint across variants `AA` and `BB`, and sample `"s2"` across `BB` and `CC`. Sample `"s3"` covers `BB` only. The three samples share `BB`, but each covers different variants[^6], so the submission fails validation.
+Mixed compound task ID sets have one limit. Two samples that both have rows for a compound modeling task (the same `compound_idx`) must cover the same set of compound modeling tasks, so each compound modeling task belongs to a single group of samples. In the submission below, samples `"s1"` and `"s2"` both have rows for `CT` (compound idx 2). Sample `"s1"` is joint across `MA` and `CT`, and sample `"s2"` is joint across `CT` and `RI`. The two samples cover different locations, so the submission fails validation. Samples like these partly overlap: they share some compound modeling tasks but not others.
 
-The table shows horizon 1 for variants `AA` to `CC`, with the same layout as the table above.
+The table uses the same hub and layout as the table above.
 
 <table class="table spl-slices">
   <thead>
     <tr>
       <th>compound_idx</th>
-      <th>variant</th>
+      <th>location</th>
       <th>output_type</th>
       <th>output_type_id</th>
-      <th>covers</th>
       <th>value</th>
     </tr>
   </thead>
   <tbody>
-    <tr class="cidx-1 spl-first"><td>1</td><td>AA</td><td>sample</td><td><strong>s1</strong></td><td>AA, BB</td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>BB</td><td>sample</td><td><strong>s1</strong></td><td>AA, BB</td><td>-</td></tr>
-    <tr class="cidx-2 spl-first"><td>2</td><td>BB</td><td>sample</td><td>s2</td><td>BB, CC</td><td>-</td></tr>
-    <tr class="cidx-3 spl-last"><td>3</td><td>CC</td><td>sample</td><td>s2</td><td>BB, CC</td><td>-</td></tr>
-    <tr class="cidx-2 spl-first spl-last"><td>2</td><td>BB</td><td>sample</td><td><strong>s3</strong></td><td>BB</td><td>-</td></tr>
+    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
+    <tr class="cidx-2 spl-first"><td>2</td><td>CT</td><td>sample</td><td>s2</td><td>-</td></tr>
+    <tr class="cidx-3 spl-last"><td>3</td><td>RI</td><td>sample</td><td>s2</td><td>-</td></tr>
   </tbody>
 </table>
 
 <p class="spl-legend">
-  <span class="spl-swatch cidx-1"></span>compound_idx 1 (AA): n = 1
-  <span class="spl-swatch cidx-2"></span>compound_idx 2 (BB): n = 3
-  <span class="spl-swatch cidx-3"></span>compound_idx 3 (CC): n = 1
+  <span class="spl-swatch cidx-1"></span>compound_idx 1 (MA): n = 1
+  <span class="spl-swatch cidx-2"></span>compound_idx 2 (CT): n = 2
+  <span class="spl-swatch cidx-3"></span>compound_idx 3 (RI): n = 1
 </p>
 
-[^6]: The `covers` column lists the variants each sample spans. Like `compound_idx`, it is added for illustration and is not part of model output.
-
-A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the number of samples per compound modeling task can become uneven. In the submission above, `BB` holds three samples, while `AA` and `CC` hold one each.
+A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the number of samples per compound modeling task can become uneven. In the submission above, `CT` holds two samples, while `MA` and `RI` hold one each.
 
 ### Number of samples vs. `output_type_id`
 

@@ -144,7 +144,6 @@ html[data-theme="dark"] {
 .spl-slices tr.cidx-1 td, .spl-swatch.cidx-1 { background: rgba(31, 119, 180, 0.2); }
 .spl-slices tr.cidx-2 td, .spl-swatch.cidx-2 { background: rgba(255, 127, 14, 0.25); }
 .spl-slices tr.cidx-3 td, .spl-swatch.cidx-3 { background: rgba(44, 160, 44, 0.22); }
-.spl-slices tr.cidx-4 td, .spl-swatch.cidx-4 { background: rgba(148, 103, 189, 0.25); }
 .spl-slices td { text-align: center; border-top: none; border-bottom: none; }
 .spl-slices td:first-child { border-left: 4px solid var(--pst-color-text-base); }
 .spl-slices td:last-child { border-right: 4px solid var(--pst-color-text-base); }
