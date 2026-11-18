@@ -467,7 +467,7 @@ The first example in this section uses a configured `compound_taskid_set` of `["
 
 #### Samples are validated in each compound modeling task they cover
 
-A sample that is coarser than the configured set covers several compound modeling tasks. Validation splits the sample into one slice per compound modeling task, and checks each slice within its compound modeling task. In [Example B](#sample-example-b), sample `"s1"` is joint across the four variants at horizon 1, so it has four slices. It counts as one sample for each of the four compound modeling tasks. `"min_samples_per_task"` and `"max_samples_per_task"` therefore apply to the number of samples in each compound modeling task, and each compound modeling task in Example B holds two samples.
+A sample that is coarser than the configured set covers several compound modeling tasks. Validation splits the sample into one slice per compound modeling task, and checks each slice within its compound modeling task. In [Example B](#sample-example-b), sample `"s1"` is joint across the four variants at horizon 1, so it has four slices. It counts as one sample for each of the four compound modeling tasks. `"min_samples_per_task"` and `"max_samples_per_task"` therefore apply to the number of samples in each compound modeling task, and each compound modeling task in Example B holds two samples. Every compound modeling task must also hold the same number of samples.
 
 #### Samples in one submission can have different compound task ID sets
 
@@ -535,7 +535,7 @@ The table uses the same hub and layout as the table above.
   <span class="spl-swatch cidx-3"></span>compound_idx 3 (RI): n = 1
 </p>
 
-A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the number of samples per compound modeling task can become uneven. In the submission above, `CT` holds two samples, while `MA` and `RI` hold one each.
+A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the counts can become uneven. The submission above still fails, because `CT` holds two samples while `MA` and `RI` hold one each. Partly overlapping samples pass only when every compound modeling task ends up with the same number of samples.
 
 ### Number of samples vs. `output_type_id`
 
