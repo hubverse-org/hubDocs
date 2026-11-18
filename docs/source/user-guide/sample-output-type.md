@@ -336,14 +336,14 @@ Different models may generate samples for different compound modeling tasks. For
 A hub should specify a `compound_taskid_set` field in the configuration for the sample `output_type` to indicate the task ID columns that define separate sample index values in the `output_type_id` column. **The `output_type_id` column allows a modeler to show which rows of model output belong to the same sample.** The field is optional, and when it is omitted it defaults to all task ID variables, the configuration of Example A.
 
 ```{warning}
-Omitting `compound_taskid_set` and setting it to `[]` configure the two ends of the range: the finest compound modeling task and the coarsest.
+Omitting `compound_taskid_set` and setting it to `[]` have opposite effects.
 
 | `"compound_taskid_set"` | resolves to | meaning |
 |:--- |:--- |:--- |
-| omitted | all task IDs | each modeling task is its own compound modeling task (Example A); jointly sampled submissions also pass |
-| `[]` | no task IDs | every task ID is sampled jointly (Example E) |
+| omitted | all task IDs | each modeling task is its own compound modeling task (Example A); submissions with joint samples also pass |
+| `[]` | no task IDs | every sample must be joint across every task ID (Example E) |
 
-Setting the field to `[]` to express "this hub has no compound task IDs to declare" therefore configures the coarsest structure instead of the finest. In a hub whose rounds are not identified by a task ID, the configuration is valid, so the mistake is not caught when the config is validated. It surfaces later, when submissions that are not jointly sampled across every task ID are rejected for describing a finer compound modeling task than the hub accepts.
+To configure a hub where samples are not required to be joint across any task ID, omit the field. Setting it to `[]` does the opposite: a submission passes only if every sample is joint across every task ID, so most submissions fail. In a hub whose rounds are not identified by a task ID, `validate_config()` accepts an empty set, so the mistake only shows when submissions start failing validation.
 ```
 
 Sometimes, multiple `compound_taskid_set` specifications may be valid for a single model output file; in this case, it is important to indicate which one applies to the given submission file so that the contents are correctly interpreted. The following table[^5] shows how different specifications of the `compound_taskid_set` field would impact the validity of each example submission A, B, C, and D in the previous subsection.
