@@ -30,7 +30,7 @@ In many settings, predictions will be made for individual modeling tasks, with n
 
 Now, suppose we wanted to collect samples for each of the modeling tasks defined in the previous section. The table below shows a dataset with three groups (indicated by `compound_idx`[^2] values 1, 2, and 3) and three samples per group. In this case, the only difference between the modeling tasks here are the horizon. The [`output_type_id` column](#column-details)[^3] contains sample indices that are unique across an entire model output file, not just within each group, so each group has distinct indices (1-3, 4-6, and 7-9 respectively). When sampling from marginal distributions, each group corresponds to a single modeling task, so all task ID values are identical within each group. Notice how each group represents samples for a single modeling task.
 
-[^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data.
+[^2]: The `compound_idx` column indicates which rows belong to the same group. In the marginal case shown here, each group contains samples for one modeling task. This column is not a task ID variable and is not typically present in actual model output data. Validation works this column out from the config (see [validating samples](#sample-validation)).
 
 [^3]: A column in model output that specifies identifying information specific to the output type. For samples, an integer or string providing a unique identifier for the sample (see [allowed sample IDs](#sample-output-type-ids)). This is important for samples originating from a joint distribution, so that rows that have the same `output_type_id` are presumed to represent a single sample from a joint distribution. Examples are given later in the text.
 
@@ -443,7 +443,7 @@ In general, a submission will pass validation if the task ID variables that defi
 - Both Submissions B and D would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
 - Submissions A and C would fail validation since when the data are grouped by the `"compound_taskid_set"` variables, there would be no rows that share an `output_type_id`.
 
-To put it another way, samples can only describe "coarser" compound modeling tasks than those defined using the `compound_taskid_set` field. This is why all example submissions in the first row of the table pass validation, yet Example Submission A fails validation when the `compound_taskid_set` does not contain all four task ID variables.
+Submissions B to D are [coarser](#sample-validation) than Example A's `compound_taskid_set`, so all four pass under it. Submission A is finer than every other set in the table, so it fails under each of them.
 
 ```{caution}
 [**Derived task IDs**](#derived-task-id-variables) are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
@@ -461,81 +461,273 @@ When a round sets `round_id_from_variable` to `true`, every sample `compound_tas
 From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. It also reports an error for a modeling task that does not have the round ID variable as a task ID. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
 
 (sample-validation)=
-### Validating coarser samples
+### Validating samples
 
-The first example in this section uses a configured `compound_taskid_set` of `["origin_date", "location", "horizon", "variant"]`, so each compound modeling task is one variant at one horizon. Each of the example submissions A to D passes validation against it.
+The examples in this section come from a hub that collects trajectories over horizons for three locations, `MA`, `CT` and `TX`. Its `compound_taskid_set` is `["origin_date", "location"]`, which leaves out `horizon`. Each sample is therefore a trajectory: it is joint across `horizon`. Each submission covers one `origin_date` and horizons 1 and 2.
 
-#### Samples are validated in each compound modeling task they cover
+#### How validation splits samples
 
-A sample that is coarser than the configured set covers several compound modeling tasks. Validation splits the sample into one slice per compound modeling task, and checks each slice within its compound modeling task. In [Example B](#sample-example-b), sample `"s1"` is joint across the four variants at horizon 1, so it has four slices. It counts as one sample for each of the four compound modeling tasks. `"min_samples_per_task"` and `"max_samples_per_task"` therefore apply to the number of samples in each compound modeling task, and each compound modeling task in Example B holds two samples. Every compound modeling task must also hold the same number of samples.
+Validation matches each row of a submission to a compound modeling task by the row's values of the task IDs in `compound_taskid_set`. It then groups the rows by `output_type_id` and `compound_idx`.
 
-#### Samples in one submission can have different compound task ID sets
+```{mermaid}
+:config: {"theme": "base", "themeVariables": {"primaryColor": "#dbeefb", "primaryBorderColor": "#3c88be", "fontSize": "18px"}}
+flowchart LR
+    set["<b>1. compound_taskid_set</b><br><br>origin_date, location"] --> idx["<b>2. compound_idx</b><br><br>one per unique combination of<br>origin_date and location<br>values in the config"]
+    idx --> rows["<b>3. Match rows</b><br><br>each row gets the<br>compound_idx of its<br>origin_date and location"]
+    rows --> slices["<b>4. Group rows</b><br><br>rows are grouped by<br>output_type_id and<br>compound_idx into slices"]
+```
 
-The next two examples come from a hub that collects trajectories over horizons. Its configured `compound_taskid_set` is `["origin_date", "location"]`, so each compound modeling task is one location's trajectory. Coarser samples, which are joint across several locations, are also valid.
+In step 2, validation numbers each combination of `origin_date` and `location` values that the config allows. In this hub, the config allows one `origin_date` and three locations, so there are three compound modeling tasks:
 
-A modeling team submitting to this hub may fit different models to different groups of locations and combine their output in one submission. In the submission below, one model samples Massachusetts and Connecticut jointly, and a separate model samples Texas on its own. Samples `"s1"` and `"s2"` are joint across `MA` and `CT`, so their compound task ID set is `["origin_date"]`. Samples `"s3"` and `"s4"` cover `TX` only, so their compound task ID set is the configured `["origin_date", "location"]`.
+| origin_date | location | compound_idx |
+|:---:|:---:|:---:|
+| 2024-03-15 | MA | 1 |
+| 2024-03-15 | CT | 2 |
+| 2024-03-15 | TX | 3 |
 
-Validation splits samples `"s1"` and `"s2"` into slices, so each is validated once for `MA` and once for `CT`, and the submission passes. Downstream analyses, such as scoring, can therefore always work with model output at the configured compound task ID set, here one location at a time. To score the `MA` and `CT` samples as joint draws, the coarser samples need to be identified and scored separately.
-
-The table leaves out `horizon` and the task ID columns that hold a single value. Each sample has rows for every horizon, and the table shows one of them per location. Here, `compound_idx` numbers the compound modeling tasks of the configured set, and each compound modeling task has its own colour. The rows of each sample are boxed together. Samples `"s1"` and `"s2"` each have two slices, one in compound idx 1 and one in compound idx 2. Samples `"s3"` and `"s4"` each have a single slice. Every compound modeling task holds two samples.
+In the simplest submission, each sample is a trajectory for one location. In step 3, validation uses the table above to assign each row a `compound_idx`, by matching the row's `origin_date` and `location` values. The table below shows the submission with that column added.
 
 <table class="table spl-slices">
+  <caption>Each solid box is one sample, and each dashed box inside it is one slice. Every second sample ID is in bold. The row colour shows the <code>compound_idx</code>.</caption>
   <thead>
     <tr>
-      <th>compound_idx</th>
+      <th>origin_date</th>
       <th>location</th>
+      <th>horizon</th>
       <th>output_type</th>
       <th>output_type_id</th>
       <th>value</th>
+      <th>compound_idx (added)</th>
     </tr>
   </thead>
-  <tbody>
-    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td>s2</td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td>s2</td><td>-</td></tr>
-    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>TX</td><td>sample</td><td><strong>s3</strong></td><td>-</td></tr>
-    <tr class="cidx-3 spl-first spl-last"><td>3</td><td>TX</td><td>sample</td><td>s4</td><td>-</td></tr>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1 spl-last"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1 spl-last"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2 spl-first"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s3</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td>s3</td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2 spl-first"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td><strong>s4</strong></td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s4</strong></td><td>-</td><td><strong>2</strong></td></tr>
   </tbody>
 </table>
 
-<p class="spl-legend">
-  <span class="spl-swatch cidx-1"></span>compound_idx 1 (MA): n = 2
-  <span class="spl-swatch cidx-2"></span>compound_idx 2 (CT): n = 2
-  <span class="spl-swatch cidx-3"></span>compound_idx 3 (TX): n = 2
-</p>
+In step 4, validation groups the rows by `output_type_id` and `compound_idx`. Each group is a **slice**. In this submission, all the rows of a sample are assigned the same `compound_idx`, so each sample is one slice.
 
-#### Partly overlapping samples fail validation
+#### Coarser samples pass
 
-Mixed compound task ID sets have one limit. Two samples that both have rows for a compound modeling task (the same `compound_idx`) must cover the same set of compound modeling tasks, so each compound modeling task belongs to a single group of samples. In the submission below, samples `"s1"` and `"s2"` both have rows for `CT` (compound idx 2). Sample `"s1"` is joint across `MA` and `CT`, and sample `"s2"` is joint across `CT` and `RI`. The two samples cover different locations, so the submission fails validation. Samples like these partly overlap: they share some compound modeling tasks but not others.
-
-The table uses the same hub and layout as the table above.
+A team may instead sample `MA` and `CT` jointly. In the submission below, samples `"s1"` and `"s2"` are joint across `horizon` and `location`, with rows for `MA` and `CT`. They are joint across `location`, which is in `compound_taskid_set`, so they are **coarser**.
 
 <table class="table spl-slices">
+  <caption>Each solid box is one sample, and each dashed box inside it is one slice. Every second sample ID is in bold. The row colour shows the <code>compound_idx</code>.</caption>
   <thead>
     <tr>
-      <th>compound_idx</th>
+      <th>origin_date</th>
       <th>location</th>
+      <th>horizon</th>
       <th>output_type</th>
       <th>output_type_id</th>
       <th>value</th>
+      <th>compound_idx</th>
     </tr>
   </thead>
-  <tbody>
-    <tr class="cidx-1 spl-first"><td>1</td><td>MA</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-2 spl-last"><td>2</td><td>CT</td><td>sample</td><td><strong>s1</strong></td><td>-</td></tr>
-    <tr class="cidx-2 spl-first"><td>2</td><td>CT</td><td>sample</td><td>s2</td><td>-</td></tr>
-    <tr class="cidx-3 spl-last"><td>3</td><td>RI</td><td>sample</td><td>s2</td><td>-</td></tr>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
   </tbody>
 </table>
 
-<p class="spl-legend">
-  <span class="spl-swatch cidx-1"></span>compound_idx 1 (MA): n = 1
-  <span class="spl-swatch cidx-2"></span>compound_idx 2 (CT): n = 2
-  <span class="spl-swatch cidx-3"></span>compound_idx 3 (RI): n = 1
-</p>
+In step 3, the `MA` rows of sample `"s1"` are assigned `compound_idx` 1, and its `CT` rows are assigned `compound_idx` 2. In step 4, they are therefore grouped into two slices. Each slice of a coarser sample is a complete trajectory for one location, so the submission passes validation.
 
-A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. Each sample then counts once in every compound modeling task it covers, so the counts can become uneven. The submission above still fails, because `CT` holds two samples while `MA` and `RI` hold one each. Partly overlapping samples pass only when every compound modeling task ends up with the same number of samples.
+#### Samples are counted per compound modeling task
+
+```{margin} Samples per compound_idx
+<p class="spl-hist-title">First submission</p>
+<div class="spl-hist">
+  <div class="spl-hist-row"><span class="spl-hist-label">1 (MA)</span><span class="spl-hist-bar cidx-1" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">2 (CT)</span><span class="spl-hist-bar cidx-2" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+</div>
+
+<p class="spl-hist-title">Coarser submission</p>
+<div class="spl-hist">
+  <div class="spl-hist-row"><span class="spl-hist-label">1 (MA)</span><span class="spl-hist-bar cidx-1" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">2 (CT)</span><span class="spl-hist-bar cidx-2" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+</div>
+```
+
+Validation counts samples per compound modeling task, not per sample ID. Each slice counts as one sample of its `compound_idx`.
+
+The two submissions above count the same. The first submission has four samples, and each sample is one slice, so each `compound_idx` has two slices. The coarser submission has two samples, but each sample is grouped into two slices. It also has four slices, two in each `compound_idx`. Both submissions therefore have two samples per compound modeling task.
+
+`"min_samples_per_task"` and `"max_samples_per_task"` apply to this count.
+
+In short, samples are counted only against `compound_taskid_set`, regardless of their actual dependence structure.
+
+#### Finer samples fail
+
+In a hub collecting trajectories, each sample must be joint across `horizon`. A sample that is not joint across `horizon` is **finer**. A team that samples each horizon separately submits finer samples.
+
+The submission below has the same rows as the first submission, but a new sample ID at each horizon. In the first submission, each sample has rows for horizons 1 and 2, a complete trajectory. Here, each sample has a row for one horizon only. No sample is a complete trajectory, so the submission fails validation.
+
+<table class="table spl-slices">
+  <caption>Each solid box is one sample, and every second sample ID is in bold. The row colour shows the <code>compound_idx</code>. Each dotted box marks the rows of one <code>compound_idx</code>, one location's trajectory.</caption>
+  <thead>
+    <tr>
+      <th>origin_date</th>
+      <th>location</th>
+      <th>horizon</th>
+      <th>output_type</th>
+      <th>output_type_id</th>
+      <th>value</th>
+      <th>compound_idx</th>
+    </tr>
+  </thead>
+  <tbody class="spl-unit">
+    <tr class="cidx-1 spl-first spl-last"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1 spl-first spl-last"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1 spl-first spl-last"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s3</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1 spl-first spl-last"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td><strong>s4</strong></td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-gap"><tr><td colspan="7"></td></tr></tbody>
+  <tbody class="spl-unit">
+    <tr class="cidx-2 spl-first spl-last"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s5</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-first spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s6</strong></td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-first spl-last"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s7</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-first spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s8</strong></td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+</table>
+
+So a coarser sample can be split into slices by `compound_idx`, and each slice is still a valid draw of one location's trajectory. Finer samples cannot be combined into trajectories. Horizons 1 and 2 were never drawn together, so the data does not record how they depend on each other.
+
+#### Mixed dependence structures pass
+
+A model may sample jointly across the locations within each region. In this hub, `MA` and `CT` are in the same region, and `TX` is the only location in its region. In the submission below, samples `"s1"` and `"s2"` are coarser, with rows for `MA` and `CT`, as in the coarser example. Samples `"s3"` and `"s4"` are joint across `horizon` only, with rows for `TX`. Each compound modeling task has two samples, and the submission passes validation.
+
+```{margin} Samples per compound_idx
+<div class="spl-hist">
+  <div class="spl-hist-row"><span class="spl-hist-label">1 (MA)</span><span class="spl-hist-bar cidx-1" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">2 (CT)</span><span class="spl-hist-bar cidx-2" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">3 (TX)</span><span class="spl-hist-bar cidx-3" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+</div>
+```
+
+<table class="table spl-slices">
+  <caption>Each solid box is one sample, and each dashed box inside it is one slice. Every second sample ID is in bold. The row colour shows the <code>compound_idx</code>.</caption>
+  <thead>
+    <tr>
+      <th>origin_date</th>
+      <th>location</th>
+      <th>horizon</th>
+      <th>output_type</th>
+      <th>output_type_id</th>
+      <th>value</th>
+      <th>compound_idx</th>
+    </tr>
+  </thead>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-3 spl-first"><td>2024-03-15</td><td>TX</td><td>1</td><td>sample</td><td>s3</td><td>-</td><td><strong>3</strong></td></tr>
+    <tr class="cidx-3 spl-last"><td>2024-03-15</td><td>TX</td><td>2</td><td>sample</td><td>s3</td><td>-</td><td><strong>3</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-3 spl-first"><td>2024-03-15</td><td>TX</td><td>1</td><td>sample</td><td><strong>s4</strong></td><td>-</td><td><strong>3</strong></td></tr>
+    <tr class="cidx-3 spl-last"><td>2024-03-15</td><td>TX</td><td>2</td><td>sample</td><td><strong>s4</strong></td><td>-</td><td><strong>3</strong></td></tr>
+  </tbody>
+</table>
+
+Mixed dependence structures pass only when the dependence structure of every sample matches `compound_taskid_set` or is coarser than it. A finer sample fails the submission, whatever the other samples are joint across.
+
+#### Partly overlapping samples fail
+
+Mixed dependence structures have a second limit: samples must not partly overlap. In the submission below, samples `"s1"` and `"s2"` are both joint across `horizon` and `location`. Sample `"s1"` has rows for `MA` and `CT`, and sample `"s2"` has rows for `CT` and `TX`. The two samples share `CT`, but `"s1"` also has rows for `MA` and `"s2"` for `TX`. Samples like these **partly overlap**, and the submission fails validation. Samples that have rows for any location in common must have rows for the same set of locations.
+
+```{margin} Samples per compound_idx
+<div class="spl-hist">
+  <div class="spl-hist-row"><span class="spl-hist-label">1 (MA)</span><span class="spl-hist-bar cidx-1" style="--n: 1"></span><span class="spl-hist-n">1</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">2 (CT)</span><span class="spl-hist-bar cidx-2" style="--n: 2"></span><span class="spl-hist-n">2</span></div>
+  <div class="spl-hist-row"><span class="spl-hist-label">3 (TX)</span><span class="spl-hist-bar cidx-3" style="--n: 1"></span><span class="spl-hist-n">1</span></div>
+</div>
+```
+
+<table class="table spl-slices">
+  <caption>Each solid box is one sample, and each dashed box inside it is one slice. Every second sample ID is in bold. The row colour shows the <code>compound_idx</code>.</caption>
+  <thead>
+    <tr>
+      <th>origin_date</th>
+      <th>location</th>
+      <th>horizon</th>
+      <th>output_type</th>
+      <th>output_type_id</th>
+      <th>value</th>
+      <th>compound_idx</th>
+    </tr>
+  </thead>
+  <tbody class="spl-slice">
+    <tr class="cidx-1 spl-first"><td>2024-03-15</td><td>MA</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+    <tr class="cidx-1"><td>2024-03-15</td><td>MA</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>1</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2 spl-last"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td>s1</td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-2 spl-first"><td>2024-03-15</td><td>CT</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
+    <tr class="cidx-2"><td>2024-03-15</td><td>CT</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>2</strong></td></tr>
+  </tbody>
+  <tbody class="spl-slice">
+    <tr class="cidx-3"><td>2024-03-15</td><td>TX</td><td>1</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>3</strong></td></tr>
+    <tr class="cidx-3 spl-last"><td>2024-03-15</td><td>TX</td><td>2</td><td>sample</td><td><strong>s2</strong></td><td>-</td><td><strong>3</strong></td></tr>
+  </tbody>
+</table>
+
+A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. The other checks still split and count samples by compound modeling task, so the counts can become uneven. The submission above still fails, because `CT` has two samples while `MA` and `TX` have one each. Partly overlapping samples pass only when every compound modeling task ends up with the same number of samples.
+
+In short, mixed dependence structures must still split evenly against `compound_taskid_set`. No sample can be finer than it, samples that have rows for any location in common must have rows for the same set of locations (unless the hub allows partly overlapping samples), and every `compound_idx` must have the same number of samples.
+
+#### Dependence structure in submission, validation and analysis
+
+The tables above show each submission in two views. The solid boxes show the modeler's view: rows that share an `output_type_id` come from one joint draw, so the boxes show the dependence structure of the model that drew the samples. The colours, `compound_idx` values and dashed slices show the same samples through the hub's `compound_taskid_set`, the view validation takes.
+
+Evaluation usually takes the same view. A joint score, such as the energy score, is computed for each compound modeling task of the hub's `compound_taskid_set`. An analysis can also use its own view, but only for models whose samples are all at least as coarse as that view. For example, an analysis can score samples jointly across all locations, using only the models in which every sample is joint across all locations.
+
+| | View | What happens |
+|---|---|---|
+| Submitting | The model's own, recorded by which rows share an `output_type_id` | Each sample is joint across `horizon`, and can also be joint across `location`. A submission can mix dependence structures if its samples do not partly overlap, unless the hub allows partly overlapping samples. |
+| Validating | `compound_taskid_set` | Rows are matched to compound modeling tasks by their values of its task IDs. Rows are grouped by `output_type_id` and `compound_idx` into slices. Each slice is checked and counted as a sample of its compound modeling task. |
+| Analysing | `compound_taskid_set`, or a view the analysis chooses | Rows of one model and round that share an `output_type_id` are read as one joint draw (see [scope of sample IDs](#sample-output-type-id-scope)). Analyses that group samples by `compound_taskid_set`, such as joint scoring in hubEvals, split coarser samples by location. An analysis of the dependence between `MA` and `CT` uses the samples as submitted. |
 
 ### Number of samples vs. `output_type_id`
 
