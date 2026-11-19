@@ -138,9 +138,10 @@ html[data-theme="dark"] {
 .heatMap4 tr:nth-child(n+11):nth-child(-n+12) { background: grey; }
 .heatMap4 tr:nth-child(n+15):nth-child(-n+16) { background: grey; }
 
-/* Sample tables in "Validating coarser samples": rows are coloured by
-   compound_idx and each sample's rows are boxed. The colours are
-   translucent so that they work in both light and dark themes. */
+/* Sample tables in "Validating samples": rows are coloured by
+   compound_idx, each sample's rows are boxed and each slice is outlined.
+   The colours are translucent so that they work in both light and dark
+   themes. The spl-hist rules draw the sample counts in the margin. */
 .spl-slices tr.cidx-1 td { background: rgba(42, 120, 214, 0.22); }
 .spl-slices tr.cidx-2 td { background: rgba(235, 104, 52, 0.22); }
 .spl-slices tr.cidx-3 td { background: rgba(27, 175, 122, 0.22); }

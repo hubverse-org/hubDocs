@@ -155,7 +155,6 @@ Notice that this example submission file could be displaying predictions with an
 
 ### Examples of different `compound_taskid_set` configurations
 
-(sample-example-a)=
 #### Example A: No response dependence across task IDs
 ***Each group = one modeling task***
 
@@ -204,7 +203,6 @@ To configure this dependence structure, all task IDs are included in the `compou
 }
 ```
 
-(sample-example-b)=
 #### Example B: Response dependence across variants
 ***Joint distribution across variants***
 
@@ -443,7 +441,7 @@ In general, a submission will pass validation if the task ID variables that defi
 - Both Submissions B and D would pass validation since when the data are grouped by the `"compound_taskid_set"` variables you can always find a group of rows that have the same `output_type_id`.
 - Submissions A and C would fail validation since when the data are grouped by the `"compound_taskid_set"` variables, there would be no rows that share an `output_type_id`.
 
-Submissions B to D are [coarser](#sample-validation) than Example A's `compound_taskid_set`, so all four pass under it. Submission A is finer than every other set in the table, so it fails under each of them.
+Under Example A's `compound_taskid_set`, Submission A matches the set and Submissions B to D are [coarser](#sample-validation), so all four pass. Submission A is [finer](#sample-validation) than every other set in the table, so it fails under each of them.
 
 ```{caution}
 [**Derived task IDs**](#derived-task-id-variables) are a type of task IDs whose values depend wholly on that of other task ID variables. A common example is the `target_end_date` task ID, which tends to be derived from the combination of the `reference_date` (or `origin_date`) and `horizon` task IDs.
@@ -463,7 +461,7 @@ From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves
 (sample-validation)=
 ### Validating samples
 
-The examples in this section come from a hub that collects trajectories over horizons for three locations, `MA`, `CT` and `TX`. Its `compound_taskid_set` is `["origin_date", "location"]`, which leaves out `horizon`. Each sample is therefore a trajectory: it is joint across `horizon`. Each submission covers one `origin_date` and horizons 1 and 2.
+The examples in this section come from a hub that collects trajectories over horizons for three locations, `MA`, `CT` and `TX`. Its `compound_taskid_set` is `["origin_date", "location"]`, which leaves out `horizon`. Each sample is therefore a trajectory: it is joint across `horizon`. Each submission covers one `origin_date` and horizons 1 and 2, and may leave out any of the locations.
 
 #### How validation splits samples
 
@@ -588,7 +586,7 @@ In a hub collecting trajectories, each sample must be joint across `horizon`. A 
 The submission below has the same rows as the first submission, but a new sample ID at each horizon. In the first submission, each sample has rows for horizons 1 and 2, a complete trajectory. Here, each sample has a row for one horizon only. No sample is a complete trajectory, so the submission fails validation.
 
 <table class="table spl-slices">
-  <caption>Each solid box is one sample, and every second sample ID is in bold. The row colour shows the <code>compound_idx</code>. Each dotted box marks the rows of one <code>compound_idx</code>, one location's trajectory.</caption>
+  <caption>Each solid box is one sample, and every second sample ID is in bold. The row colour shows the <code>compound_idx</code>. Each dotted box marks the rows of one <code>compound_idx</code>.</caption>
   <thead>
     <tr>
       <th>origin_date</th>
@@ -715,13 +713,13 @@ Mixed dependence structures have a second limit: samples must not partly overlap
 
 A hub that accepts partly overlapping samples, for example from ensembles, can skip this check with the `allow_overlapping_samples` argument of the hubValidations validation functions. The other checks still split and count samples by compound modeling task, so the counts can become uneven. The submission above still fails, because `CT` has two samples while `MA` and `TX` have one each. Partly overlapping samples pass only when every compound modeling task ends up with the same number of samples.
 
-In short, mixed dependence structures must still split evenly against `compound_taskid_set`. No sample can be finer than it, samples that have rows for any location in common must have rows for the same set of locations (unless the hub allows partly overlapping samples), and every `compound_idx` must have the same number of samples.
+In short, mixed dependence structures must still split evenly against `compound_taskid_set`. No sample can be finer than it, samples that have rows for any location in common must have rows for the same set of locations (unless the hub allows partly overlapping samples), and every `compound_idx` in the submission must have the same number of samples.
 
 #### Dependence structure in submission, validation and analysis
 
 The tables above show each submission in two views. The solid boxes show the modeler's view: rows that share an `output_type_id` come from one joint draw, so the boxes show the dependence structure of the model that drew the samples. The colours, `compound_idx` values and dashed slices show the same samples through the hub's `compound_taskid_set`, the view validation takes.
 
-Evaluation usually takes the same view. A joint score, such as the energy score, is computed for each compound modeling task of the hub's `compound_taskid_set`. An analysis can also use its own view, but only for models whose samples are all at least as coarse as that view. For example, an analysis can score samples jointly across all locations, using only the models in which every sample is joint across all locations.
+Evaluation usually takes the same view. A joint score, such as the energy score, is computed for each compound modeling task of the `compound_taskid_set` it is given, usually the hub's. An analysis can also use its own view, but only for models whose samples are all at least as coarse as that view. For example, an analysis can score samples jointly across all locations, using only the models in which every sample is joint across all locations.
 
 | | View | What happens |
 |---|---|---|
