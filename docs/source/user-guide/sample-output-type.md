@@ -424,7 +424,7 @@ For example, if `reference_date` and `horizon` are both part of the `compound_ta
 
 When a round sets `round_id_from_variable` to `true`, every sample `compound_taskid_set` in that round must include the task ID named by `round_id` (see [`tasks.json` configuration](#tasks-metadata)). Each model output file covers a single round, so the round ID variable holds one value throughout the file. A sample therefore cannot be joint across it. Every set in Examples A to D includes `origin_date`, so they are valid whether or not `origin_date` identifies the rounds. Example E is valid only if it does not. An empty set is only valid when `round_id_from_variable` is `false`.
 
-From hubAdmin 1.11.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. It also reports an error for a modeling task that does not have the round ID variable as a task ID. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
+From hubAdmin 2.0.0, `validate_config()` reports an error for a set that leaves out the round ID variable, including an empty set. It also reports an error for a modeling task that does not have the round ID variable as a task ID. Omitting `compound_taskid_set` remains valid. Validating submissions against an empty set requires hubValidations 3.0.0 or later.
 
 ### Number of samples vs. `output_type_id`
 
