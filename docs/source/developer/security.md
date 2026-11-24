@@ -161,6 +161,25 @@ hubverse developers called `hubverse-org/hubverse-developers` who all have
 "maintain" access to the hubverse repositories and approval from at least one
 member of this team is required to make changes to any GitHub workflow files.
 
+(security-external-services)=
+## Authenticating to external services
+
+Workflows that authenticate to an external service, such as AWS or Codecov,
+use [OIDC](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
+where the service supports it, so no credentials are stored as GitHub secrets.
+Where a service does not support OIDC, the
+[decision](https://github.com/hubverse-org/decisions/blob/main/decisions/2025-02-13-rfc-github-action-security.md#decision)
+lists the alternatives in order of preference.
+
+(security-test-coverage)=
+### Test coverage
+
+hubverse R packages upload test coverage to Codecov with OIDC, using the
+[`test-coverage` workflow](https://github.com/hubverse-org/hubverse-developer-actions/tree/main/test-coverage)
+from hubverse-developer-actions. `hubDevs::use_hubdev_pkg_actions()` adds it to
+new packages. To add it to an existing package, run
+`hubDevs::use_hubdev_github_action("test-coverage")`.
+
 ## Branch protections and rulesets
 
 The `main` branch for all repositories must be protected. Any new commits to
