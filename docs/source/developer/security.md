@@ -168,7 +168,7 @@ Workflows that authenticate to an external service, such as AWS or Codecov,
 use [OIDC](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect)
 where the service supports it, so no credentials are stored as GitHub secrets.
 Where a service does not support OIDC, the
-[decision](https://github.com/hubverse-org/decisions/blob/main/decisions/2025-02-13-rfc-github-action-security.md#decision)
+[decision](https://github.com/hubverse-org/decisions/blob/main/decisions/2025-02-13-rfc-github-action-security.md#action-level)
 lists the alternatives in order of preference.
 
 (security-test-coverage)=
