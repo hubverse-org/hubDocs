@@ -14,7 +14,7 @@ babel==2.18.0
     #   sphinx
 beautifulsoup4==4.15.0
     # via pydata-sphinx-theme
-certifi==2026.10.23
+certifi==2026.11.20
     # via requests
 cfgv==3.5.0
     # via pre-commit
