@@ -144,7 +144,7 @@ The following table provides more detail on how to configure the three "model ou
 | `quantile` | Numeric between 0.0 and 1.0: a probability level | Numeric: the quantile of the predictive distribution at the probability level specified by the output_type_id |
 | `cdf` | String or numeric: a possible value of the target variable | Numeric between 0.0 and 1.0: the value of the cumulative distribution function of the predictive distribution at the value of the outcome variable specified by the output_type_id |
 | `pmf` | String naming a possible category of a discrete outcome variable | Numeric between 0.0 and 1.0: the value of the probability mass function of the predictive distribution when evaluated at a specified level of a categorical outcome variable. |
-| `sample` | Positive integer sample index | Numeric: a sample from the predictive distribution.
+| `sample` | Non-negative integer or string: a sample ID (see [allowed sample IDs](#sample-output-type-ids)) | Numeric: a sample from the predictive distribution.
 :::
 
 :::{note}
